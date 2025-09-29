@@ -1,8 +1,14 @@
 # Chapter 9: Memory Management in Zephyr RTOS
 
+## Building on System Observability Foundations
+
+Having mastered tracing and logging in Chapter 8—gaining essential visibility into concurrent thread behavior, system performance, and debugging complex interactions—you now understand how to observe and analyze system behavior. However, many of the performance issues and system failures you've learned to detect through tracing stem from improper memory management practices.
+
+This chapter addresses the root causes of many problems you've learned to diagnose, providing comprehensive coverage of Zephyr's sophisticated memory management capabilities that directly impact the system performance, reliability, and real-time behavior you've been measuring and optimizing.
+
 ## Overview
 
-Memory management represents one of the most critical aspects of embedded systems development, directly impacting system performance, reliability, and real-time behavior. This chapter provides comprehensive coverage of Zephyr's sophisticated memory management capabilities, from fundamental concepts to advanced implementation techniques.
+Memory management represents one of the most critical aspects of embedded systems development, serving as the foundation for the reliable concurrent systems you've been building and debugging. Poor memory management creates the performance bottlenecks, resource exhaustion, and timing issues that your tracing and logging skills help you identify—this chapter teaches you to prevent these problems at their source.
 
 ## Learning Objectives
 

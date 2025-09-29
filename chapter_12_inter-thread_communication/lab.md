@@ -1,66 +1,261 @@
-### Lab Structure:
+# Chapter 12: Inter-Thread Communication
 
-This lab focuses on implementing various inter-thread communication strategies using Zephyr’s primitives.
+## Laboratory Exercises
 
-**Part 1: Basic Concepts and Simple Implementations (600 words)**
+### Lab Overview
 
-**Objective:**  Gain familiarity with message queues and their basic usage.
+This comprehensive laboratory explores Zephyr's inter-thread communication mechanisms through progressively complex exercises. You'll implement real-world communication patterns, analyze performance characteristics, and design robust distributed systems using message queues, FIFOs, mailboxes, Zbus, and pipes.
 
-**Task:**  Create a program that uses a message queue to exchange integers between two threads. One thread should randomly generate numbers and put them onto the queue, while the other thread should retrieve and print the numbers.
+### Prerequisites
 
-**Steps:**
+- Zephyr development environment configured
+- Understanding of thread management and synchronization
+- Basic knowledge of embedded system architecture
+- Familiarity with real-time system constraints
 
-1.  Create a new Zephyr project.
-2.  Define a `data_item_type` structure to hold the integer value.
-3.  Create a message queue `my_queue` of type `data_item_type`.
-4.  Create a function `enqueue_data()` that randomly generates a number between 1 and 10 and puts it onto the queue using `k_msgq_put()`.
-5.  Create a function `dequeue_data()` that retrieves the next number from the queue using `k_msgq_get()` and prints it to the console.
-6.  Create a thread that calls `enqueue_data()` periodically.
-7.  Create another thread that calls `dequeue_data()` periodically.
-8.  Run the program and observe the exchange of data.
+### Lab 1: Message Queue Implementation (45 minutes)
 
-**Part 2: Utilizing Mailboxes for Synchronous Communication (700 words)**
+**Objective**: Implement a sensor data collection system using message queues for structured inter-thread communication.
 
-**Objective:**  Understand the difference between message queues and mailboxes and how to implement synchronous data exchange using mailboxes.
+#### Setup
 
-**Task:**  Modify the previous example to use mailboxes for data exchange.  One thread will put data onto the mailbox, and the other thread will retrieve it.  This time, the retrieval will be synchronous, meaning the thread waiting for data will block until the data is available.
+Create a new Zephyr project with the following structure:
+```
+sensor_system/
+├── CMakeLists.txt
+├── prj.conf
+├── src/
+│   └── main.c
+└── boards/
+    └── native_posix.conf
+```
 
-**Steps:**
+#### Implementation Steps
 
-1.  Replace the message queue `my_queue` with a mailbox `my_mbox` of type `data_item_type`.
-2.  Modify the `enqueue_data()` and `dequeue_data()` functions to use `k_mbox_put()` and `k_mbox_get()` respectively.
-3.  Observe the differences in behavior compared to the previous example using message queues.  Specifically, notice how the retrieval thread blocks until data is available.
-4.  Experiment with different queue lengths to see how this affects the behavior of the program.
+**Step 1**: Configure the project
 
-**Part 3: Implementing Zbus for Distributed Data Exchange (1200 words)**
+Create `prj.conf`:
+```ini
+CONFIG_MULTITHREADING=y
+CONFIG_LOG=y
+CONFIG_LOG_DEFAULT_LEVEL=3
+CONFIG_PRINTK=y
+CONFIG_ASSERT=y
+CONFIG_THREAD_STACK_INFO=y
+CONFIG_THREAD_NAME=y
+```
 
-**Objective:**  Learn how to use Zbus for communication between different threads or applications.
+Create `CMakeLists.txt`:
+```cmake
+cmake_minimum_required(VERSION 3.20.0)
+find_package(Zephyr REQUIRED HINTS $ENV{ZEPHYR_BASE})
+project(sensor_system)
 
-**Task:**  Modify the program to utilize Zbus for data exchange.  One thread will act as a "sensor" and publish temperature readings to a Zbus channel. Another thread will subscribe to this channel and display the received temperature readings.  Create a separate "control" thread that can also publish commands to the channel.  This task will demonstrate Zbus's capabilities for inter-application communication.
+target_sources(app PRIVATE src/main.c)
+```
 
-**Steps:**
+**Step 2**: Implement the sensor data system
 
-1.  Enable Zbus support in your Zephyr project (ensure `CONFIG_ZBUS=y` and `CONFIG_ZBUS_OBSERVERS=y` are enabled in your `.config` file).
-2.  Create a Zbus channel `temp_chan` for exchanging temperature readings.
-3.  Create a "sensor" thread that publishes temperature readings to `temp_chan`.  Use `zbus_chan_pub()` to send the readings.  The sensor should generate random temperature values between 20 and 30 degrees Celsius.
-4.  Create a "display" thread that subscribes to `temp_chan` and prints the received temperature readings to the console using `zbus_sub_wait()`.
-5.  Create a "control" thread that can publish commands to the channel (e.g., "reset sensor", "increase temperature").  The control thread should use `zbus_chan_pub()` to send the commands.
-6.  Implement basic logic in the control thread to respond to commands (e.g., if a "reset sensor" command is received, reset the sensor).
-7.  Observe the interaction between the sensor, the display, and the control thread using Zbus.
+Create `src/main.c`:
 
-**Evaluation Criteria:**
+```c
+#include <zephyr/kernel.h>
+#include <zephyr/logging/log.h>
+#include <zephyr/random/random.h>
+#include <zephyr/sys/printk.h>
 
-*   **Correctness:** Does the code function as intended?  Does it correctly exchange data using the chosen communication mechanism (message queue, mailbox, or Zbus)?
-*   **Code Clarity:** Is the code well-structured, documented, and easy to understand?
-*   **Efficiency:**  Are the communication mechanisms used efficiently?  (e.g., are appropriate data structures and algorithms used?)
-*   **Error Handling:**  Does the code handle potential errors gracefully (e.g., queue full, channel unavailable)?
+LOG_MODULE_REGISTER(sensor_system, LOG_LEVEL_INF);
 
-**Resources:**
+/* Sensor data structure */
+struct sensor_reading {
+    uint32_t timestamp;
+    uint8_t sensor_id;
+    int16_t temperature;
+    uint16_t humidity;
+    uint8_t status;
+};
 
-*   Zephyr RTOS Documentation: [https://docs.zephyrproject.org/](https://docs.zephyrproject.org/)
-*   Zephyr RTOS Cookbook: [https://docs.zephyrproject.org/cookbooks/](https://docs.zephyrproject.org/cookbooks/)
+/* Define message queue for sensor data */
+K_MSGQ_DEFINE(sensor_queue, sizeof(struct sensor_reading), 20, 4);
 
-This lab exercise provides a practical introduction to inter-thread communication in Zephyr RTOS, allowing you to explore the different communication mechanisms available and understand their respective strengths and weaknesses.
+/* Thread stacks */
+K_THREAD_STACK_DEFINE(sensor_thread_stack, 1024);
+K_THREAD_STACK_DEFINE(processor_thread_stack, 1024);
+K_THREAD_STACK_DEFINE(monitor_thread_stack, 512);
 
----
-This response gives a detailed breakdown of the lab exercise, including objectives, steps, and evaluation criteria. It outlines three parts, each building on the previous one, starting with basic message queues and progressing to the more complex Zbus framework. The explanation of Zbus is thorough and highlights its key features. The provided instructions are clear and should guide the user through the lab effectively. The addition of resources provides further support for the learner.  The response is a good starting point for a hands-on learning experience.
+/* Thread control blocks */
+struct k_thread sensor_thread_data;
+struct k_thread processor_thread_data;
+struct k_thread monitor_thread_data;
+
+/* Statistics */
+static uint32_t readings_generated = 0;
+static uint32_t readings_processed = 0;
+static uint32_t queue_overruns = 0;
+
+/* Sensor thread - data producer */
+void sensor_thread_entry(void *arg1, void *arg2, void *arg3)
+{
+    struct sensor_reading reading;
+    uint8_t sensor_count = 3;
+    
+    LOG_INF("Sensor thread started");
+    
+    while (1) {
+        for (uint8_t i = 0; i < sensor_count; i++) {
+            /* Generate sensor reading */
+            reading.timestamp = k_uptime_get_32();
+            reading.sensor_id = i;
+            reading.temperature = (int16_t)(sys_rand32_get() % 500) + 200; /* 20.0°C to 70.0°C */
+            reading.humidity = (uint16_t)(sys_rand32_get() % 1000); /* 0% to 100% */
+            reading.status = (sys_rand32_get() % 100) < 95 ? 0 : 1; /* 95% good readings */
+            
+            /* Send to queue with timeout */
+            int ret = k_msgq_put(&sensor_queue, &reading, K_MSEC(100));
+            if (ret == 0) {
+                readings_generated++;
+                LOG_DBG("Sensor %d: T=%d.%d°C, H=%d.%d%%, Status=%s",
+                       reading.sensor_id,
+                       reading.temperature / 10, reading.temperature % 10,
+                       reading.humidity / 10, reading.humidity % 10,
+                       reading.status == 0 ? "OK" : "ERROR");
+            } else {
+                queue_overruns++;
+                LOG_WRN("Queue full, reading dropped (sensor %d)", i);
+            }
+        }
+        
+        /* Sensor reading interval */
+        k_msleep(1000);
+    }
+}
+```
+
+#### Testing and Analysis
+
+**Build and Run**:
+
+```bash
+west build -p -b native_posix
+west build -t run
+```
+
+**Expected Output**:
+
+- Sensor readings generated every second
+- Real-time processing with statistics
+- Queue utilization monitoring
+- Alert generation for extreme values
+
+**Exercise Questions**:
+
+1. **Queue Sizing**: Modify the queue size to 5 messages. What happens to the overrun rate?
+
+2. **Processing Delays**: Add a `k_msleep(2000)` in the processor thread. How does this affect system performance?
+
+3. **Priority Impact**: Change the processor thread priority to 4 (higher than sensor). Does this improve efficiency?
+
+4. **Timeout Analysis**: Change the sensor thread timeout from `K_MSEC(100)` to `K_NO_WAIT`. What's the trade-off?
+
+### Lab 2: FIFO-based Pipeline Processing (40 minutes)
+
+**Objective**: Implement a data processing pipeline using FIFOs for zero-copy data transfer.
+
+#### Implementation
+
+Create a new project directory `pipeline_system/` and implement a multi-stage processing pipeline with FIFOs connecting each stage.
+
+**Key Features**:
+
+- Data generator creates variable-size packets
+- Preprocessing stage applies filtering algorithms
+- Main processor performs complex computations
+- Output stage handles results with performance monitoring
+
+#### Analysis Exercises
+
+1. **Pipeline Efficiency**: Analyze the throughput of each stage. Which stage becomes the bottleneck?
+
+2. **Memory Management**: Monitor heap and slab utilization. How does packet size affect memory usage?
+
+3. **Deadline Monitoring**: Implement deadline tracking. What happens when processing load increases?
+
+### Lab 3: Zbus Event-Driven System (50 minutes)
+
+**Objective**: Design a comprehensive IoT sensor system using Zbus for publish-subscribe communication.
+
+#### System Architecture
+
+Create an IoT monitoring system with:
+
+- Multiple sensor publishers
+- Data processing subscribers
+- Alert management listeners
+- Configuration management
+- Real-time dashboard updates
+
+#### Advanced Exercises
+
+1. **Dynamic Observer Registration**: Implement runtime addition and removal of observers based on system conditions.
+
+2. **Message Validation**: Create comprehensive validators that check message integrity and business logic.
+
+3. **Performance Monitoring**: Add Zbus channel statistics tracking and performance analysis.
+
+4. **Fault Tolerance**: Implement error handling and recovery mechanisms for channel communication failures.
+
+### Lab 4: Performance Analysis and Optimization (30 minutes)
+
+**Objective**: Analyze and optimize inter-thread communication performance across different mechanisms.
+
+#### Benchmark Implementation
+
+Create a performance testing framework that compares:
+
+- Message queue latency and throughput
+- FIFO zero-copy performance
+- Zbus publication and subscription overhead
+- Memory usage patterns
+- Real-time characteristics
+
+#### Analysis Questions
+
+1. **Performance Comparison**: Which mechanism provides the lowest latency? Why?
+
+2. **Memory Efficiency**: Compare static vs dynamic memory usage patterns.
+
+3. **Scalability**: How does performance change with different message sizes and queue depths?
+
+4. **Real-time Characteristics**: Which mechanisms provide the most predictable timing?
+
+### Lab Summary and Assessment
+
+#### Key Learning Outcomes
+
+After completing these laboratories, you should understand:
+
+1. **Message Queue Design**: Implementing producer-consumer patterns with proper queue sizing and timeout handling
+
+2. **Zero-Copy Communication**: Using FIFOs and LIFOs for efficient data transfer without memory copying
+
+3. **Event-Driven Architecture**: Building scalable systems using Zbus publish-subscribe patterns
+
+4. **Performance Optimization**: Analyzing and optimizing communication performance for real-time requirements
+
+5. **System Integration**: Combining multiple communication mechanisms in complex embedded systems
+
+#### Extension Exercises
+
+1. **Hybrid Communication**: Design a system that uses multiple communication mechanisms together
+
+2. **Fault Tolerance**: Implement error detection and recovery for communication failures
+
+3. **Load Balancing**: Create systems that dynamically balance processing load across multiple threads
+
+4. **Protocol Implementation**: Use communication primitives to implement custom communication protocols
+
+5. **Real-time Analysis**: Perform detailed timing analysis and worst-case execution time calculations
+
+This comprehensive laboratory experience provides practical skills for implementing professional-grade inter-thread communication in embedded systems using Zephyr RTOS.
+
+This comprehensive laboratory experience provides practical skills for implementing professional-grade inter-thread communication in embedded systems using Zephyr RTOS.

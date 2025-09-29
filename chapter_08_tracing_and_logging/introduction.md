@@ -1,8 +1,14 @@
 # Chapter 8: Tracing and Logging - Introduction
 
-Embedded systems development presents unique debugging challenges. Unlike desktop applications, embedded systems interact directly with hardware, operate under strict timing constraints, and often run in environments where traditional debugging tools are ineffective. This chapter introduces Zephyr's comprehensive tracing and logging capabilities that provide essential visibility into system behavior.
+## Building on Concurrent Programming Foundations
 
-## The Embedded Debugging Challenge
+Having mastered thread management in Chapter 7—creating multiple concurrent threads, managing synchronization, and orchestrating complex real-time behaviors—you now face the critical challenge of understanding and debugging these sophisticated concurrent systems. Traditional single-threaded debugging approaches become ineffective when dealing with multiple threads interacting across shared resources with precise timing constraints.
+
+This chapter introduces Zephyr's comprehensive tracing and logging capabilities that provide essential visibility into concurrent system behavior, enabling you to debug, optimize, and maintain the complex multi-threaded applications you've learned to create.
+
+## The Concurrent Systems Debugging Challenge
+
+Embedded systems development presents unique debugging challenges that are amplified by the concurrent programming techniques you've mastered. Unlike desktop applications, embedded systems interact directly with hardware, operate under strict timing constraints, and often run in environments where traditional debugging tools are ineffective.
 
 Embedded systems debugging differs fundamentally from traditional software debugging:
 
