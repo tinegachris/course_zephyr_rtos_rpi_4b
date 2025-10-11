@@ -1,9 +1,14 @@
-```markdown
 # Chapter 13 - Interrupt Management
 
-## 1. Introduction (567 words)
+## Building on Communication and Threading Foundations
 
-Interrupt management is the cornerstone of real-time embedded systems. It's the mechanism by which the system responds to external events – sensor readings, button presses, network packets, hardware triggers – in a timely and predictable manner. Without robust interrupt management, systems become unresponsive, unreliable, and incapable of fulfilling their intended tasks.  This chapter builds upon the foundational knowledge gained in previous chapters, particularly concerning thread management (Chapter 7) and inter-thread communication (Chapter 12), to equip you with the skills needed to effectively handle interrupts in Zephyr.
+Having mastered inter-thread communication in Chapter 12—message queues, mailboxes, and Zbus publish-subscribe patterns—you now understand how threads exchange data and coordinate activities within your embedded applications. However, these communication mechanisms operate entirely within the software domain, managing interactions between threads that you explicitly create and control.
+
+Real-world embedded systems must also respond to **external events** from the physical world—sensor readings, button presses, network packets, hardware triggers—events that occur independently of your thread scheduling and communication patterns. Interrupt management provides the critical bridge between the external hardware world and your carefully orchestrated software architecture.
+
+## Introduction
+
+Interrupt management represents the cornerstone of real-time embedded systems, extending your thread communication skills into hardware event handling. Building directly upon the communication patterns you've mastered, interrupts provide the mechanism by which external hardware events integrate seamlessly with your message queues, mailboxes, and publish-subscribe architectures.
 
 **Why is it Crucial?**
 
@@ -16,9 +21,9 @@ Consider a scenario: a sensor continuously monitors temperature. Without an inte
 * **Automotive Systems:**  CAN bus data, airbag deployment sensors, and engine control units (ECUs) all utilize interrupt-driven architectures for real-time control and safety.
 * **IoT Devices:** Environmental sensors, wearable devices, and smart home devices constantly collect data and respond to user interactions, again, frequently leveraging interrupts.
 
-**Connecting to Prior Knowledge:**
+**Connecting Hardware Events to Communication Patterns:**
 
-Interrupts work *with* threads, not against them. Threads provide the context for processing interrupt-driven data.  The workqueue concept (introduced in Chapter 12) provides an elegant solution for deferred processing.  Interrupts quickly signal the need for processing, while the workqueue ensures that the processing occurs safely within the context of a thread, preventing issues like priority inversion or data corruption.
+Interrupts work seamlessly with the communication mechanisms you've mastered in Chapter 12. Hardware events trigger interrupt handlers that can immediately signal threads through semaphores, post messages to queues, or publish events via Zbus—integrating external events directly into your structured communication architecture. This creates responsive systems where hardware events flow naturally through your message-passing designs.
 
 **Motivation & Practicality:**
 
