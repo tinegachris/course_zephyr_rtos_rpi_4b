@@ -1,4 +1,47 @@
-## Theory (2955 words)
+# Chapter 14 - Modules Theory
+
+## 14.1 Understanding Zephyr Modules
+
+Zephyr modules are self-contained units of functionality that can be shared across multiple projects. They provide a standardized way to organize, distribute, and reuse code components in the Zephyr ecosystem.
+
+### Key Benefits of Modules
+
+* **Code Reusability**: Write once, use in multiple projects
+* **Maintainability**: Isolated functionality is easier to maintain and debug
+* **Scalability**: Large projects can be broken into manageable components
+* **Community Sharing**: Modules can be shared with the broader Zephyr community
+* **Version Control**: Independent versioning and dependency management
+
+## 14.2 Module Architecture
+
+### Module Directory Structure
+
+A well-structured Zephyr module follows this organization:
+
+```text
+my_module/
+├── zephyr/
+│   ├── module.yml          # Module metadata
+│   ├── CMakeLists.txt      # Build configuration
+│   └── Kconfig             # Configuration options
+├── include/
+│   └── my_module/
+│       └── api.h           # Public API headers
+├── src/
+│   ├── my_module.c         # Implementation
+│   └── internal.h          # Private headers
+├── dts/
+│   └── bindings/           # Device tree bindings
+├── tests/
+│   └── src/
+│       └── test_my_module.c # Unit tests
+└── samples/
+    └── basic/
+        ├── src/
+        │   └── main.c      # Example usage
+        ├── CMakeLists.txt
+        └── prj.conf
+```
 
 ### Creating a New Module
 
