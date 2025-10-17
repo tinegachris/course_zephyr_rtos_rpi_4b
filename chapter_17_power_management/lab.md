@@ -200,6 +200,7 @@ static void bluetooth_thread_entry(void *p1, void *p2, void *p3)
         if (events & EVENT_BLE_DISCONNECTED) {
             LOG_INF("BLE disconnected");
             sys_state.ble_connected = false;
+            sys_state.last_activity_time = k_uptime_get();
             
             /* Return to power saving mode */
             power_manager_set_performance_mode(POWER_MODE_ECO);
@@ -209,6 +210,7 @@ static void bluetooth_thread_entry(void *p1, void *p2, void *p3)
             /* Transmit queued data if connected */
             if (sys_state.ble_connected) {
                 bluetooth_manager_transmit_queued();
+                sys_state.last_activity_time = k_uptime_get();
             }
         }
         

@@ -261,7 +261,6 @@ int send_service_request(uint8_t service, void *data, size_t size,
         .info = request.request_id,
         .size = sizeof(request),
         .tx_data = &request,
-        .tx_block = K_MEM_POOL_DEFINE(req_pool, 16, 256, 8, 4),
         .tx_target_thread = K_ANY
     };
     

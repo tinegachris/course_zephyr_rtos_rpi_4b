@@ -139,7 +139,7 @@ int main(void)
 ### Build and Test Exercise 1
 
 ```bash
-west build -b rpi_4 memory_lab
+west build -b rpi_4b memory_lab
 west flash
 ```
 

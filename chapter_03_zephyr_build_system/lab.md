@@ -639,7 +639,7 @@ ls $ZEPHYR_SDK_INSTALL_DIR/arm-zephyr-eabi/bin/
 # Check SDK version
 cat $ZEPHYR_SDK_INSTALL_DIR/sdk_version
 
-# Reinstall SDK if necessary (version 0.17.4)
+# Reinstall SDK if necessary
 west sdk install
 ```
 

@@ -84,7 +84,6 @@ CONFIG_SHELL_CMDS=y
 
 # Timing support for performance measurement
 CONFIG_TIMING_FUNCTIONS=y
-CONFIG_TIMING_IMPL_NRF_TIMER1=y
 
 # Device tree support
 CONFIG_GPIO_GET_DIRECTION=y

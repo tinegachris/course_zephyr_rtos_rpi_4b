@@ -764,10 +764,10 @@ static int custom_sensor_init(const struct device *dev)
     data->status_flags = 0;
     
     LOG_INF("Custom sensor initialized successfully");
-    LOG_INF("Sampling frequency: %d Hz", config->sampling_freq);
-    LOG_INF("Resolution: %d bits", config->resolution);
-    LOG_INF("Calibration offset: %d", config->calibration_offset);
-    LOG_INF("Filtering: %s", config->enable_filtering ? "enabled" : "disabled");
+    LOG_DBG("Sampling frequency: %d Hz", config->sampling_freq);
+    LOG_DBG("Resolution: %d bits", config->resolution);
+    LOG_DBG("Calibration offset: %d", config->calibration_offset);
+    LOG_DBG("Filtering: %s", config->enable_filtering ? "enabled" : "disabled");
     
     return 0;
 }

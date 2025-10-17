@@ -307,7 +307,9 @@ if(CONFIG_MY_MODULE_FEATURES)
 endif()
 
 # Pass configuration to compiler
-zephyr_compile_definitions_ifdef(CONFIG_MY_MODULE_FEATURES MODULE_ADVANCED_MODE=1)
+if(CONFIG_MY_MODULE_FEATURES)
+    zephyr_compile_definitions(MODULE_ADVANCED_MODE=1)
+endif()
 ```
 
 ## 15.6 Best Practices

@@ -178,7 +178,7 @@ void sensor_thread_entry(void *p1, void *p2, void *p3)
         uint8_t temp_reg = 0x00;
         uint8_t temp_data[2];
         
-        ret = i2c_write_read_dt(&temp_sensor, &temp_reg, 1, temp_data, 2);
+        ret = i2c_read_dt(&temp_sensor, temp_data, 2);
         if (ret == 0) {
             /* Convert TMP102 data to temperature */
             int16_t raw_temp = (temp_data[0] << 8) | temp_data[1];

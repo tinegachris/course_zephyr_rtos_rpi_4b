@@ -163,7 +163,7 @@ int gpio_setup(void)
 
     /* Initialize and add button callback */
     gpio_init_callback(&button_cb_data, button_pressed, BIT(button.pin));
-    ret = gpio_add_callback_dt(&button, &button_cb_data);
+    ret = gpio_add_callback(button.port, &button_cb_data);
     if (ret < 0) {
         printk("Error %d: failed to add callback\n", ret);
         return ret;

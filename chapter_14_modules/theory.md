@@ -88,10 +88,9 @@ dependencies:
 This file provides instructions for building the module.
 
 ```cmake
-zephyr_library_sources_ifdef(
-    src/my_module.c
-    TARGET_MODULE_NAME
-)
+if(CONFIG_MY_MODULE)
+    zephyr_library_sources(src/my_module.c)
+endif()
 ```
 This line conditionally includes the `my_module.c` file in the build process, based on the `TARGET_MODULE_NAME` variable, which we'll configure in the Kconfig.
 

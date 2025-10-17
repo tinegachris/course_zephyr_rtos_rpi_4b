@@ -559,18 +559,7 @@ cd manifests
 git init
 
 cat > west.yml << 'EOF'
-# IoT Project Manifest
-# Multi-repository development environment
-manifest:
-  defaults:
-    remote: upstream
-    revision: main
-    
-  remotes:
-    - name: upstream
-      url-base: https://github.com/zephyrproject-rtos
-    - name: local
-      url-base: file:///home/whispery-geek/west_lab/iot-project
+      url-base: file://..
       
   projects:
     # Core Zephyr RTOS

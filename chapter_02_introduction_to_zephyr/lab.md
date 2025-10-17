@@ -49,14 +49,14 @@ pip3 install -r zephyr/scripts/requirements.txt
 
 # Download and install Zephyr SDK (Linux/macOS)
 cd ~
-wget https://github.com/zephyrproject-rtos/sdk-ng/releases/download/v0.16.5-1/zephyr-sdk-0.16.5-1_linux-x86_64.tar.xz
-tar xvf zephyr-sdk-0.16.5-1_linux-x86_64.tar.xz
-cd zephyr-sdk-0.16.5-1
+wget https://github.com/zephyrproject-rtos/sdk-ng/releases/download/v0.17.4/zephyr-sdk-0.17.4_linux-x86_64.tar.xz
+tar xvf zephyr-sdk-0.17.4_linux-x86_64.tar.xz
+cd zephyr-sdk-0.17.4
 ./setup.sh
 
 # Set environment variables
 export ZEPHYR_TOOLCHAIN_VARIANT=zephyr
-export ZEPHYR_SDK_INSTALL_DIR=~/zephyr-sdk-0.16.5-1
+export ZEPHYR_SDK_INSTALL_DIR=~/zephyr-sdk-0.17.4
 ```
 
 ### Step 3: Verify Installation

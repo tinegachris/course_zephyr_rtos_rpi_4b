@@ -118,8 +118,8 @@ K_SEM_DEFINE(button_pressed_sem, 0, 1);
 static struct gpio_callback button_cb_data;
 
 /* GPIO devices */
-static const struct device *button_dev;
-static const struct device *led_dev;
+static const struct gpio_dt_spec button = GPIO_DT_SPEC_GET(BUTTON_NODE);
+static const struct gpio_dt_spec led = GPIO_DT_SPEC_GET(LED_NODE);
 
 void gpio_interrupt_handler(const struct device *dev, 
                            struct gpio_callback *cb, 
@@ -135,40 +135,27 @@ int setup_gpio_interrupt(void)
 {
     int ret;
     
-    /* Get GPIO devices */
-    button_dev = DEVICE_DT_GET(BUTTON_NODE);
-    led_dev = DEVICE_DT_GET(LED_NODE);
-    
-    if (!device_is_ready(button_dev) || !device_is_ready(led_dev)) {
+    if (!device_is_ready(button.port) || !device_is_ready(led.port)) {
         LOG_ERR("GPIO devices not ready");
         return -ENODEV;
     }
     
     /* Configure button as input with interrupt */
-    ret = gpio_pin_configure_dt(&(const struct gpio_dt_spec)
-                               {button_dev, DT_GPIO_PIN(BUTTON_NODE, gpios), 
-                                DT_GPIO_FLAGS(BUTTON_NODE, gpios)}, 
-                               GPIO_INPUT);
+    ret = gpio_pin_configure_dt(&button, GPIO_INPUT);
     if (ret < 0) {
         LOG_ERR("Failed to configure button pin: %d", ret);
         return ret;
     }
     
     /* Configure LED as output */
-    ret = gpio_pin_configure_dt(&(const struct gpio_dt_spec)
-                               {led_dev, DT_GPIO_PIN(LED_NODE, gpios), 
-                                DT_GPIO_FLAGS(LED_NODE, gpios)}, 
-                               GPIO_OUTPUT_INACTIVE);
+    ret = gpio_pin_configure_dt(&led, GPIO_OUTPUT_INACTIVE);
     if (ret < 0) {
         LOG_ERR("Failed to configure LED pin: %d", ret);
         return ret;
     }
     
     /* Configure interrupt */
-    ret = gpio_pin_interrupt_configure_dt(&(const struct gpio_dt_spec)
-                                         {button_dev, DT_GPIO_PIN(BUTTON_NODE, gpios), 
-                                          DT_GPIO_FLAGS(BUTTON_NODE, gpios)},
-                                         GPIO_INT_EDGE_TO_ACTIVE);
+    ret = gpio_pin_interrupt_configure_dt(&button, GPIO_INT_EDGE_TO_ACTIVE);
     if (ret < 0) {
         LOG_ERR("Failed to configure interrupt: %d", ret);
         return ret;
@@ -176,10 +163,10 @@ int setup_gpio_interrupt(void)
     
     /* Initialize callback */
     gpio_init_callback(&button_cb_data, gpio_interrupt_handler, 
-                      BIT(DT_GPIO_PIN(BUTTON_NODE, gpios)));
+                      BIT(button.pin));
     
     /* Add callback */
-    ret = gpio_add_callback(button_dev, &button_cb_data);
+    ret = gpio_add_callback(button.port, &button_cb_data);
     if (ret < 0) {
         LOG_ERR("Failed to add callback: %d", ret);
         return ret;
@@ -205,12 +192,10 @@ LOG_MODULE_REGISTER(main, LOG_LEVEL_DBG);
 void toggle_led(void)
 {
     static bool led_state = false;
-    const struct device *led_dev = DEVICE_DT_GET(LED_NODE);
+    const struct gpio_dt_spec led = GPIO_DT_SPEC_GET(LED_NODE);
     
     led_state = !led_state;
-    gpio_pin_set_dt(&(const struct gpio_dt_spec)
-                   {led_dev, DT_GPIO_PIN(LED_NODE, gpios), 
-                    DT_GPIO_FLAGS(LED_NODE, gpios)}, led_state);
+    gpio_pin_set_dt(&led, led_state);
     
     LOG_INF("LED toggled: %s", led_state ? "ON" : "OFF");
 }
@@ -364,10 +349,8 @@ void delayed_work_handler(struct k_work *work)
     LOG_INF("Delayed work executed - turning off LED");
     
     /* Turn off LED */
-    const struct device *led_dev = DEVICE_DT_GET(LED_NODE);
-    gpio_pin_set_dt(&(const struct gpio_dt_spec)
-                   {led_dev, DT_GPIO_PIN(LED_NODE, gpios), 
-                    DT_GPIO_FLAGS(LED_NODE, gpios)}, 0);
+    const struct gpio_dt_spec led = GPIO_DT_SPEC_GET(LED_NODE);
+    gpio_pin_set_dt(&led, 0);
 }
 
 /* Updated interrupt handler */

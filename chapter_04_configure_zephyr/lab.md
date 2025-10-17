@@ -393,7 +393,7 @@ cat > boards/rpi_4b.overlay << 'EOF'
 };
 
 // Configure UART for console output
-&uart0 {
+&uart1 {
     status = "okay";
     current-speed = <115200>;
 };
