@@ -604,27 +604,33 @@ void release_connection(struct network_connection *conn)
     }
     
     k_mutex_lock(&pool_mutex, K_FOREVER);
-    
-    if (conn >= connection_pool && 
+
+    // Note on error handling: If an invalid connection pointer is passed,
+    // we log an error but do not release the semaphore. Releasing the semaphore
+    // here would artificially inflate the count and break the resource pool
+    // management, as it would indicate a resource has been freed when it was
+    // never properly acquired. This situation indicates a critical programming
+    // error elsewhere in the application.
+    if (conn >= connection_pool &&
         conn < connection_pool + MAX_CONNECTIONS &&
         conn->in_use) {
-        
+
         uint64_t connection_duration = k_uptime_get() - conn->connect_time;
         sem_stats.total_connection_time += connection_duration;
         sem_stats.connections_released++;
-        
-        LOG_DBG("Releasing connection %d (duration: %llu ms, bytes: %u)", 
+
+        LOG_DBG("Releasing connection %d (duration: %llu ms, bytes: %u)",
                 conn->connection_id, connection_duration, conn->bytes_transferred);
-        
+
         conn->in_use = false;
         conn->connection_id = -1;
         conn->bytes_transferred = 0;
-        
+
         k_sem_give(&connection_semaphore);
     } else {
         LOG_ERR("Invalid connection release attempt");
     }
-    
+
     k_mutex_unlock(&pool_mutex);
 }
 
@@ -638,14 +644,14 @@ void produce_packet(uint32_t sequence, const char *data)
         LOG_WRN("Buffer full - packet %u dropped", sequence);
         return;
     }
-    
+
     // Critical section: add packet to buffer
     k_mutex_lock(&buffer_mutex, K_FOREVER);
-    
+
     struct data_packet *packet = &circular_buffer[buffer_tail];
     packet->sequence_number = sequence;
     packet->timestamp = get_timestamp_ns();
-    
+
     if (data != NULL) {
         size_t data_len = strlen(data);
         packet->payload_size = MIN(data_len, sizeof(packet->payload) - 1);
@@ -655,15 +661,15 @@ void produce_packet(uint32_t sequence, const char *data)
         packet->payload_size = 0;
         packet->payload[0] = '\0';
     }
-    
+
     buffer_tail = (buffer_tail + 1) % BUFFER_SIZE;
     sem_stats.packets_produced++;
-    
+
     k_mutex_unlock(&buffer_mutex);
-    
+
     // Signal that data is available
     k_sem_give(&buffer_full);
-    
+
     LOG_DBG("Produced packet %u (payload: %u bytes)", sequence, packet->payload_size);
 }
 
@@ -672,7 +678,7 @@ bool consume_packet(struct data_packet *output)
     if (output == NULL) {
         return false;
     }
-    
+
     // Wait for data in buffer
     int ret = k_sem_take(&buffer_full, K_MSEC(3000));
     if (ret != 0) {
@@ -680,25 +686,25 @@ bool consume_packet(struct data_packet *output)
         LOG_DBG("Buffer empty - consumer timeout");
         return false;
     }
-    
+
     // Critical section: remove packet from buffer
     k_mutex_lock(&buffer_mutex, K_FOREVER);
-    
+
     struct data_packet *packet = &circular_buffer[buffer_head];
     memcpy(output, packet, sizeof(*output));
-    
+
     buffer_head = (buffer_head + 1) % BUFFER_SIZE;
     sem_stats.packets_consumed++;
-    
+
     k_mutex_unlock(&buffer_mutex);
-    
+
     // Signal that space is available
     k_sem_give(&buffer_empty);
-    
+
     uint64_t latency = get_timestamp_ns() - output->timestamp;
-    LOG_DBG("Consumed packet %u (latency: %llu ns)", 
+    LOG_DBG("Consumed packet %u (latency: %llu ns)",
             output->sequence_number, latency);
-    
+
     return true;
 }
 
@@ -707,39 +713,39 @@ void connection_client_thread(void *arg1, void *arg2, void *arg3)
 {
     int client_id = POINTER_TO_INT(arg1);
     int operations = POINTER_TO_INT(arg2);
-    
+
     LOG_INF("Connection client %d starting (%d operations)", client_id, operations);
-    
+
     for (int i = 0; i < operations; i++) {
         // Acquire connection with timeout
         struct network_connection *conn = acquire_connection(K_MSEC(1000));
-        
+
         if (conn != NULL) {
             // Simulate network activity
             uint32_t transfer_size = 100 + (sys_rand32_get() % 1000);
-            
+
             // Simulate data transfer
             for (uint32_t j = 0; j < transfer_size; j += 10) {
                 conn->bytes_transferred += MIN(10, transfer_size - j);
                 conn->last_activity = k_uptime_get();
                 k_usleep(100); // Simulate transfer delay
             }
-            
-            LOG_INF("Client %d completed transfer: %u bytes on connection %d", 
+
+            LOG_INF("Client %d completed transfer: %u bytes on connection %d",
                     client_id, transfer_size, conn->connection_id);
-            
+
             // Hold connection for variable time
             random_delay_ms(200, 800);
-            
+
             release_connection(conn);
         } else {
             LOG_WRN("Client %d failed to acquire connection", client_id);
         }
-        
+
         // Delay between connection attempts
         random_delay_ms(300, 700);
     }
-    
+
     LOG_INF("Connection client %d completed", client_id);
 }
 
@@ -747,33 +753,33 @@ void data_producer_thread(void *arg1, void *arg2, void *arg3)
 {
     int producer_id = POINTER_TO_INT(arg1);
     int packet_count = POINTER_TO_INT(arg2);
-    
+
     LOG_INF("Data producer %d starting (%d packets)", producer_id, packet_count);
-    
+
     for (int i = 0; i < packet_count; i++) {
         uint32_t sequence = producer_id * 1000 + i;
-        
+
         char data[32];
         snprintf(data, sizeof(data), "Producer%d-Data%d", producer_id, i);
-        
+
         produce_packet(sequence, data);
-        
+
         // Variable production rate
         random_delay_ms(50, 200);
     }
-    
+
     LOG_INF("Data producer %d completed", producer_id);
 }
 
 void data_consumer_thread(void *arg1, void *arg2, void *arg3)
 {
     int consumer_id = POINTER_TO_INT(arg1);
-    
+
     LOG_INF("Data consumer %d starting", consumer_id);
-    
+
     struct data_packet packet;
     int packets_processed = 0;
-    
+
     while (1) {
         if (consume_packet(&packet)) {
             packets_processed++;
@@ -1354,6 +1360,10 @@ Create `lab3_spinlock/prj.conf`:
 ```ini
 # Spinlock and SMP Lab Configuration
 CONFIG_MULTITHREADING=y
+# Note: The following SMP options will only have an effect when building
+# for a multi-core target (e.g., qemu_cortex_a53, mimxrt1170_evk).
+# On single-core targets, the build will succeed, but the application
+# will run on a single CPU.
 CONFIG_SMP=y
 CONFIG_MP_MAX_NUM_CPUS=2
 

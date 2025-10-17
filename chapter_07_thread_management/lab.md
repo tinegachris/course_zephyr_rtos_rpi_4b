@@ -52,7 +52,7 @@ GPIO Connections:
 
 ### Device Tree Configuration
 
-Create `boards/arm/rpi_4b/rpi_4b_thread_lab.overlay`:
+Create `boards/rpi_4b.overlay`:
 
 ```dts
 /*
@@ -136,6 +136,7 @@ static const struct i2c_dt_spec temp_sensor = I2C_DT_SPEC_GET(DT_ALIAS(temp_sens
 static volatile bool system_active = true;
 static volatile uint32_t sensor_reading_count = 0;
 static volatile float last_temperature = 0.0f;
+static bool activity_thread_running = false;
 
 /* Status thread - static thread showing system heartbeat */
 void status_thread_entry(void *p1, void *p2, void *p3)
@@ -236,6 +237,8 @@ void activity_thread_entry(void *param1, void *param2, void *param3)
     gpio_pin_set_dt(&activity_led, 0);
     printk("Activity thread '%s' completed %u blinks in %ums\n", 
            activity_name, blink_count, k_uptime_get_32() - start_time);
+
+    activity_thread_running = false;
 }
 
 /* Button callback for dynamic thread creation */
@@ -248,6 +251,20 @@ void button_pressed_callback(const struct device *dev, struct gpio_callback *cb,
     static uint32_t activity_duration;
     static uint32_t activity_counter = 0;
     static char activity_name[32];
+
+    if (activity_thread_running) {
+        printk("Activity thread already running.\n");
+        return;
+    }
+    activity_thread_running = true;
+    static bool activity_thread_running = false;
+
+    if (activity_thread_running) {
+        printk("Activity thread already running.\n");
+        return;
+    }
+
+    activity_thread_running = true;
     
     activity_counter++;
     
@@ -1095,7 +1112,6 @@ void perform_realtime_task(void)
 void collect_system_metrics(void)
 {
     /* Collect various system performance metrics */
-    size_t free_heap = k_mem_free_get();
     uint32_t uptime_ms = k_uptime_get_32();
     
     /* Simulate additional metric collection */
@@ -1177,7 +1193,6 @@ void print_performance_report(void)
     
     /* System statistics */
     printk("System:\n");
-    printk("  Free Heap: %zu bytes\n", k_mem_free_get());
     printk("  Uptime: %u seconds\n", k_uptime_get_32() / 1000);
     printk("  Est. CPU Usage: %u%%\n", calculate_cpu_usage());
     printk("  Est. Memory Usage: %u%%\n", calculate_memory_usage());

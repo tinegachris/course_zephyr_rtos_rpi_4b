@@ -43,6 +43,7 @@ Create `prj.conf`:
 CONFIG_MAIN_STACK_SIZE=4096
 CONFIG_SYSTEM_WORKQUEUE_STACK_SIZE=2048
 CONFIG_HEAP_MEM_POOL_SIZE=8192
+CONFIG_HEAP_RUNTIME_STATS=y
 
 # GPIO and I2C support
 CONFIG_GPIO=y
@@ -263,11 +264,6 @@ static int initialize_hardware(void)
     }
 
     gpio_init_callback(&button_cb_data, button_pressed_callback, BIT(control_btn.pin));
-    ret = gpio_add_callback(control_btn.port, &button_cb_data);
-    if (ret < 0) {
-        LOG_ERR("Failed to add button callback: %d", ret);
-        return ret;
-    }
     LOG_DBG("Control button configured with interrupt on pin %d", control_btn.pin);
 
     /* Initialize I2C temperature sensor */
@@ -786,6 +782,7 @@ void log_critical_section_entry(const char *section_name)
     LOG_DBG("Entering critical section: %s", section_name);
     
     /* Store start time for exit measurement */
+    k_thread_custom_data_set((void *)section_start_time);
     k_thread_custom_data_set((void *)section_start_time);
 }
 

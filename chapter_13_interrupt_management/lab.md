@@ -41,6 +41,16 @@ interrupt_lab/
 
 ### Step 1: Project Configuration
 
+Create `CMakeLists.txt`:
+
+```cmake
+cmake_minimum_required(VERSION 3.20.0)
+find_package(Zephyr REQUIRED HINTS $ENV{ZEPHYR_BASE})
+project(interrupt_lab)
+
+target_sources(app PRIVATE src/main.c src/interrupt_handler.c)
+```
+
 Create `prj.conf`:
 
 ```conf
@@ -65,7 +75,6 @@ Create `boards/nrf52840dk_nrf52840.overlay` (adjust for your board):
             label = "Push button switch 0";
         };
     };
-    
     leds {
         compatible = "gpio-leds";
         led0: led_0 {
@@ -96,6 +105,7 @@ int setup_gpio_interrupt(void);
 void gpio_interrupt_handler(const struct device *dev, 
                            struct gpio_callback *cb, 
                            uint32_t pins);
+void toggle_led(void);
 
 /* Global semaphore for signaling */
 extern struct k_sem button_pressed_sem;
@@ -121,12 +131,23 @@ static struct gpio_callback button_cb_data;
 static const struct gpio_dt_spec button = GPIO_DT_SPEC_GET(BUTTON_NODE);
 static const struct gpio_dt_spec led = GPIO_DT_SPEC_GET(LED_NODE);
 
-void gpio_interrupt_handler(const struct device *dev, 
-                           struct gpio_callback *cb, 
+/* LED toggle function */
+void toggle_led(void)
+{
+    static bool led_state = false;
+
+    led_state = !led_state;
+    gpio_pin_set_dt(&led, led_state);
+
+    LOG_INF("LED toggled: %s", led_state ? "ON" : "OFF");
+}
+
+void gpio_interrupt_handler(const struct device *dev,
+                           struct gpio_callback *cb,
                            uint32_t pins)
 {
     LOG_INF("Button interrupt triggered on pin %d", pins);
-    
+
     /* Signal the main thread - interrupt-safe operation */
     k_sem_give(&button_pressed_sem);
 }
@@ -134,44 +155,44 @@ void gpio_interrupt_handler(const struct device *dev,
 int setup_gpio_interrupt(void)
 {
     int ret;
-    
+
     if (!device_is_ready(button.port) || !device_is_ready(led.port)) {
         LOG_ERR("GPIO devices not ready");
         return -ENODEV;
     }
-    
+
     /* Configure button as input with interrupt */
     ret = gpio_pin_configure_dt(&button, GPIO_INPUT);
     if (ret < 0) {
         LOG_ERR("Failed to configure button pin: %d", ret);
         return ret;
     }
-    
+
     /* Configure LED as output */
     ret = gpio_pin_configure_dt(&led, GPIO_OUTPUT_INACTIVE);
     if (ret < 0) {
         LOG_ERR("Failed to configure LED pin: %d", ret);
         return ret;
     }
-    
+
     /* Configure interrupt */
     ret = gpio_pin_interrupt_configure_dt(&button, GPIO_INT_EDGE_TO_ACTIVE);
     if (ret < 0) {
         LOG_ERR("Failed to configure interrupt: %d", ret);
         return ret;
     }
-    
+
     /* Initialize callback */
-    gpio_init_callback(&button_cb_data, gpio_interrupt_handler, 
+    gpio_init_callback(&button_cb_data, gpio_interrupt_handler,
                       BIT(button.pin));
-    
+
     /* Add callback */
     ret = gpio_add_callback(button.port, &button_cb_data);
     if (ret < 0) {
         LOG_ERR("Failed to add callback: %d", ret);
         return ret;
     }
-    
+
     LOG_INF("GPIO interrupt setup complete");
     return 0;
 }
@@ -187,18 +208,6 @@ Create `src/main.c`:
 #include "interrupt_handler.h"
 
 LOG_MODULE_REGISTER(main, LOG_LEVEL_DBG);
-
-/* LED toggle function */
-void toggle_led(void)
-{
-    static bool led_state = false;
-    const struct gpio_dt_spec led = GPIO_DT_SPEC_GET(LED_NODE);
-    
-    led_state = !led_state;
-    gpio_pin_set_dt(&led, led_state);
-    
-    LOG_INF("LED toggled: %s", led_state ? "ON" : "OFF");
-}
 
 int main(void)
 {

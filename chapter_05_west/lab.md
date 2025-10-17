@@ -871,13 +871,14 @@ cat > west-release-v1.0.yml << 'EOF'
 manifest:
   defaults:
     remote: upstream
-    
+
   remotes:
     - name: upstream
       url-base: https://github.com/zephyrproject-rtos
-    - name: local
-      url-base: file:///home/whispery-geek/west_lab/iot-project
-      
+    # Note: Using a relative file path for a local manifest repository.
+    # This is useful for self-contained projects like this lab.
+    - name: local      url-base: file:///home/user/west_lab/iot-project
+
   projects:
     # Zephyr locked to LTS version
     - name: zephyr

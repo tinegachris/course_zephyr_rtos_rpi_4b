@@ -46,7 +46,7 @@ GPIO Connections:
 
 ### Device Tree Configuration
 
-Create the overlay file `boards/arm/rpi_4b/rpi_4b_gpio_lab.overlay`:
+Create the overlay file `boards/rpi_4b.overlay`:
 
 ```dts
 /*
@@ -89,7 +89,6 @@ Create `src/gpio_lab.c`:
 
 #include <zephyr/kernel.h>
 #include <zephyr/drivers/gpio.h>
-#include <zephyr/sys/printk.h>
 
 #define SLEEP_TIME_MS   1000
 
@@ -303,7 +302,6 @@ Create `src/i2c_temp_lab.c`:
 #include <zephyr/kernel.h>
 #include <zephyr/drivers/i2c.h>
 #include <zephyr/drivers/gpio.h>
-#include <zephyr/sys/printk.h>
 #include <math.h>
 
 /* Device tree specifications */
@@ -547,7 +545,6 @@ Create `src/shell_lab.c`:
 #include <zephyr/shell/shell_uart.h>
 #include <zephyr/drivers/gpio.h>
 #include <zephyr/drivers/i2c.h>
-#include <zephyr/sys/printk.h>
 #include <stdlib.h>
 #include <math.h>
 
@@ -742,7 +739,7 @@ static int cmd_system_info(const struct shell *sh, size_t argc, char **argv)
     shell_print(sh, "  Board: %s", CONFIG_BOARD);
     shell_print(sh, "  Kernel: Zephyr %s", KERNEL_VERSION_STRING);
     shell_print(sh, "  Uptime: %u seconds", k_uptime_get_32() / 1000);
-    shell_print(sh, "  Free RAM: %zu bytes", k_mem_free_get());
+    
     
     return 0;
 }
@@ -865,7 +862,7 @@ int main(void)
     int ret;
 
     printk("\n=== Interactive Shell Lab ===\n");
-    printk("Platform: %s\n", CONFIG_BOARD_TARGET);
+    printk("Platform: %s\n", CONFIG_BOARD);
 
     ret = app_init();
     if (ret < 0) {

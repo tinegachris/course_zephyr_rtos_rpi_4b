@@ -174,7 +174,10 @@ CONFIG_PRINTK=y
 CONFIG_MAIN_STACK_SIZE=2048
 CONFIG_SYSTEM_WORKQUEUE_STACK_SIZE=2048
 
-# Disable features that conflict with user mode
+# Disable features that may conflict with user mode or require special handling
+# Note: Some debugging features might be disabled in user mode to prevent
+# information leaks from kernel space or because they require specific
+# configurations when user mode is active.
 CONFIG_THREAD_MONITOR=n
 CONFIG_THREAD_NAME=n
 ```
@@ -440,6 +443,8 @@ int main(void)
 
 #### Step 2: Linker Script Modifications
 
+To ensure our `sensitive_info` and `public_info` data structures are placed in distinct, non-overlapping memory regions that we can control with memory partitions, we need to instruct the linker where to place them. This is done using a custom linker script file.
+
 Create `lab2_domains/app.ld`:
 
 ```ld
@@ -683,8 +688,19 @@ int z_impl_secure_counter_reset(uint32_t auth_code)
     return 0;
 }
 
-// Include generated syscall headers
-#include <zephyr/syscalls/syscalls_subdirs.h>
+/*
+ * NOTE on System Call Validation:
+ *
+ * For production-quality code, every system call must have a corresponding
+ * verification function (e.g., z_vrfy_secure_counter_get_stats) that validates
+ * all parameters passed from user space. This is a critical security measure
+ * to prevent malicious user threads from crashing the kernel.
+ *
+ * These verification functions have been omitted from this lab for brevity,
+ * but are essential for any real-world application.
+ */
+
+
 ```
 
 #### Step 2: System Call Usage

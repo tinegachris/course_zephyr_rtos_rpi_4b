@@ -34,20 +34,20 @@ K_MSGQ_DEFINE(sensor_queue, sizeof(struct sensor_data), 10, 4);
 void sensor_thread(void *arg1, void *arg2, void *arg3)
 {
     struct sensor_data reading;
-    
+
     while (1) {
         // Simulate sensor reading
         reading.timestamp = k_uptime_get_32();
         reading.temperature = get_temperature();
         reading.humidity = get_humidity();
         reading.sensor_id = SENSOR_DHT22;
-        
+
         // Send message with 100ms timeout
         int ret = k_msgq_put(&sensor_queue, &reading, K_MSEC(100));
         if (ret != 0) {
             printk("Failed to send sensor data: %d\n", ret);
         }
-        
+
         k_msleep(1000); // Read every second
     }
 }
@@ -56,14 +56,14 @@ void sensor_thread(void *arg1, void *arg2, void *arg3)
 void processing_thread(void *arg1, void *arg2, void *arg3)
 {
     struct sensor_data data;
-    
+
     while (1) {
         // Wait indefinitely for new data
         int ret = k_msgq_get(&sensor_queue, &data, K_FOREVER);
         if (ret == 0) {
             // Process the sensor data
             process_sensor_reading(&data);
-            
+
             // Check queue status
             uint32_t used = k_msgq_num_used_get(&sensor_queue);
             if (used > 7) {
@@ -83,9 +83,9 @@ void monitor_queue_health(void)
 {
     uint32_t used = k_msgq_num_used_get(&sensor_queue);
     uint32_t free = k_msgq_num_free_get(&sensor_queue);
-    
+
     printk("Queue status: %u used, %u free\n", used, free);
-    
+
     if (used > 8) {
         // Queue nearly full - consider priority processing
         handle_queue_congestion();

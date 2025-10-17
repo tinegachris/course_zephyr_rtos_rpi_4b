@@ -53,6 +53,7 @@ Create `prj.conf`:
 ```ini
 # Memory Management Configuration
 CONFIG_HEAP_MEM_POOL_SIZE=8192
+CONFIG_HEAP_RUNTIME_STATS=y
 CONFIG_THREAD_STACK_INFO=y
 CONFIG_THREAD_RUNTIME_STATS=y
 
@@ -145,7 +146,7 @@ west flash
 
 **Expected Output:**
 ```
-*** Booting Zephyr OS build zephyr-v4.2.0 ***
+*** Booting Zephyr OS build zephyr-v4.2.99 ***
 [00:00:01.000,000] <inf> memory_lab: === Zephyr Memory Management Lab ===
 [00:00:02.000,000] <inf> memory_lab: === Basic Memory Allocation Demo ===
 [00:00:02.001,000] <inf> memory_lab: Allocated 256 bytes at 0x20001234
@@ -318,7 +319,7 @@ void demonstrate_stack_monitoring(void)
     
     /* Check initial stack usage */
     size_t unused = k_thread_stack_space_get(current);
-    size_t total = k_thread_stack_size_get(current);
+    size_t total = CONFIG_MAIN_STACK_SIZE;
     size_t used = total - unused;
     
     LOG_INF("Initial stack usage: %zu/%zu bytes (%.1f%%)",

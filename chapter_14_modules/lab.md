@@ -675,7 +675,7 @@ temp_sensor_error_t temp_sensor_read_raw(struct temp_sensor *sensor,
 {
     /* Simplified raw reading - in real implementation, use ADC driver */
     /* This simulates a temperature reading */
-    static uint32_t simulated_temp = 2048; /* Mid-range value */
+    static int32_t simulated_temp = 2048; /* Mid-range value */
     
     /* Add some variation */
     simulated_temp += (k_uptime_get_32() % 20) - 10;

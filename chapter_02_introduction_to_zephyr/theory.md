@@ -33,7 +33,7 @@ Comprehensive connectivity options:
 **Build System (West):**
 Modern, Git-based build system:
 * **Source Management:** Multi-repository projects with automatic dependency resolution
-* **Board Support:** 1000+ supported development boards
+* **Board Support:** 500+ supported development boards
 * **Toolchain Integration:** GCC, Clang, and vendor-specific toolchains
 * **Testing Framework:** Automated testing with Twister test runner
 

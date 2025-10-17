@@ -6,15 +6,13 @@ Zephyr modules are self-contained units of functionality that can be shared acro
 
 ### Key Benefits of Modules
 
-* **Code Reusability**: Write once, use in multiple projects
-* **Maintainability**: Isolated functionality is easier to maintain and debug
-* **Scalability**: Large projects can be broken into manageable components
-* **Community Sharing**: Modules can be shared with the broader Zephyr community
-* **Version Control**: Independent versioning and dependency management
+*   **Code Reusability**: Write once, use in multiple projects.
+*   **Maintainability**: Isolated functionality is easier to maintain and debug.
+*   **Scalability**: Large projects can be broken into manageable components.
+*   **Community Sharing**: Modules can be shared with the broader Zephyr community.
+*   **Version Control**: Independent versioning and dependency management.
 
 ## 14.2 Module Architecture
-
-### Module Directory Structure
 
 A well-structured Zephyr module follows this organization:
 
@@ -43,30 +41,7 @@ my_module/
         └── prj.conf
 ```
 
-### Creating a New Module
-
-Let's create a simple module that toggles a GPIO pin. This example illustrates the fundamental steps involved in defining and building a Zephyr module.
-
-**1. Project Structure:**
-
-The key to understanding modules is recognizing their directory structure.  We'll establish the following:
-
-```
-my_module/
-├── zephyr/
-│   ├── module.yml          # Module metadata
-│   ├── CMakeLists.txt      # Build configuration
-│   └── Kconfig             # Configuration options
-├── include/
-│   └── my_module/
-│       └── api.h           # Public API
-├── src/
-│   └── my_module.c         # Implementation
-└── dts/
-    └── bindings/           # Device tree bindings
-```
-
-**2. `module.yml`:**
+### `module.yml`
 
 This file contains metadata about the module, such as its name, version, and dependencies.
 
@@ -83,22 +58,29 @@ dependencies:
   - zephyr
 ```
 
-**3. `CMakeLists.txt`:**
+### `CMakeLists.txt`
 
 This file provides instructions for building the module.
 
 ```cmake
-if(CONFIG_MY_MODULE)
-    zephyr_library_sources(src/my_module.c)
-endif()
-```
-This line conditionally includes the `my_module.c` file in the build process, based on the `TARGET_MODULE_NAME` variable, which we'll configure in the Kconfig.
+# modules/my_module/zephyr/CMakeLists.txt
 
-**4. `Kconfig`:**
+zephyr_library()
+
+zephyr_library_sources(../src/my_module.c)
+
+zephyr_include_directories(../include)
+```
+
+This tells the Zephyr build system to compile the source files and add the `include` directory to the search path.
+
+### `Kconfig`
 
 This file defines the configuration options for the module.
 
 ```kconfig
+# modules/my_module/zephyr/Kconfig
+
 config MY_MODULE
     bool "Enable My Module"
     default n
@@ -106,84 +88,84 @@ config MY_MODULE
       Enable custom module functionality.
 ```
 
-**5. `include/my_module/api.h`:**
+## 14.3 Integrating Modules with West
 
-This header file defines the public API for the module.
+To make your module available to other projects, you host it in a Git repository and add it to your application's West manifest file (`west.yml`).
+
+### West Manifest (`west.yml`)
+
+```yaml
+manifest:
+  remotes:
+    - name: my-github
+      url-base: https://github.com/my-username
+  projects:
+    - name: zephyr
+      remote: zephyrproject-rtos
+      revision: main
+      import: true
+    - name: my_custom_module
+      remote: my-github
+      revision: main
+      path: modules/my_custom_module
+```
+
+After adding the module to your manifest, run `west update` to clone the repository into the specified path. The Zephyr build system will automatically discover the module and its Kconfig and build files.
+
+## 14.4 Application Integration
+
+### Main Application (`src/main.c`)
 
 ```c
-#ifndef MY_MODULE_API_H
-#define MY_MODULE_API_H
+#include <zephyr/kernel.h>
+#include <my_module/api.h>
 
-#include <zephyr/sys/types.h>
-
-// Function to toggle the GPIO pin
-void my_module_toggle_gpio(int gpio_num);
-
+int main(void)
+{
+#ifdef CONFIG_MY_MODULE
+    my_module_init();
+    my_module_do_work();
+#else
+    printk("My Custom Module is not enabled.\n");
 #endif
+    return 0;
+}
 ```
 
-**6. `src/my_module.c`:**
+### Project Configuration (`prj.conf`)
 
-This file contains the implementation of the module's functionality.
+Enable your module and its features in your application's `prj.conf` file:
 
-```c
-#include <zephyr/sys/types.h>
-#include "api.h"
-
-#include <zephyr/device.h>
-#include <zephyr/sys/util.h>
-
-#define GPIO_PORT 1  // Replace with the appropriate GPIO port
-#define GPIO_PIN 1   // Replace with the appropriate GPIO pin
-
-void my_module_toggle_gpio(int gpio_num)
-{
-    // Check if the GPIO is configured
-    if (!GPIO_IS_ENABLED()) {
-        return;
-    }
-
-    // Toggle the GPIO pin
-    gpio_toggle(GPIO_PORT, GPIO_PIN);
-
-    // Optional: Add logging
-    printf("GPIO %d toggled\n", gpio_num);
-}
-
-// Utility function to enable GPIO
-void GPIO_IS_ENABLED()
-{
-    return gpio_enable_request(GPIO_PORT, GPIO_PIN, 1);
-}
-
+```kconfig
+CONFIG_MY_MODULE=y
 ```
 
-**7. Build and Test:**
+## 14.5 Advanced Module Concepts
 
-1.  **Configuration:** Open your Zephyr project's configuration file (`prj.conf`). Ensure the `CONFIG_MY_MODULE` option is set to `y`.
-2.  **Build:** Use `west build -b <board_name>` to build the module. Replace `<board_name>` with your target board's name.  For example, `west build -b qemu_x86` for QEMU.
-3.  **Test:**  After the build completes, run the module code.  You'll need to add a way to invoke `my_module_toggle_gpio` from somewhere.  A simple way to do this is to add a `main()` function within the same project, or another entry point.
+### Module Dependencies
 
-## Module Structure
+Your module can depend on other Zephyr subsystems or modules. Use `select` in your `Kconfig` file to automatically enable dependencies:
 
-The organization of a module is critical for maintainability and reusability. Here’s a breakdown of the key components and best practices:
+```kconfig
+config MY_MODULE
+    bool "Enable My Custom Module"
+    select GPIO
+    select ADC
+    help
+      This module requires GPIO and ADC support.
+```
 
-*   **`zephyr/module.yml`:** As described above, this file is mandatory and contains metadata about the module.
-*   **`include/my_module/api.h`:**  Defines the public API – the functions and data structures that users of the module can access. This helps to isolate the module's internal implementation.
-*   **`src/my_module.c`:** Contains the implementation of the module’s functionality.
-*   **`dts/bindings/`:** (Optional) If your module interacts with specific hardware, you'll define device tree bindings here to configure the hardware.
-* **Testing:** Ensure thorough unit tests are included for any new or modified functionality.
+### Conditional Compilation
 
-## Integration with Zephyr Subsystems
+Use `zephyr_library_sources_ifdef` in your module's `CMakeLists.txt` to conditionally compile files:
 
-Modules seamlessly integrate with other Zephyr subsystems:
+```cmake
+# Conditionally compile feature_x.c if the Kconfig option is enabled
+zephyr_library_sources_ifdef(CONFIG_MY_MODULE_FEATURE_X src/feature_x.c)
+```
 
-*   **Threads:**  Modules can be implemented as threads, enabling concurrent execution and asynchronous operation.
-*   **Logging:** Leverage Zephyr's logging subsystem for debugging and monitoring.
-*   **Memory Management:** Utilize Zephyr's memory management features for efficient allocation and deallocation.
-*   **Device Drivers:** Modules can be integrated as device drivers, interacting directly with hardware.
+### Device Tree Bindings
 
+If your module includes a driver, provide device tree bindings in the `dts/bindings` directory. This allows users to configure the hardware for your driver in their board's overlay file.
 
----
-
-This provides a solid foundation for understanding modules in Zephyr.  Remember to adapt the code examples to your specific needs and always refer to the Zephyr documentation for the latest information and best practices. This approach emphasizes a modular design, promoting code reusability, maintainability, and scalability—essential for building robust and complex embedded systems.
+This modular approach promotes code reusability, maintainability, and scalability—essential for building robust and complex embedded systems.

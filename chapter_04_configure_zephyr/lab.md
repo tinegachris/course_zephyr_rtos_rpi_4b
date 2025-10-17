@@ -67,6 +67,26 @@ LOG_MODULE_REGISTER(main, LOG_LEVEL_DBG);
 #define LED_NODE DT_ALIAS(led0)
 #define BUTTON_NODE DT_ALIAS(sw0)
 
+/**
+ * @brief Note on GPIO_DT_SPEC_GET_OR
+ *
+ * The use of GPIO_DT_SPEC_GET_OR() is a convenient way to provide a fallback
+ * if a device tree alias (like 'led0') is not defined. This prevents a
+ * build failure.
+ *
+ * For more robust code, you could use a compile-time check:
+ *
+ * #if DT_NODE_HAS_STATUS(LED_NODE, okay)
+ * static const struct gpio_dt_spec led = GPIO_DT_SPEC_GET(LED_NODE, gpios);
+ * #else
+ * #error "Unsupported board: led0 devicetree alias is not defined"
+ * #endif
+ *
+ * This note is for educational purposes; the lab code will use the more
+ * flexible `_GET_OR` variant to allow the application to run even without
+all devices present.
+ */
+
 static const struct gpio_dt_spec led = GPIO_DT_SPEC_GET_OR(LED_NODE, gpios, {0});
 static const struct gpio_dt_spec button = GPIO_DT_SPEC_GET_OR(BUTTON_NODE, gpios, {0});
 

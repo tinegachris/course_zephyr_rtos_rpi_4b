@@ -140,39 +140,76 @@ if(BOARD STREQUAL "rpi_4b")
 endif()
 ```
 
-**Step 3:** Create main application:
+**Step 3:** Create module headers:
+
+Create the following files in `apps/sensor_hub/include/`:
+
+```c
+// apps/sensor_hub/include/sensors.h
+#ifndef SENSORS_H_
+#define SENSORS_H_
+
+int sensors_init(void);
+
+#endif /* SENSORS_H_ */
+```
+
+```c
+// apps/sensor_hub/include/display.h
+#ifndef DISPLAY_H_
+#define DISPLAY_H_
+
+int display_init(void);
+
+#endif /* DISPLAY_H_ */
+```
+
+```c
+// apps/sensor_hub/include/networking.h
+#ifndef NETWORKING_H_
+#define NETWORKING_H_
+
+int networking_init(void);
+
+#endif /* NETWORKING_H_ */
+```
+
+**Step 4:** Create main application:
 
 ```c
 // apps/sensor_hub/src/main.c
 #include <zephyr/kernel.h>
 #include <zephyr/logging/log.h>
+#include "sensors.h"
+#include "display.h"
+#include "networking.h"
 
 LOG_MODULE_REGISTER(main, LOG_LEVEL_INF);
 
 int main(void)
 {
     LOG_INF("Sensor Hub Application Starting...");
-    
+
     #ifdef BOARD_RPI4B
     LOG_INF("Running on Raspberry Pi 4B");
     #endif
-    
+
     // Initialize modules
     sensors_init();
     display_init();
     networking_init();
-    
+
     LOG_INF("All modules initialized successfully");
-    
+
     while (1) {
         k_sleep(K_SECONDS(1));
     }
-    
+
     return 0;
 }
 ```
 
-**Step 4:** Create sensor module:
+**Step 5:** Create sensor module:
 
 ```cmake
 # apps/sensor_hub/src/sensors/CMakeLists.txt
@@ -201,7 +238,7 @@ int sensors_init(void)
 }
 ```
 
-**Step 5:** Create display module:
+**Step 6:** Create display module:
 
 ```cmake
 # apps/sensor_hub/src/display/CMakeLists.txt
@@ -228,7 +265,7 @@ int display_init(void)
 }
 ```
 
-**Step 6:** Create networking module:
+**Step 7:** Create networking module:
 
 ```cmake
 # apps/sensor_hub/src/networking/CMakeLists.txt
@@ -254,7 +291,7 @@ int networking_init(void)
 }
 ```
 
-**Step 7:** Create configuration file:
+**Step 8:** Create configuration file:
 
 ```bash
 # apps/sensor_hub/prj.conf

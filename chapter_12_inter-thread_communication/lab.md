@@ -98,9 +98,9 @@ void sensor_thread_entry(void *arg1, void *arg2, void *arg3)
 {
     struct sensor_reading reading;
     uint8_t sensor_count = 3;
-    
+
     LOG_INF("Sensor thread started");
-    
+
     while (1) {
         for (uint8_t i = 0; i < sensor_count; i++) {
             /* Generate sensor reading */
@@ -109,7 +109,7 @@ void sensor_thread_entry(void *arg1, void *arg2, void *arg3)
             reading.temperature = (int16_t)(sys_rand32_get() % 500) + 200; /* 20.0°C to 70.0°C */
             reading.humidity = (uint16_t)(sys_rand32_get() % 1000); /* 0% to 100% */
             reading.status = (sys_rand32_get() % 100) < 95 ? 0 : 1; /* 95% good readings */
-            
+
             /* Send to queue with timeout */
             int ret = k_msgq_put(&sensor_queue, &reading, K_MSEC(100));
             if (ret == 0) {
@@ -124,11 +124,71 @@ void sensor_thread_entry(void *arg1, void *arg2, void *arg3)
                 LOG_WRN("Queue full, reading dropped (sensor %d)", i);
             }
         }
-        
+
         /* Sensor reading interval */
         k_msleep(1000);
     }
 }
+
+/* Data processor thread - consumer */
+void processor_thread_entry(void *arg1, void *arg2, void *arg3)
+{
+    struct sensor_reading reading;
+    LOG_INF("Processor thread started");
+
+    while (1) {
+        int ret = k_msgq_get(&sensor_queue, &reading, K_FOREVER);
+        if (ret == 0) {
+            readings_processed++;
+            LOG_INF("Processing Sensor %d: T=%d.%d°C, H=%d.%d%%",
+                   reading.sensor_id,
+                   reading.temperature / 10, reading.temperature % 10,
+                   reading.humidity / 10, reading.humidity % 10);
+
+            // Simulate processing time
+            k_msleep(50);
+        }
+    }
+}
+
+/* Monitoring thread */
+void monitor_thread_entry(void *arg1, void *arg2, void *arg3)
+{
+    LOG_INF("Monitor thread started");
+
+    while (1) {
+        k_msleep(K_SECONDS(10));
+        LOG_INF("STATS: Generated=%u, Processed=%u, Overruns=%u, Queue space=%u/%u",
+               readings_generated, readings_processed, queue_overruns,
+               k_msgq_num_free_get(&sensor_queue), k_msgq_max_msgs_get(&sensor_queue));
+    }
+}
+
+int main(void)
+{
+    LOG_INF("=== Inter-Thread Communication Lab: Message Queues ===");
+
+    k_thread_create(&sensor_thread_data, sensor_thread_stack,
+                    K_THREAD_STACK_SIZEOF(sensor_thread_stack),
+                    sensor_thread_entry, NULL, NULL, NULL,
+                    5, 0, K_NO_WAIT);
+    k_thread_name_set(&sensor_thread_data, "sensor_thread");
+
+    k_thread_create(&processor_thread_data, processor_thread_stack,
+                    K_THREAD_STACK_SIZEOF(processor_thread_stack),
+                    processor_thread_entry, NULL, NULL, NULL,
+                    6, 0, K_NO_WAIT);
+    k_thread_name_set(&processor_thread_data, "processor_thread");
+
+    k_thread_create(&monitor_thread_data, monitor_thread_stack,
+                    K_THREAD_STACK_SIZEOF(monitor_thread_stack),
+                    monitor_thread_entry, NULL, NULL, NULL,
+                    7, 0, K_NO_WAIT);
+    k_thread_name_set(&monitor_thread_data, "monitor_thread");
+
+    return 0;
+}
+
 ```
 
 #### Testing and Analysis
@@ -255,7 +315,5 @@ After completing these laboratories, you should understand:
 4. **Protocol Implementation**: Use communication primitives to implement custom communication protocols
 
 5. **Real-time Analysis**: Perform detailed timing analysis and worst-case execution time calculations
-
-This comprehensive laboratory experience provides practical skills for implementing professional-grade inter-thread communication in embedded systems using Zephyr RTOS.
 
 This comprehensive laboratory experience provides practical skills for implementing professional-grade inter-thread communication in embedded systems using Zephyr RTOS.

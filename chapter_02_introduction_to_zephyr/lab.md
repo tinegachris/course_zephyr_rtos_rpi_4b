@@ -24,40 +24,26 @@ Set up a complete Zephyr development environment and verify it works by building
    * Search for "Zephyr"
    * Install the official Zephyr extension by Zephyr Project
 
-3. **Let the extension handle setup:**
+### Step 2: Install Zephyr SDK
+
    * Open Command Palette (Ctrl+Shift+P)
    * Type "Zephyr: Install SDK" and select it
    * Follow the guided installation process
 
-### Step 2: Manual Setup (Alternative)
+#### Manual SDK Installation (Alternative)
 
-If you prefer command-line setup or the extension installation fails:
+If you prefer to install the SDK manually instead of using the VS Code extension's guided process, you can follow these steps:
 
-```bash
-# Install West
-pip3 install --user west
+1.  **Navigate to the official [Zephyr SDK Releases page](https://github.com/zephyrproject-rtos/sdk-ng/releases).**
+2.  Look for the SDK version that matches the version used in this course, which is **0.17.4**.
+3.  Download the `zephyr-sdk-*.tar.xz` archive for your operating system.
+4.  Extract the archive to a suitable location, for example, `~/zephyr-sdk`.
+5.  Run the SDK's setup script:
 
-# Create workspace
-west init ~/zephyrproject
-cd ~/zephyrproject
-
-# Clone repositories
-west update
-
-# Install Python dependencies
-pip3 install -r zephyr/scripts/requirements.txt
-
-# Download and install Zephyr SDK (Linux/macOS)
-cd ~
-wget https://github.com/zephyrproject-rtos/sdk-ng/releases/download/v0.17.4/zephyr-sdk-0.17.4_linux-x86_64.tar.xz
-tar xvf zephyr-sdk-0.17.4_linux-x86_64.tar.xz
-cd zephyr-sdk-0.17.4
-./setup.sh
-
-# Set environment variables
-export ZEPHYR_TOOLCHAIN_VARIANT=zephyr
-export ZEPHYR_SDK_INSTALL_DIR=~/zephyr-sdk-0.17.4
-```
+    ```bash
+    cd ~/zephyr-sdk
+    ./setup.sh
+    ```
 
 ### Step 3: Verify Installation
 
@@ -74,6 +60,8 @@ west build -t run
 *** Booting Zephyr OS build v4.2.99 ***
 Hello World! qemu_x86
 ```
+
+**Note on Versioning:** The version number `v4.2.99` indicates a development version of Zephyr. A `.99` patch level is often used for builds from the main development branch rather than a stable release.
 
 If you see this output, your development environment is working correctly!
 

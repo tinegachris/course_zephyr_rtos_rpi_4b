@@ -103,6 +103,7 @@ static struct system_state {
     uint32_t battery_voltage_mv;
     uint32_t measurement_count;
     k_timeout_t measurement_interval;
+    uint64_t last_activity_time;
 } sys_state = {
     .measurement_interval = K_MSEC(MEASUREMENT_INTERVAL_MS),
 };
@@ -348,6 +349,47 @@ int main(void)
     LOG_INF("System initialized successfully");
     
     return 0;
+}
+```
+
+### 1.3 Supporting Modules
+
+Create `include/bluetooth_manager.h`:
+```c
+#ifndef BLUETOOTH_MANAGER_H
+#define BLUETOOTH_MANAGER_H
+
+#include "sensor_manager.h"
+
+int bluetooth_manager_init(void);
+void bluetooth_manager_queue_data(const struct sensor_data *data);
+void bluetooth_manager_transmit_queued(void);
+
+#endif /* BLUETOOTH_MANAGER_H */
+```
+
+Create `src/bluetooth_manager.c`:
+```c
+#include <zephyr/kernel.h>
+#include <zephyr/logging/log.h>
+#include "bluetooth_manager.h"
+
+LOG_MODULE_REGISTER(bluetooth_manager, LOG_LEVEL_INF);
+
+int bluetooth_manager_init(void)
+{
+    LOG_INF("Bluetooth Manager Initialized (simulation)");
+    return 0;
+}
+
+void bluetooth_manager_queue_data(const struct sensor_data *data)
+{
+    LOG_DBG("Queued sensor data for BLE transmission");
+}
+
+void bluetooth_manager_transmit_queued(void)
+{
+    LOG_INF("Transmitting queued data over BLE (simulation)");
 }
 ```
 
@@ -669,7 +711,7 @@ int power_manager_enter_deep_sleep(void)
     pm_state.stats.deep_sleep_count++;
     
     /* Enter system suspend state */
-    pm_system_suspend(K_TICKS_FOREVER);
+    pm_system_suspend(K_FOREVER);
     
     LOG_INF("Resumed from deep sleep");
     
@@ -1053,14 +1095,14 @@ int sensor_manager_read(struct sensor_data *data)
                                    SENSOR_CHAN_AMBIENT_TEMP,
                                    &temp_val);
             if (ret == 0) {
-                data->temperature_c = sensor_value_to_double(&temp_val);
+                data->temperature_c = temp_val.val1 + temp_val.val2 / 1000000.0;
             }
             
             ret = sensor_channel_get(sensor_mgr.temp_sensor,
                                    SENSOR_CHAN_HUMIDITY,
                                    &humidity_val);
             if (ret == 0) {
-                data->humidity_percent = sensor_value_to_double(&humidity_val);
+                data->humidity_percent = humidity_val.val1 + humidity_val.val2 / 1000000.0;
             }
         }
         
@@ -1207,7 +1249,7 @@ Create `overlays/power_states.overlay`:
     
     /* Virtual temperature/humidity sensor for simulation */
     temp_sensor: temp-sensor {
-        compatible = "zephyr,sensing-sensor";
+        compatible = "zephyr,dummy-sensor";
         label = "TEMP_HUMIDITY_SENSOR";
         friendly-name = "Temperature and Humidity Sensor";
         minimal-interval = <1000>; /* 1 second minimum interval */
@@ -1425,11 +1467,6 @@ CONFIG_EVENTS=y
 # System calls
 CONFIG_HEAP_MEM_POOL_SIZE=8192
 
-# Application specific
-CONFIG_APP_MEASUREMENT_INTERVAL_MS=30000
-CONFIG_APP_DEEP_SLEEP_TIMEOUT_MS=300000
-CONFIG_APP_LOW_BATTERY_THRESHOLD_MV=3200
-
 # Debugging
 CONFIG_DEBUG=y
 CONFIG_DEBUG_OPTIMIZATIONS=y
@@ -1465,9 +1502,7 @@ target_sources(app PRIVATE
 target_include_directories(app PRIVATE include)
 
 # Board-specific overlays
-if(BOARD STREQUAL "nrf52840dk_nrf52840")
-    set(OVERLAY_CONFIG "boards/nrf52840dk_nrf52840.conf")
-endif()
+
 
 # Power states overlay
 set(DTC_OVERLAY_FILE "overlays/power_states.overlay")

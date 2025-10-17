@@ -115,7 +115,7 @@ Create `boards/nrf52840dk_nrf52840.overlay`:
 ```dts
 / {
     custom_sensors {
-        compatible = "gpio-keys";
+        compatible = "simple-bus";
         
         sensor0: sensor_0 {
             compatible = "custom,sensor";
@@ -152,7 +152,7 @@ CONFIG_ADC=y
 CONFIG_SENSOR=y
 
 # Interrupt support
-CONFIG_IRQ=y
+
 
 # Power management
 CONFIG_PM_DEVICE=y
@@ -896,14 +896,12 @@ static int custom_sensor_pm_action(const struct device *dev,
 #define CUSTOM_SENSOR_INIT(inst)                                        \
     static void custom_sensor_irq_config_##inst(void)                   \
     {                                                                    \
-        IF_ENABLED(DT_INST_IRQ_HAS_IDX(inst, 0), (                     \
-            IRQ_CONNECT(DT_INST_IRQN(inst),                            \
-                        DT_INST_IRQ(inst, priority),                   \
-                        custom_sensor_isr,                              \
-                        DEVICE_DT_INST_GET(inst), 0);                  \
-            irq_enable(DT_INST_IRQN(inst));                            \
-        ))                                                              \
-    }                                                                   \
+        IRQ_CONNECT(DT_INST_IRQN(inst),                                  \
+                    DT_INST_IRQ(inst, priority),                         \
+                    custom_sensor_isr,                                   \
+                    DEVICE_DT_GET(inst), 0);                             \
+        irq_enable(DT_INST_IRQN(inst));                                  \
+    }                                                                    \
                                                                         \
     static const struct custom_sensor_config custom_sensor_config_##inst = { \
         .base_addr = DT_INST_REG_ADDR(inst),                           \

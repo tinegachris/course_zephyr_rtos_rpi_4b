@@ -60,7 +60,7 @@ CONFIG_PRINTK=y                 # Enable printk() for debugging
 
 # I2C for sensors
 CONFIG_I2C=y                    # Enable I2C subsystem
-CONFIG_I2C_DMA=y               # Enable DMA for I2C transfers
+
 
 # SPI communication
 CONFIG_SPI=y                    # Enable SPI subsystem
