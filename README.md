@@ -17,7 +17,7 @@ Welcome to the comprehensive Zephyr Real-Time Operating System (RTOS) course! Th
 
 This course is designed to be a hands-on, practical guide to modern embedded systems development with Zephyr. The codebase reflects professional practices and is structured to guide you from fundamental concepts to advanced, real-world applications.
 
-- **Structured Learning:** The course is divided into 17 chapters, each with a dedicated directory containing `introduction.md`, `theory.md`, and `lab.md` files.
+- **Structured Learning:** The course is divided into 18 chapters, each with a dedicated directory containing `introduction.md`, `theory.md`, and `lab.md` files.
 - **Hands-On Labs:** Every chapter includes detailed lab exercises designed to be built and run. The source code for these labs is provided directly within the `lab.md` files.
 - **Modern Tooling:** You will master the modern Zephyr development workflow using tools like the `west` meta-tool, `CMake` for building, `Kconfig` for feature configuration, and the `Device Tree` for hardware description.
 - **Target Hardware:** The primary hardware target for this course is the **Raspberry Pi 4B**, with concepts applicable to a wide range of other Zephyr-supported boards.
@@ -35,7 +35,7 @@ graph TD
         D --> E[5. West Tool]
         E --> F[6. Zephyr Fundamentals]
     end
-    
+
     subgraph "Part 2: Core Skills (Chapters 7-13)"
         F --> G[7. Thread Management]
         G --> H[8. Tracing and Logging]
@@ -45,12 +45,16 @@ graph TD
         K --> L[12. Inter-Thread Communication]
         L --> M[13. Interrupt Management]
     end
-    
+
     subgraph "Part 3: Advanced Topics (Chapters 14-17)"
         M --> N[14. Modules]
         N --> O[15. Writing Kconfig Symbols]
         O --> P[16. Device Driver Architecture]
         P --> Q[17. Power Management]
+    end
+
+    subgraph "Part 4: Capstone Project"
+        Q --> R[Capstone: Comprehensive Zephyr Application]
     end
 ```
 
