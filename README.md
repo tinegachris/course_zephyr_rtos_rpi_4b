@@ -1,13 +1,13 @@
 # Zephyr RTOS Professional Development Course
 
-[![GitHub License](https://img.shields.io/github/license/tinegachris/zephyr_rtos_course.svg)](https://github.com/tinegachris/zephyr_rtos_course/blob/main/LICENSE)
-[![GitHub Contributors](https://img.shields.io/github/contributors/tinegachris/zephyr_rtos_course.svg)](https://github.com/tinegachris/zephyr_rtos_course/graphs/contributors)
-[![GitHub Issues](https://img.shields.io/github/issues/tinegachris/zephyr_rtos_course.svg)](https://github.com/tinegachris/zephyr_rtos_course/issues)
-[![GitHub Pull Requests](https://img.shields.io/github/issues-pr/tinegachris/zephyr_rtos_course.svg)](https://github.com/tinegachris/zephyr_rtos_course/pulls)
+[![GitHub License](https://img.shields.io/github/license/tinegachris/zephyr_rtos_course_rpi_4b.svg)](https://github.com/tinegachris/zephyr_rtos_course_rpi_4b/blob/main/LICENSE)
+[![GitHub Contributors](https://img.shields.io/github/contributors/tinegachris/zephyr_rtos_course_rpi_4b.svg)](https://github.com/tinegachris/zephyr_rtos_course_rpi_4b/graphs/contributors)
+[![GitHub Issues](https://img.shields.io/github/issues/tinegachris/zephyr_rtos_course_rpi_4b.svg)](https://github.com/tinegachris/zephyr_rtos_course_rpi_4b/issues)
+[![GitHub Pull Requests](https://img.shields.io/github/issues-pr/tinegachris/zephyr_rtos_course_rpi_4b.svg)](https://github.com/tinegachris/zephyr_rtos_course_rpi_4b/pulls)
 [![PRs Welcome](https://img.shields.io/badge/PRs-welcome-brightgreen.svg?style=flat-square)](http://makeapullrequest.com)
-[![GitHub Stars](https://img.shields.io/github/stars/tinegachris/zephyr_rtos_course.svg?style=social&label=Star)](https://github.com/tinegachris/zephyr_rtos_course/stargazers)
-[![GitHub Forks](https://img.shields.io/github/forks/tinegachris/zephyr_rtos_course.svg?style=social&label=Fork)](https://github.com/tinegachris/zephyr_rtos_course/network/members)
-[![GitHub Watchers](https://img.shields.io/github/watchers/tinegachris/zephyr_rtos_course.svg?style=social&label=Watch)](https://github.com/tinegachris/zephyr_rtos_course/watchers)
+[![GitHub Stars](https://img.shields.io/github/stars/tinegachris/zephyr_rtos_course_rpi_4b.svg?style=social&label=Star)](https://github.com/tinegachris/zephyr_rtos_course_rpi_4b/stargazers)
+[![GitHub Forks](https://img.shields.io/github/forks/tinegachris/zephyr_rtos_course_rpi_4b.svg?style=social&label=Fork)](https://github.com/tinegachris/zephyr_rtos_course_rpi_4b/network/members)
+[![GitHub Watchers](https://img.shields.io/github/watchers/tinegachris/zephyr_rtos_course_rpi_4b.svg?style=social&label=Watch)](https://github.com/tinegachris/zephyr_rtos_course_rpi_4b/watchers)
 
 ![alt text](Zephyr_RTOS_Development_Course.jpg)
 
