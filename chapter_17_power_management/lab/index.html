@@ -1,0 +1,4861 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+      
+      
+      
+        <link rel="prev" href="../theory/">
+      
+      
+        <link rel="next" href="../../chapter_18_capstone_project/introduction/">
+      
+      
+      <link rel="icon" href="../../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.6.22">
+    
+    
+      
+        <title>Lab - Zephyr RTOS Development Course</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../assets/stylesheets/main.84d31ad4.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+    <script>__md_scope=new URL("../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+    
+  </head>
+  
+  
+    <body dir="ltr">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#chapter-17-power-management-lab" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href="../.." title="Zephyr RTOS Development Course" class="md-header__button md-logo" aria-label="Zephyr RTOS Development Course" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            Zephyr RTOS Development Course
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              Lab
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+
+<nav class="md-nav md-nav--primary" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../.." title="Zephyr RTOS Development Course" class="md-nav__button md-logo" aria-label="Zephyr RTOS Development Course" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    Zephyr RTOS Development Course
+  </label>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../.." class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Home
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2" >
+        
+          
+          <label class="md-nav__link" for="__nav_2" id="__nav_2_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    Contributing
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2">
+            <span class="md-nav__icon md-icon"></span>
+            Contributing
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../CONDUCT/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Code of Conduct
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../CONTRIBUTING/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Contributing
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../chapter_01_course_introduction/introduction/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Chapter 1: Course Introduction
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4" >
+        
+          
+          <label class="md-nav__link" for="__nav_4" id="__nav_4_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    Chapter 2: Introduction to Zephyr
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_4_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_4">
+            <span class="md-nav__icon md-icon"></span>
+            Chapter 2: Introduction to Zephyr
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../chapter_02_introduction_to_zephyr/introduction/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Introduction
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../chapter_02_introduction_to_zephyr/theory/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Theory
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../chapter_02_introduction_to_zephyr/lab/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Lab
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5" >
+        
+          
+          <label class="md-nav__link" for="__nav_5" id="__nav_5_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    Chapter 3: Zephyr Build System
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_5_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_5">
+            <span class="md-nav__icon md-icon"></span>
+            Chapter 3: Zephyr Build System
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../chapter_03_zephyr_build_system/introduction/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Introduction
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../chapter_03_zephyr_build_system/theory/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Theory
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../chapter_03_zephyr_build_system/lab/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Lab
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_6" >
+        
+          
+          <label class="md-nav__link" for="__nav_6" id="__nav_6_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    Chapter 4: Configure Zephyr
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_6_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_6">
+            <span class="md-nav__icon md-icon"></span>
+            Chapter 4: Configure Zephyr
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../chapter_04_configure_zephyr/introduction/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Introduction
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../chapter_04_configure_zephyr/theory/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Theory
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../chapter_04_configure_zephyr/lab/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Lab
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_7" >
+        
+          
+          <label class="md-nav__link" for="__nav_7" id="__nav_7_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    Chapter 5: West
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_7_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_7">
+            <span class="md-nav__icon md-icon"></span>
+            Chapter 5: West
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../chapter_05_west/introduction/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Introduction
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../chapter_05_west/theory/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Theory
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../chapter_05_west/lab/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Lab
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_8" >
+        
+          
+          <label class="md-nav__link" for="__nav_8" id="__nav_8_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    Chapter 6: Zephyr Fundamentals
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_8_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_8">
+            <span class="md-nav__icon md-icon"></span>
+            Chapter 6: Zephyr Fundamentals
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../chapter_06_zephyr_fundamentals/introduction/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Introduction
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../chapter_06_zephyr_fundamentals/theory/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Theory
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../chapter_06_zephyr_fundamentals/lab/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Lab
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_9" >
+        
+          
+          <label class="md-nav__link" for="__nav_9" id="__nav_9_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    Chapter 7: Thread Management
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_9_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_9">
+            <span class="md-nav__icon md-icon"></span>
+            Chapter 7: Thread Management
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../chapter_07_thread_management/introduction/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Introduction
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../chapter_07_thread_management/theory/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Theory
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../chapter_07_thread_management/lab/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Lab
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_10" >
+        
+          
+          <label class="md-nav__link" for="__nav_10" id="__nav_10_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    Chapter 8: Tracing and Logging
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_10_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_10">
+            <span class="md-nav__icon md-icon"></span>
+            Chapter 8: Tracing and Logging
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../chapter_08_tracing_and_logging/introduction/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Introduction
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../chapter_08_tracing_and_logging/theory/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Theory
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../chapter_08_tracing_and_logging/lab/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Lab
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_11" >
+        
+          
+          <label class="md-nav__link" for="__nav_11" id="__nav_11_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    Chapter 9: Memory Management
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_11_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_11">
+            <span class="md-nav__icon md-icon"></span>
+            Chapter 9: Memory Management
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../chapter_09_memory_management/introduction/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Introduction
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../chapter_09_memory_management/theory/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Theory
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../chapter_09_memory_management/lab/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Lab
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_12" >
+        
+          
+          <label class="md-nav__link" for="__nav_12" id="__nav_12_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    Chapter 10: User Mode
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_12_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_12">
+            <span class="md-nav__icon md-icon"></span>
+            Chapter 10: User Mode
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../chapter_10_user_mode/introduction/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Introduction
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../chapter_10_user_mode/theory/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Theory
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../chapter_10_user_mode/lab/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Lab
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_13" >
+        
+          
+          <label class="md-nav__link" for="__nav_13" id="__nav_13_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    Chapter 11: Traditional Multithreading Primitives
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_13_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_13">
+            <span class="md-nav__icon md-icon"></span>
+            Chapter 11: Traditional Multithreading Primitives
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../chapter_11_traditional_multithreading_primitives/introduction/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Introduction
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../chapter_11_traditional_multithreading_primitives/theory/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Theory
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../chapter_11_traditional_multithreading_primitives/lab/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Lab
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_14" >
+        
+          
+          <label class="md-nav__link" for="__nav_14" id="__nav_14_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    Chapter 12: Inter-thread Communication
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_14_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_14">
+            <span class="md-nav__icon md-icon"></span>
+            Chapter 12: Inter-thread Communication
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../chapter_12_inter-thread_communication/introduction/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Introduction
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../chapter_12_inter-thread_communication/theory/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Theory
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../chapter_12_inter-thread_communication/lab/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Lab
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_15" >
+        
+          
+          <label class="md-nav__link" for="__nav_15" id="__nav_15_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    Chapter 13: Interrupt Management
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_15_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_15">
+            <span class="md-nav__icon md-icon"></span>
+            Chapter 13: Interrupt Management
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../chapter_13_interrupt_management/introduction/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Introduction
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../chapter_13_interrupt_management/theory/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Theory
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../chapter_13_interrupt_management/lab/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Lab
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_16" >
+        
+          
+          <label class="md-nav__link" for="__nav_16" id="__nav_16_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    Chapter 14: Modules
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_16_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_16">
+            <span class="md-nav__icon md-icon"></span>
+            Chapter 14: Modules
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../chapter_14_modules/introduction/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Introduction
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../chapter_14_modules/theory/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Theory
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../chapter_14_modules/lab/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Lab
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_17" >
+        
+          
+          <label class="md-nav__link" for="__nav_17" id="__nav_17_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    Chapter 15: Writing Kconfig Symbols
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_17_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_17">
+            <span class="md-nav__icon md-icon"></span>
+            Chapter 15: Writing Kconfig Symbols
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../chapter_15_writing_kconfig_symbols/introduction/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Introduction
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../chapter_15_writing_kconfig_symbols/theory/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Theory
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../chapter_15_writing_kconfig_symbols/lab/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Lab
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_18" >
+        
+          
+          <label class="md-nav__link" for="__nav_18" id="__nav_18_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    Chapter 16: Device Driver Architecture
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_18_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_18">
+            <span class="md-nav__icon md-icon"></span>
+            Chapter 16: Device Driver Architecture
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../chapter_16_device_driver_architecture/introduction/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Introduction
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../chapter_16_device_driver_architecture/theory/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Theory
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../chapter_16_device_driver_architecture/lab/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Lab
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_19" checked>
+        
+          
+          <label class="md-nav__link" for="__nav_19" id="__nav_19_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    Chapter 17: Power Management
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_19_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_19">
+            <span class="md-nav__icon md-icon"></span>
+            Chapter 17: Power Management
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../introduction/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Introduction
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../theory/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Theory
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    Lab
+    
+  </span>
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        
+  
+  
+  <span class="md-ellipsis">
+    Lab
+    
+  </span>
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#lab-overview" class="md-nav__link">
+    <span class="md-ellipsis">
+      Lab Overview
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#learning-objectives" class="md-nav__link">
+    <span class="md-ellipsis">
+      Learning Objectives
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#prerequisites" class="md-nav__link">
+    <span class="md-ellipsis">
+      Prerequisites
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#lab-project-environmental-monitoring-station" class="md-nav__link">
+    <span class="md-ellipsis">
+      Lab Project: Environmental Monitoring Station
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Lab Project: Environmental Monitoring Station">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#project-description" class="md-nav__link">
+    <span class="md-ellipsis">
+      Project Description
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#part-1-project-setup" class="md-nav__link">
+    <span class="md-ellipsis">
+      Part 1: Project Setup
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Part 1: Project Setup">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#11-create-project-structure" class="md-nav__link">
+    <span class="md-ellipsis">
+      1.1 Create Project Structure
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#12-main-application-structure" class="md-nav__link">
+    <span class="md-ellipsis">
+      1.2 Main Application Structure
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#13-supporting-modules" class="md-nav__link">
+    <span class="md-ellipsis">
+      1.3 Supporting Modules
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#part-2-power-manager-implementation" class="md-nav__link">
+    <span class="md-ellipsis">
+      Part 2: Power Manager Implementation
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Part 2: Power Manager Implementation">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#21-power-manager-header" class="md-nav__link">
+    <span class="md-ellipsis">
+      2.1 Power Manager Header
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#22-power-manager-implementation" class="md-nav__link">
+    <span class="md-ellipsis">
+      2.2 Power Manager Implementation
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#part-3-sensor-manager-with-power-management" class="md-nav__link">
+    <span class="md-ellipsis">
+      Part 3: Sensor Manager with Power Management
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Part 3: Sensor Manager with Power Management">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#31-sensor-manager-header" class="md-nav__link">
+    <span class="md-ellipsis">
+      3.1 Sensor Manager Header
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#32-sensor-manager-implementation" class="md-nav__link">
+    <span class="md-ellipsis">
+      3.2 Sensor Manager Implementation
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#part-4-device-tree-configuration" class="md-nav__link">
+    <span class="md-ellipsis">
+      Part 4: Device Tree Configuration
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Part 4: Device Tree Configuration">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#41-power-states-configuration" class="md-nav__link">
+    <span class="md-ellipsis">
+      4.1 Power States Configuration
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#42-board-specific-configuration" class="md-nav__link">
+    <span class="md-ellipsis">
+      4.2 Board-specific Configuration
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#part-5-configuration-and-build-files" class="md-nav__link">
+    <span class="md-ellipsis">
+      Part 5: Configuration and Build Files
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Part 5: Configuration and Build Files">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#51-main-configuration" class="md-nav__link">
+    <span class="md-ellipsis">
+      5.1 Main Configuration
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#52-cmakeliststxt" class="md-nav__link">
+    <span class="md-ellipsis">
+      5.2 CMakeLists.txt
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#53-west-manifest-optional" class="md-nav__link">
+    <span class="md-ellipsis">
+      5.3 West Manifest (Optional)
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#part-6-testing-and-verification" class="md-nav__link">
+    <span class="md-ellipsis">
+      Part 6: Testing and Verification
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Part 6: Testing and Verification">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#61-build-the-project" class="md-nav__link">
+    <span class="md-ellipsis">
+      6.1 Build the Project
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#62-expected-output" class="md-nav__link">
+    <span class="md-ellipsis">
+      6.2 Expected Output
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#63-testing-power-management-features" class="md-nav__link">
+    <span class="md-ellipsis">
+      6.3 Testing Power Management Features
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="6.3 Testing Power Management Features">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#test-1-basic-power-states" class="md-nav__link">
+    <span class="md-ellipsis">
+      Test 1: Basic Power States
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#test-2-bluetooth-connection-impact" class="md-nav__link">
+    <span class="md-ellipsis">
+      Test 2: Bluetooth Connection Impact
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#test-3-low-battery-behavior" class="md-nav__link">
+    <span class="md-ellipsis">
+      Test 3: Low Battery Behavior
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#64-power-consumption-analysis" class="md-nav__link">
+    <span class="md-ellipsis">
+      6.4 Power Consumption Analysis
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#part-7-advanced-exercises" class="md-nav__link">
+    <span class="md-ellipsis">
+      Part 7: Advanced Exercises
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Part 7: Advanced Exercises">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#exercise-1-adaptive-power-management" class="md-nav__link">
+    <span class="md-ellipsis">
+      Exercise 1: Adaptive Power Management
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#exercise-2-power-budget-management" class="md-nav__link">
+    <span class="md-ellipsis">
+      Exercise 2: Power Budget Management
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#exercise-3-wake-up-optimization" class="md-nav__link">
+    <span class="md-ellipsis">
+      Exercise 3: Wake-up Optimization
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#summary" class="md-nav__link">
+    <span class="md-ellipsis">
+      Summary
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_20" >
+        
+          
+          <label class="md-nav__link" for="__nav_20" id="__nav_20_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    Chapter 18: Capstone Project
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_20_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_20">
+            <span class="md-nav__icon md-icon"></span>
+            Chapter 18: Capstone Project
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../chapter_18_capstone_project/introduction/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Introduction
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../chapter_18_capstone_project/theory/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Theory
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../chapter_18_capstone_project/lab/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Lab
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../chapter_18_capstone_project/networked_monitor/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Networked Monitor
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#lab-overview" class="md-nav__link">
+    <span class="md-ellipsis">
+      Lab Overview
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#learning-objectives" class="md-nav__link">
+    <span class="md-ellipsis">
+      Learning Objectives
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#prerequisites" class="md-nav__link">
+    <span class="md-ellipsis">
+      Prerequisites
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#lab-project-environmental-monitoring-station" class="md-nav__link">
+    <span class="md-ellipsis">
+      Lab Project: Environmental Monitoring Station
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Lab Project: Environmental Monitoring Station">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#project-description" class="md-nav__link">
+    <span class="md-ellipsis">
+      Project Description
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#part-1-project-setup" class="md-nav__link">
+    <span class="md-ellipsis">
+      Part 1: Project Setup
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Part 1: Project Setup">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#11-create-project-structure" class="md-nav__link">
+    <span class="md-ellipsis">
+      1.1 Create Project Structure
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#12-main-application-structure" class="md-nav__link">
+    <span class="md-ellipsis">
+      1.2 Main Application Structure
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#13-supporting-modules" class="md-nav__link">
+    <span class="md-ellipsis">
+      1.3 Supporting Modules
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#part-2-power-manager-implementation" class="md-nav__link">
+    <span class="md-ellipsis">
+      Part 2: Power Manager Implementation
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Part 2: Power Manager Implementation">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#21-power-manager-header" class="md-nav__link">
+    <span class="md-ellipsis">
+      2.1 Power Manager Header
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#22-power-manager-implementation" class="md-nav__link">
+    <span class="md-ellipsis">
+      2.2 Power Manager Implementation
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#part-3-sensor-manager-with-power-management" class="md-nav__link">
+    <span class="md-ellipsis">
+      Part 3: Sensor Manager with Power Management
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Part 3: Sensor Manager with Power Management">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#31-sensor-manager-header" class="md-nav__link">
+    <span class="md-ellipsis">
+      3.1 Sensor Manager Header
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#32-sensor-manager-implementation" class="md-nav__link">
+    <span class="md-ellipsis">
+      3.2 Sensor Manager Implementation
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#part-4-device-tree-configuration" class="md-nav__link">
+    <span class="md-ellipsis">
+      Part 4: Device Tree Configuration
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Part 4: Device Tree Configuration">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#41-power-states-configuration" class="md-nav__link">
+    <span class="md-ellipsis">
+      4.1 Power States Configuration
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#42-board-specific-configuration" class="md-nav__link">
+    <span class="md-ellipsis">
+      4.2 Board-specific Configuration
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#part-5-configuration-and-build-files" class="md-nav__link">
+    <span class="md-ellipsis">
+      Part 5: Configuration and Build Files
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Part 5: Configuration and Build Files">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#51-main-configuration" class="md-nav__link">
+    <span class="md-ellipsis">
+      5.1 Main Configuration
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#52-cmakeliststxt" class="md-nav__link">
+    <span class="md-ellipsis">
+      5.2 CMakeLists.txt
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#53-west-manifest-optional" class="md-nav__link">
+    <span class="md-ellipsis">
+      5.3 West Manifest (Optional)
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#part-6-testing-and-verification" class="md-nav__link">
+    <span class="md-ellipsis">
+      Part 6: Testing and Verification
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Part 6: Testing and Verification">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#61-build-the-project" class="md-nav__link">
+    <span class="md-ellipsis">
+      6.1 Build the Project
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#62-expected-output" class="md-nav__link">
+    <span class="md-ellipsis">
+      6.2 Expected Output
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#63-testing-power-management-features" class="md-nav__link">
+    <span class="md-ellipsis">
+      6.3 Testing Power Management Features
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="6.3 Testing Power Management Features">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#test-1-basic-power-states" class="md-nav__link">
+    <span class="md-ellipsis">
+      Test 1: Basic Power States
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#test-2-bluetooth-connection-impact" class="md-nav__link">
+    <span class="md-ellipsis">
+      Test 2: Bluetooth Connection Impact
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#test-3-low-battery-behavior" class="md-nav__link">
+    <span class="md-ellipsis">
+      Test 3: Low Battery Behavior
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#64-power-consumption-analysis" class="md-nav__link">
+    <span class="md-ellipsis">
+      6.4 Power Consumption Analysis
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#part-7-advanced-exercises" class="md-nav__link">
+    <span class="md-ellipsis">
+      Part 7: Advanced Exercises
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Part 7: Advanced Exercises">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#exercise-1-adaptive-power-management" class="md-nav__link">
+    <span class="md-ellipsis">
+      Exercise 1: Adaptive Power Management
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#exercise-2-power-budget-management" class="md-nav__link">
+    <span class="md-ellipsis">
+      Exercise 2: Power Budget Management
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#exercise-3-wake-up-optimization" class="md-nav__link">
+    <span class="md-ellipsis">
+      Exercise 3: Wake-up Optimization
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#summary" class="md-nav__link">
+    <span class="md-ellipsis">
+      Summary
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+
+<h1 id="chapter-17-power-management-lab">Chapter 17 - Power Management Lab</h1>
+<h2 id="lab-overview">Lab Overview</h2>
+<p>In this lab, you will implement a comprehensive power management system for a battery-powered environmental monitoring device. The project demonstrates system-level power management, device runtime PM, and power optimization strategies.</p>
+<h2 id="learning-objectives">Learning Objectives</h2>
+<p>By the end of this lab, you will be able to:
+- Implement device-level power management for sensors and peripherals
+- Configure system power states and wake-up sources
+- Use runtime power management APIs effectively
+- Optimize power consumption for battery-powered applications
+- Debug and monitor power management behavior</p>
+<h2 id="prerequisites">Prerequisites</h2>
+<ul>
+<li>Completion of Chapters 1-16</li>
+<li>Understanding of device drivers and interrupt handling</li>
+<li>Familiarity with device tree configuration</li>
+<li>Basic knowledge of power management concepts</li>
+</ul>
+<h2 id="lab-project-environmental-monitoring-station">Lab Project: Environmental Monitoring Station</h2>
+<h3 id="project-description">Project Description</h3>
+<p>You'll create a battery-powered environmental monitoring station that:
+- Collects temperature and humidity data periodically
+- Transmits data over Bluetooth Low Energy (BLE)
+- Uses aggressive power management to extend battery life
+- Supports multiple wake-up sources (timer, button, BLE connection)
+- Implements dynamic power scaling based on activity</p>
+<h2 id="part-1-project-setup">Part 1: Project Setup</h2>
+<h3 id="11-create-project-structure">1.1 Create Project Structure</h3>
+<pre><code class="language-bash"># Create project directory
+mkdir -p ~/zephyr-workspace/power_management_lab
+cd ~/zephyr-workspace/power_management_lab
+
+# Create source files
+mkdir -p src include boards overlays
+mkdir -p dts/bindings/sensor
+
+# Initialize Git repository
+git init
+</code></pre>
+<h3 id="12-main-application-structure">1.2 Main Application Structure</h3>
+<p>Create <code>src/main.c</code>:</p>
+<pre><code class="language-c">#include &lt;zephyr/kernel.h&gt;
+#include &lt;zephyr/device.h&gt;
+#include &lt;zephyr/devicetree.h&gt;
+#include &lt;zephyr/drivers/gpio.h&gt;
+#include &lt;zephyr/drivers/sensor.h&gt;
+#include &lt;zephyr/pm/pm.h&gt;
+#include &lt;zephyr/pm/device.h&gt;
+#include &lt;zephyr/pm/policy.h&gt;
+#include &lt;zephyr/bluetooth/bluetooth.h&gt;
+#include &lt;zephyr/bluetooth/gap.h&gt;
+#include &lt;zephyr/logging/log.h&gt;
+#include &lt;zephyr/sys/poweroff.h&gt;
+
+#include &quot;power_manager.h&quot;
+#include &quot;sensor_manager.h&quot;
+#include &quot;bluetooth_manager.h&quot;
+
+LOG_MODULE_REGISTER(main, LOG_LEVEL_INF);
+
+/* Configuration */
+#define MEASUREMENT_INTERVAL_MS    30000  /* 30 seconds */
+#define DEEP_SLEEP_TIMEOUT_MS      300000 /* 5 minutes */
+#define LOW_BATTERY_THRESHOLD_MV   3200
+
+/* Thread stacks */
+K_THREAD_STACK_DEFINE(sensor_stack, 2048);
+K_THREAD_STACK_DEFINE(bluetooth_stack, 2048);
+K_THREAD_STACK_DEFINE(power_mgmt_stack, 1024);
+
+/* Thread control blocks */
+static struct k_thread sensor_thread;
+static struct k_thread bluetooth_thread;
+static struct k_thread power_mgmt_thread;
+
+/* Synchronization */
+static struct k_event system_events;
+
+/* System events */
+#define EVENT_MEASUREMENT_READY    BIT(0)
+#define EVENT_BLE_CONNECTED        BIT(1)
+#define EVENT_BLE_DISCONNECTED     BIT(2)
+#define EVENT_LOW_BATTERY          BIT(3)
+#define EVENT_WAKEUP_BUTTON        BIT(4)
+
+/* Global system state */
+static struct system_state {
+    bool ble_connected;
+    bool low_battery;
+    uint32_t battery_voltage_mv;
+    uint32_t measurement_count;
+    k_timeout_t measurement_interval;
+    uint64_t last_activity_time;
+} sys_state = {
+    .measurement_interval = K_MSEC(MEASUREMENT_INTERVAL_MS),
+};
+
+/* Sensor measurement thread */
+static void sensor_thread_entry(void *p1, void *p2, void *p3)
+{
+    ARG_UNUSED(p1);
+    ARG_UNUSED(p2);
+    ARG_UNUSED(p3);
+
+    struct sensor_data data;
+    int ret;
+
+    LOG_INF(&quot;Sensor thread started&quot;);
+
+    /* Initialize sensor manager */
+    ret = sensor_manager_init();
+    if (ret &lt; 0) {
+        LOG_ERR(&quot;Failed to initialize sensor manager: %d&quot;, ret);
+        return;
+    }
+
+    while (1) {
+        /* Wait for measurement interval or BLE connection */
+        if (sys_state.ble_connected) {
+            /* More frequent measurements when connected */
+            k_sleep(K_MSEC(5000));
+        } else {
+            k_sleep(sys_state.measurement_interval);
+        }
+
+        /* Take measurement */
+        ret = sensor_manager_read(&amp;data);
+        if (ret == 0) {
+            sys_state.measurement_count++;
+
+            LOG_INF(&quot;Measurement %u: Temp=%.2f°C, Humidity=%.1f%%&quot;,
+                   sys_state.measurement_count,
+                   data.temperature_c,
+                   data.humidity_percent);
+
+            /* Store measurement for transmission */
+            bluetooth_manager_queue_data(&amp;data);
+
+            /* Notify other threads */
+            k_event_post(&amp;system_events, EVENT_MEASUREMENT_READY);
+        }
+
+        /* Check battery voltage */
+        uint32_t battery_mv = sensor_manager_read_battery();
+        sys_state.battery_voltage_mv = battery_mv;
+
+        if (battery_mv &lt; LOW_BATTERY_THRESHOLD_MV &amp;&amp; !sys_state.low_battery) {
+            sys_state.low_battery = true;
+            k_event_post(&amp;system_events, EVENT_LOW_BATTERY);
+        }
+    }
+}
+
+/* Bluetooth management thread */
+static void bluetooth_thread_entry(void *p1, void *p2, void *p3)
+{
+    ARG_UNUSED(p1);
+    ARG_UNUSED(p2);
+    ARG_UNUSED(p3);
+
+    int ret;
+    uint32_t events;
+
+    LOG_INF(&quot;Bluetooth thread started&quot;);
+
+    /* Initialize Bluetooth */
+    ret = bluetooth_manager_init();
+    if (ret &lt; 0) {
+        LOG_ERR(&quot;Failed to initialize Bluetooth: %d&quot;, ret);
+        return;
+    }
+
+    while (1) {
+        /* Wait for events */
+        events = k_event_wait(&amp;system_events,
+                             EVENT_MEASUREMENT_READY | EVENT_BLE_CONNECTED | 
+                             EVENT_BLE_DISCONNECTED | EVENT_LOW_BATTERY,
+                             false, K_FOREVER);
+
+        if (events &amp; EVENT_BLE_CONNECTED) {
+            LOG_INF(&quot;BLE connected&quot;);
+            sys_state.ble_connected = true;
+
+            /* Switch to active power mode */
+            power_manager_set_performance_mode(POWER_MODE_ACTIVE);
+        }
+
+        if (events &amp; EVENT_BLE_DISCONNECTED) {
+            LOG_INF(&quot;BLE disconnected&quot;);
+            sys_state.ble_connected = false;
+            sys_state.last_activity_time = k_uptime_get();
+
+            /* Return to power saving mode */
+            power_manager_set_performance_mode(POWER_MODE_ECO);
+        }
+
+        if (events &amp; EVENT_MEASUREMENT_READY) {
+            /* Transmit queued data if connected */
+            if (sys_state.ble_connected) {
+                bluetooth_manager_transmit_queued();
+                sys_state.last_activity_time = k_uptime_get();
+            }
+        }
+
+        if (events &amp; EVENT_LOW_BATTERY) {
+            LOG_WRN(&quot;Low battery detected: %u mV&quot;, sys_state.battery_voltage_mv);
+
+            /* Enter ultra-low power mode */
+            power_manager_set_performance_mode(POWER_MODE_ULTRA_LOW);
+
+            /* Extend measurement interval */
+            sys_state.measurement_interval = K_MSEC(MEASUREMENT_INTERVAL_MS * 4);
+        }
+    }
+}
+
+/* Power management thread */
+static void power_mgmt_thread_entry(void *p1, void *p2, void *p3)
+{
+    ARG_UNUSED(p1);
+    ARG_UNUSED(p2);
+    ARG_UNUSED(p3);
+
+    LOG_INF(&quot;Power management thread started&quot;);
+
+    /* Initialize power manager */
+    int ret = power_manager_init();
+    if (ret &lt; 0) {
+        LOG_ERR(&quot;Failed to initialize power manager: %d&quot;, ret);
+        return;
+    }
+
+    /* Start in eco mode */
+    power_manager_set_performance_mode(POWER_MODE_ECO);
+
+    while (1) {
+        /* Monitor system activity and adjust power settings */
+        k_sleep(K_SECONDS(10));
+
+        /* Print power statistics */
+        power_manager_print_stats();
+
+        /* Check for deep sleep opportunity */
+        if (!sys_state.ble_connected &amp;&amp; 
+            (k_uptime_get() - sys_state.last_activity_time) &gt; DEEP_SLEEP_TIMEOUT_MS) {
+
+            LOG_INF(&quot;Entering deep sleep mode&quot;);
+            power_manager_enter_deep_sleep();
+        }
+    }
+}
+
+/* Button interrupt callback */
+static struct gpio_callback button_cb_data;
+static void button_pressed_callback(const struct device *dev,
+                                   struct gpio_callback *cb,
+                                   uint32_t pins)
+{
+    LOG_INF(&quot;Wake-up button pressed&quot;);
+    k_event_post(&amp;system_events, EVENT_WAKEUP_BUTTON);
+}
+
+/* Initialize wake-up sources */
+static int init_wakeup_sources(void)
+{
+    const struct device *button_dev = DEVICE_DT_GET(DT_ALIAS(sw0));
+    int ret;
+
+    if (!device_is_ready(button_dev)) {
+        LOG_ERR(&quot;Button device not ready&quot;);
+        return -ENODEV;
+    }
+
+    /* Configure button as wake-up source */
+    ret = gpio_pin_configure_dt(&amp;(struct gpio_dt_spec)DT_GPIO_CTLR_PIN(DT_ALIAS(sw0), gpios),
+                               GPIO_INPUT | GPIO_PULL_UP);
+    if (ret &lt; 0) {
+        return ret;
+    }
+
+    /* Configure interrupt */
+    ret = gpio_pin_interrupt_configure_dt(&amp;(struct gpio_dt_spec)DT_GPIO_CTLR_PIN(DT_ALIAS(sw0), gpios),
+                                         GPIO_INT_EDGE_TO_ACTIVE);
+    if (ret &lt; 0) {
+        return ret;
+    }
+
+    /* Add callback */
+    gpio_init_callback(&amp;button_cb_data, button_pressed_callback,
+                       BIT(DT_GPIO_PIN(DT_ALIAS(sw0), gpios)));
+    gpio_add_callback(button_dev, &amp;button_cb_data);
+
+    /* Enable as wake-up source */
+    pm_device_wakeup_enable(button_dev, true);
+
+    LOG_INF(&quot;Wake-up sources initialized&quot;);
+    return 0;
+}
+
+int main(void)
+{
+    int ret;
+
+    LOG_INF(&quot;Environmental Monitoring Station Starting&quot;);
+    LOG_INF(&quot;Build time: &quot; __DATE__ &quot; &quot; __TIME__);
+
+    /* Initialize system events */
+    k_event_init(&amp;system_events);
+
+    /* Initialize wake-up sources */
+    ret = init_wakeup_sources();
+    if (ret &lt; 0) {
+        LOG_ERR(&quot;Failed to initialize wake-up sources: %d&quot;, ret);
+        return ret;
+    }
+
+    /* Create application threads */
+    k_thread_create(&amp;sensor_thread, sensor_stack,
+                   K_THREAD_STACK_SIZEOF(sensor_stack),
+                   sensor_thread_entry, NULL, NULL, NULL,
+                   K_PRIO_COOP(7), 0, K_NO_WAIT);
+    k_thread_name_set(&amp;sensor_thread, &quot;sensor&quot;);
+
+    k_thread_create(&amp;bluetooth_thread, bluetooth_stack,
+                   K_THREAD_STACK_SIZEOF(bluetooth_stack),
+                   bluetooth_thread_entry, NULL, NULL, NULL,
+                   K_PRIO_COOP(6), 0, K_NO_WAIT);
+    k_thread_name_set(&amp;bluetooth_thread, &quot;bluetooth&quot;);
+
+    k_thread_create(&amp;power_mgmt_thread, power_mgmt_stack,
+                   K_THREAD_STACK_SIZEOF(power_mgmt_stack),
+                   power_mgmt_thread_entry, NULL, NULL, NULL,
+                   K_PRIO_COOP(8), 0, K_NO_WAIT);
+    k_thread_name_set(&amp;power_mgmt_thread, &quot;power_mgmt&quot;);
+
+    LOG_INF(&quot;System initialized successfully&quot;);
+
+    return 0;
+}
+</code></pre>
+<h3 id="13-supporting-modules">1.3 Supporting Modules</h3>
+<p>Create <code>include/bluetooth_manager.h</code>:</p>
+<pre><code class="language-c">#ifndef BLUETOOTH_MANAGER_H
+#define BLUETOOTH_MANAGER_H
+
+#include &quot;sensor_manager.h&quot;
+
+int bluetooth_manager_init(void);
+void bluetooth_manager_queue_data(const struct sensor_data *data);
+void bluetooth_manager_transmit_queued(void);
+
+#endif /* BLUETOOTH_MANAGER_H */
+</code></pre>
+<p>Create <code>src/bluetooth_manager.c</code>:</p>
+<pre><code class="language-c">#include &lt;zephyr/kernel.h&gt;
+#include &lt;zephyr/logging/log.h&gt;
+#include &quot;bluetooth_manager.h&quot;
+
+LOG_MODULE_REGISTER(bluetooth_manager, LOG_LEVEL_INF);
+
+int bluetooth_manager_init(void)
+{
+    LOG_INF(&quot;Bluetooth Manager Initialized (simulation)&quot;);
+    return 0;
+}
+
+void bluetooth_manager_queue_data(const struct sensor_data *data)
+{
+    LOG_DBG(&quot;Queued sensor data for BLE transmission&quot;);
+}
+
+void bluetooth_manager_transmit_queued(void)
+{
+    LOG_INF(&quot;Transmitting queued data over BLE (simulation)&quot;);
+}
+</code></pre>
+<h2 id="part-2-power-manager-implementation">Part 2: Power Manager Implementation</h2>
+<h3 id="21-power-manager-header">2.1 Power Manager Header</h3>
+<p>Create <code>include/power_manager.h</code>:</p>
+<pre><code class="language-c">#ifndef POWER_MANAGER_H
+#define POWER_MANAGER_H
+
+#include &lt;zephyr/kernel.h&gt;
+#include &lt;zephyr/device.h&gt;
+#include &lt;zephyr/pm/pm.h&gt;
+
+/**
+ * @brief Power performance modes
+ */
+enum power_mode {
+    POWER_MODE_ACTIVE,      /* Maximum performance */
+    POWER_MODE_BALANCED,    /* Balanced performance/power */
+    POWER_MODE_ECO,         /* Power saving mode */
+    POWER_MODE_ULTRA_LOW,   /* Ultra low power mode */
+};
+
+/**
+ * @brief Power statistics
+ */
+struct power_stats {
+    uint64_t active_time_us;
+    uint64_t idle_time_us;
+    uint32_t sleep_count;
+    uint32_t wakeup_count;
+    uint32_t deep_sleep_count;
+    uint32_t cpu_frequency_hz;
+    enum power_mode current_mode;
+};
+
+/**
+ * @brief Initialize power management system
+ * 
+ * @return 0 on success, negative errno on failure
+ */
+int power_manager_init(void);
+
+/**
+ * @brief Set system performance mode
+ * 
+ * @param mode Target power mode
+ * @return 0 on success, negative errno on failure
+ */
+int power_manager_set_performance_mode(enum power_mode mode);
+
+/**
+ * @brief Get current performance mode
+ * 
+ * @return Current power mode
+ */
+enum power_mode power_manager_get_performance_mode(void);
+
+/**
+ * @brief Enter deep sleep mode
+ * 
+ * @return 0 on success, negative errno on failure
+ */
+int power_manager_enter_deep_sleep(void);
+
+/**
+ * @brief Get power management statistics
+ * 
+ * @param stats Pointer to statistics structure
+ * @return 0 on success, negative errno on failure
+ */
+int power_manager_get_stats(struct power_stats *stats);
+
+/**
+ * @brief Print power management statistics
+ */
+void power_manager_print_stats(void);
+
+/**
+ * @brief Register device for power management
+ * 
+ * @param dev Device to register
+ * @return 0 on success, negative errno on failure
+ */
+int power_manager_register_device(const struct device *dev);
+
+/**
+ * @brief Unregister device from power management
+ * 
+ * @param dev Device to unregister
+ * @return 0 on success, negative errno on failure
+ */
+int power_manager_unregister_device(const struct device *dev);
+
+#endif /* POWER_MANAGER_H */
+</code></pre>
+<h3 id="22-power-manager-implementation">2.2 Power Manager Implementation</h3>
+<p>Create <code>src/power_manager.c</code>:</p>
+<pre><code class="language-c">#include &lt;zephyr/kernel.h&gt;
+#include &lt;zephyr/device.h&gt;
+#include &lt;zephyr/devicetree.h&gt;
+#include &lt;zephyr/pm/pm.h&gt;
+#include &lt;zephyr/pm/policy.h&gt;
+#include &lt;zephyr/pm/device.h&gt;
+#include &lt;zephyr/drivers/clock_control.h&gt;
+#include &lt;zephyr/drivers/regulator.h&gt;
+#include &lt;zephyr/logging/log.h&gt;
+#include &lt;zephyr/sys/util.h&gt;
+
+#include &quot;power_manager.h&quot;
+
+LOG_MODULE_REGISTER(power_manager, LOG_LEVEL_DBG);
+
+/* Configuration */
+#define MAX_MANAGED_DEVICES    16
+#define DEEP_SLEEP_MIN_TIME_MS 5000
+
+/* Power mode configurations */
+static const struct {
+    uint32_t cpu_freq_hz;
+    bool peripheral_power;
+    uint32_t idle_threshold_ms;
+} power_mode_config[] = {
+    [POWER_MODE_ACTIVE] = {
+        .cpu_freq_hz = 168000000,    /* 168 MHz */
+        .peripheral_power = true,
+        .idle_threshold_ms = 10,
+    },
+    [POWER_MODE_BALANCED] = {
+        .cpu_freq_hz = 84000000,     /* 84 MHz */
+        .peripheral_power = true,
+        .idle_threshold_ms = 50,
+    },
+    [POWER_MODE_ECO] = {
+        .cpu_freq_hz = 48000000,     /* 48 MHz */
+        .peripheral_power = true,
+        .idle_threshold_ms = 100,
+    },
+    [POWER_MODE_ULTRA_LOW] = {
+        .cpu_freq_hz = 16000000,     /* 16 MHz */
+        .peripheral_power = false,
+        .idle_threshold_ms = 500,
+    },
+};
+
+/* Power manager state */
+static struct {
+    enum power_mode current_mode;
+    bool initialized;
+
+    /* Managed devices */
+    const struct device *managed_devices[MAX_MANAGED_DEVICES];
+    size_t device_count;
+
+    /* Statistics */
+    struct power_stats stats;
+    uint64_t last_update_time;
+
+    /* Deep sleep */
+    bool deep_sleep_enabled;
+    struct k_work_delayable deep_sleep_work;
+
+} pm_state = {
+    .current_mode = POWER_MODE_ACTIVE,
+};
+
+/* Forward declarations */
+static int configure_cpu_frequency(uint32_t freq_hz);
+static int configure_peripheral_power(bool enable);
+static void deep_sleep_work_handler(struct k_work *work);
+
+int power_manager_init(void)
+{
+    if (pm_state.initialized) {
+        return -EALREADY;
+    }
+
+    LOG_INF(&quot;Initializing power management system&quot;);
+
+    /* Initialize work queue for deep sleep */
+    k_work_init_delayable(&amp;pm_state.deep_sleep_work, deep_sleep_work_handler);
+
+    /* Initialize statistics */
+    pm_state.stats.cpu_frequency_hz = power_mode_config[POWER_MODE_ACTIVE].cpu_freq_hz;
+    pm_state.stats.current_mode = POWER_MODE_ACTIVE;
+    pm_state.last_update_time = k_uptime_get();
+
+    /* Enable runtime PM for system devices */
+    STRUCT_SECTION_FOREACH(device, dev) {
+        if (pm_device_runtime_is_enabled(dev)) {
+            pm_device_runtime_enable(dev);
+        }
+    }
+
+    pm_state.initialized = true;
+    LOG_INF(&quot;Power management initialized&quot;);
+
+    return 0;
+}
+
+int power_manager_set_performance_mode(enum power_mode mode)
+{
+    if (!pm_state.initialized) {
+        return -ENODEV;
+    }
+
+    if (mode &gt;= ARRAY_SIZE(power_mode_config)) {
+        return -EINVAL;
+    }
+
+    if (mode == pm_state.current_mode) {
+        return 0; /* No change needed */
+    }
+
+    LOG_INF(&quot;Switching power mode: %d -&gt; %d&quot;, pm_state.current_mode, mode);
+
+    /* Configure CPU frequency */
+    int ret = configure_cpu_frequency(power_mode_config[mode].cpu_freq_hz);
+    if (ret &lt; 0) {
+        LOG_ERR(&quot;Failed to configure CPU frequency: %d&quot;, ret);
+        return ret;
+    }
+
+    /* Configure peripheral power */
+    ret = configure_peripheral_power(power_mode_config[mode].peripheral_power);
+    if (ret &lt; 0) {
+        LOG_ERR(&quot;Failed to configure peripheral power: %d&quot;, ret);
+        return ret;
+    }
+
+    /* Update state */
+    enum power_mode old_mode = pm_state.current_mode;
+    pm_state.current_mode = mode;
+    pm_state.stats.current_mode = mode;
+    pm_state.stats.cpu_frequency_hz = power_mode_config[mode].cpu_freq_hz;
+
+    /* Enable/disable deep sleep based on mode */
+    if (mode == POWER_MODE_ULTRA_LOW) {
+        pm_state.deep_sleep_enabled = true;
+        k_work_schedule(&amp;pm_state.deep_sleep_work,
+                       K_MSEC(DEEP_SLEEP_MIN_TIME_MS));
+    } else {
+        pm_state.deep_sleep_enabled = false;
+        k_work_cancel_delayable(&amp;pm_state.deep_sleep_work);
+    }
+
+    LOG_INF(&quot;Power mode changed: %d -&gt; %d (CPU: %u Hz)&quot;,
+           old_mode, mode, power_mode_config[mode].cpu_freq_hz);
+
+    return 0;
+}
+
+enum power_mode power_manager_get_performance_mode(void)
+{
+    return pm_state.current_mode;
+}
+
+static int configure_cpu_frequency(uint32_t freq_hz)
+{
+    const struct device *clk_dev = DEVICE_DT_GET(DT_NODELABEL(rcc));
+
+    if (!device_is_ready(clk_dev)) {
+        return -ENODEV;
+    }
+
+    /* Implementation depends on specific SoC */
+    /* This is a placeholder for actual clock configuration */
+
+    LOG_DBG(&quot;CPU frequency configured to %u Hz&quot;, freq_hz);
+    return 0;
+}
+
+static int configure_peripheral_power(bool enable)
+{
+    int ret = 0;
+
+    /* Manage power for registered devices */
+    for (size_t i = 0; i &lt; pm_state.device_count; i++) {
+        const struct device *dev = pm_state.managed_devices[i];
+
+        if (enable) {
+            ret = pm_device_runtime_get(dev);
+        } else {
+            ret = pm_device_runtime_put(dev);
+        }
+
+        if (ret &lt; 0) {
+            LOG_WRN(&quot;Failed to %s device %s: %d&quot;,
+                   enable ? &quot;enable&quot; : &quot;disable&quot;,
+                   dev-&gt;name, ret);
+        }
+    }
+
+    LOG_DBG(&quot;Peripheral power %s&quot;, enable ? &quot;enabled&quot; : &quot;disabled&quot;);
+    return 0;
+}
+
+int power_manager_enter_deep_sleep(void)
+{
+    if (!pm_state.deep_sleep_enabled) {
+        return -EACCES;
+    }
+
+    LOG_INF(&quot;Entering deep sleep mode&quot;);
+
+    /* Suspend all managed devices */
+    for (size_t i = 0; i &lt; pm_state.device_count; i++) {
+        pm_device_action_run(pm_state.managed_devices[i],
+                            PM_DEVICE_ACTION_SUSPEND);
+    }
+
+    /* Update statistics */
+    pm_state.stats.deep_sleep_count++;
+
+    /* Enter system suspend state */
+    pm_system_suspend(K_FOREVER);
+
+    LOG_INF(&quot;Resumed from deep sleep&quot;);
+
+    /* Resume all managed devices */
+    for (size_t i = 0; i &lt; pm_state.device_count; i++) {
+        pm_device_action_run(pm_state.managed_devices[i],
+                            PM_DEVICE_ACTION_RESUME);
+    }
+
+    return 0;
+}
+
+static void deep_sleep_work_handler(struct k_work *work)
+{
+    if (pm_state.deep_sleep_enabled) {
+        power_manager_enter_deep_sleep();
+    }
+}
+
+int power_manager_register_device(const struct device *dev)
+{
+    if (!dev) {
+        return -EINVAL;
+    }
+
+    if (pm_state.device_count &gt;= MAX_MANAGED_DEVICES) {
+        return -ENOMEM;
+    }
+
+    /* Check if already registered */
+    for (size_t i = 0; i &lt; pm_state.device_count; i++) {
+        if (pm_state.managed_devices[i] == dev) {
+            return -EALREADY;
+        }
+    }
+
+    /* Add to managed devices */
+    pm_state.managed_devices[pm_state.device_count++] = dev;
+
+    /* Enable runtime PM if supported */
+    pm_device_runtime_enable(dev);
+
+    LOG_DBG(&quot;Registered device %s for power management&quot;, dev-&gt;name);
+    return 0;
+}
+
+int power_manager_unregister_device(const struct device *dev)
+{
+    if (!dev) {
+        return -EINVAL;
+    }
+
+    /* Find device in list */
+    size_t index = SIZE_MAX;
+    for (size_t i = 0; i &lt; pm_state.device_count; i++) {
+        if (pm_state.managed_devices[i] == dev) {
+            index = i;
+            break;
+        }
+    }
+
+    if (index == SIZE_MAX) {
+        return -ENOENT;
+    }
+
+    /* Remove from list */
+    for (size_t i = index; i &lt; pm_state.device_count - 1; i++) {
+        pm_state.managed_devices[i] = pm_state.managed_devices[i + 1];
+    }
+    pm_state.device_count--;
+
+    /* Disable runtime PM */
+    pm_device_runtime_disable(dev);
+
+    LOG_DBG(&quot;Unregistered device %s from power management&quot;, dev-&gt;name);
+    return 0;
+}
+
+int power_manager_get_stats(struct power_stats *stats)
+{
+    if (!stats) {
+        return -EINVAL;
+    }
+
+    /* Update current statistics */
+    uint64_t current_time = k_uptime_get();
+    uint64_t elapsed_us = (current_time - pm_state.last_update_time) * 1000;
+
+    /* Update cumulative statistics */
+    pm_state.stats.active_time_us += elapsed_us;
+    pm_state.last_update_time = current_time;
+
+    /* Copy statistics */
+    *stats = pm_state.stats;
+
+    return 0;
+}
+
+void power_manager_print_stats(void)
+{
+    struct power_stats stats;
+
+    if (power_manager_get_stats(&amp;stats) != 0) {
+        LOG_ERR(&quot;Failed to get power statistics&quot;);
+        return;
+    }
+
+    LOG_INF(&quot;=== Power Management Statistics ===&quot;);
+    LOG_INF(&quot;Current mode: %d&quot;, stats.current_mode);
+    LOG_INF(&quot;CPU frequency: %u Hz&quot;, stats.cpu_frequency_hz);
+    LOG_INF(&quot;Active time: %llu us&quot;, stats.active_time_us);
+    LOG_INF(&quot;Sleep count: %u&quot;, stats.sleep_count);
+    LOG_INF(&quot;Wake-up count: %u&quot;, stats.wakeup_count);
+    LOG_INF(&quot;Deep sleep count: %u&quot;, stats.deep_sleep_count);
+    LOG_INF(&quot;Managed devices: %zu&quot;, pm_state.device_count);
+
+    /* Print device states */
+    for (size_t i = 0; i &lt; pm_state.device_count; i++) {
+        enum pm_device_state state;
+        const struct device *dev = pm_state.managed_devices[i];
+
+        if (pm_device_state_get(dev, &amp;state) == 0) {
+            LOG_INF(&quot;Device %s: state=%d&quot;, dev-&gt;name, state);
+        }
+    }
+}
+
+/* Custom power policy implementation */
+const struct pm_state_info *pm_policy_next_state(uint8_t cpu, int32_t ticks)
+{
+    static const struct pm_state_info states[] = {
+        {PM_STATE_RUNTIME_IDLE, 0, 0},
+        {PM_STATE_SUSPEND_TO_IDLE, 0, 1000},    /* 1ms min residency */
+        {PM_STATE_SUSPEND_TO_RAM, 0, 10000},    /* 10ms min residency */
+    };
+
+    uint32_t residency_us = k_ticks_to_us_floor32(ticks);
+    uint32_t threshold = power_mode_config[pm_state.current_mode].idle_threshold_ms * 1000;
+
+    /* Apply current power mode policy */
+    if (residency_us &lt; threshold) {
+        return NULL; /* Stay active */
+    }
+
+    /* Select appropriate state */
+    for (int i = ARRAY_SIZE(states) - 1; i &gt;= 0; i--) {
+        if (residency_us &gt;= states[i].min_residency_us) {
+            pm_state.stats.sleep_count++;
+            return &amp;states[i];
+        }
+    }
+
+    return NULL;
+}
+
+/* Power management event callbacks */
+void pm_state_exit_post_ops(enum pm_state state, uint8_t cpu)
+{
+    ARG_UNUSED(cpu);
+
+    pm_state.stats.wakeup_count++;
+
+    LOG_DBG(&quot;Resumed from power state %d&quot;, state);
+}
+</code></pre>
+<h2 id="part-3-sensor-manager-with-power-management">Part 3: Sensor Manager with Power Management</h2>
+<h3 id="31-sensor-manager-header">3.1 Sensor Manager Header</h3>
+<p>Create <code>include/sensor_manager.h</code>:</p>
+<pre><code class="language-c">#ifndef SENSOR_MANAGER_H
+#define SENSOR_MANAGER_H
+
+#include &lt;zephyr/kernel.h&gt;
+
+/**
+ * @brief Sensor data structure
+ */
+struct sensor_data {
+    float temperature_c;
+    float humidity_percent;
+    uint64_t timestamp;
+    uint32_t sequence_number;
+};
+
+/**
+ * @brief Initialize sensor management system
+ * 
+ * @return 0 on success, negative errno on failure
+ */
+int sensor_manager_init(void);
+
+/**
+ * @brief Read sensor data
+ * 
+ * @param data Pointer to sensor data structure
+ * @return 0 on success, negative errno on failure
+ */
+int sensor_manager_read(struct sensor_data *data);
+
+/**
+ * @brief Read battery voltage
+ * 
+ * @return Battery voltage in millivolts
+ */
+uint32_t sensor_manager_read_battery(void);
+
+/**
+ * @brief Put sensor into low power mode
+ * 
+ * @return 0 on success, negative errno on failure
+ */
+int sensor_manager_sleep(void);
+
+/**
+ * @brief Wake up sensor from low power mode
+ * 
+ * @return 0 on success, negative errno on failure
+ */
+int sensor_manager_wakeup(void);
+
+#endif /* SENSOR_MANAGER_H */
+</code></pre>
+<h3 id="32-sensor-manager-implementation">3.2 Sensor Manager Implementation</h3>
+<p>Create <code>src/sensor_manager.c</code>:</p>
+<pre><code class="language-c">#include &lt;zephyr/kernel.h&gt;
+#include &lt;zephyr/device.h&gt;
+#include &lt;zephyr/devicetree.h&gt;
+#include &lt;zephyr/drivers/sensor.h&gt;
+#include &lt;zephyr/drivers/adc.h&gt;
+#include &lt;zephyr/pm/device.h&gt;
+#include &lt;zephyr/logging/log.h&gt;
+
+#include &quot;sensor_manager.h&quot;
+#include &quot;power_manager.h&quot;
+
+LOG_MODULE_REGISTER(sensor_manager, LOG_LEVEL_DBG);
+
+/* Device tree references */
+#define TEMP_SENSOR_NODE DT_NODELABEL(temp_sensor)
+#define ADC_NODE DT_NODELABEL(adc)
+#define BATTERY_CHANNEL 0
+
+/* Sensor manager state */
+static struct {
+    const struct device *temp_sensor;
+    const struct device *adc_dev;
+    bool initialized;
+    uint32_t sequence_number;
+
+    /* ADC configuration for battery monitoring */
+    struct adc_channel_cfg adc_cfg;
+    struct adc_sequence adc_seq;
+    uint16_t adc_buffer;
+
+} sensor_mgr = {0};
+
+/* Power management callbacks for temperature sensor */
+static int temp_sensor_pm_action(const struct device *dev,
+                                enum pm_device_action action)
+{
+    switch (action) {
+    case PM_DEVICE_ACTION_SUSPEND:
+        LOG_DBG(&quot;Temperature sensor suspended&quot;);
+        /* Put sensor in sleep mode */
+        break;
+
+    case PM_DEVICE_ACTION_RESUME:
+        LOG_DBG(&quot;Temperature sensor resumed&quot;);
+        /* Wake up sensor */
+        break;
+
+    case PM_DEVICE_ACTION_TURN_OFF:
+        LOG_DBG(&quot;Temperature sensor powered off&quot;);
+        break;
+
+    case PM_DEVICE_ACTION_TURN_ON:
+        LOG_DBG(&quot;Temperature sensor powered on&quot;);
+        break;
+
+    default:
+        return -ENOTSUP;
+    }
+
+    return 0;
+}
+
+int sensor_manager_init(void)
+{
+    if (sensor_mgr.initialized) {
+        return -EALREADY;
+    }
+
+    LOG_INF(&quot;Initializing sensor manager&quot;);
+
+    /* Get temperature sensor device */
+    sensor_mgr.temp_sensor = DEVICE_DT_GET_OR_NULL(TEMP_SENSOR_NODE);
+    if (!sensor_mgr.temp_sensor) {
+        LOG_WRN(&quot;Temperature sensor not found, using simulated values&quot;);
+    } else if (!device_is_ready(sensor_mgr.temp_sensor)) {
+        LOG_ERR(&quot;Temperature sensor not ready&quot;);
+        return -ENODEV;
+    }
+
+    /* Get ADC device for battery monitoring */
+    sensor_mgr.adc_dev = DEVICE_DT_GET_OR_NULL(ADC_NODE);
+    if (!sensor_mgr.adc_dev) {
+        LOG_WRN(&quot;ADC not found, using simulated battery values&quot;);
+    } else if (!device_is_ready(sensor_mgr.adc_dev)) {
+        LOG_ERR(&quot;ADC not ready&quot;);
+        return -ENODEV;
+    } else {
+        /* Configure ADC for battery monitoring */
+        sensor_mgr.adc_cfg = (struct adc_channel_cfg) {
+            .gain = ADC_GAIN_1,
+            .reference = ADC_REF_INTERNAL,
+            .acquisition_time = ADC_ACQ_TIME_DEFAULT,
+            .channel_id = BATTERY_CHANNEL,
+        };
+
+        int ret = adc_channel_setup(sensor_mgr.adc_dev, &amp;sensor_mgr.adc_cfg);
+        if (ret &lt; 0) {
+            LOG_ERR(&quot;Failed to setup ADC channel: %d&quot;, ret);
+            return ret;
+        }
+
+        /* Configure ADC sequence */
+        sensor_mgr.adc_seq = (struct adc_sequence) {
+            .channels = BIT(BATTERY_CHANNEL),
+            .buffer = &amp;sensor_mgr.adc_buffer,
+            .buffer_size = sizeof(sensor_mgr.adc_buffer),
+            .resolution = 12,
+        };
+    }
+
+    /* Register sensors with power manager */
+    if (sensor_mgr.temp_sensor) {
+        power_manager_register_device(sensor_mgr.temp_sensor);
+    }
+    if (sensor_mgr.adc_dev) {
+        power_manager_register_device(sensor_mgr.adc_dev);
+    }
+
+    sensor_mgr.initialized = true;
+    LOG_INF(&quot;Sensor manager initialized&quot;);
+
+    return 0;
+}
+
+int sensor_manager_read(struct sensor_data *data)
+{
+    if (!data) {
+        return -EINVAL;
+    }
+
+    if (!sensor_mgr.initialized) {
+        return -ENODEV;
+    }
+
+    /* Get device for measurement */
+    if (sensor_mgr.temp_sensor) {
+        int ret = pm_device_runtime_get(sensor_mgr.temp_sensor);
+        if (ret &lt; 0) {
+            LOG_ERR(&quot;Failed to get temperature sensor: %d&quot;, ret);
+            return ret;
+        }
+    }
+
+    /* Read temperature and humidity */
+    if (sensor_mgr.temp_sensor) {
+        struct sensor_value temp_val, humidity_val;
+
+        int ret = sensor_sample_fetch(sensor_mgr.temp_sensor);
+        if (ret == 0) {
+            ret = sensor_channel_get(sensor_mgr.temp_sensor,
+                                   SENSOR_CHAN_AMBIENT_TEMP,
+                                   &amp;temp_val);
+            if (ret == 0) {
+                data-&gt;temperature_c = temp_val.val1 + temp_val.val2 / 1000000.0;
+            }
+
+            ret = sensor_channel_get(sensor_mgr.temp_sensor,
+                                   SENSOR_CHAN_HUMIDITY,
+                                   &amp;humidity_val);
+            if (ret == 0) {
+                data-&gt;humidity_percent = humidity_val.val1 + humidity_val.val2 / 1000000.0;
+            }
+        }
+
+        /* Release device after measurement */
+        pm_device_runtime_put_async(sensor_mgr.temp_sensor);
+
+        if (ret &lt; 0) {
+            LOG_ERR(&quot;Failed to read sensor: %d&quot;, ret);
+            return ret;
+        }
+    } else {
+        /* Simulate sensor readings */
+        static float base_temp = 22.5f;
+        static float base_humidity = 45.0f;
+
+        /* Add some variation */
+        data-&gt;temperature_c = base_temp + ((float)(sys_rand32_get() % 100) - 50) / 100.0f;
+        data-&gt;humidity_percent = base_humidity + ((float)(sys_rand32_get() % 200) - 100) / 10.0f;
+
+        /* Clamp values */
+        if (data-&gt;humidity_percent &lt; 0) data-&gt;humidity_percent = 0;
+        if (data-&gt;humidity_percent &gt; 100) data-&gt;humidity_percent = 100;
+    }
+
+    /* Set metadata */
+    data-&gt;timestamp = k_uptime_get();
+    data-&gt;sequence_number = ++sensor_mgr.sequence_number;
+
+    LOG_DBG(&quot;Sensor reading #%u: %.2f°C, %.1f%%&quot;,
+           data-&gt;sequence_number,
+           data-&gt;temperature_c,
+           data-&gt;humidity_percent);
+
+    return 0;
+}
+
+uint32_t sensor_manager_read_battery(void)
+{
+    if (!sensor_mgr.adc_dev) {
+        /* Simulate battery voltage */
+        static uint32_t battery_mv = 3800;
+
+        /* Slowly decrease battery level */
+        if (sys_rand32_get() % 100 == 0) {
+            battery_mv = MAX(battery_mv - 1, 3000);
+        }
+
+        return battery_mv;
+    }
+
+    /* Get ADC device for measurement */
+    int ret = pm_device_runtime_get(sensor_mgr.adc_dev);
+    if (ret &lt; 0) {
+        LOG_ERR(&quot;Failed to get ADC: %d&quot;, ret);
+        return 0;
+    }
+
+    /* Read ADC */
+    ret = adc_read(sensor_mgr.adc_dev, &amp;sensor_mgr.adc_seq);
+
+    /* Release ADC device */
+    pm_device_runtime_put_async(sensor_mgr.adc_dev);
+
+    if (ret &lt; 0) {
+        LOG_ERR(&quot;Failed to read ADC: %d&quot;, ret);
+        return 0;
+    }
+
+    /* Convert ADC reading to voltage (implementation depends on hardware) */
+    uint32_t battery_mv = (sensor_mgr.adc_buffer * 3300) / 4095; /* Assuming 3.3V reference */
+    battery_mv = (battery_mv * 2); /* Assuming voltage divider */
+
+    LOG_DBG(&quot;Battery voltage: %u mV&quot;, battery_mv);
+
+    return battery_mv;
+}
+
+int sensor_manager_sleep(void)
+{
+    if (!sensor_mgr.initialized) {
+        return -ENODEV;
+    }
+
+    /* Suspend sensors */
+    if (sensor_mgr.temp_sensor) {
+        pm_device_action_run(sensor_mgr.temp_sensor, PM_DEVICE_ACTION_SUSPEND);
+    }
+
+    LOG_DBG(&quot;Sensors put to sleep&quot;);
+    return 0;
+}
+
+int sensor_manager_wakeup(void)
+{
+    if (!sensor_mgr.initialized) {
+        return -ENODEV;
+    }
+
+    /* Resume sensors */
+    if (sensor_mgr.temp_sensor) {
+        pm_device_action_run(sensor_mgr.temp_sensor, PM_DEVICE_ACTION_RESUME);
+    }
+
+    LOG_DBG(&quot;Sensors woken up&quot;);
+    return 0;
+}
+</code></pre>
+<h2 id="part-4-device-tree-configuration">Part 4: Device Tree Configuration</h2>
+<h3 id="41-power-states-configuration">4.1 Power States Configuration</h3>
+<p>Create <code>overlays/power_states.overlay</code>:</p>
+<pre><code class="language-dts">/ {
+    cpus {
+        power-states {
+            idle: idle {
+                compatible = &quot;zephyr,power-state&quot;;
+                power-state-name = &quot;runtime-idle&quot;;
+                min-residency-us = &lt;100&gt;;
+                exit-latency-us = &lt;10&gt;;
+            };
+
+            suspend_idle: suspend-to-idle {
+                compatible = &quot;zephyr,power-state&quot;;
+                power-state-name = &quot;suspend-to-idle&quot;;
+                min-residency-us = &lt;5000&gt;;
+                exit-latency-us = &lt;100&gt;;
+            };
+
+            suspend_mem: suspend-to-ram {
+                compatible = &quot;zephyr,power-state&quot;;
+                power-state-name = &quot;suspend-to-ram&quot;;
+                min-residency-us = &lt;50000&gt;;
+                exit-latency-us = &lt;1000&gt;;
+            };
+        };
+
+        cpu@0 {
+            cpu-power-states = &lt;&amp;idle &amp;suspend_idle &amp;suspend_mem&gt;;
+        };
+    };
+
+    /* Virtual temperature/humidity sensor for simulation */
+    temp_sensor: temp-sensor {
+        compatible = &quot;zephyr,dummy-sensor&quot;;
+        label = &quot;TEMP_HUMIDITY_SENSOR&quot;;
+        friendly-name = &quot;Temperature and Humidity Sensor&quot;;
+        minimal-interval = &lt;1000&gt;; /* 1 second minimum interval */
+    };
+
+    /* Power domains */
+    power-domains {
+        sensor_pd: sensor-power-domain {
+            compatible = &quot;power-domain&quot;;
+            #power-domain-cells = &lt;0&gt;;
+        };
+
+        comm_pd: communication-power-domain {
+            compatible = &quot;power-domain&quot;;
+            #power-domain-cells = &lt;0&gt;;
+        };
+    };
+
+    aliases {
+        temp-sensor = &amp;temp_sensor;
+    };
+};
+
+/* Configure sensor power domain */
+&amp;temp_sensor {
+    power-domains = &lt;&amp;sensor_pd&gt;;
+};
+
+/* Configure ADC for battery monitoring */
+&amp;adc {
+    #address-cells = &lt;1&gt;;
+    #size-cells = &lt;0&gt;;
+
+    channel@0 {
+        reg = &lt;0&gt;;
+        zephyr,gain = &quot;ADC_GAIN_1&quot;;
+        zephyr,reference = &quot;ADC_REF_INTERNAL&quot;;
+        zephyr,acquisition-time = &lt;ADC_ACQ_TIME_DEFAULT&gt;;
+        zephyr,resolution = &lt;12&gt;;
+    };
+};
+
+/* Configure button as wake-up source */
+&amp;gpio0 {
+    wakeup-gpios = &lt;&amp;gpio0 11 GPIO_ACTIVE_LOW&gt;; /* Button pin */
+};
+</code></pre>
+<h3 id="42-board-specific-configuration">4.2 Board-specific Configuration</h3>
+<p>Create <code>boards/nrf52840dk_nrf52840.overlay</code>:</p>
+<pre><code class="language-dts">/* nRF52840 Development Kit specific configuration */
+
+/ {
+    chosen {
+        zephyr,console = &amp;uart0;
+        zephyr,shell-uart = &amp;uart0;
+        zephyr,uart-mcumgr = &amp;uart0;
+    };
+
+    /* LED indicators for power states */
+    leds {
+        compatible = &quot;gpio-leds&quot;;
+
+        power_led: led_0 {
+            gpios = &lt;&amp;gpio0 13 GPIO_ACTIVE_LOW&gt;;
+            label = &quot;Power State LED&quot;;
+        };
+
+        activity_led: led_1 {
+            gpios = &lt;&amp;gpio0 14 GPIO_ACTIVE_LOW&gt;;
+            label = &quot;Activity LED&quot;;
+        };
+    };
+
+    /* Buttons for wake-up */
+    buttons {
+        compatible = &quot;gpio-keys&quot;;
+
+        wakeup_button: button_0 {
+            gpios = &lt;&amp;gpio0 11 (GPIO_PULL_UP | GPIO_ACTIVE_LOW)&gt;;
+            label = &quot;Wake-up Button&quot;;
+        };
+    };
+
+    aliases {
+        led-power = &amp;power_led;
+        led-activity = &amp;activity_led;
+        sw-wakeup = &amp;wakeup_button;
+    };
+};
+
+/* UART configuration for lower power */
+&amp;uart0 {
+    status = &quot;okay&quot;;
+    current-speed = &lt;115200&gt;;
+    pinctrl-0 = &lt;&amp;uart0_default&gt;;
+    pinctrl-1 = &lt;&amp;uart0_sleep&gt;;
+    pinctrl-names = &quot;default&quot;, &quot;sleep&quot;;
+};
+
+/* I2C for sensors */
+&amp;i2c0 {
+    compatible = &quot;nordic,nrf-twi&quot;;
+    status = &quot;okay&quot;;
+    pinctrl-0 = &lt;&amp;i2c0_default&gt;;
+    pinctrl-1 = &lt;&amp;i2c0_sleep&gt;;
+    pinctrl-names = &quot;default&quot;, &quot;sleep&quot;;
+
+    /* Example sensor (if available) */
+    sht3xd@44 {
+        compatible = &quot;sensirion,sht3xd&quot;;
+        reg = &lt;0x44&gt;;
+        label = &quot;SHT3XD&quot;;
+    };
+};
+
+/* ADC configuration */
+&amp;adc {
+    status = &quot;okay&quot;;
+};
+
+/* Enable Bluetooth */
+&amp;radio {
+    status = &quot;okay&quot;;
+};
+
+/* Power management pin control states */
+&amp;pinctrl {
+    uart0_default: uart0_default {
+        group1 {
+            psels = &lt;NRF_PSEL(UART_TX, 0, 6)&gt;,
+                    &lt;NRF_PSEL(UART_RX, 0, 8)&gt;;
+        };
+    };
+
+    uart0_sleep: uart0_sleep {
+        group1 {
+            psels = &lt;NRF_PSEL(UART_TX, 0, 6)&gt;,
+                    &lt;NRF_PSEL(UART_RX, 0, 8)&gt;;
+            low-power-enable;
+        };
+    };
+
+    i2c0_default: i2c0_default {
+        group1 {
+            psels = &lt;NRF_PSEL(TWIM_SDA, 0, 26)&gt;,
+                    &lt;NRF_PSEL(TWIM_SCL, 0, 27)&gt;;
+        };
+    };
+
+    i2c0_sleep: i2c0_sleep {
+        group1 {
+            psels = &lt;NRF_PSEL(TWIM_SDA, 0, 26)&gt;,
+                    &lt;NRF_PSEL(TWIM_SCL, 0, 27)&gt;;
+            low-power-enable;
+        };
+    };
+};
+</code></pre>
+<h2 id="part-5-configuration-and-build-files">Part 5: Configuration and Build Files</h2>
+<h3 id="51-main-configuration">5.1 Main Configuration</h3>
+<p>Create <code>prj.conf</code>:</p>
+<pre><code class="language-kconfig"># Kernel Configuration
+CONFIG_MAIN_THREAD_PRIORITY=7
+CONFIG_SYSTEM_WORKQUEUE_STACK_SIZE=2048
+CONFIG_IDLE_STACK_SIZE=1024
+
+# Power Management
+CONFIG_PM=y
+CONFIG_PM_DEVICE=y
+CONFIG_PM_DEVICE_RUNTIME=y
+CONFIG_PM_POLICY_CUSTOM=y
+CONFIG_PM_S2RAM=y
+
+# Logging
+CONFIG_LOG=y
+CONFIG_LOG_DEFAULT_LEVEL=3
+CONFIG_LOG_MODE_DEFERRED=y
+CONFIG_LOG_BUFFER_SIZE=4096
+
+# Console and Shell
+CONFIG_CONSOLE=y
+CONFIG_UART_CONSOLE=y
+
+# GPIO
+CONFIG_GPIO=y
+
+# ADC
+CONFIG_ADC=y
+
+# Sensor
+CONFIG_SENSOR=y
+
+# Bluetooth
+CONFIG_BT=y
+CONFIG_BT_PERIPHERAL=y
+CONFIG_BT_DEVICE_NAME=&quot;EnvMonitor&quot;
+CONFIG_BT_DEVICE_APPEARANCE=768
+CONFIG_BT_MAX_CONN=1
+CONFIG_BT_MAX_PAIRED=1
+
+# Bluetooth Low Energy
+CONFIG_BT_GATT_DM=y
+CONFIG_BT_GATT_CLIENT=y
+
+# Thread synchronization
+CONFIG_EVENTS=y
+
+# System calls
+CONFIG_HEAP_MEM_POOL_SIZE=8192
+
+# Debugging
+CONFIG_DEBUG=y
+CONFIG_DEBUG_OPTIMIZATIONS=y
+CONFIG_STACK_SENTINEL=y
+
+# Performance
+CONFIG_NO_OPTIMIZATIONS=n
+CONFIG_SIZE_OPTIMIZATIONS=y
+
+# Power optimization
+CONFIG_TICKLESS_KERNEL=y
+CONFIG_SYS_POWER_MANAGEMENT=y
+</code></pre>
+<h3 id="52-cmakeliststxt">5.2 CMakeLists.txt</h3>
+<p>Create <code>CMakeLists.txt</code>:</p>
+<pre><code class="language-cmake">cmake_minimum_required(VERSION 3.20.0)
+
+find_package(Zephyr REQUIRED HINTS $ENV{ZEPHYR_BASE})
+project(power_management_lab)
+
+# Source files
+target_sources(app PRIVATE
+    src/main.c
+    src/power_manager.c
+    src/sensor_manager.c
+    src/bluetooth_manager.c
+)
+
+# Include directories
+target_include_directories(app PRIVATE include)
+
+# Board-specific overlays
+
+
+# Power states overlay
+set(DTC_OVERLAY_FILE &quot;overlays/power_states.overlay&quot;)
+
+# Add board overlay if it exists
+if(EXISTS &quot;${CMAKE_CURRENT_SOURCE_DIR}/boards/${BOARD}.overlay&quot;)
+    list(APPEND DTC_OVERLAY_FILE &quot;boards/${BOARD}.overlay&quot;)
+endif()
+</code></pre>
+<h3 id="53-west-manifest-optional">5.3 West Manifest (Optional)</h3>
+<p>Create <code>west.yml</code> for dependencies:</p>
+<pre><code class="language-yaml">manifest:
+  version: &quot;0.13&quot;
+
+  defaults:
+    remote: upstream
+
+  remotes:
+    - name: upstream
+      url-base: https://github.com/zephyrproject-rtos
+
+  projects:
+    - name: zephyr
+      remote: upstream
+      revision: main
+      import:
+        # Import Zephyr's west configuration
+        file: west.yml
+
+  self:
+    path: power-management-lab
+</code></pre>
+<h2 id="part-6-testing-and-verification">Part 6: Testing and Verification</h2>
+<h3 id="61-build-the-project">6.1 Build the Project</h3>
+<pre><code class="language-bash"># Navigate to project directory
+cd ~/zephyr-workspace/power_management_lab
+
+# Build for nRF52840 Development Kit
+west build -b nrf52840dk_nrf52840
+
+# Flash to device
+west flash
+
+# Monitor output
+west build -t menuconfig  # Optional: configure settings
+</code></pre>
+<h3 id="62-expected-output">6.2 Expected Output</h3>
+<p>When running the application, you should see:</p>
+<pre><code>*** Booting Zephyr OS build v3.x.x ***
+[00:00:00.000,000] &lt;inf&gt; main: Environmental Monitoring Station Starting
+[00:00:00.001,000] &lt;inf&gt; main: Build time: Dec 17 2024 10:30:45
+[00:00:00.005,000] &lt;inf&gt; power_manager: Initializing power management system
+[00:00:00.010,000] &lt;inf&gt; power_manager: Power management initialized
+[00:00:00.015,000] &lt;inf&gt; sensor_manager: Initializing sensor manager
+[00:00:00.020,000] &lt;inf&gt; sensor_manager: Sensor manager initialized
+[00:00:00.025,000] &lt;inf&gt; main: Wake-up sources initialized
+[00:00:00.030,000] &lt;inf&gt; main: Sensor thread started
+[00:00:00.035,000] &lt;inf&gt; main: Bluetooth thread started
+[00:00:00.040,000] &lt;inf&gt; main: Power management thread started
+[00:00:00.045,000] &lt;inf&gt; main: System initialized successfully
+[00:00:00.050,000] &lt;inf&gt; power_manager: Switching power mode: 0 -&gt; 2
+[00:00:00.055,000] &lt;inf&gt; power_manager: Power mode changed: 0 -&gt; 2 (CPU: 48000000 Hz)
+[00:00:30.000,000] &lt;inf&gt; main: Measurement 1: Temp=22.73°C, Humidity=44.2%
+[00:00:30.005,000] &lt;dbg&gt; sensor_manager: Sensor reading #1: 22.73°C, 44.2%
+[00:00:30.010,000] &lt;dbg&gt; sensor_manager: Battery voltage: 3756 mV
+[00:00:40.000,000] &lt;inf&gt; power_manager: === Power Management Statistics ===
+[00:00:40.005,000] &lt;inf&gt; power_manager: Current mode: 2
+[00:00:40.010,000] &lt;inf&gt; power_manager: CPU frequency: 48000000 Hz
+[00:00:40.015,000] &lt;inf&gt; power_manager: Active time: 40050000 us
+[00:00:40.020,000] &lt;inf&gt; power_manager: Sleep count: 15
+[00:00:40.025,000] &lt;inf&gt; power_manager: Wake-up count: 15
+[00:00:40.030,000] &lt;inf&gt; power_manager: Deep sleep count: 0
+[00:00:40.035,000] &lt;inf&gt; power_manager: Managed devices: 2
+</code></pre>
+<h3 id="63-testing-power-management-features">6.3 Testing Power Management Features</h3>
+<h4 id="test-1-basic-power-states">Test 1: Basic Power States</h4>
+<pre><code class="language-bash"># Monitor power consumption with multimeter or power profiler
+# Observe different current levels in different power modes
+
+# Test wake-up from button
+# Press button while system is in deep sleep mode
+# Verify system wakes up and resumes operation
+</code></pre>
+<h4 id="test-2-bluetooth-connection-impact">Test 2: Bluetooth Connection Impact</h4>
+<pre><code class="language-bash"># Use nRF Connect mobile app to connect to the device
+# Observe power mode change to ACTIVE when connected
+# Monitor measurement frequency increase
+# Disconnect and verify return to ECO mode
+</code></pre>
+<h4 id="test-3-low-battery-behavior">Test 3: Low Battery Behavior</h4>
+<pre><code class="language-bash"># Simulate low battery by modifying threshold or ADC reading
+# Verify system enters ULTRA_LOW power mode
+# Confirm measurement interval increases
+# Check that non-essential features are disabled
+</code></pre>
+<h3 id="64-power-consumption-analysis">6.4 Power Consumption Analysis</h3>
+<p>Create a simple monitoring script <code>scripts/power_monitor.py</code>:</p>
+<pre><code class="language-python">#!/usr/bin/env python3
+
+import serial
+import time
+import re
+import matplotlib.pyplot as plt
+from collections import defaultdict
+
+class PowerMonitor:
+    def __init__(self, port='/dev/ttyACM0', baudrate=115200):
+        self.ser = serial.Serial(port, baudrate, timeout=1)
+        self.power_modes = []
+        self.timestamps = []
+        self.measurements = []
+
+    def monitor(self, duration=300):  # 5 minutes
+        start_time = time.time()
+
+        while time.time() - start_time &lt; duration:
+            line = self.ser.readline().decode('utf-8').strip()
+
+            if 'Power mode changed' in line:
+                match = re.search(r'Power mode changed: (\d+) -&gt; (\d+)', line)
+                if match:
+                    old_mode, new_mode = map(int, match.groups())
+                    timestamp = time.time() - start_time
+                    self.power_modes.append((timestamp, new_mode))
+                    print(f&quot;[{timestamp:.1f}s] Power mode: {old_mode} -&gt; {new_mode}&quot;)
+
+            elif 'Measurement' in line and 'Temp=' in line:
+                match = re.search(r'Measurement (\d+): Temp=([\d.]+)°C, Humidity=([\d.]+)%', line)
+                if match:
+                    seq, temp, humidity = match.groups()
+                    timestamp = time.time() - start_time
+                    self.measurements.append((timestamp, float(temp), float(humidity)))
+                    print(f&quot;[{timestamp:.1f}s] T={temp}°C, H={humidity}%&quot;)
+
+    def plot_results(self):
+        fig, (ax1, ax2) = plt.subplots(2, 1, figsize=(12, 8))
+
+        # Plot power modes
+        if self.power_modes:
+            times, modes = zip(*self.power_modes)
+            ax1.step(times, modes, where='post', linewidth=2)
+            ax1.set_ylabel('Power Mode')
+            ax1.set_title('Power Mode Changes Over Time')
+            ax1.grid(True)
+
+        # Plot measurements
+        if self.measurements:
+            times, temps, humidity = zip(*self.measurements)
+            ax2.plot(times, temps, 'r-o', label='Temperature (°C)', markersize=3)
+            ax2_twin = ax2.twinx()
+            ax2_twin.plot(times, humidity, 'b-s', label='Humidity (%)', markersize=3)
+            ax2.set_xlabel('Time (seconds)')
+            ax2.set_ylabel('Temperature (°C)', color='r')
+            ax2_twin.set_ylabel('Humidity (%)', color='b')
+            ax2.set_title('Sensor Measurements')
+            ax2.grid(True)
+
+        plt.tight_layout()
+        plt.savefig('power_analysis.png')
+        plt.show()
+
+if __name__ == &quot;__main__&quot;:
+    monitor = PowerMonitor()
+    print(&quot;Starting power monitoring for 5 minutes...&quot;)
+    monitor.monitor(300)
+    monitor.plot_results()
+    print(&quot;Analysis complete. Results saved to power_analysis.png&quot;)
+</code></pre>
+<h2 id="part-7-advanced-exercises">Part 7: Advanced Exercises</h2>
+<h3 id="exercise-1-adaptive-power-management">Exercise 1: Adaptive Power Management</h3>
+<p>Implement adaptive power management that adjusts based on activity:</p>
+<pre><code class="language-c">/* Add to power_manager.c */
+static void adaptive_power_management(void)
+{
+    static uint32_t last_measurement_time = 0;
+    static uint32_t last_bluetooth_activity = 0;
+    uint32_t current_time = k_uptime_get_32();
+
+    /* Check activity patterns */
+    bool recent_measurements = (current_time - last_measurement_time) &lt; 60000;
+    bool recent_bluetooth = (current_time - last_bluetooth_activity) &lt; 30000;
+
+    /* Adaptive mode selection */
+    if (recent_bluetooth) {
+        power_manager_set_performance_mode(POWER_MODE_ACTIVE);
+    } else if (recent_measurements) {
+        power_manager_set_performance_mode(POWER_MODE_BALANCED);
+    } else {
+        power_manager_set_performance_mode(POWER_MODE_ECO);
+    }
+}
+</code></pre>
+<h3 id="exercise-2-power-budget-management">Exercise 2: Power Budget Management</h3>
+<p>Create a power budget system:</p>
+<pre><code class="language-c">struct power_budget {
+    uint32_t total_budget_mw;
+    uint32_t current_usage_mw;
+    uint32_t sensor_allocation_mw;
+    uint32_t bluetooth_allocation_mw;
+    uint32_t cpu_allocation_mw;
+};
+
+static int manage_power_budget(struct power_budget *budget)
+{
+    /* Monitor and enforce power budget */
+    if (budget-&gt;current_usage_mw &gt; budget-&gt;total_budget_mw) {
+        /* Reduce power consumption */
+        return reduce_power_consumption(budget);
+    }
+
+    return 0;
+}
+</code></pre>
+<h3 id="exercise-3-wake-up-optimization">Exercise 3: Wake-up Optimization</h3>
+<p>Implement intelligent wake-up scheduling:</p>
+<pre><code class="language-c">static k_timeout_t calculate_optimal_wakeup_interval(void)
+{
+    /* Consider multiple factors */
+    uint32_t base_interval = MEASUREMENT_INTERVAL_MS;
+
+    /* Adjust based on battery level */
+    if (sys_state.battery_voltage_mv &lt; LOW_BATTERY_THRESHOLD_MV) {
+        base_interval *= 4;  /* Reduce frequency when battery is low */
+    }
+
+    /* Adjust based on connectivity */
+    if (sys_state.ble_connected) {
+        base_interval /= 6;  /* Increase frequency when connected */
+    }
+
+    /* Adjust based on environmental conditions */
+    if (detect_rapid_changes()) {
+        base_interval /= 2;  /* Increase sampling during rapid changes */
+    }
+
+    return K_MSEC(base_interval);
+}
+</code></pre>
+<h2 id="summary">Summary</h2>
+<p>This comprehensive lab demonstrates professional-grade power management implementation in Zephyr RTOS. You've implemented:</p>
+<ol>
+<li><strong>System-Level Power Management</strong>: Multiple power states with intelligent policy</li>
+<li><strong>Device Runtime PM</strong>: Automatic device power control based on usage</li>
+<li><strong>Power-Aware Application Design</strong>: Efficient resource usage patterns</li>
+<li><strong>Adaptive Power Control</strong>: Dynamic adjustment based on system state</li>
+<li><strong>Wake-up Source Management</strong>: Multiple wake-up mechanisms</li>
+<li><strong>Power Monitoring</strong>: Statistics and debugging capabilities</li>
+</ol>
+<p>The project showcases real-world power management techniques essential for battery-powered IoT devices, providing a solid foundation for developing energy-efficient embedded systems.</p>
+<p><strong>Key Takeaways:</strong>
+- Power management is critical for modern embedded systems
+- Zephyr provides comprehensive power management APIs
+- Device tree configuration is essential for power states
+- Runtime power management enables automatic optimization
+- Monitoring and debugging tools are essential for validation
+- Adaptive algorithms can significantly improve battery life</p>
+<p>Continue experimenting with different power modes, measurement intervals, and optimization strategies to fully understand power management principles and their impact on system performance.</p>
+
+
+
+
+
+
+
+  
+    
+  
+  
+
+
+  <aside class="md-source-file">
+    
+      
+  <span class="md-source-file__fact">
+    <span class="md-icon" title="Last update">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M21 13.1c-.1 0-.3.1-.4.2l-1 1 2.1 2.1 1-1c.2-.2.2-.6 0-.8l-1.3-1.3c-.1-.1-.2-.2-.4-.2m-1.9 1.8-6.1 6V23h2.1l6.1-6.1zM12.5 7v5.2l4 2.4-1 1L11 13V7zM11 21.9c-5.1-.5-9-4.8-9-9.9C2 6.5 6.5 2 12 2c5.3 0 9.6 4.1 10 9.3-.3-.1-.6-.2-1-.2s-.7.1-1 .2C19.6 7.2 16.2 4 12 4c-4.4 0-8 3.6-8 8 0 4.1 3.1 7.5 7.1 7.9l-.1.2z"/></svg>
+    </span>
+    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date" title="October 18, 2025 08:49:53 UTC">October 18, 2025</span>
+  </span>
+
+    
+    
+    
+    
+  </aside>
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    
+      
+      <script id="__config" type="application/json">{"base": "../..", "features": [], "search": "../../assets/javascripts/workers/search.973d3a69.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": null}</script>
+    
+    
+      <script src="../../assets/javascripts/bundle.f55a23d4.min.js"></script>
+      
+    
+  </body>
+</html>

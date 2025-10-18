@@ -1,0 +1,3320 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+      
+      
+      
+        <link rel="prev" href="../theory/">
+      
+      
+        <link rel="next" href="../../chapter_03_zephyr_build_system/introduction/">
+      
+      
+      <link rel="icon" href="../../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.6.22">
+    
+    
+      
+        <title>Lab - Zephyr RTOS Development Course</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../assets/stylesheets/main.84d31ad4.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+    <script>__md_scope=new URL("../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+    
+  </head>
+  
+  
+    <body dir="ltr">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#chapter-2-introduction-to-zephyr-lab" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href="../.." title="Zephyr RTOS Development Course" class="md-header__button md-logo" aria-label="Zephyr RTOS Development Course" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            Zephyr RTOS Development Course
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              Lab
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+
+<nav class="md-nav md-nav--primary" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../.." title="Zephyr RTOS Development Course" class="md-nav__button md-logo" aria-label="Zephyr RTOS Development Course" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    Zephyr RTOS Development Course
+  </label>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../.." class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Home
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2" >
+        
+          
+          <label class="md-nav__link" for="__nav_2" id="__nav_2_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    Contributing
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2">
+            <span class="md-nav__icon md-icon"></span>
+            Contributing
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../CONDUCT/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Code of Conduct
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../CONTRIBUTING/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Contributing
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../chapter_01_course_introduction/introduction/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Chapter 1: Course Introduction
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4" checked>
+        
+          
+          <label class="md-nav__link" for="__nav_4" id="__nav_4_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    Chapter 2: Introduction to Zephyr
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_4_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_4">
+            <span class="md-nav__icon md-icon"></span>
+            Chapter 2: Introduction to Zephyr
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../introduction/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Introduction
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../theory/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Theory
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    Lab
+    
+  </span>
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        
+  
+  
+  <span class="md-ellipsis">
+    Lab
+    
+  </span>
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#lab-exercise-1-development-environment-setup" class="md-nav__link">
+    <span class="md-ellipsis">
+      Lab Exercise 1: Development Environment Setup
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Lab Exercise 1: Development Environment Setup">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#objective" class="md-nav__link">
+    <span class="md-ellipsis">
+      Objective
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#prerequisites" class="md-nav__link">
+    <span class="md-ellipsis">
+      Prerequisites
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#step-1-install-vs-code-and-zephyr-extension" class="md-nav__link">
+    <span class="md-ellipsis">
+      Step 1: Install VS Code and Zephyr Extension
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#step-2-install-zephyr-sdk" class="md-nav__link">
+    <span class="md-ellipsis">
+      Step 2: Install Zephyr SDK
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Step 2: Install Zephyr SDK">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#manual-sdk-installation-alternative" class="md-nav__link">
+    <span class="md-ellipsis">
+      Manual SDK Installation (Alternative)
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#step-3-verify-installation" class="md-nav__link">
+    <span class="md-ellipsis">
+      Step 3: Verify Installation
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#lab-exercise-2-hello-world-for-raspberry-pi-4b" class="md-nav__link">
+    <span class="md-ellipsis">
+      Lab Exercise 2: Hello World for Raspberry Pi 4B
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Lab Exercise 2: Hello World for Raspberry Pi 4B">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#objective_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      Objective
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#prerequisites_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      Prerequisites
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#step-1-build-for-raspberry-pi-4b" class="md-nav__link">
+    <span class="md-ellipsis">
+      Step 1: Build for Raspberry Pi 4B
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#step-2-prepare-sd-card" class="md-nav__link">
+    <span class="md-ellipsis">
+      Step 2: Prepare SD Card
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#step-3-connect-serial-console" class="md-nav__link">
+    <span class="md-ellipsis">
+      Step 3: Connect Serial Console
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#step-4-boot-and-verify" class="md-nav__link">
+    <span class="md-ellipsis">
+      Step 4: Boot and Verify
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#lab-exercise-3-blinking-led" class="md-nav__link">
+    <span class="md-ellipsis">
+      Lab Exercise 3: Blinking LED
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Lab Exercise 3: Blinking LED">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#objective_2" class="md-nav__link">
+    <span class="md-ellipsis">
+      Objective
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#step-1-examine-the-blinky-sample" class="md-nav__link">
+    <span class="md-ellipsis">
+      Step 1: Examine the Blinky Sample
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#step-2-build-and-test-blinky" class="md-nav__link">
+    <span class="md-ellipsis">
+      Step 2: Build and Test Blinky
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#step-3-customize-the-blink-rate" class="md-nav__link">
+    <span class="md-ellipsis">
+      Step 3: Customize the Blink Rate
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#step-4-add-button-control-challenge" class="md-nav__link">
+    <span class="md-ellipsis">
+      Step 4: Add Button Control (Challenge)
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#lab-exercise-4-exploring-configuration-options" class="md-nav__link">
+    <span class="md-ellipsis">
+      Lab Exercise 4: Exploring Configuration Options
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Lab Exercise 4: Exploring Configuration Options">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#objective_3" class="md-nav__link">
+    <span class="md-ellipsis">
+      Objective
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#step-1-interactive-configuration" class="md-nav__link">
+    <span class="md-ellipsis">
+      Step 1: Interactive Configuration
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#step-2-common-configuration-experiments" class="md-nav__link">
+    <span class="md-ellipsis">
+      Step 2: Common Configuration Experiments
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#step-3-memory-usage-analysis" class="md-nav__link">
+    <span class="md-ellipsis">
+      Step 3: Memory Usage Analysis
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#lab-summary" class="md-nav__link">
+    <span class="md-ellipsis">
+      Lab Summary
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Lab Summary">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#what-youve-accomplished" class="md-nav__link">
+    <span class="md-ellipsis">
+      What You've Accomplished
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#key-takeaways" class="md-nav__link">
+    <span class="md-ellipsis">
+      Key Takeaways
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#next-steps" class="md-nav__link">
+    <span class="md-ellipsis">
+      Next Steps
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5" >
+        
+          
+          <label class="md-nav__link" for="__nav_5" id="__nav_5_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    Chapter 3: Zephyr Build System
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_5_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_5">
+            <span class="md-nav__icon md-icon"></span>
+            Chapter 3: Zephyr Build System
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../chapter_03_zephyr_build_system/introduction/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Introduction
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../chapter_03_zephyr_build_system/theory/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Theory
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../chapter_03_zephyr_build_system/lab/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Lab
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_6" >
+        
+          
+          <label class="md-nav__link" for="__nav_6" id="__nav_6_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    Chapter 4: Configure Zephyr
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_6_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_6">
+            <span class="md-nav__icon md-icon"></span>
+            Chapter 4: Configure Zephyr
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../chapter_04_configure_zephyr/introduction/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Introduction
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../chapter_04_configure_zephyr/theory/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Theory
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../chapter_04_configure_zephyr/lab/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Lab
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_7" >
+        
+          
+          <label class="md-nav__link" for="__nav_7" id="__nav_7_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    Chapter 5: West
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_7_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_7">
+            <span class="md-nav__icon md-icon"></span>
+            Chapter 5: West
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../chapter_05_west/introduction/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Introduction
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../chapter_05_west/theory/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Theory
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../chapter_05_west/lab/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Lab
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_8" >
+        
+          
+          <label class="md-nav__link" for="__nav_8" id="__nav_8_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    Chapter 6: Zephyr Fundamentals
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_8_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_8">
+            <span class="md-nav__icon md-icon"></span>
+            Chapter 6: Zephyr Fundamentals
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../chapter_06_zephyr_fundamentals/introduction/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Introduction
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../chapter_06_zephyr_fundamentals/theory/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Theory
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../chapter_06_zephyr_fundamentals/lab/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Lab
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_9" >
+        
+          
+          <label class="md-nav__link" for="__nav_9" id="__nav_9_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    Chapter 7: Thread Management
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_9_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_9">
+            <span class="md-nav__icon md-icon"></span>
+            Chapter 7: Thread Management
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../chapter_07_thread_management/introduction/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Introduction
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../chapter_07_thread_management/theory/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Theory
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../chapter_07_thread_management/lab/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Lab
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_10" >
+        
+          
+          <label class="md-nav__link" for="__nav_10" id="__nav_10_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    Chapter 8: Tracing and Logging
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_10_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_10">
+            <span class="md-nav__icon md-icon"></span>
+            Chapter 8: Tracing and Logging
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../chapter_08_tracing_and_logging/introduction/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Introduction
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../chapter_08_tracing_and_logging/theory/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Theory
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../chapter_08_tracing_and_logging/lab/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Lab
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_11" >
+        
+          
+          <label class="md-nav__link" for="__nav_11" id="__nav_11_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    Chapter 9: Memory Management
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_11_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_11">
+            <span class="md-nav__icon md-icon"></span>
+            Chapter 9: Memory Management
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../chapter_09_memory_management/introduction/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Introduction
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../chapter_09_memory_management/theory/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Theory
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../chapter_09_memory_management/lab/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Lab
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_12" >
+        
+          
+          <label class="md-nav__link" for="__nav_12" id="__nav_12_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    Chapter 10: User Mode
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_12_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_12">
+            <span class="md-nav__icon md-icon"></span>
+            Chapter 10: User Mode
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../chapter_10_user_mode/introduction/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Introduction
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../chapter_10_user_mode/theory/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Theory
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../chapter_10_user_mode/lab/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Lab
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_13" >
+        
+          
+          <label class="md-nav__link" for="__nav_13" id="__nav_13_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    Chapter 11: Traditional Multithreading Primitives
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_13_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_13">
+            <span class="md-nav__icon md-icon"></span>
+            Chapter 11: Traditional Multithreading Primitives
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../chapter_11_traditional_multithreading_primitives/introduction/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Introduction
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../chapter_11_traditional_multithreading_primitives/theory/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Theory
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../chapter_11_traditional_multithreading_primitives/lab/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Lab
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_14" >
+        
+          
+          <label class="md-nav__link" for="__nav_14" id="__nav_14_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    Chapter 12: Inter-thread Communication
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_14_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_14">
+            <span class="md-nav__icon md-icon"></span>
+            Chapter 12: Inter-thread Communication
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../chapter_12_inter-thread_communication/introduction/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Introduction
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../chapter_12_inter-thread_communication/theory/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Theory
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../chapter_12_inter-thread_communication/lab/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Lab
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_15" >
+        
+          
+          <label class="md-nav__link" for="__nav_15" id="__nav_15_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    Chapter 13: Interrupt Management
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_15_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_15">
+            <span class="md-nav__icon md-icon"></span>
+            Chapter 13: Interrupt Management
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../chapter_13_interrupt_management/introduction/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Introduction
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../chapter_13_interrupt_management/theory/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Theory
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../chapter_13_interrupt_management/lab/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Lab
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_16" >
+        
+          
+          <label class="md-nav__link" for="__nav_16" id="__nav_16_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    Chapter 14: Modules
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_16_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_16">
+            <span class="md-nav__icon md-icon"></span>
+            Chapter 14: Modules
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../chapter_14_modules/introduction/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Introduction
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../chapter_14_modules/theory/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Theory
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../chapter_14_modules/lab/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Lab
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_17" >
+        
+          
+          <label class="md-nav__link" for="__nav_17" id="__nav_17_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    Chapter 15: Writing Kconfig Symbols
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_17_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_17">
+            <span class="md-nav__icon md-icon"></span>
+            Chapter 15: Writing Kconfig Symbols
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../chapter_15_writing_kconfig_symbols/introduction/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Introduction
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../chapter_15_writing_kconfig_symbols/theory/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Theory
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../chapter_15_writing_kconfig_symbols/lab/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Lab
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_18" >
+        
+          
+          <label class="md-nav__link" for="__nav_18" id="__nav_18_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    Chapter 16: Device Driver Architecture
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_18_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_18">
+            <span class="md-nav__icon md-icon"></span>
+            Chapter 16: Device Driver Architecture
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../chapter_16_device_driver_architecture/introduction/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Introduction
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../chapter_16_device_driver_architecture/theory/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Theory
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../chapter_16_device_driver_architecture/lab/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Lab
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_19" >
+        
+          
+          <label class="md-nav__link" for="__nav_19" id="__nav_19_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    Chapter 17: Power Management
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_19_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_19">
+            <span class="md-nav__icon md-icon"></span>
+            Chapter 17: Power Management
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../chapter_17_power_management/introduction/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Introduction
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../chapter_17_power_management/theory/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Theory
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../chapter_17_power_management/lab/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Lab
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_20" >
+        
+          
+          <label class="md-nav__link" for="__nav_20" id="__nav_20_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    Chapter 18: Capstone Project
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_20_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_20">
+            <span class="md-nav__icon md-icon"></span>
+            Chapter 18: Capstone Project
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../chapter_18_capstone_project/introduction/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Introduction
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../chapter_18_capstone_project/theory/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Theory
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../chapter_18_capstone_project/lab/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Lab
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../chapter_18_capstone_project/networked_monitor/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Networked Monitor
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#lab-exercise-1-development-environment-setup" class="md-nav__link">
+    <span class="md-ellipsis">
+      Lab Exercise 1: Development Environment Setup
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Lab Exercise 1: Development Environment Setup">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#objective" class="md-nav__link">
+    <span class="md-ellipsis">
+      Objective
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#prerequisites" class="md-nav__link">
+    <span class="md-ellipsis">
+      Prerequisites
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#step-1-install-vs-code-and-zephyr-extension" class="md-nav__link">
+    <span class="md-ellipsis">
+      Step 1: Install VS Code and Zephyr Extension
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#step-2-install-zephyr-sdk" class="md-nav__link">
+    <span class="md-ellipsis">
+      Step 2: Install Zephyr SDK
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Step 2: Install Zephyr SDK">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#manual-sdk-installation-alternative" class="md-nav__link">
+    <span class="md-ellipsis">
+      Manual SDK Installation (Alternative)
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#step-3-verify-installation" class="md-nav__link">
+    <span class="md-ellipsis">
+      Step 3: Verify Installation
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#lab-exercise-2-hello-world-for-raspberry-pi-4b" class="md-nav__link">
+    <span class="md-ellipsis">
+      Lab Exercise 2: Hello World for Raspberry Pi 4B
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Lab Exercise 2: Hello World for Raspberry Pi 4B">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#objective_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      Objective
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#prerequisites_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      Prerequisites
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#step-1-build-for-raspberry-pi-4b" class="md-nav__link">
+    <span class="md-ellipsis">
+      Step 1: Build for Raspberry Pi 4B
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#step-2-prepare-sd-card" class="md-nav__link">
+    <span class="md-ellipsis">
+      Step 2: Prepare SD Card
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#step-3-connect-serial-console" class="md-nav__link">
+    <span class="md-ellipsis">
+      Step 3: Connect Serial Console
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#step-4-boot-and-verify" class="md-nav__link">
+    <span class="md-ellipsis">
+      Step 4: Boot and Verify
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#lab-exercise-3-blinking-led" class="md-nav__link">
+    <span class="md-ellipsis">
+      Lab Exercise 3: Blinking LED
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Lab Exercise 3: Blinking LED">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#objective_2" class="md-nav__link">
+    <span class="md-ellipsis">
+      Objective
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#step-1-examine-the-blinky-sample" class="md-nav__link">
+    <span class="md-ellipsis">
+      Step 1: Examine the Blinky Sample
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#step-2-build-and-test-blinky" class="md-nav__link">
+    <span class="md-ellipsis">
+      Step 2: Build and Test Blinky
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#step-3-customize-the-blink-rate" class="md-nav__link">
+    <span class="md-ellipsis">
+      Step 3: Customize the Blink Rate
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#step-4-add-button-control-challenge" class="md-nav__link">
+    <span class="md-ellipsis">
+      Step 4: Add Button Control (Challenge)
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#lab-exercise-4-exploring-configuration-options" class="md-nav__link">
+    <span class="md-ellipsis">
+      Lab Exercise 4: Exploring Configuration Options
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Lab Exercise 4: Exploring Configuration Options">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#objective_3" class="md-nav__link">
+    <span class="md-ellipsis">
+      Objective
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#step-1-interactive-configuration" class="md-nav__link">
+    <span class="md-ellipsis">
+      Step 1: Interactive Configuration
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#step-2-common-configuration-experiments" class="md-nav__link">
+    <span class="md-ellipsis">
+      Step 2: Common Configuration Experiments
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#step-3-memory-usage-analysis" class="md-nav__link">
+    <span class="md-ellipsis">
+      Step 3: Memory Usage Analysis
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#lab-summary" class="md-nav__link">
+    <span class="md-ellipsis">
+      Lab Summary
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Lab Summary">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#what-youve-accomplished" class="md-nav__link">
+    <span class="md-ellipsis">
+      What You've Accomplished
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#key-takeaways" class="md-nav__link">
+    <span class="md-ellipsis">
+      Key Takeaways
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#next-steps" class="md-nav__link">
+    <span class="md-ellipsis">
+      Next Steps
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+
+<h1 id="chapter-2-introduction-to-zephyr-lab">Chapter 2: Introduction to Zephyr - Lab</h1>
+<p>Now that you understand Zephyr's concepts and architecture, let's get hands-on experience with setting up a development environment and building your first applications.</p>
+<hr />
+<h2 id="lab-exercise-1-development-environment-setup">Lab Exercise 1: Development Environment Setup</h2>
+<h3 id="objective">Objective</h3>
+<p>Set up a complete Zephyr development environment and verify it works by building a sample application.</p>
+<h3 id="prerequisites">Prerequisites</h3>
+<ul>
+<li>Computer running Linux, macOS, or Windows</li>
+<li>Internet connection for downloading dependencies</li>
+<li>At least 2GB free disk space</li>
+</ul>
+<h3 id="step-1-install-vs-code-and-zephyr-extension">Step 1: Install VS Code and Zephyr Extension</h3>
+<ol>
+<li>
+<p><strong>Download and install VS Code</strong> from <a href="https://code.visualstudio.com/">code.visualstudio.com</a></p>
+</li>
+<li>
+<p><strong>Install the Zephyr extension:</strong></p>
+</li>
+<li>Open VS Code</li>
+<li>Go to Extensions (Ctrl+Shift+X)</li>
+<li>Search for "Zephyr"</li>
+<li>Install the official Zephyr extension by Zephyr Project</li>
+</ol>
+<h3 id="step-2-install-zephyr-sdk">Step 2: Install Zephyr SDK</h3>
+<ul>
+<li>Open Command Palette (Ctrl+Shift+P)</li>
+<li>Type "Zephyr: Install SDK" and select it</li>
+<li>Follow the guided installation process</li>
+</ul>
+<h4 id="manual-sdk-installation-alternative">Manual SDK Installation (Alternative)</h4>
+<p>If you prefer to install the SDK manually instead of using the VS Code extension's guided process, you can follow these steps:</p>
+<ol>
+<li><strong>Navigate to the official <a href="https://github.com/zephyrproject-rtos/sdk-ng/releases">Zephyr SDK Releases page</a>.</strong></li>
+<li>Look for the SDK version that matches the version used in this course, which is <strong>0.17.4</strong>.</li>
+<li>Download the <code>zephyr-sdk-*.tar.xz</code> archive for your operating system.</li>
+<li>Extract the archive to a suitable location, for example, <code>~/zephyr-sdk</code>.</li>
+<li>
+<p>Run the SDK's setup script:</p>
+<p><code>bash
+cd ~/zephyr-sdk
+./setup.sh</code></p>
+</li>
+</ol>
+<h3 id="step-3-verify-installation">Step 3: Verify Installation</h3>
+<p>Test your setup by building a sample application:</p>
+<pre><code class="language-bash">cd ~/zephyrproject
+west build -b qemu_x86 zephyr/samples/hello_world
+west build -t run
+</code></pre>
+<p><strong>Expected Output:</strong></p>
+<pre><code class="language-console">*** Booting Zephyr OS build v4.2.99 ***
+Hello World! qemu_x86
+</code></pre>
+<p><strong>Note on Versioning:</strong> The version number <code>v4.2.99</code> indicates a development version of Zephyr. A <code>.99</code> patch level is often used for builds from the main development branch rather than a stable release.</p>
+<p>If you see this output, your development environment is working correctly!</p>
+<hr />
+<h2 id="lab-exercise-2-hello-world-for-raspberry-pi-4b">Lab Exercise 2: Hello World for Raspberry Pi 4B</h2>
+<h3 id="objective_1">Objective</h3>
+<p>Build and deploy your first application specifically for Raspberry Pi 4B hardware.</p>
+<h3 id="prerequisites_1">Prerequisites</h3>
+<ul>
+<li>Completed Lab Exercise 1</li>
+<li>Raspberry Pi 4B board</li>
+<li>MicroSD card (8GB or larger)</li>
+<li>USB-to-UART adapter for console output</li>
+</ul>
+<h3 id="step-1-build-for-raspberry-pi-4b">Step 1: Build for Raspberry Pi 4B</h3>
+<pre><code class="language-bash">cd ~/zephyrproject
+west build -b rpi_4b zephyr/samples/hello_world --pristine
+</code></pre>
+<p>The <code>--pristine</code> flag ensures a clean build.</p>
+<h3 id="step-2-prepare-sd-card">Step 2: Prepare SD Card</h3>
+<ol>
+<li><strong>Format SD card</strong> with FAT32 file system</li>
+<li><strong>Copy the kernel image:</strong>
+   <code>bash
+   cp build/zephyr/zephyr.bin /path/to/sdcard/kernel8.img</code></li>
+<li><strong>Add minimal config.txt</strong> to SD card:
+   <code>arm_64bit=1
+   kernel=kernel8.img</code></li>
+</ol>
+<h3 id="step-3-connect-serial-console">Step 3: Connect Serial Console</h3>
+<ol>
+<li><strong>Connect USB-to-UART adapter:</strong></li>
+<li>GND → Pin 6 (Ground)</li>
+<li>RX → Pin 8 (GPIO 14, UART TX)</li>
+<li>
+<p>TX → Pin 10 (GPIO 15, UART RX)</p>
+</li>
+<li>
+<p><strong>Open terminal emulator:</strong>
+   ```bash
+   # Linux/macOS
+   screen /dev/ttyUSB0 115200</p>
+</li>
+</ol>
+<p># Or use minicom
+   minicom -D /dev/ttyUSB0 -b 115200
+   ```</p>
+<h3 id="step-4-boot-and-verify">Step 4: Boot and Verify</h3>
+<ol>
+<li>Insert SD card into Raspberry Pi 4B</li>
+<li>Power on the board</li>
+<li>You should see output in your terminal:</li>
+</ol>
+<pre><code class="language-console">*** Booting Zephyr OS build v4.2.99 ***
+Hello World! rpi_4b
+</code></pre>
+<p><strong>Troubleshooting:</strong>
+* <strong>No output:</strong> Check UART connections and baud rate
+* <strong>Boot failure:</strong> Verify SD card formatting and file names
+* <strong>Build errors:</strong> Ensure you have the latest Zephyr SDK</p>
+<hr />
+<h2 id="lab-exercise-3-blinking-led">Lab Exercise 3: Blinking LED</h2>
+<h3 id="objective_2">Objective</h3>
+<p>Create an interactive application that controls hardware (LED) and demonstrates Zephyr's GPIO API.</p>
+<h3 id="step-1-examine-the-blinky-sample">Step 1: Examine the Blinky Sample</h3>
+<pre><code class="language-bash">cd ~/zephyrproject
+cat zephyr/samples/basic/blinky/src/main.c
+</code></pre>
+<p><strong>Key concepts in the code:</strong>
+* Device tree integration with <code>DT_ALIAS(led0)</code>
+* GPIO driver API usage
+* Zephyr kernel services (<code>k_msleep</code>)</p>
+<h3 id="step-2-build-and-test-blinky">Step 2: Build and Test Blinky</h3>
+<p><strong>For Raspberry Pi 4B:</strong></p>
+<pre><code class="language-bash">west build -b rpi_4b zephyr/samples/basic/blinky --pristine
+cp build/zephyr/zephyr.bin /path/to/sdcard/kernel8.img
+</code></pre>
+<p><strong>For QEMU (testing without hardware):</strong></p>
+<pre><code class="language-bash">west build -b qemu_x86 zephyr/samples/basic/blinky --pristine
+west build -t run
+</code></pre>
+<h3 id="step-3-customize-the-blink-rate">Step 3: Customize the Blink Rate</h3>
+<ol>
+<li>
+<p><strong>Create a custom application directory:</strong>
+   <code>bash
+   mkdir ~/zephyrproject/my_blinky
+   cd ~/zephyrproject/my_blinky</code></p>
+</li>
+<li>
+<p><strong>Create CMakeLists.txt:</strong>
+   ```cmake
+   cmake_minimum_required(VERSION 3.20.0)
+   find_package(Zephyr REQUIRED HINTS $ENV{ZEPHYR_BASE})
+   project(my_blinky)</p>
+</li>
+</ol>
+<p>target_sources(app PRIVATE src/main.c)
+   ```</p>
+<ol>
+<li>
+<p><strong>Create prj.conf:</strong>
+   <code>CONFIG_GPIO=y</code></p>
+</li>
+<li>
+<p><strong>Create src/main.c with custom timing:</strong>
+   ```c
+   #include <stdio.h>
+   #include <zephyr/kernel.h>
+   #include <zephyr/drivers/gpio.h>
+   #include <zephyr/logging/log.h></p>
+</li>
+</ol>
+<p>LOG_MODULE_REGISTER(main);</p>
+<p>#define FAST_BLINK_MS   250    // Fast blink mode
+   #define SLOW_BLINK_MS   1500   // Slow blink mode
+   #define LED0_NODE DT_ALIAS(led0)</p>
+<p>static const struct gpio_dt_spec led = GPIO_DT_SPEC_GET(LED0_NODE, gpios);</p>
+<p>int main(void)
+   {
+       int ret;
+       bool led_state = true;
+       bool fast_mode = true;
+       int blink_count = 0;</p>
+<pre><code>   LOG_INF("Custom Blinky Application Starting");
+
+   if (!gpio_is_ready_dt(&amp;led)) {
+       LOG_ERR("Error: LED device not ready");
+       return 0;
+   }
+
+   ret = gpio_pin_configure_dt(&amp;led, GPIO_OUTPUT_ACTIVE);
+   if (ret &lt; 0) {
+       LOG_ERR("Error: Failed to configure LED pin");
+       return 0;
+   }
+
+   while (1) {
+       // Toggle LED
+       ret = gpio_pin_toggle_dt(&amp;led);
+       if (ret &lt; 0) {
+           LOG_ERR("Error: Failed to toggle LED");
+           return 0;
+       }
+
+       led_state = !led_state;
+       LOG_INF("LED %s (blink #%d)", led_state ? "ON " : "OFF", ++blink_count);
+
+       // Switch between fast and slow blinking every 10 blinks
+       if (blink_count % 10 == 0) {
+           fast_mode = !fast_mode;
+           LOG_INF("Switching to %s mode", fast_mode ? "FAST" : "SLOW");
+       }
+
+       k_msleep(fast_mode ? FAST_BLINK_MS : SLOW_BLINK_MS);
+   }
+   return 0;
+</code></pre>
+<p>}
+   ```</p>
+<ol>
+<li><strong>Build and test:</strong>
+   <code>bash
+   west build -b rpi_4b . --pristine</code></li>
+</ol>
+<h3 id="step-4-add-button-control-challenge">Step 4: Add Button Control (Challenge)</h3>
+<p><strong>For boards with buttons (like nRF52840 DK):</strong></p>
+<ol>
+<li>
+<p><strong>Update prj.conf:</strong>
+   <code>CONFIG_GPIO=y</code></p>
+</li>
+<li>
+<p><strong>Modify main.c to include button handling:</strong>
+   ```c
+   #define BUTTON0_NODE DT_ALIAS(sw0)
+   static const struct gpio_dt_spec button = GPIO_DT_SPEC_GET(BUTTON0_NODE, gpios);
+   static struct gpio_callback button_cb_data;</p>
+</li>
+</ol>
+<p>void button_pressed(const struct device <em>dev, struct gpio_callback </em>cb,
+                       uint32_t pins)
+   {
+       printf("Button pressed! Toggling LED mode\n");
+       // Add your button handling logic here
+   }
+   ```</p>
+<p><strong>Note:</strong> This challenge requires an understanding of interrupts and callbacks, which will be covered in detail in later chapters. The <code>DT_ALIAS(sw0)</code> macro also requires a <code>sw0</code> alias to be defined in your board's device tree file. For example:</p>
+<pre><code class="language-dts">/ {
+    aliases {
+        sw0 = &amp;button0;
+    };
+};
+</code></pre>
+<hr />
+<h2 id="lab-exercise-4-exploring-configuration-options">Lab Exercise 4: Exploring Configuration Options</h2>
+<h3 id="objective_3">Objective</h3>
+<p>Learn to configure Zephyr applications using Kconfig and understand the impact of different settings.</p>
+<h3 id="step-1-interactive-configuration">Step 1: Interactive Configuration</h3>
+<pre><code class="language-bash">cd ~/zephyrproject/my_blinky
+west build -t menuconfig
+</code></pre>
+<p>This opens an interactive menu where you can:
+* Browse available configuration options
+* Enable/disable features
+* See help text for each option
+* Save your configuration</p>
+<h3 id="step-2-common-configuration-experiments">Step 2: Common Configuration Experiments</h3>
+<p><strong>Enable Logging:</strong>
+Add to prj.conf:</p>
+<pre><code>CONFIG_LOG=y
+CONFIG_LOG_DEFAULT_LEVEL=3
+</code></pre>
+<p>Update your code to use logging:</p>
+<pre><code class="language-c">#include &lt;zephyr/logging/log.h&gt;
+LOG_MODULE_REGISTER(main);
+
+// In main function:
+LOG_INF(&quot;Application starting&quot;);
+LOG_DBG(&quot;LED state changed to %s&quot;, led_state ? &quot;ON&quot; : &quot;OFF&quot;);
+</code></pre>
+<p><strong>Adjust Stack Sizes:</strong></p>
+<pre><code>CONFIG_MAIN_STACK_SIZE=2048
+CONFIG_SYSTEM_WORKQUEUE_STACK_SIZE=1024
+</code></pre>
+<p><strong>Enable Shell Interface:</strong></p>
+<pre><code>CONFIG_SHELL=y
+CONFIG_SHELL_BACKEND_SERIAL=y
+</code></pre>
+<h3 id="step-3-memory-usage-analysis">Step 3: Memory Usage Analysis</h3>
+<p><strong>Check memory usage:</strong></p>
+<pre><code class="language-bash">west build -t ram_report
+west build -t rom_report
+</code></pre>
+<p>The memory usage report is automatically generated every time you build your application. You can find this information in the build output, typically near the end. Look for a section that shows the memory usage for different regions like Flash and RAM.</p>
+<p><strong>Optimize for size:</strong></p>
+<pre><code>CONFIG_SIZE_OPTIMIZATIONS=y
+CONFIG_DEBUG=n
+CONFIG_ASSERT=n
+</code></pre>
+<hr />
+<h2 id="lab-summary">Lab Summary</h2>
+<h3 id="what-youve-accomplished">What You've Accomplished</h3>
+<ol>
+<li><strong>Development Environment:</strong> Set up VS Code with Zephyr extension or command-line tools</li>
+<li><strong>First Application:</strong> Built and ran Hello World on both QEMU and real hardware</li>
+<li><strong>Hardware Interaction:</strong> Controlled GPIO pins and LEDs using Zephyr's device driver API</li>
+<li><strong>Custom Application:</strong> Created your own application with custom timing and logging</li>
+<li><strong>Configuration:</strong> Learned to use Kconfig to customize Zephyr features</li>
+</ol>
+<h3 id="key-takeaways">Key Takeaways</h3>
+<ul>
+<li><strong>Zephyr's Power:</strong> Even simple applications demonstrate real-time capabilities</li>
+<li><strong>Hardware Abstraction:</strong> Same code works across different boards with device tree</li>
+<li><strong>Configuration Flexibility:</strong> Kconfig allows fine-tuning for your specific needs</li>
+<li><strong>Development Workflow:</strong> West provides a streamlined build and deployment process</li>
+</ul>
+<h3 id="next-steps">Next Steps</h3>
+<p>You now have hands-on experience with Zephyr development. In Chapter 3, we'll dive deeper into the build system, explore advanced West features, and learn about project structure and organization.</p>
+<p><strong>Continue practicing by:</strong>
+* Trying different boards and comparing the differences
+* Exploring other samples in the zephyr/samples directory
+* Experimenting with different Kconfig options
+* Adding more complex GPIO interactions (multiple LEDs, buttons, etc.)</p>
+
+
+
+
+
+
+
+  
+    
+  
+  
+
+
+  <aside class="md-source-file">
+    
+      
+  <span class="md-source-file__fact">
+    <span class="md-icon" title="Last update">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M21 13.1c-.1 0-.3.1-.4.2l-1 1 2.1 2.1 1-1c.2-.2.2-.6 0-.8l-1.3-1.3c-.1-.1-.2-.2-.4-.2m-1.9 1.8-6.1 6V23h2.1l6.1-6.1zM12.5 7v5.2l4 2.4-1 1L11 13V7zM11 21.9c-5.1-.5-9-4.8-9-9.9C2 6.5 6.5 2 12 2c5.3 0 9.6 4.1 10 9.3-.3-.1-.6-.2-1-.2s-.7.1-1 .2C19.6 7.2 16.2 4 12 4c-4.4 0-8 3.6-8 8 0 4.1 3.1 7.5 7.1 7.9l-.1.2z"/></svg>
+    </span>
+    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date" title="October 18, 2025 08:49:53 UTC">October 18, 2025</span>
+  </span>
+
+    
+    
+    
+    
+  </aside>
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    
+      
+      <script id="__config" type="application/json">{"base": "../..", "features": [], "search": "../../assets/javascripts/workers/search.973d3a69.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": null}</script>
+    
+    
+      <script src="../../assets/javascripts/bundle.f55a23d4.min.js"></script>
+      
+    
+  </body>
+</html>

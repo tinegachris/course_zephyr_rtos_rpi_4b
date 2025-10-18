@@ -1,0 +1,4123 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+      
+      
+      
+        <link rel="prev" href="../theory/">
+      
+      
+        <link rel="next" href="../../chapter_08_tracing_and_logging/introduction/">
+      
+      
+      <link rel="icon" href="../../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.6.22">
+    
+    
+      
+        <title>Lab - Zephyr RTOS Development Course</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../assets/stylesheets/main.84d31ad4.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+    <script>__md_scope=new URL("../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+    
+  </head>
+  
+  
+    <body dir="ltr">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#chapter-7-thread-management-lab" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href="../.." title="Zephyr RTOS Development Course" class="md-header__button md-logo" aria-label="Zephyr RTOS Development Course" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            Zephyr RTOS Development Course
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              Lab
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+
+<nav class="md-nav md-nav--primary" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../.." title="Zephyr RTOS Development Course" class="md-nav__button md-logo" aria-label="Zephyr RTOS Development Course" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    Zephyr RTOS Development Course
+  </label>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../.." class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Home
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2" >
+        
+          
+          <label class="md-nav__link" for="__nav_2" id="__nav_2_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    Contributing
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2">
+            <span class="md-nav__icon md-icon"></span>
+            Contributing
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../CONDUCT/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Code of Conduct
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../CONTRIBUTING/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Contributing
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../chapter_01_course_introduction/introduction/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Chapter 1: Course Introduction
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4" >
+        
+          
+          <label class="md-nav__link" for="__nav_4" id="__nav_4_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    Chapter 2: Introduction to Zephyr
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_4_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_4">
+            <span class="md-nav__icon md-icon"></span>
+            Chapter 2: Introduction to Zephyr
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../chapter_02_introduction_to_zephyr/introduction/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Introduction
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../chapter_02_introduction_to_zephyr/theory/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Theory
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../chapter_02_introduction_to_zephyr/lab/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Lab
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5" >
+        
+          
+          <label class="md-nav__link" for="__nav_5" id="__nav_5_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    Chapter 3: Zephyr Build System
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_5_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_5">
+            <span class="md-nav__icon md-icon"></span>
+            Chapter 3: Zephyr Build System
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../chapter_03_zephyr_build_system/introduction/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Introduction
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../chapter_03_zephyr_build_system/theory/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Theory
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../chapter_03_zephyr_build_system/lab/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Lab
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_6" >
+        
+          
+          <label class="md-nav__link" for="__nav_6" id="__nav_6_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    Chapter 4: Configure Zephyr
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_6_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_6">
+            <span class="md-nav__icon md-icon"></span>
+            Chapter 4: Configure Zephyr
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../chapter_04_configure_zephyr/introduction/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Introduction
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../chapter_04_configure_zephyr/theory/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Theory
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../chapter_04_configure_zephyr/lab/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Lab
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_7" >
+        
+          
+          <label class="md-nav__link" for="__nav_7" id="__nav_7_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    Chapter 5: West
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_7_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_7">
+            <span class="md-nav__icon md-icon"></span>
+            Chapter 5: West
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../chapter_05_west/introduction/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Introduction
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../chapter_05_west/theory/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Theory
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../chapter_05_west/lab/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Lab
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_8" >
+        
+          
+          <label class="md-nav__link" for="__nav_8" id="__nav_8_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    Chapter 6: Zephyr Fundamentals
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_8_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_8">
+            <span class="md-nav__icon md-icon"></span>
+            Chapter 6: Zephyr Fundamentals
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../chapter_06_zephyr_fundamentals/introduction/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Introduction
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../chapter_06_zephyr_fundamentals/theory/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Theory
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../chapter_06_zephyr_fundamentals/lab/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Lab
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_9" checked>
+        
+          
+          <label class="md-nav__link" for="__nav_9" id="__nav_9_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    Chapter 7: Thread Management
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_9_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_9">
+            <span class="md-nav__icon md-icon"></span>
+            Chapter 7: Thread Management
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../introduction/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Introduction
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../theory/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Theory
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    Lab
+    
+  </span>
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        
+  
+  
+  <span class="md-ellipsis">
+    Lab
+    
+  </span>
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#lab-overview" class="md-nav__link">
+    <span class="md-ellipsis">
+      Lab Overview
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#lab-1-thread-creation-fundamentals" class="md-nav__link">
+    <span class="md-ellipsis">
+      Lab 1: Thread Creation Fundamentals
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Lab 1: Thread Creation Fundamentals">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#objective" class="md-nav__link">
+    <span class="md-ellipsis">
+      Objective
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#hardware-setup" class="md-nav__link">
+    <span class="md-ellipsis">
+      Hardware Setup
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#device-tree-configuration" class="md-nav__link">
+    <span class="md-ellipsis">
+      Device Tree Configuration
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#static-thread-implementation" class="md-nav__link">
+    <span class="md-ellipsis">
+      Static Thread Implementation
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#build-configuration" class="md-nav__link">
+    <span class="md-ellipsis">
+      Build Configuration
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#testing-and-expected-behavior" class="md-nav__link">
+    <span class="md-ellipsis">
+      Testing and Expected Behavior
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#lab-2-thread-synchronization" class="md-nav__link">
+    <span class="md-ellipsis">
+      Lab 2: Thread Synchronization
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Lab 2: Thread Synchronization">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#learning-goals" class="md-nav__link">
+    <span class="md-ellipsis">
+      Learning Goals
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#synchronization-implementation" class="md-nav__link">
+    <span class="md-ellipsis">
+      Synchronization Implementation
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#testing-synchronization" class="md-nav__link">
+    <span class="md-ellipsis">
+      Testing Synchronization
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#lab-3-timing-and-performance-optimization" class="md-nav__link">
+    <span class="md-ellipsis">
+      Lab 3: Timing and Performance Optimization
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Lab 3: Timing and Performance Optimization">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#performance-goals" class="md-nav__link">
+    <span class="md-ellipsis">
+      Performance Goals
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#performance-analysis-implementation" class="md-nav__link">
+    <span class="md-ellipsis">
+      Performance Analysis Implementation
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#advanced-performance-configuration" class="md-nav__link">
+    <span class="md-ellipsis">
+      Advanced Performance Configuration
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#performance-analysis-results" class="md-nav__link">
+    <span class="md-ellipsis">
+      Performance Analysis Results
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#lab-summary" class="md-nav__link">
+    <span class="md-ellipsis">
+      Lab Summary
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_10" >
+        
+          
+          <label class="md-nav__link" for="__nav_10" id="__nav_10_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    Chapter 8: Tracing and Logging
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_10_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_10">
+            <span class="md-nav__icon md-icon"></span>
+            Chapter 8: Tracing and Logging
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../chapter_08_tracing_and_logging/introduction/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Introduction
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../chapter_08_tracing_and_logging/theory/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Theory
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../chapter_08_tracing_and_logging/lab/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Lab
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_11" >
+        
+          
+          <label class="md-nav__link" for="__nav_11" id="__nav_11_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    Chapter 9: Memory Management
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_11_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_11">
+            <span class="md-nav__icon md-icon"></span>
+            Chapter 9: Memory Management
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../chapter_09_memory_management/introduction/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Introduction
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../chapter_09_memory_management/theory/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Theory
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../chapter_09_memory_management/lab/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Lab
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_12" >
+        
+          
+          <label class="md-nav__link" for="__nav_12" id="__nav_12_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    Chapter 10: User Mode
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_12_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_12">
+            <span class="md-nav__icon md-icon"></span>
+            Chapter 10: User Mode
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../chapter_10_user_mode/introduction/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Introduction
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../chapter_10_user_mode/theory/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Theory
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../chapter_10_user_mode/lab/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Lab
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_13" >
+        
+          
+          <label class="md-nav__link" for="__nav_13" id="__nav_13_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    Chapter 11: Traditional Multithreading Primitives
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_13_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_13">
+            <span class="md-nav__icon md-icon"></span>
+            Chapter 11: Traditional Multithreading Primitives
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../chapter_11_traditional_multithreading_primitives/introduction/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Introduction
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../chapter_11_traditional_multithreading_primitives/theory/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Theory
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../chapter_11_traditional_multithreading_primitives/lab/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Lab
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_14" >
+        
+          
+          <label class="md-nav__link" for="__nav_14" id="__nav_14_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    Chapter 12: Inter-thread Communication
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_14_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_14">
+            <span class="md-nav__icon md-icon"></span>
+            Chapter 12: Inter-thread Communication
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../chapter_12_inter-thread_communication/introduction/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Introduction
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../chapter_12_inter-thread_communication/theory/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Theory
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../chapter_12_inter-thread_communication/lab/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Lab
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_15" >
+        
+          
+          <label class="md-nav__link" for="__nav_15" id="__nav_15_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    Chapter 13: Interrupt Management
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_15_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_15">
+            <span class="md-nav__icon md-icon"></span>
+            Chapter 13: Interrupt Management
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../chapter_13_interrupt_management/introduction/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Introduction
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../chapter_13_interrupt_management/theory/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Theory
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../chapter_13_interrupt_management/lab/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Lab
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_16" >
+        
+          
+          <label class="md-nav__link" for="__nav_16" id="__nav_16_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    Chapter 14: Modules
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_16_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_16">
+            <span class="md-nav__icon md-icon"></span>
+            Chapter 14: Modules
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../chapter_14_modules/introduction/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Introduction
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../chapter_14_modules/theory/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Theory
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../chapter_14_modules/lab/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Lab
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_17" >
+        
+          
+          <label class="md-nav__link" for="__nav_17" id="__nav_17_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    Chapter 15: Writing Kconfig Symbols
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_17_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_17">
+            <span class="md-nav__icon md-icon"></span>
+            Chapter 15: Writing Kconfig Symbols
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../chapter_15_writing_kconfig_symbols/introduction/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Introduction
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../chapter_15_writing_kconfig_symbols/theory/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Theory
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../chapter_15_writing_kconfig_symbols/lab/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Lab
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_18" >
+        
+          
+          <label class="md-nav__link" for="__nav_18" id="__nav_18_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    Chapter 16: Device Driver Architecture
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_18_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_18">
+            <span class="md-nav__icon md-icon"></span>
+            Chapter 16: Device Driver Architecture
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../chapter_16_device_driver_architecture/introduction/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Introduction
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../chapter_16_device_driver_architecture/theory/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Theory
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../chapter_16_device_driver_architecture/lab/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Lab
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_19" >
+        
+          
+          <label class="md-nav__link" for="__nav_19" id="__nav_19_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    Chapter 17: Power Management
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_19_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_19">
+            <span class="md-nav__icon md-icon"></span>
+            Chapter 17: Power Management
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../chapter_17_power_management/introduction/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Introduction
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../chapter_17_power_management/theory/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Theory
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../chapter_17_power_management/lab/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Lab
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_20" >
+        
+          
+          <label class="md-nav__link" for="__nav_20" id="__nav_20_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    Chapter 18: Capstone Project
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_20_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_20">
+            <span class="md-nav__icon md-icon"></span>
+            Chapter 18: Capstone Project
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../chapter_18_capstone_project/introduction/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Introduction
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../chapter_18_capstone_project/theory/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Theory
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../chapter_18_capstone_project/lab/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Lab
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../chapter_18_capstone_project/networked_monitor/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Networked Monitor
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#lab-overview" class="md-nav__link">
+    <span class="md-ellipsis">
+      Lab Overview
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#lab-1-thread-creation-fundamentals" class="md-nav__link">
+    <span class="md-ellipsis">
+      Lab 1: Thread Creation Fundamentals
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Lab 1: Thread Creation Fundamentals">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#objective" class="md-nav__link">
+    <span class="md-ellipsis">
+      Objective
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#hardware-setup" class="md-nav__link">
+    <span class="md-ellipsis">
+      Hardware Setup
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#device-tree-configuration" class="md-nav__link">
+    <span class="md-ellipsis">
+      Device Tree Configuration
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#static-thread-implementation" class="md-nav__link">
+    <span class="md-ellipsis">
+      Static Thread Implementation
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#build-configuration" class="md-nav__link">
+    <span class="md-ellipsis">
+      Build Configuration
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#testing-and-expected-behavior" class="md-nav__link">
+    <span class="md-ellipsis">
+      Testing and Expected Behavior
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#lab-2-thread-synchronization" class="md-nav__link">
+    <span class="md-ellipsis">
+      Lab 2: Thread Synchronization
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Lab 2: Thread Synchronization">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#learning-goals" class="md-nav__link">
+    <span class="md-ellipsis">
+      Learning Goals
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#synchronization-implementation" class="md-nav__link">
+    <span class="md-ellipsis">
+      Synchronization Implementation
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#testing-synchronization" class="md-nav__link">
+    <span class="md-ellipsis">
+      Testing Synchronization
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#lab-3-timing-and-performance-optimization" class="md-nav__link">
+    <span class="md-ellipsis">
+      Lab 3: Timing and Performance Optimization
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Lab 3: Timing and Performance Optimization">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#performance-goals" class="md-nav__link">
+    <span class="md-ellipsis">
+      Performance Goals
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#performance-analysis-implementation" class="md-nav__link">
+    <span class="md-ellipsis">
+      Performance Analysis Implementation
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#advanced-performance-configuration" class="md-nav__link">
+    <span class="md-ellipsis">
+      Advanced Performance Configuration
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#performance-analysis-results" class="md-nav__link">
+    <span class="md-ellipsis">
+      Performance Analysis Results
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#lab-summary" class="md-nav__link">
+    <span class="md-ellipsis">
+      Lab Summary
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+
+<h1 id="chapter-7-thread-management-lab">Chapter 7: Thread Management - Lab</h1>
+<p>This hands-on lab guides you through building multi-threaded applications that demonstrate thread creation, synchronization, timing control, and performance optimization using your Raspberry Pi 4B platform.</p>
+<hr />
+<h2 id="lab-overview">Lab Overview</h2>
+<p><strong>Learning Objectives:</strong></p>
+<ul>
+<li>Master static and dynamic thread creation techniques</li>
+<li>Implement thread synchronization using mutexes, semaphores, and condition variables</li>
+<li>Apply precise timing control and timeout handling</li>
+<li>Build concurrent sensor monitoring systems</li>
+<li>Debug and optimize multi-threaded applications</li>
+</ul>
+<p><strong>Hardware Requirements:</strong></p>
+<ul>
+<li>Raspberry Pi 4B with Zephyr support</li>
+<li>Breadboard and jumper wires</li>
+<li>2x LEDs with current-limiting resistors (220Ω)</li>
+<li>Push button switch with pull-up resistor (10kΩ)</li>
+<li>I2C temperature sensor (TMP102 or compatible)</li>
+<li>Optional: Logic analyzer or oscilloscope for timing analysis</li>
+</ul>
+<p><strong>Development Environment:</strong></p>
+<ul>
+<li>VS Code with Zephyr extension</li>
+<li>West workspace properly configured</li>
+<li>Serial console access for monitoring thread behavior</li>
+<li>Thread analyzer tools enabled</li>
+</ul>
+<hr />
+<h2 id="lab-1-thread-creation-fundamentals">Lab 1: Thread Creation Fundamentals</h2>
+<h3 id="objective">Objective</h3>
+<p>Build a foundation in thread creation by implementing both static and dynamic threads, demonstrating thread lifecycle management and basic synchronization.</p>
+<h3 id="hardware-setup">Hardware Setup</h3>
+<p>Connect components to your Raspberry Pi 4B:</p>
+<pre><code class="language-text">GPIO Connections:
+- Status LED: GPIO18 (Pin 12) → 220Ω resistor → LED → GND
+- Activity LED: GPIO19 (Pin 35) → 220Ω resistor → LED → GND  
+- Control Button: GPIO21 (Pin 40) → Button → GND (with internal pull-up)
+- Temperature Sensor: I2C1 (SDA: GPIO2, SCL: GPIO3)
+</code></pre>
+<h3 id="device-tree-configuration">Device Tree Configuration</h3>
+<p>Create <code>boards/rpi_4b.overlay</code>:</p>
+<pre><code class="language-dts">/*
+ * Thread Management Lab Device Tree Overlay
+ */
+
+/ {
+    aliases {
+        status-led = &amp;status_led;
+        activity-led = &amp;activity_led;
+        control-btn = &amp;control_button;
+        temp-sensor = &amp;temp_sensor;
+    };
+
+    leds {
+        compatible = &quot;gpio-leds&quot;;
+        status_led: led_0 {
+            gpios = &lt;&amp;gpio 18 GPIO_ACTIVE_HIGH&gt;;
+            label = &quot;Status LED&quot;;
+        };
+        activity_led: led_1 {
+            gpios = &lt;&amp;gpio 19 GPIO_ACTIVE_HIGH&gt;;
+            label = &quot;Activity LED&quot;;
+        };
+    };
+
+    buttons {
+        compatible = &quot;gpio-keys&quot;;
+        control_button: button_0 {
+            gpios = &lt;&amp;gpio 21 (GPIO_PULL_UP | GPIO_ACTIVE_LOW)&gt;;
+            label = &quot;Control Button&quot;;
+        };
+    };
+};
+
+&amp;i2c1 {
+    status = &quot;okay&quot;;
+    clock-frequency = &lt;I2C_BITRATE_FAST&gt;;
+
+    temp_sensor: temperature@48 {
+        compatible = &quot;ti,tmp102&quot;;
+        reg = &lt;0x48&gt;;
+        label = &quot;Temperature Sensor&quot;;
+    };
+};
+</code></pre>
+<h3 id="static-thread-implementation">Static Thread Implementation</h3>
+<p>Create <code>src/thread_basics.c</code>:</p>
+<pre><code class="language-c">/*
+ * Thread Creation Fundamentals Lab
+ * Demonstrates static and dynamic thread creation
+ */
+
+#include &lt;zephyr/kernel.h&gt;
+#include &lt;zephyr/drivers/gpio.h&gt;
+#include &lt;zephyr/drivers/i2c.h&gt;
+#include &lt;zephyr/sys/printk.h&gt;
+#include &lt;zephyr/random/random.h&gt;
+
+/* Device tree specifications */
+static const struct gpio_dt_spec status_led = GPIO_DT_SPEC_GET(DT_ALIAS(status_led), gpios);
+static const struct gpio_dt_spec activity_led = GPIO_DT_SPEC_GET(DT_ALIAS(activity_led), gpios);
+static const struct gpio_dt_spec control_btn = GPIO_DT_SPEC_GET(DT_ALIAS(control_btn), gpios);
+static const struct i2c_dt_spec temp_sensor = I2C_DT_SPEC_GET(DT_ALIAS(temp_sensor));
+
+/* Thread parameters */
+#define STATUS_THREAD_STACK_SIZE    1024
+#define STATUS_THREAD_PRIORITY      5
+
+#define SENSOR_THREAD_STACK_SIZE    1024  
+#define SENSOR_THREAD_PRIORITY      4
+
+#define ACTIVITY_THREAD_STACK_SIZE  512
+#define ACTIVITY_THREAD_PRIORITY    6
+
+/* Global state */
+static volatile bool system_active = true;
+static volatile uint32_t sensor_reading_count = 0;
+static volatile float last_temperature = 0.0f;
+static bool activity_thread_running = false;
+
+/* Status thread - static thread showing system heartbeat */
+void status_thread_entry(void *p1, void *p2, void *p3)
+{
+    bool led_state = false;
+    uint32_t heartbeat_count = 0;
+
+    printk(&quot;Status thread started (TID: %p)\n&quot;, k_current_get());
+
+    while (system_active) {
+        /* Toggle status LED */
+        led_state = !led_state;
+        gpio_pin_set_dt(&amp;status_led, led_state);
+
+        heartbeat_count++;
+
+        /* Print status every 10 heartbeats */
+        if ((heartbeat_count % 10) == 0) {
+            printk(&quot;System Status: Active | Heartbeat: %u | Temp: %.1f°C | Readings: %u\n&quot;,
+                   heartbeat_count, last_temperature, sensor_reading_count);
+        }
+
+        k_sleep(K_MSEC(500));
+    }
+
+    gpio_pin_set_dt(&amp;status_led, 0);
+    printk(&quot;Status thread terminating\n&quot;);
+}
+
+/* Sensor monitoring thread - static thread for temperature readings */
+void sensor_thread_entry(void *p1, void *p2, void *p3)
+{
+    float temperature;
+    int ret;
+
+    printk(&quot;Sensor thread started (TID: %p)\n&quot;, k_current_get());
+
+    while (system_active) {
+        /* Read temperature sensor */
+        uint8_t temp_reg = 0x00;
+        uint8_t temp_data[2];
+
+        ret = i2c_read_dt(&amp;temp_sensor, temp_data, 2);
+        if (ret == 0) {
+            /* Convert TMP102 data to temperature */
+            int16_t raw_temp = (temp_data[0] &lt;&lt; 8) | temp_data[1];
+            raw_temp &gt;&gt;= 4;  /* 12-bit resolution */
+            temperature = raw_temp * 0.0625f;
+
+            last_temperature = temperature;
+            sensor_reading_count++;
+
+            printk(&quot;Sensor Reading %u: %.2f°C\n&quot;, sensor_reading_count, temperature);
+
+            /* Check for temperature alerts */
+            if (temperature &gt; 30.0f) {
+                printk(&quot;🌡️  High temperature alert: %.1f°C\n&quot;, temperature);
+            } else if (temperature &lt; 15.0f) {
+                printk(&quot;❄️  Low temperature alert: %.1f°C\n&quot;, temperature);  
+            }
+        } else {
+            printk(&quot;Sensor read error: %d\n&quot;, ret);
+        }
+
+        k_sleep(K_SECONDS(2));
+    }
+
+    printk(&quot;Sensor thread terminating\n&quot;);
+}
+
+/* Activity simulation thread - dynamic thread creation example */
+void activity_thread_entry(void *param1, void *param2, void *param3)
+{
+    const char *activity_name = (const char *)param1;
+    uint32_t *activity_duration = (uint32_t *)param2;
+    uint32_t blink_count = 0;
+
+    printk(&quot;Activity thread '%s' started (TID: %p, Duration: %ums)\n&quot;, 
+           activity_name, k_current_get(), *activity_duration);
+
+    uint32_t start_time = k_uptime_get_32();
+    uint32_t end_time = start_time + *activity_duration;
+
+    while (k_uptime_get_32() &lt; end_time &amp;&amp; system_active) {
+        /* Blink activity LED */
+        gpio_pin_set_dt(&amp;activity_led, 1);
+        k_sleep(K_MSEC(50));
+        gpio_pin_set_dt(&amp;activity_led, 0);
+        k_sleep(K_MSEC(100));
+
+        blink_count++;
+
+        if ((blink_count % 20) == 0) {
+            printk(&quot;Activity '%s': %u blinks completed\n&quot;, activity_name, blink_count);
+        }
+    }
+
+    gpio_pin_set_dt(&amp;activity_led, 0);
+    printk(&quot;Activity thread '%s' completed %u blinks in %ums\n&quot;, 
+           activity_name, blink_count, k_uptime_get_32() - start_time);
+
+    activity_thread_running = false;
+}
+
+/* Button callback for dynamic thread creation */
+static struct gpio_callback button_cb_data;
+
+void button_pressed_callback(const struct device *dev, struct gpio_callback *cb, uint32_t pins)
+{
+    static struct k_thread activity_thread_data;
+    static k_thread_stack_t activity_thread_stack[ACTIVITY_THREAD_STACK_SIZE];
+    static uint32_t activity_duration;
+    static uint32_t activity_counter = 0;
+    static char activity_name[32];
+
+    if (activity_thread_running) {
+        printk(&quot;Activity thread already running.\n&quot;);
+        return;
+    }
+    activity_thread_running = true;
+    static bool activity_thread_running = false;
+
+    if (activity_thread_running) {
+        printk(&quot;Activity thread already running.\n&quot;);
+        return;
+    }
+
+    activity_thread_running = true;
+
+    activity_counter++;
+
+    /* Generate random activity duration between 3-8 seconds */
+    activity_duration = 3000 + (sys_rand32_get() % 5000);
+    snprintf(activity_name, sizeof(activity_name), &quot;Activity_%u&quot;, activity_counter);
+
+    printk(&quot;Button pressed! Creating dynamic thread: %s\n&quot;, activity_name);
+
+    /* Create dynamic thread */
+    k_tid_t thread_id = k_thread_create(&amp;activity_thread_data,
+                                       activity_thread_stack,
+                                       K_THREAD_STACK_SIZEOF(activity_thread_stack),
+                                       activity_thread_entry,
+                                       activity_name, &amp;activity_duration, NULL,
+                                       ACTIVITY_THREAD_PRIORITY,
+                                       0,
+                                       K_NO_WAIT);
+
+    if (thread_id != NULL) {
+        printk(&quot;Dynamic thread created successfully (TID: %p)\n&quot;, thread_id);
+    } else {
+        printk(&quot;Failed to create dynamic thread\n&quot;);
+    }
+}
+
+/* Hardware initialization */
+int init_hardware(void)
+{
+    int ret;
+
+    /* Initialize LEDs */
+    if (!gpio_is_ready_dt(&amp;status_led)) {
+        printk(&quot;Status LED device not ready\n&quot;);
+        return -ENODEV;
+    }
+
+    if (!gpio_is_ready_dt(&amp;activity_led)) {
+        printk(&quot;Activity LED device not ready\n&quot;);
+        return -ENODEV;
+    }
+
+    ret = gpio_pin_configure_dt(&amp;status_led, GPIO_OUTPUT_INACTIVE);
+    if (ret &lt; 0) {
+        printk(&quot;Failed to configure status LED: %d\n&quot;, ret);
+        return ret;
+    }
+
+    ret = gpio_pin_configure_dt(&amp;activity_led, GPIO_OUTPUT_INACTIVE);
+    if (ret &lt; 0) {
+        printk(&quot;Failed to configure activity LED: %d\n&quot;, ret);
+        return ret;
+    }
+
+    /* Initialize button */
+    if (!gpio_is_ready_dt(&amp;control_btn)) {
+        printk(&quot;Control button device not ready\n&quot;);
+        return -ENODEV;
+    }
+
+    ret = gpio_pin_configure_dt(&amp;control_btn, GPIO_INPUT);
+    if (ret &lt; 0) {
+        printk(&quot;Failed to configure control button: %d\n&quot;, ret);
+        return ret;
+    }
+
+    ret = gpio_pin_interrupt_configure_dt(&amp;control_btn, GPIO_INT_EDGE_TO_ACTIVE);
+    if (ret &lt; 0) {
+        printk(&quot;Failed to configure button interrupt: %d\n&quot;, ret);
+        return ret;
+    }
+
+    gpio_init_callback(&amp;button_cb_data, button_pressed_callback, BIT(control_btn.pin));
+    ret = gpio_add_callback_dt(&amp;control_btn, &amp;button_cb_data);
+    if (ret &lt; 0) {
+        printk(&quot;Failed to add button callback: %d\n&quot;, ret);
+        return ret;
+    }
+
+    /* Initialize I2C sensor */
+    if (!i2c_is_ready_dt(&amp;temp_sensor)) {
+        printk(&quot;Temperature sensor device not ready\n&quot;);
+        return -ENODEV;
+    }
+
+    printk(&quot;Hardware initialization complete\n&quot;);
+    return 0;
+}
+
+/* Static thread definitions */
+K_THREAD_DEFINE(status_thread_tid, STATUS_THREAD_STACK_SIZE,
+               status_thread_entry, NULL, NULL, NULL,
+               STATUS_THREAD_PRIORITY, 0, 0);
+
+K_THREAD_DEFINE(sensor_thread_tid, SENSOR_THREAD_STACK_SIZE,
+               sensor_thread_entry, NULL, NULL, NULL,
+               SENSOR_THREAD_PRIORITY, 0, K_MSEC(500));
+
+/* Main function */
+int main(void)
+{
+    int ret;
+
+    printk(&quot;\n=== Thread Creation Fundamentals Lab ===\n&quot;);
+    printk(&quot;Platform: %s\n&quot;, CONFIG_BOARD);
+    printk(&quot;Kernel: Zephyr %s\n&quot;, KERNEL_VERSION_STRING);
+
+    ret = init_hardware();
+    if (ret &lt; 0) {
+        printk(&quot;Hardware initialization failed: %d\n&quot;, ret);
+        return ret;
+    }
+
+    printk(&quot;Static threads started automatically\n&quot;);
+    printk(&quot;Press button to create dynamic activity threads\n&quot;);
+    printk(&quot;System running... (Press Ctrl+C to stop)\n\n&quot;);
+
+    /* Main thread becomes monitoring thread */
+    uint32_t runtime_seconds = 0;
+
+    while (system_active) {
+        k_sleep(K_SECONDS(1));
+        runtime_seconds++;
+
+        /* Print periodic system summary */
+        if ((runtime_seconds % 30) == 0) {
+            printk(&quot;\n--- System Summary (Runtime: %us) ---\n&quot;, runtime_seconds);
+            printk(&quot;Status Thread: Running (TID: %p)\n&quot;, &amp;status_thread_tid);
+            printk(&quot;Sensor Thread: Running (TID: %p)\n&quot;, &amp;sensor_thread_tid);
+            printk(&quot;Temperature Readings: %u\n&quot;, sensor_reading_count);
+            printk(&quot;Last Temperature: %.1f°C\n&quot;, last_temperature);
+            printk(&quot;System Active: %s\n\n&quot;, system_active ? &quot;Yes&quot; : &quot;No&quot;);
+        }
+
+        /* Auto-shutdown after 5 minutes for demo */
+        if (runtime_seconds &gt;= 300) {
+            printk(&quot;Demo time limit reached, shutting down gracefully\n&quot;);
+            system_active = false;
+        }
+    }
+
+    printk(&quot;Main thread terminating\n&quot;);
+    return 0;
+}
+</code></pre>
+<h3 id="build-configuration">Build Configuration</h3>
+<p>Create <code>prj.conf</code>:</p>
+<pre><code class="language-ini"># Thread Creation Lab Configuration
+CONFIG_GPIO=y
+CONFIG_I2C=y
+CONFIG_PRINTK=y
+CONFIG_CONSOLE=y
+CONFIG_SERIAL=y
+CONFIG_UART_CONSOLE=y
+
+# Thread monitoring and debugging
+CONFIG_THREAD_MONITOR=y
+CONFIG_THREAD_NAME=y
+CONFIG_THREAD_STACK_INFO=y
+
+# Random number generation
+CONFIG_ENTROPY_GENERATOR=y
+CONFIG_TEST_RANDOM_GENERATOR=y
+
+# Floating point support
+CONFIG_NEWLIB_LIBC=y
+CONFIG_NEWLIB_LIBC_FLOAT_PRINTF=y
+
+# Logging
+CONFIG_LOG=y
+CONFIG_LOG_DEFAULT_LEVEL=3
+
+# System
+CONFIG_HEAP_MEM_POOL_SIZE=4096
+CONFIG_MAIN_STACK_SIZE=2048
+</code></pre>
+<h3 id="testing-and-expected-behavior">Testing and Expected Behavior</h3>
+<ol>
+<li><strong>Build and flash:</strong></li>
+</ol>
+<p><code>bash
+   west build -b rpi_4b -p auto
+   west flash
+   west attach</code></p>
+<ol>
+<li><strong>Expected output:</strong></li>
+<li>Status LED blinks every 500ms (system heartbeat)</li>
+<li>Temperature readings every 2 seconds</li>
+<li>Button press creates dynamic activity threads</li>
+<li>Activity LED blinks rapidly during dynamic thread execution</li>
+<li>
+<p>System summary every 30 seconds</p>
+</li>
+<li>
+<p><strong>Thread behavior verification:</strong></p>
+</li>
+<li>Multiple threads run concurrently</li>
+<li>Each thread maintains independent timing</li>
+<li>Dynamic threads are created and terminate properly</li>
+<li>Hardware resources are shared without conflicts</li>
+</ol>
+<hr />
+<h2 id="lab-2-thread-synchronization">Lab 2: Thread Synchronization</h2>
+<h3 id="learning-goals">Learning Goals</h3>
+<p>Implement thread synchronization using mutexes, semaphores, and condition variables to coordinate access to shared resources and manage complex thread interactions.</p>
+<h3 id="synchronization-implementation">Synchronization Implementation</h3>
+<p>Create <code>src/thread_sync.c</code>:</p>
+<pre><code class="language-c">/*
+ * Thread Synchronization Lab
+ * Demonstrates mutexes, semaphores, and condition variables
+ */
+
+#include &lt;zephyr/kernel.h&gt;
+#include &lt;zephyr/drivers/gpio.h&gt;
+#include &lt;zephyr/sys/printk.h&gt;
+#include &lt;zephyr/random/random.h&gt;
+#include &lt;string.h&gt;
+
+/* Device specifications */
+static const struct gpio_dt_spec status_led = GPIO_DT_SPEC_GET(DT_ALIAS(status_led), gpios);
+static const struct gpio_dt_spec activity_led = GPIO_DT_SPEC_GET(DT_ALIAS(activity_led), gpios);
+
+/* Synchronization primitives */
+static struct k_mutex data_mutex;
+static struct k_sem buffer_available_sem;
+static struct k_sem data_ready_sem;
+static struct k_condvar processing_condition;
+static struct k_mutex condition_mutex;
+
+/* Shared data structures */
+#define BUFFER_POOL_SIZE 5
+#define DATA_BUFFER_SIZE 64
+
+struct data_buffer {
+    uint8_t data[DATA_BUFFER_SIZE];
+    uint32_t timestamp;
+    uint32_t sequence_number;
+    bool valid;
+};
+
+static struct data_buffer buffer_pool[BUFFER_POOL_SIZE];
+static uint32_t next_sequence_number = 1;
+static uint32_t processed_count = 0;
+static bool processing_enabled = true;
+
+/* Thread parameters */
+#define PRODUCER_STACK_SIZE     1024
+#define CONSUMER_STACK_SIZE     1024
+#define PROCESSOR_STACK_SIZE    1024
+#define CONTROLLER_STACK_SIZE   512
+
+#define PRODUCER_PRIORITY       5
+#define CONSUMER_PRIORITY       6
+#define PROCESSOR_PRIORITY      7
+#define CONTROLLER_PRIORITY     4
+
+/* Producer thread - generates data with mutex protection */
+void data_producer_thread(void *p1, void *p2, void *p3)
+{
+    uint32_t producer_id = *(uint32_t *)p1;
+    uint32_t production_count = 0;
+
+    printk(&quot;Producer %u thread started (TID: %p)\n&quot;, producer_id, k_current_get());
+
+    while (1) {
+        /* Wait for available buffer */
+        if (k_sem_take(&amp;buffer_available_sem, K_SECONDS(1)) != 0) {
+            printk(&quot;Producer %u: No buffer available, dropping data\n&quot;, producer_id);
+            continue;
+        }
+
+        /* Find available buffer with mutex protection */
+        k_mutex_lock(&amp;data_mutex, K_FOREVER);
+
+        struct data_buffer *buffer = NULL;
+        for (int i = 0; i &lt; BUFFER_POOL_SIZE; i++) {
+            if (!buffer_pool[i].valid) {
+                buffer = &amp;buffer_pool[i];
+                break;
+            }
+        }
+
+        if (buffer != NULL) {
+            /* Fill buffer with simulated data */
+            buffer-&gt;sequence_number = next_sequence_number++;
+            buffer-&gt;timestamp = k_uptime_get_32();
+
+            /* Generate random data */
+            for (int i = 0; i &lt; DATA_BUFFER_SIZE; i++) {
+                buffer-&gt;data[i] = sys_rand32_get() &amp; 0xFF;
+            }
+
+            buffer-&gt;valid = true;
+            production_count++;
+
+            printk(&quot;Producer %u: Created data packet %u (seq: %u)\n&quot;, 
+                   producer_id, production_count, buffer-&gt;sequence_number);
+        }
+
+        k_mutex_unlock(&amp;data_mutex);
+
+        /* Signal data ready */
+        k_sem_give(&amp;data_ready_sem);
+
+        /* Blink status LED to show activity */
+        gpio_pin_toggle_dt(&amp;status_led);
+
+        /* Variable production rate */
+        uint32_t delay = 200 + (sys_rand32_get() % 800);
+        k_sleep(K_MSEC(delay));
+    }
+}
+
+/* Consumer thread - processes data with semaphore coordination */
+void data_consumer_thread(void *p1, void *p2, void *p3)
+{
+    uint32_t consumer_id = *(uint32_t *)p1;
+    uint32_t consumption_count = 0;
+
+    printk(&quot;Consumer %u thread started (TID: %p)\n&quot;, consumer_id, k_current_get());
+
+    while (1) {
+        /* Wait for data to be available */
+        if (k_sem_take(&amp;data_ready_sem, K_SECONDS(2)) != 0) {
+            printk(&quot;Consumer %u: No data available for processing\n&quot;, consumer_id);
+            continue;
+        }
+
+        /* Get data buffer with mutex protection */
+        k_mutex_lock(&amp;data_mutex, K_FOREVER);
+
+        struct data_buffer *buffer = NULL;
+        for (int i = 0; i &lt; BUFFER_POOL_SIZE; i++) {
+            if (buffer_pool[i].valid) {
+                buffer = &amp;buffer_pool[i];
+                break;
+            }
+        }
+
+        if (buffer != NULL) {
+            /* Process data */
+            uint32_t checksum = 0;
+            for (int i = 0; i &lt; DATA_BUFFER_SIZE; i++) {
+                checksum += buffer-&gt;data[i];
+            }
+
+            uint32_t processing_time = k_uptime_get_32() - buffer-&gt;timestamp;
+            consumption_count++;
+
+            printk(&quot;Consumer %u: Processed packet %u (seq: %u, checksum: 0x%08x, latency: %ums)\n&quot;,
+                   consumer_id, consumption_count, buffer-&gt;sequence_number, 
+                   checksum, processing_time);
+
+            /* Clear buffer */
+            memset(buffer, 0, sizeof(struct data_buffer));
+            buffer-&gt;valid = false;
+        }
+
+        k_mutex_unlock(&amp;data_mutex);
+
+        /* Signal buffer available */
+        k_sem_give(&amp;buffer_available_sem);
+
+        /* Blink activity LED */
+        gpio_pin_toggle_dt(&amp;activity_led);
+
+        /* Simulate processing time */
+        k_sleep(K_MSEC(100 + (sys_rand32_get() % 200)));
+    }
+}
+
+/* Data processor thread - uses condition variables for complex coordination */
+void data_processor_thread(void *p1, void *p2, void *p3)
+{
+    uint32_t batch_size = 0;
+
+    printk(&quot;Data processor thread started (TID: %p)\n&quot;, k_current_get());
+
+    while (1) {
+        k_mutex_lock(&amp;condition_mutex, K_FOREVER);
+
+        /* Wait for processing to be enabled */
+        while (!processing_enabled) {
+            printk(&quot;Data processor: Waiting for processing to be enabled\n&quot;);
+            k_condvar_wait(&amp;processing_condition, &amp;condition_mutex, K_FOREVER);
+        }
+
+        /* Wait for sufficient data to process */
+        while (k_sem_count_get(&amp;data_ready_sem) &lt; 3 &amp;&amp; processing_enabled) {
+            printk(&quot;Data processor: Waiting for batch of data (current: %u)\n&quot;, 
+                   k_sem_count_get(&amp;data_ready_sem));
+            k_condvar_wait(&amp;processing_condition, &amp;condition_mutex, K_SECONDS(5));
+        }
+
+        if (!processing_enabled) {
+            k_mutex_unlock(&amp;condition_mutex);
+            continue;
+        }
+
+        /* Process batch */
+        batch_size = MIN(k_sem_count_get(&amp;data_ready_sem), 3);
+        processed_count += batch_size;
+
+        printk(&quot;Data processor: Processing batch of %u items (total processed: %u)\n&quot;,
+               batch_size, processed_count);
+
+        k_mutex_unlock(&amp;condition_mutex);
+
+        /* Simulate batch processing */
+        k_sleep(K_MSEC(500));
+
+        /* Signal processing complete */
+        k_condvar_broadcast(&amp;processing_condition);
+
+        k_sleep(K_SECONDS(2));
+    }
+}
+
+/* Controller thread - manages system state with condition variables */
+void system_controller_thread(void *p1, void *p2, void *p3)
+{
+    bool last_processing_state = processing_enabled;
+    uint32_t state_changes = 0;
+
+    printk(&quot;System controller thread started (TID: %p)\n&quot;, k_current_get());
+
+    while (1) {
+        /* Monitor system load */
+        uint32_t pending_data = k_sem_count_get(&amp;data_ready_sem);
+        uint32_t available_buffers = k_sem_count_get(&amp;buffer_available_sem);
+
+        k_mutex_lock(&amp;condition_mutex, K_FOREVER);
+
+        /* Control processing based on system state */
+        if (pending_data &gt; 4) {
+            /* Enable aggressive processing */
+            if (!processing_enabled) {
+                processing_enabled = true;
+                state_changes++;
+                printk(&quot;Controller: Enabling processing (pending: %u, available: %u)\n&quot;,
+                       pending_data, available_buffers);
+                k_condvar_broadcast(&amp;processing_condition);
+            }
+        } else if (pending_data == 0) {
+            /* Disable processing when idle */
+            if (processing_enabled) {
+                processing_enabled = false;
+                state_changes++;
+                printk(&quot;Controller: Disabling processing (system idle)\n&quot;);
+                k_condvar_broadcast(&amp;processing_condition);
+            }
+        }
+
+        if (processing_enabled != last_processing_state) {
+            last_processing_state = processing_enabled;
+        }
+
+        k_mutex_unlock(&amp;condition_mutex);
+
+        /* Print system status */
+        if ((state_changes % 5) == 0 &amp;&amp; state_changes &gt; 0) {
+            printk(&quot;--- System Status ---\n&quot;);
+            printk(&quot;Pending Data: %u\n&quot;, pending_data);
+            printk(&quot;Available Buffers: %u\n&quot;, available_buffers);
+            printk(&quot;Processing Enabled: %s\n&quot;, processing_enabled ? &quot;Yes&quot; : &quot;No&quot;);
+            printk(&quot;Total Processed: %u\n&quot;, processed_count);
+            printk(&quot;State Changes: %u\n\n&quot;, state_changes);
+        }
+
+        k_sleep(K_SECONDS(1));
+    }
+}
+
+/* Initialize synchronization system */
+int init_synchronization_system(void)
+{
+    /* Initialize synchronization primitives */
+    k_mutex_init(&amp;data_mutex);
+    k_sem_init(&amp;buffer_available_sem, BUFFER_POOL_SIZE, BUFFER_POOL_SIZE);
+    k_sem_init(&amp;data_ready_sem, 0, BUFFER_POOL_SIZE);
+    k_condvar_init(&amp;processing_condition);
+    k_mutex_init(&amp;condition_mutex);
+
+    /* Initialize buffer pool */
+    memset(buffer_pool, 0, sizeof(buffer_pool));
+
+    printk(&quot;Synchronization system initialized\n&quot;);
+    return 0;
+}
+
+/* Thread creation with different parameters */
+int create_sync_threads(void)
+{
+    static struct k_thread producer1_thread, producer2_thread;
+    static struct k_thread consumer1_thread, consumer2_thread;
+    static struct k_thread processor_thread, controller_thread;
+
+    static k_thread_stack_t producer1_stack[PRODUCER_STACK_SIZE];
+    static k_thread_stack_t producer2_stack[PRODUCER_STACK_SIZE];
+    static k_thread_stack_t consumer1_stack[CONSUMER_STACK_SIZE];
+    static k_thread_stack_t consumer2_stack[CONSUMER_STACK_SIZE];
+    static k_thread_stack_t processor_stack[PROCESSOR_STACK_SIZE];
+    static k_thread_stack_t controller_stack[CONTROLLER_STACK_SIZE];
+
+    static uint32_t producer1_id = 1, producer2_id = 2;
+    static uint32_t consumer1_id = 1, consumer2_id = 2;
+
+    /* Create producer threads */
+    k_thread_create(&amp;producer1_thread, producer1_stack,
+                   K_THREAD_STACK_SIZEOF(producer1_stack),
+                   data_producer_thread, &amp;producer1_id, NULL, NULL,
+                   PRODUCER_PRIORITY, 0, K_NO_WAIT);
+
+    k_thread_create(&amp;producer2_thread, producer2_stack,
+                   K_THREAD_STACK_SIZEOF(producer2_stack),
+                   data_producer_thread, &amp;producer2_id, NULL, NULL,
+                   PRODUCER_PRIORITY, 0, K_MSEC(250));
+
+    /* Create consumer threads */
+    k_thread_create(&amp;consumer1_thread, consumer1_stack,
+                   K_THREAD_STACK_SIZEOF(consumer1_stack),
+                   data_consumer_thread, &amp;consumer1_id, NULL, NULL,
+                   CONSUMER_PRIORITY, 0, K_MSEC(100));
+
+    k_thread_create(&amp;consumer2_thread, consumer2_stack,
+                   K_THREAD_STACK_SIZEOF(consumer2_stack),
+                   data_consumer_thread, &amp;consumer2_id, NULL, NULL,
+                   CONSUMER_PRIORITY, 0, K_MSEC(350));
+
+    /* Create processor thread */
+    k_thread_create(&amp;processor_thread, processor_stack,
+                   K_THREAD_STACK_SIZEOF(processor_stack),
+                   data_processor_thread, NULL, NULL, NULL,
+                   PROCESSOR_PRIORITY, 0, K_MSEC(500));
+
+    /* Create controller thread */
+    k_thread_create(&amp;controller_thread, controller_stack,
+                   K_THREAD_STACK_SIZEOF(controller_stack),
+                   system_controller_thread, NULL, NULL, NULL,
+                   CONTROLLER_PRIORITY, 0, K_MSEC(750));
+
+    printk(&quot;All synchronization threads created\n&quot;);
+    return 0;
+}
+
+int main(void)
+{
+    int ret;
+
+    printk(&quot;\n=== Thread Synchronization Lab ===\n&quot;);
+    printk(&quot;Platform: %s\n&quot;, CONFIG_BOARD);
+
+    /* Initialize hardware */
+    if (!gpio_is_ready_dt(&amp;status_led) || !gpio_is_ready_dt(&amp;activity_led)) {
+        printk(&quot;LED devices not ready\n&quot;);
+        return -ENODEV;
+    }
+
+    gpio_pin_configure_dt(&amp;status_led, GPIO_OUTPUT_INACTIVE);
+    gpio_pin_configure_dt(&amp;activity_led, GPIO_OUTPUT_INACTIVE);
+
+    /* Initialize synchronization system */
+    ret = init_synchronization_system();
+    if (ret &lt; 0) {
+        printk(&quot;Synchronization system initialization failed: %d\n&quot;, ret);
+        return ret;
+    }
+
+    /* Create and start threads */
+    ret = create_sync_threads();
+    if (ret &lt; 0) {
+        printk(&quot;Thread creation failed: %d\n&quot;, ret);
+        return ret;
+    }
+
+    printk(&quot;System running with multiple producers, consumers, and processors\n&quot;);
+    printk(&quot;Observe LED patterns and console output for synchronization behavior\n\n&quot;);
+
+    /* Main thread monitors overall system health */
+    uint32_t runtime_minutes = 0;
+
+    while (1) {
+        k_sleep(K_SECONDS(60));
+        runtime_minutes++;
+
+        printk(&quot;\n=== System Health Check (Runtime: %u minutes) ===\n&quot;, runtime_minutes);
+        printk(&quot;Data Ready Semaphore Count: %u\n&quot;, k_sem_count_get(&amp;data_ready_sem));
+        printk(&quot;Buffer Available Semaphore Count: %u\n&quot;, k_sem_count_get(&amp;buffer_available_sem));
+        printk(&quot;Total Processed Batches: %u\n&quot;, processed_count);
+        printk(&quot;Processing State: %s\n\n&quot;, processing_enabled ? &quot;Enabled&quot; : &quot;Disabled&quot;);
+
+        /* Auto-shutdown after demo period */
+        if (runtime_minutes &gt;= 10) {
+            printk(&quot;Demo period complete, system demonstrated successfully\n&quot;);
+            break;
+        }
+    }
+
+    return 0;
+}
+</code></pre>
+<h3 id="testing-synchronization">Testing Synchronization</h3>
+<ol>
+<li><strong>Build and run:</strong></li>
+</ol>
+<p><code>bash
+   west build -b rpi_4b
+   west flash
+   west attach</code></p>
+<ol>
+<li><strong>Observe synchronization behavior:</strong></li>
+<li>Multiple producers create data at different rates</li>
+<li>Consumers process data cooperatively using semaphores</li>
+<li>Processor waits for batch conditions using condition variables</li>
+<li>Controller manages system state dynamically</li>
+<li>
+<p>LEDs indicate thread activity patterns</p>
+</li>
+<li>
+<p><strong>Key synchronization concepts demonstrated:</strong></p>
+</li>
+<li><strong>Mutual exclusion</strong> with mutexes protecting shared data</li>
+<li><strong>Resource counting</strong> with semaphores managing buffer pool</li>
+<li><strong>Complex conditions</strong> with condition variables coordinating batch processing</li>
+<li><strong>Priority inheritance</strong> preventing priority inversion issues</li>
+</ol>
+<hr />
+<h2 id="lab-3-timing-and-performance-optimization">Lab 3: Timing and Performance Optimization</h2>
+<h3 id="performance-goals">Performance Goals</h3>
+<p>Implement precise timing control, analyze thread performance, and optimize multi-threaded applications for real-time requirements.</p>
+<h3 id="performance-analysis-implementation">Performance Analysis Implementation</h3>
+<p>Create <code>src/thread_performance.c</code>:</p>
+<pre><code class="language-c">/*
+ * Thread Performance and Timing Lab
+ * Demonstrates timing precision, performance monitoring, and optimization
+ */
+
+#include &lt;zephyr/kernel.h&gt;
+#include &lt;zephyr/drivers/gpio.h&gt;
+#include &lt;zephyr/sys/printk.h&gt;
+#include &lt;zephyr/timing/timing.h&gt;
+#include &lt;zephyr/random/random.h&gt;
+
+/* Performance monitoring structures */
+struct thread_performance_stats {
+    uint32_t execution_count;
+    uint32_t min_execution_time_us;
+    uint32_t max_execution_time_us;
+    uint32_t total_execution_time_us;
+    uint32_t deadline_misses;
+    uint32_t context_switches;
+};
+
+/* Thread parameters for timing tests */
+#define RT_THREAD_STACK_SIZE        1024
+#define MONITOR_THREAD_STACK_SIZE   1024
+#define LOAD_THREAD_STACK_SIZE      512
+
+#define RT_THREAD_PRIORITY          2   /* High priority real-time */
+#define MONITOR_THREAD_PRIORITY     5   /* Normal monitoring */
+#define LOAD_THREAD_PRIORITY        8   /* Background load */
+
+/* Global performance tracking */
+static struct thread_performance_stats rt_stats = {0};
+static struct thread_performance_stats monitor_stats = {0};
+static volatile bool performance_test_active = true;
+
+/* Timing precision test thread */
+void realtime_thread_entry(void *p1, void *p2, void *p3)
+{
+    uint32_t period_us = *(uint32_t *)p1;
+    k_timeout_t thread_period = K_USEC(period_us);
+
+    timing_t start_time, end_time;
+    uint64_t execution_cycles, execution_us;
+
+    printk(&quot;Real-time thread started (Period: %uµs, TID: %p)\n&quot;, 
+           period_us, k_current_get());
+
+    /* Initialize timing system */
+    timing_init();
+    timing_start();
+
+    rt_stats.min_execution_time_us = UINT32_MAX;
+
+    while (performance_test_active) {
+        start_time = timing_counter_get();
+
+        /* Simulate real-time task work */
+        perform_realtime_task();
+
+        end_time = timing_counter_get();
+
+        /* Calculate execution time */
+        execution_cycles = timing_cycles_get(&amp;start_time, &amp;end_time);
+        execution_us = timing_cycles_to_ns(execution_cycles) / 1000;
+
+        /* Update performance statistics */
+        rt_stats.execution_count++;
+        rt_stats.total_execution_time_us += execution_us;
+
+        if (execution_us &lt; rt_stats.min_execution_time_us) {
+            rt_stats.min_execution_time_us = execution_us;
+        }
+        if (execution_us &gt; rt_stats.max_execution_time_us) {
+            rt_stats.max_execution_time_us = execution_us;
+        }
+
+        /* Check for deadline miss */
+        if (execution_us &gt; (period_us * 0.8)) {  /* 80% deadline threshold */
+            rt_stats.deadline_misses++;
+            printk(&quot;⚠️  Real-time thread deadline miss: %lluµs (limit: %u µs)\n&quot;, 
+                   execution_us, (uint32_t)(period_us * 0.8));
+        }
+
+        k_sleep(thread_period);
+    }
+
+    timing_stop();
+    printk(&quot;Real-time thread terminated\n&quot;);
+}
+
+/* Performance monitoring thread */
+void performance_monitor_thread(void *p1, void *p2, void *p3)
+{
+    uint32_t report_interval_s = *(uint32_t *)p1;
+    uint32_t report_count = 0;
+
+    printk(&quot;Performance monitor thread started (Interval: %us, TID: %p)\n&quot;, 
+           report_interval_s, k_current_get());
+
+    while (performance_test_active) {
+        timing_t start_time = timing_counter_get();
+
+        /* Collect system performance data */
+        collect_system_metrics();
+
+        timing_t end_time = timing_counter_get();
+        uint64_t monitor_cycles = timing_cycles_get(&amp;start_time, &amp;end_time);
+        uint32_t monitor_us = timing_cycles_to_ns(monitor_cycles) / 1000;
+
+        /* Update monitoring statistics */
+        monitor_stats.execution_count++;
+        monitor_stats.total_execution_time_us += monitor_us;
+
+        if (monitor_us &lt; monitor_stats.min_execution_time_us || 
+            monitor_stats.min_execution_time_us == 0) {
+            monitor_stats.min_execution_time_us = monitor_us;
+        }
+        if (monitor_us &gt; monitor_stats.max_execution_time_us) {
+            monitor_stats.max_execution_time_us = monitor_us;
+        }
+
+        report_count++;
+
+        /* Generate performance report */
+        if ((report_count % report_interval_s) == 0) {
+            print_performance_report();
+        }
+
+        k_sleep(K_SECONDS(1));
+    }
+
+    printk(&quot;Performance monitor thread terminated\n&quot;);
+}
+
+/* System load generation thread */
+void load_generation_thread(void *p1, void *p2, void *p3)
+{
+    uint32_t load_pattern = 0;
+
+    printk(&quot;Load generation thread started (TID: %p)\n&quot;, k_current_get());
+
+    while (performance_test_active) {
+        load_pattern = (load_pattern + 1) % 4;
+
+        switch (load_pattern) {
+        case 0:
+            /* Light load */
+            generate_computational_load(10);
+            k_sleep(K_MSEC(900));
+            break;
+        case 1:
+            /* Medium load */
+            generate_computational_load(50);
+            k_sleep(K_MSEC(500));
+            break;
+        case 2:
+            /* Heavy load */
+            generate_computational_load(100);
+            k_sleep(K_MSEC(200));
+            break;
+        case 3:
+            /* Burst load */
+            for (int i = 0; i &lt; 5; i++) {
+                generate_computational_load(20);
+                k_sleep(K_MSEC(50));
+            }
+            k_sleep(K_MSEC(750));
+            break;
+        }
+    }
+
+    printk(&quot;Load generation thread terminated\n&quot;);
+}
+
+/* Real-time task simulation */
+void perform_realtime_task(void)
+{
+    /* Simulate sensor reading and processing */
+    volatile uint32_t sensor_value = sys_rand32_get();
+    volatile uint32_t processed_value = 0;
+
+    /* Simple processing algorithm */
+    for (int i = 0; i &lt; 100; i++) {
+        processed_value += (sensor_value &gt;&gt; (i % 8)) &amp; 0xFF;
+    }
+
+    /* Simulate control output */
+    bool control_output = (processed_value &gt; 12500);
+
+    /* Update GPIO based on control decision */
+    static const struct gpio_dt_spec control_led = 
+        GPIO_DT_SPEC_GET(DT_ALIAS(status_led), gpios);
+    gpio_pin_set_dt(&amp;control_led, control_output ? 1 : 0);
+}
+
+/* System metrics collection */
+void collect_system_metrics(void)
+{
+    /* Collect various system performance metrics */
+    uint32_t uptime_ms = k_uptime_get_32();
+
+    /* Simulate additional metric collection */
+    volatile uint32_t cpu_usage = calculate_cpu_usage();
+    volatile uint32_t memory_usage = calculate_memory_usage();
+
+    /* Store metrics for reporting */
+    static uint32_t last_free_heap = 0;
+    if (free_heap != last_free_heap) {
+        last_free_heap = free_heap;
+    }
+}
+
+/* Computational load generation */
+void generate_computational_load(uint32_t intensity)
+{
+    volatile uint32_t result = 0;
+    uint32_t iterations = intensity * 1000;
+
+    for (uint32_t i = 0; i &lt; iterations; i++) {
+        result += i * (i % 7) + sys_rand32_get() % 100;
+    }
+}
+
+/* CPU usage calculation (simplified) */
+uint32_t calculate_cpu_usage(void)
+{
+    static uint32_t last_idle_time = 0;
+    static uint32_t last_total_time = 0;
+
+    uint32_t current_time = k_uptime_get_32();
+    uint32_t idle_time = current_time;  /* Simplified calculation */
+
+    uint32_t total_delta = current_time - last_total_time;
+    uint32_t idle_delta = idle_time - last_idle_time;
+
+    last_total_time = current_time;
+    last_idle_time = idle_time;
+
+    if (total_delta == 0) return 0;
+
+    return ((total_delta - idle_delta) * 100) / total_delta;
+}
+
+/* Memory usage calculation */
+uint32_t calculate_memory_usage(void)
+{
+    size_t free_bytes = k_mem_free_get();
+    return (4096 - free_bytes) * 100 / 4096;  /* Assuming 4KB heap */
+}
+
+/* Performance report generation */
+void print_performance_report(void)
+{
+    printk(&quot;\n=== Performance Report ===\n&quot;);
+
+    /* Real-time thread statistics */
+    if (rt_stats.execution_count &gt; 0) {
+        uint32_t avg_rt_time = rt_stats.total_execution_time_us / rt_stats.execution_count;
+        printk(&quot;Real-time Thread:\n&quot;);
+        printk(&quot;  Executions: %u\n&quot;, rt_stats.execution_count);
+        printk(&quot;  Avg Time: %u µs\n&quot;, avg_rt_time);
+        printk(&quot;  Min Time: %u µs\n&quot;, rt_stats.min_execution_time_us);
+        printk(&quot;  Max Time: %u µs\n&quot;, rt_stats.max_execution_time_us);
+        printk(&quot;  Deadline Misses: %u (%.1f%%)\n&quot;, 
+               rt_stats.deadline_misses,
+               (float)rt_stats.deadline_misses * 100.0f / rt_stats.execution_count);
+    }
+
+    /* Monitor thread statistics */
+    if (monitor_stats.execution_count &gt; 0) {
+        uint32_t avg_monitor_time = monitor_stats.total_execution_time_us / monitor_stats.execution_count;
+        printk(&quot;Monitor Thread:\n&quot;);
+        printk(&quot;  Executions: %u\n&quot;, monitor_stats.execution_count);
+        printk(&quot;  Avg Time: %u µs\n&quot;, avg_monitor_time);
+        printk(&quot;  Min Time: %u µs\n&quot;, monitor_stats.min_execution_time_us);
+        printk(&quot;  Max Time: %u µs\n&quot;, monitor_stats.max_execution_time_us);
+    }
+
+    /* System statistics */
+    printk(&quot;System:\n&quot;);
+    printk(&quot;  Uptime: %u seconds\n&quot;, k_uptime_get_32() / 1000);
+    printk(&quot;  Est. CPU Usage: %u%%\n&quot;, calculate_cpu_usage());
+    printk(&quot;  Est. Memory Usage: %u%%\n&quot;, calculate_memory_usage());
+
+    printk(&quot;========================\n\n&quot;);
+}
+
+/* Thread stack monitoring */
+void monitor_thread_stacks(void)
+{
+    printk(&quot;=== Thread Stack Usage ===\n&quot;);
+
+    /* Monitor main thread stack */
+    size_t main_unused = k_thread_stack_space_get(k_current_get());
+    printk(&quot;Main Thread: %zu bytes unused\n&quot;, main_unused);
+
+    printk(&quot;===========================\n&quot;);
+}
+
+/* Performance test threads */
+static struct k_thread rt_thread_data, monitor_thread_data, load_thread_data;
+static k_thread_stack_t rt_thread_stack[RT_THREAD_STACK_SIZE];
+static k_thread_stack_t monitor_thread_stack[MONITOR_THREAD_STACK_SIZE];
+static k_thread_stack_t load_thread_stack[LOAD_THREAD_STACK_SIZE];
+
+int main(void)
+{
+    static uint32_t rt_period_us = 5000;      /* 5ms period */
+    static uint32_t monitor_interval_s = 10;   /* 10s reports */
+
+    printk(&quot;\n=== Thread Performance and Timing Lab ===\n&quot;);
+    printk(&quot;Platform: %s\n&quot;, CONFIG_BOARD);
+    printk(&quot;Testing timing precision and performance monitoring\n\n&quot;);
+
+    /* Initialize GPIO for control output */
+    static const struct gpio_dt_spec status_led = 
+        GPIO_DT_SPEC_GET(DT_ALIAS(status_led), gpios);
+    if (gpio_is_ready_dt(&amp;status_led)) {
+        gpio_pin_configure_dt(&amp;status_led, GPIO_OUTPUT_INACTIVE);
+    }
+
+    /* Create performance test threads */
+    k_thread_create(&amp;rt_thread_data, rt_thread_stack,
+                   K_THREAD_STACK_SIZEOF(rt_thread_stack),
+                   realtime_thread_entry, &amp;rt_period_us, NULL, NULL,
+                   RT_THREAD_PRIORITY, 0, K_NO_WAIT);
+
+    k_thread_create(&amp;monitor_thread_data, monitor_thread_stack,
+                   K_THREAD_STACK_SIZEOF(monitor_thread_stack),
+                   performance_monitor_thread, &amp;monitor_interval_s, NULL, NULL,
+                   MONITOR_THREAD_PRIORITY, 0, K_MSEC(500));
+
+    k_thread_create(&amp;load_thread_data, load_thread_stack,
+                   K_THREAD_STACK_SIZEOF(load_thread_stack),
+                   load_generation_thread, NULL, NULL, NULL,
+                   LOAD_THREAD_PRIORITY, 0, K_MSEC(1000));
+
+    printk(&quot;Performance test threads created and started\n&quot;);
+    printk(&quot;Monitor console output for timing and performance data\n\n&quot;);
+
+    /* Main thread supervises test execution */
+    uint32_t test_duration_minutes = 5;
+    uint32_t elapsed_minutes = 0;
+
+    while (elapsed_minutes &lt; test_duration_minutes) {
+        k_sleep(K_SECONDS(60));
+        elapsed_minutes++;
+
+        printk(&quot;--- Test Progress: %u/%u minutes ---\n&quot;, 
+               elapsed_minutes, test_duration_minutes);
+
+        /* Monitor stack usage */
+        monitor_thread_stacks();
+
+        /* Print intermediate summary */
+        print_performance_report();
+    }
+
+    printk(&quot;Performance test completed, stopping threads...\n&quot;);
+    performance_test_active = false;
+
+    /* Wait for threads to terminate gracefully */
+    k_sleep(K_SECONDS(2));
+
+    /* Final performance report */
+    printk(&quot;\n=== FINAL PERFORMANCE REPORT ===\n&quot;);
+    print_performance_report();
+
+    printk(&quot;Thread performance lab completed successfully\n&quot;);
+    return 0;
+}
+</code></pre>
+<h3 id="advanced-performance-configuration">Advanced Performance Configuration</h3>
+<p>Update <code>prj.conf</code> for performance testing:</p>
+<pre><code class="language-ini"># Thread Performance Lab Configuration
+CONFIG_GPIO=y
+CONFIG_PRINTK=y
+CONFIG_CONSOLE=y
+CONFIG_SERIAL=y
+CONFIG_UART_CONSOLE=y
+
+# Thread monitoring and debugging
+CONFIG_THREAD_MONITOR=y
+CONFIG_THREAD_NAME=y
+CONFIG_THREAD_STACK_INFO=y
+CONFIG_THREAD_RUNTIME_STATS=y
+
+# Timing and performance
+CONFIG_TIMING_FUNCTIONS=y
+CONFIG_TIMING_FUNCTIONS_NEED_AT_BOOT=y
+CONFIG_SYS_CLOCK_TICKS_PER_SEC=10000
+
+# High precision timing
+CONFIG_COUNTER=y
+CONFIG_SYSTEM_CLOCK_SLOPPY_IDLE=n
+
+# Memory management
+CONFIG_HEAP_MEM_POOL_SIZE=8192
+CONFIG_MAIN_STACK_SIZE=4096
+
+# Random number generation
+CONFIG_ENTROPY_GENERATOR=y
+CONFIG_TEST_RANDOM_GENERATOR=y
+
+# Floating point support
+CONFIG_NEWLIB_LIBC=y
+CONFIG_NEWLIB_LIBC_FLOAT_PRINTF=y
+
+# Optimization
+CONFIG_SPEED_OPTIMIZATIONS=y
+CONFIG_COMPILER_OPT=&quot;-O2&quot;
+
+# Logging
+CONFIG_LOG=y
+CONFIG_LOG_DEFAULT_LEVEL=3
+</code></pre>
+<h3 id="performance-analysis-results">Performance Analysis Results</h3>
+<p>Expected performance characteristics when running the lab:</p>
+<ol>
+<li><strong>Real-time Thread Performance:</strong></li>
+</ol>
+<p><code>text
+   Real-time Thread:
+     Executions: 1200
+     Avg Time: 245 µs
+     Min Time: 180 µs
+     Max Time: 890 µs
+     Deadline Misses: 3 (0.3%)</code></p>
+<ol>
+<li><strong>System Load Impact:</strong></li>
+<li>Light load: Consistent timing, minimal jitter</li>
+<li>Medium load: Slight increase in execution time</li>
+<li>Heavy load: Increased jitter, potential deadline misses</li>
+<li>
+<p>Burst load: Periodic timing variations</p>
+</li>
+<li>
+<p><strong>Thread Synchronization Overhead:</strong></p>
+</li>
+<li>Mutex operations: ~5-10µs overhead</li>
+<li>Semaphore operations: ~3-7µs overhead</li>
+<li>Condition variables: ~8-15µs overhead</li>
+</ol>
+<hr />
+<h2 id="lab-summary">Lab Summary</h2>
+<p>Through these comprehensive labs, you've mastered:</p>
+<p><strong>Thread Creation and Management:</strong></p>
+<ul>
+<li>Static thread definition using K_THREAD_DEFINE</li>
+<li>Dynamic thread creation with k_thread_create</li>
+<li>Thread lifecycle management and graceful termination</li>
+<li>Parameter passing and thread communication</li>
+</ul>
+<p><strong>Synchronization Mechanisms:</strong></p>
+<ul>
+<li>Mutual exclusion with mutexes for resource protection</li>
+<li>Resource counting and signaling with semaphores</li>
+<li>Complex coordination using condition variables</li>
+<li>Priority inheritance and deadlock prevention</li>
+</ul>
+<p><strong>Timing and Performance:</strong></p>
+<ul>
+<li>Precise timing control with k_sleep, k_msleep, and k_usleep</li>
+<li>High-precision timing using the timing API</li>
+<li>Performance monitoring and optimization techniques</li>
+<li>Real-time constraint handling and deadline management</li>
+</ul>
+<p><strong>Professional Practices:</strong></p>
+<ul>
+<li>Stack size optimization and monitoring</li>
+<li>Priority assignment strategies</li>
+<li>Error handling and recovery patterns</li>
+<li>Performance analysis and system tuning</li>
+</ul>
+<p>These skills provide the foundation for building sophisticated multi-threaded embedded applications that meet professional real-time system requirements.</p>
+
+
+
+
+
+
+
+  
+    
+  
+  
+
+
+  <aside class="md-source-file">
+    
+      
+  <span class="md-source-file__fact">
+    <span class="md-icon" title="Last update">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M21 13.1c-.1 0-.3.1-.4.2l-1 1 2.1 2.1 1-1c.2-.2.2-.6 0-.8l-1.3-1.3c-.1-.1-.2-.2-.4-.2m-1.9 1.8-6.1 6V23h2.1l6.1-6.1zM12.5 7v5.2l4 2.4-1 1L11 13V7zM11 21.9c-5.1-.5-9-4.8-9-9.9C2 6.5 6.5 2 12 2c5.3 0 9.6 4.1 10 9.3-.3-.1-.6-.2-1-.2s-.7.1-1 .2C19.6 7.2 16.2 4 12 4c-4.4 0-8 3.6-8 8 0 4.1 3.1 7.5 7.1 7.9l-.1.2z"/></svg>
+    </span>
+    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date" title="October 18, 2025 08:49:53 UTC">October 18, 2025</span>
+  </span>
+
+    
+    
+    
+    
+  </aside>
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    
+      
+      <script id="__config" type="application/json">{"base": "../..", "features": [], "search": "../../assets/javascripts/workers/search.973d3a69.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": null}</script>
+    
+    
+      <script src="../../assets/javascripts/bundle.f55a23d4.min.js"></script>
+      
+    
+  </body>
+</html>

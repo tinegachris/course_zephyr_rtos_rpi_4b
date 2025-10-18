@@ -1,0 +1,3166 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+      
+      
+      
+        <link rel="prev" href="../introduction/">
+      
+      
+        <link rel="next" href="../lab/">
+      
+      
+      <link rel="icon" href="../../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.6.22">
+    
+    
+      
+        <title>Theory - Zephyr RTOS Development Course</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../assets/stylesheets/main.84d31ad4.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+    <script>__md_scope=new URL("../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+    
+  </head>
+  
+  
+    <body dir="ltr">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#chapter-8-tracing-and-logging-theory" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href="../.." title="Zephyr RTOS Development Course" class="md-header__button md-logo" aria-label="Zephyr RTOS Development Course" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            Zephyr RTOS Development Course
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              Theory
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+
+<nav class="md-nav md-nav--primary" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../.." title="Zephyr RTOS Development Course" class="md-nav__button md-logo" aria-label="Zephyr RTOS Development Course" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    Zephyr RTOS Development Course
+  </label>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../.." class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Home
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2" >
+        
+          
+          <label class="md-nav__link" for="__nav_2" id="__nav_2_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    Contributing
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2">
+            <span class="md-nav__icon md-icon"></span>
+            Contributing
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../CONDUCT/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Code of Conduct
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../CONTRIBUTING/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Contributing
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../chapter_01_course_introduction/introduction/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Chapter 1: Course Introduction
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4" >
+        
+          
+          <label class="md-nav__link" for="__nav_4" id="__nav_4_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    Chapter 2: Introduction to Zephyr
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_4_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_4">
+            <span class="md-nav__icon md-icon"></span>
+            Chapter 2: Introduction to Zephyr
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../chapter_02_introduction_to_zephyr/introduction/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Introduction
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../chapter_02_introduction_to_zephyr/theory/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Theory
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../chapter_02_introduction_to_zephyr/lab/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Lab
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5" >
+        
+          
+          <label class="md-nav__link" for="__nav_5" id="__nav_5_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    Chapter 3: Zephyr Build System
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_5_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_5">
+            <span class="md-nav__icon md-icon"></span>
+            Chapter 3: Zephyr Build System
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../chapter_03_zephyr_build_system/introduction/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Introduction
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../chapter_03_zephyr_build_system/theory/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Theory
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../chapter_03_zephyr_build_system/lab/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Lab
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_6" >
+        
+          
+          <label class="md-nav__link" for="__nav_6" id="__nav_6_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    Chapter 4: Configure Zephyr
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_6_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_6">
+            <span class="md-nav__icon md-icon"></span>
+            Chapter 4: Configure Zephyr
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../chapter_04_configure_zephyr/introduction/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Introduction
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../chapter_04_configure_zephyr/theory/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Theory
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../chapter_04_configure_zephyr/lab/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Lab
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_7" >
+        
+          
+          <label class="md-nav__link" for="__nav_7" id="__nav_7_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    Chapter 5: West
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_7_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_7">
+            <span class="md-nav__icon md-icon"></span>
+            Chapter 5: West
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../chapter_05_west/introduction/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Introduction
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../chapter_05_west/theory/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Theory
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../chapter_05_west/lab/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Lab
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_8" >
+        
+          
+          <label class="md-nav__link" for="__nav_8" id="__nav_8_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    Chapter 6: Zephyr Fundamentals
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_8_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_8">
+            <span class="md-nav__icon md-icon"></span>
+            Chapter 6: Zephyr Fundamentals
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../chapter_06_zephyr_fundamentals/introduction/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Introduction
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../chapter_06_zephyr_fundamentals/theory/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Theory
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../chapter_06_zephyr_fundamentals/lab/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Lab
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_9" >
+        
+          
+          <label class="md-nav__link" for="__nav_9" id="__nav_9_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    Chapter 7: Thread Management
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_9_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_9">
+            <span class="md-nav__icon md-icon"></span>
+            Chapter 7: Thread Management
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../chapter_07_thread_management/introduction/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Introduction
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../chapter_07_thread_management/theory/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Theory
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../chapter_07_thread_management/lab/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Lab
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_10" checked>
+        
+          
+          <label class="md-nav__link" for="__nav_10" id="__nav_10_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    Chapter 8: Tracing and Logging
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_10_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_10">
+            <span class="md-nav__icon md-icon"></span>
+            Chapter 8: Tracing and Logging
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../introduction/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Introduction
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    Theory
+    
+  </span>
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        
+  
+  
+  <span class="md-ellipsis">
+    Theory
+    
+  </span>
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#zephyr-logging-system-architecture" class="md-nav__link">
+    <span class="md-ellipsis">
+      Zephyr Logging System Architecture
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Zephyr Logging System Architecture">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#modern-logging-framework" class="md-nav__link">
+    <span class="md-ellipsis">
+      Modern Logging Framework
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#backend-configuration-and-management" class="md-nav__link">
+    <span class="md-ellipsis">
+      Backend Configuration and Management
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#thread-analyzer-system" class="md-nav__link">
+    <span class="md-ellipsis">
+      Thread Analyzer System
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Thread Analyzer System">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#comprehensive-thread-monitoring" class="md-nav__link">
+    <span class="md-ellipsis">
+      Comprehensive Thread Monitoring
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#runtime-thread-inspection" class="md-nav__link">
+    <span class="md-ellipsis">
+      Runtime Thread Inspection
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#performance-analysis-and-optimization" class="md-nav__link">
+    <span class="md-ellipsis">
+      Performance Analysis and Optimization
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Performance Analysis and Optimization">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#logging-performance-impact" class="md-nav__link">
+    <span class="md-ellipsis">
+      Logging Performance Impact
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#advanced-tracing-techniques" class="md-nav__link">
+    <span class="md-ellipsis">
+      Advanced Tracing Techniques
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#production-logging-strategies" class="md-nav__link">
+    <span class="md-ellipsis">
+      Production Logging Strategies
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Production Logging Strategies">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#hierarchical-logging-architecture" class="md-nav__link">
+    <span class="md-ellipsis">
+      Hierarchical Logging Architecture
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#error-pattern-recognition-and-analysis" class="md-nav__link">
+    <span class="md-ellipsis">
+      Error Pattern Recognition and Analysis
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#integration-with-development-workflows" class="md-nav__link">
+    <span class="md-ellipsis">
+      Integration with Development Workflows
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Integration with Development Workflows">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#continuous-integration-logging" class="md-nav__link">
+    <span class="md-ellipsis">
+      Continuous Integration Logging
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lab/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Lab
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_11" >
+        
+          
+          <label class="md-nav__link" for="__nav_11" id="__nav_11_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    Chapter 9: Memory Management
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_11_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_11">
+            <span class="md-nav__icon md-icon"></span>
+            Chapter 9: Memory Management
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../chapter_09_memory_management/introduction/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Introduction
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../chapter_09_memory_management/theory/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Theory
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../chapter_09_memory_management/lab/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Lab
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_12" >
+        
+          
+          <label class="md-nav__link" for="__nav_12" id="__nav_12_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    Chapter 10: User Mode
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_12_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_12">
+            <span class="md-nav__icon md-icon"></span>
+            Chapter 10: User Mode
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../chapter_10_user_mode/introduction/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Introduction
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../chapter_10_user_mode/theory/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Theory
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../chapter_10_user_mode/lab/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Lab
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_13" >
+        
+          
+          <label class="md-nav__link" for="__nav_13" id="__nav_13_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    Chapter 11: Traditional Multithreading Primitives
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_13_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_13">
+            <span class="md-nav__icon md-icon"></span>
+            Chapter 11: Traditional Multithreading Primitives
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../chapter_11_traditional_multithreading_primitives/introduction/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Introduction
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../chapter_11_traditional_multithreading_primitives/theory/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Theory
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../chapter_11_traditional_multithreading_primitives/lab/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Lab
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_14" >
+        
+          
+          <label class="md-nav__link" for="__nav_14" id="__nav_14_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    Chapter 12: Inter-thread Communication
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_14_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_14">
+            <span class="md-nav__icon md-icon"></span>
+            Chapter 12: Inter-thread Communication
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../chapter_12_inter-thread_communication/introduction/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Introduction
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../chapter_12_inter-thread_communication/theory/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Theory
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../chapter_12_inter-thread_communication/lab/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Lab
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_15" >
+        
+          
+          <label class="md-nav__link" for="__nav_15" id="__nav_15_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    Chapter 13: Interrupt Management
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_15_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_15">
+            <span class="md-nav__icon md-icon"></span>
+            Chapter 13: Interrupt Management
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../chapter_13_interrupt_management/introduction/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Introduction
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../chapter_13_interrupt_management/theory/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Theory
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../chapter_13_interrupt_management/lab/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Lab
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_16" >
+        
+          
+          <label class="md-nav__link" for="__nav_16" id="__nav_16_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    Chapter 14: Modules
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_16_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_16">
+            <span class="md-nav__icon md-icon"></span>
+            Chapter 14: Modules
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../chapter_14_modules/introduction/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Introduction
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../chapter_14_modules/theory/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Theory
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../chapter_14_modules/lab/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Lab
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_17" >
+        
+          
+          <label class="md-nav__link" for="__nav_17" id="__nav_17_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    Chapter 15: Writing Kconfig Symbols
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_17_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_17">
+            <span class="md-nav__icon md-icon"></span>
+            Chapter 15: Writing Kconfig Symbols
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../chapter_15_writing_kconfig_symbols/introduction/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Introduction
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../chapter_15_writing_kconfig_symbols/theory/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Theory
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../chapter_15_writing_kconfig_symbols/lab/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Lab
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_18" >
+        
+          
+          <label class="md-nav__link" for="__nav_18" id="__nav_18_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    Chapter 16: Device Driver Architecture
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_18_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_18">
+            <span class="md-nav__icon md-icon"></span>
+            Chapter 16: Device Driver Architecture
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../chapter_16_device_driver_architecture/introduction/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Introduction
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../chapter_16_device_driver_architecture/theory/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Theory
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../chapter_16_device_driver_architecture/lab/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Lab
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_19" >
+        
+          
+          <label class="md-nav__link" for="__nav_19" id="__nav_19_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    Chapter 17: Power Management
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_19_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_19">
+            <span class="md-nav__icon md-icon"></span>
+            Chapter 17: Power Management
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../chapter_17_power_management/introduction/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Introduction
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../chapter_17_power_management/theory/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Theory
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../chapter_17_power_management/lab/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Lab
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_20" >
+        
+          
+          <label class="md-nav__link" for="__nav_20" id="__nav_20_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    Chapter 18: Capstone Project
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_20_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_20">
+            <span class="md-nav__icon md-icon"></span>
+            Chapter 18: Capstone Project
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../chapter_18_capstone_project/introduction/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Introduction
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../chapter_18_capstone_project/theory/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Theory
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../chapter_18_capstone_project/lab/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Lab
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../chapter_18_capstone_project/networked_monitor/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Networked Monitor
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#zephyr-logging-system-architecture" class="md-nav__link">
+    <span class="md-ellipsis">
+      Zephyr Logging System Architecture
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Zephyr Logging System Architecture">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#modern-logging-framework" class="md-nav__link">
+    <span class="md-ellipsis">
+      Modern Logging Framework
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#backend-configuration-and-management" class="md-nav__link">
+    <span class="md-ellipsis">
+      Backend Configuration and Management
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#thread-analyzer-system" class="md-nav__link">
+    <span class="md-ellipsis">
+      Thread Analyzer System
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Thread Analyzer System">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#comprehensive-thread-monitoring" class="md-nav__link">
+    <span class="md-ellipsis">
+      Comprehensive Thread Monitoring
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#runtime-thread-inspection" class="md-nav__link">
+    <span class="md-ellipsis">
+      Runtime Thread Inspection
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#performance-analysis-and-optimization" class="md-nav__link">
+    <span class="md-ellipsis">
+      Performance Analysis and Optimization
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Performance Analysis and Optimization">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#logging-performance-impact" class="md-nav__link">
+    <span class="md-ellipsis">
+      Logging Performance Impact
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#advanced-tracing-techniques" class="md-nav__link">
+    <span class="md-ellipsis">
+      Advanced Tracing Techniques
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#production-logging-strategies" class="md-nav__link">
+    <span class="md-ellipsis">
+      Production Logging Strategies
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Production Logging Strategies">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#hierarchical-logging-architecture" class="md-nav__link">
+    <span class="md-ellipsis">
+      Hierarchical Logging Architecture
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#error-pattern-recognition-and-analysis" class="md-nav__link">
+    <span class="md-ellipsis">
+      Error Pattern Recognition and Analysis
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#integration-with-development-workflows" class="md-nav__link">
+    <span class="md-ellipsis">
+      Integration with Development Workflows
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Integration with Development Workflows">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#continuous-integration-logging" class="md-nav__link">
+    <span class="md-ellipsis">
+      Continuous Integration Logging
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+
+<h1 id="chapter-8-tracing-and-logging-theory">Chapter 8: Tracing and Logging - Theory</h1>
+<p>This theory section provides comprehensive understanding of Zephyr's tracing and logging capabilities, covering modern logging APIs, thread analysis, performance monitoring, and professional debugging workflows for embedded systems development.</p>
+<hr />
+<h2 id="zephyr-logging-system-architecture">Zephyr Logging System Architecture</h2>
+<h3 id="modern-logging-framework">Modern Logging Framework</h3>
+<p>Zephyr's logging system provides a sophisticated framework for capturing, processing, and outputting diagnostic information. The system is designed for minimal runtime overhead while providing comprehensive debugging capabilities.</p>
+<p><strong>Core Architecture Components:</strong></p>
+<pre><code class="language-c">#include &lt;zephyr/logging/log.h&gt;
+
+// Module registration - must be done once per source file
+LOG_MODULE_REGISTER(sensor_manager, LOG_LEVEL_DBG);
+
+int main(void)
+{
+    LOG_INF(&quot;System initialization starting&quot;);
+    LOG_DBG(&quot;Debug level: %d&quot;, CONFIG_LOG_DEFAULT_LEVEL);
+
+    // Application logic with integrated logging
+    if (initialize_sensors() &lt; 0) {
+        LOG_ERR(&quot;Sensor initialization failed&quot;);
+        return -1;
+    }
+
+    LOG_INF(&quot;System ready - all subsystems initialized&quot;);
+    return 0;
+}
+</code></pre>
+<p><strong>Logging Levels and Control:</strong></p>
+<pre><code class="language-c">// Logging levels (from highest to lowest priority)
+// LOG_LEVEL_OFF    (0) - No logging
+// LOG_LEVEL_ERR    (1) - Error conditions only
+// LOG_LEVEL_WRN    (2) - Warnings and errors
+// LOG_LEVEL_INF    (3) - Informational messages
+// LOG_LEVEL_DBG    (4) - Debug information
+
+// Dynamic level control
+void adjust_logging_verbosity(int system_load)
+{
+    if (system_load &gt; 80) {
+        // Reduce logging under high load
+        log_filter_set(NULL, Z_LOG_LOCAL_DOMAIN_ID, 
+                      log_source_id_get(&quot;sensor_manager&quot;), 
+                      LOG_LEVEL_ERR);
+        LOG_WRN(&quot;System load high - reducing log verbosity&quot;);
+    } else {
+        // Full debugging when resources available
+        log_filter_set(NULL, Z_LOG_LOCAL_DOMAIN_ID,
+                      log_source_id_get(&quot;sensor_manager&quot;),
+                      LOG_LEVEL_DBG);
+    }
+}
+</code></pre>
+<h3 id="backend-configuration-and-management">Backend Configuration and Management</h3>
+<p><strong>Console Backend for Development:</strong></p>
+<pre><code class="language-c">// prj.conf configuration for development
+CONFIG_LOG=y
+CONFIG_LOG_DEFAULT_LEVEL=4
+CONFIG_LOG_BACKEND_UART=y
+CONFIG_LOG_PRINTK=y
+CONFIG_LOG_MODE_DEFERRED=y
+CONFIG_LOG_BUFFER_SIZE=4096
+CONFIG_LOG_PROCESS_THREAD_STACK_SIZE=2048
+
+// Advanced logging features
+CONFIG_LOG_FUNC_NAME_PREFIX_ERR=y
+CONFIG_LOG_FUNC_NAME_PREFIX_WRN=y
+CONFIG_LOG_TIMESTAMP_64BIT=y
+</code></pre>
+<p><strong>Production Logging Configuration:</strong></p>
+<pre><code class="language-c">// overlay-production.conf for deployed systems
+CONFIG_LOG=y
+CONFIG_LOG_DEFAULT_LEVEL=2
+CONFIG_LOG_BACKEND_UART=y
+CONFIG_LOG_MODE_IMMEDIATE=y
+CONFIG_LOG_PRINTK=n
+
+// Minimize overhead in production
+CONFIG_LOG_FUNC_NAME_PREFIX_ERR=n
+CONFIG_LOG_FUNC_NAME_PREFIX_WRN=n
+CONFIG_LOG_BUFFER_SIZE=1024
+</code></pre>
+<p><strong>Multi-Backend Logging Implementation:</strong></p>
+<pre><code class="language-c">#include &lt;zephyr/logging/log_ctrl.h&gt;
+
+void configure_logging_backends(void)
+{
+    // Initialize logging subsystem
+    log_init();
+
+    // Configure UART backend for immediate output
+    STRUCT_SECTION_FOREACH(log_backend, backend) {
+        if (strcmp(backend-&gt;name, &quot;uart&quot;) == 0) {
+            log_backend_enable(backend, backend-&gt;cb-&gt;ctx, LOG_LEVEL_DBG);
+            LOG_INF(&quot;UART logging backend enabled&quot;);
+        }
+    }
+
+    // Set custom timestamp function for precise timing
+    log_set_timestamp_func(k_cycle_get_32, sys_clock_hw_cycles_per_sec());
+}
+</code></pre>
+<hr />
+<h2 id="thread-analyzer-system">Thread Analyzer System</h2>
+<h3 id="comprehensive-thread-monitoring">Comprehensive Thread Monitoring</h3>
+<p>The Thread Analyzer provides real-time insight into thread behavior, stack usage, and CPU utilization critical for embedded system optimization.</p>
+<p><strong>Thread Analyzer Configuration:</strong></p>
+<pre><code class="language-c">// Thread analyzer configuration (prj.conf)
+CONFIG_THREAD_ANALYZER=y
+CONFIG_THREAD_ANALYZER_USE_LOG=y
+CONFIG_THREAD_ANALYZER_AUTO=y
+CONFIG_THREAD_ANALYZER_AUTO_INTERVAL=5
+CONFIG_THREAD_NAME=y
+CONFIG_THREAD_STACK_INFO=y
+CONFIG_THREAD_RUNTIME_STATS=y
+
+// Stack monitoring configuration
+CONFIG_INIT_STACKS=y
+CONFIG_THREAD_MONITOR=y
+CONFIG_KERNEL_SHELL=y
+</code></pre>
+<p><strong>Programmatic Thread Analysis:</strong></p>
+<pre><code class="language-c">#include &lt;zephyr/debug/thread_analyzer.h&gt;
+
+void system_health_monitor(void)
+{
+    LOG_INF(&quot;=== System Thread Analysis ===&quot;);
+
+    // Automatic analysis with callback
+    thread_analyzer_run(custom_thread_analysis_cb, 0);
+
+    // Manual analysis output
+    thread_analyzer_print(0);
+}
+
+void custom_thread_analysis_cb(struct thread_analyzer_info *info)
+{
+    size_t stack_used_percent = (info-&gt;stack_used * 100) / info-&gt;stack_size;
+
+    LOG_INF(&quot;Thread: %s&quot;, info-&gt;name);
+    LOG_INF(&quot;  Stack: %zu/%zu bytes (%zu%% used)&quot;, 
+            info-&gt;stack_used, info-&gt;stack_size, stack_used_percent);
+
+    // Alert on high stack usage
+    if (stack_used_percent &gt; 80) {
+        LOG_WRN(&quot;High stack usage in thread %s: %zu%%&quot;, 
+                info-&gt;name, stack_used_percent);
+    }
+
+#ifdef CONFIG_THREAD_RUNTIME_STATS
+    LOG_INF(&quot;  CPU utilization: %u%%&quot;, info-&gt;utilization);
+
+    if (info-&gt;utilization &gt; 90) {
+        LOG_ERR(&quot;Thread %s consuming excessive CPU: %u%%&quot;,
+                info-&gt;name, info-&gt;utilization);
+    }
+#endif
+}
+</code></pre>
+<h3 id="runtime-thread-inspection">Runtime Thread Inspection</h3>
+<p><strong>Shell Integration for Live Monitoring:</strong></p>
+<pre><code class="language-c">// Shell configuration for runtime inspection
+CONFIG_SHELL=y
+CONFIG_SHELL_BACKEND_SERIAL=y
+CONFIG_KERNEL_SHELL=y
+CONFIG_SHELL_CMDS=y
+CONFIG_SHELL_CMDS_RESIZE=y
+
+// Shell commands available at runtime:
+// kernel thread list       - List all threads
+// kernel thread stacks     - Show stack usage
+// kernel thread suspend &lt;id&gt; - Suspend thread
+// kernel thread resume &lt;id&gt;  - Resume thread
+</code></pre>
+<p><strong>Custom Shell Commands for System Monitoring:</strong></p>
+<pre><code class="language-c">#include &lt;zephyr/shell/shell.h&gt;
+
+static int cmd_system_health(const struct shell *sh, size_t argc, char **argv)
+{
+    shell_print(sh, &quot;=== System Health Report ===&quot;);
+
+    // Memory usage
+    shell_print(sh, &quot;Heap usage: %zu bytes&quot;, k_heap_free_get(&amp;k_malloc_heap));
+
+    // Thread analysis
+    thread_analyzer_run(shell_thread_analysis_cb, (unsigned int)sh);
+
+    return 0;
+}
+
+static void shell_thread_analysis_cb(struct thread_analyzer_info *info)
+{
+    const struct shell *sh = (const struct shell *)info;
+    size_t stack_percent = (info-&gt;stack_used * 100) / info-&gt;stack_size;
+
+    shell_print(sh, &quot;%-16s: Stack %3zu%% CPU %3u%%&quot;, 
+                info-&gt;name, stack_percent, info-&gt;utilization);
+}
+
+SHELL_CMD_REGISTER(health, NULL, &quot;System health report&quot;, cmd_system_health);
+</code></pre>
+<hr />
+<h2 id="performance-analysis-and-optimization">Performance Analysis and Optimization</h2>
+<h3 id="logging-performance-impact">Logging Performance Impact</h3>
+<p><strong>Measuring Logging Overhead:</strong></p>
+<pre><code class="language-c">#include &lt;zephyr/timing/timing.h&gt;
+
+void measure_logging_performance(void)
+{
+    timing_t start_time, end_time;
+    uint64_t cycles;
+
+    // Measure logging overhead
+    timing_start();
+    start_time = timing_counter_get();
+
+    // Test different logging scenarios
+    LOG_INF(&quot;Performance test message with parameter: %d&quot;, 42);
+
+    end_time = timing_counter_get();
+    cycles = timing_cycles_get(&amp;start_time, &amp;end_time);
+
+    LOG_INF(&quot;Logging overhead: %llu cycles (%llu us)&quot;, 
+            cycles, timing_cycles_to_ns(cycles) / 1000);
+}
+
+void optimize_logging_for_performance(void)
+{
+    // Conditional compilation for performance-critical sections
+    #if CONFIG_LOG_DEFAULT_LEVEL &gt;= LOG_LEVEL_DBG
+        uint32_t debug_start = k_cycle_get_32();
+        // Debug-only processing
+        uint32_t debug_cycles = k_cycle_get_32() - debug_start;
+        LOG_DBG(&quot;Debug processing took %u cycles&quot;, debug_cycles);
+    #endif
+
+    // Use log level checking to avoid expensive operations
+    if (LOG_LEVEL_DBG &lt;= CONFIG_LOG_DEFAULT_LEVEL) {
+        char detailed_status[256];
+        generate_detailed_status_string(detailed_status, sizeof(detailed_status));
+        LOG_DBG(&quot;System status: %s&quot;, detailed_status);
+    }
+}
+</code></pre>
+<p><strong>Memory Usage Optimization:</strong></p>
+<pre><code class="language-c">// Efficient logging for memory-constrained systems
+void memory_efficient_logging(void)
+{
+    // Use immediate mode for critical systems
+    #ifdef CONFIG_LOG_MODE_IMMEDIATE
+        LOG_ERR(&quot;Critical error - immediate logging active&quot;);
+    #endif
+
+    // Minimize buffer usage
+    LOG_HEXDUMP_DBG(&amp;sensor_data, MIN(sizeof(sensor_data), 32), &quot;sensor&quot;);
+
+    // Use structured logging for analysis
+    LOG_STRUCTURED(LOG_LEVEL_INF, &quot;sensor_reading&quot;,
+                  LOG_STRCT_INT(&quot;temperature&quot;, temperature),
+                  LOG_STRCT_INT(&quot;humidity&quot;, humidity),
+                  LOG_STRCT_STR(&quot;status&quot;, status_string));
+}
+</code></pre>
+<h3 id="advanced-tracing-techniques">Advanced Tracing Techniques</h3>
+<p><strong>Custom Tracing Implementation:</strong></p>
+<pre><code class="language-c">#include &lt;zephyr/tracing/tracing.h&gt;
+
+// Custom trace points for application-specific monitoring
+#define TRACE_SENSOR_READ_START(sensor_id) \
+    sys_trace_user_start(0x1000 | (sensor_id))
+
+#define TRACE_SENSOR_READ_END(sensor_id, value) \
+    sys_trace_user_end(0x1000 | (sensor_id), value)
+
+void traced_sensor_operation(uint8_t sensor_id)
+{
+    TRACE_SENSOR_READ_START(sensor_id);
+
+    uint32_t start_cycles = k_cycle_get_32();
+
+    // Sensor reading operation
+    int sensor_value = read_sensor_hardware(sensor_id);
+
+    uint32_t operation_cycles = k_cycle_get_32() - start_cycles;
+
+    TRACE_SENSOR_READ_END(sensor_id, sensor_value);
+
+    LOG_DBG(&quot;Sensor %u: value=%d, cycles=%u&quot;, 
+            sensor_id, sensor_value, operation_cycles);
+}
+</code></pre>
+<p><strong>Integration with External Tracing Tools:</strong></p>
+<pre><code class="language-c">// SystemView integration
+CONFIG_TRACING=y
+CONFIG_SEGGER_SYSTEMVIEW=y
+CONFIG_USE_SEGGER_RTT=y
+
+// Custom trace events for SystemView
+void system_trace_integration(void)
+{
+    // Thread context switches automatically traced
+    // Custom application events
+    SEGGER_SYSVIEW_RecordU32(0x100, sensor_reading_count);
+    SEGGER_SYSVIEW_RecordString(0x101, &quot;Sensor calibration complete&quot;);
+}
+</code></pre>
+<hr />
+<h2 id="production-logging-strategies">Production Logging Strategies</h2>
+<h3 id="hierarchical-logging-architecture">Hierarchical Logging Architecture</h3>
+<p><strong>Module-Based Logging Organization:</strong></p>
+<pre><code class="language-c">// Sensor subsystem logging
+LOG_MODULE_REGISTER(sensors, CONFIG_SENSORS_LOG_LEVEL);
+
+// Communication subsystem logging  
+LOG_MODULE_REGISTER(comm, CONFIG_COMM_LOG_LEVEL);
+
+// Application logic logging
+LOG_MODULE_REGISTER(app, CONFIG_APP_LOG_LEVEL);
+
+// System health monitoring
+LOG_MODULE_REGISTER(health, CONFIG_HEALTH_LOG_LEVEL);
+
+void configure_subsystem_logging(void)
+{
+    // Production: Errors and warnings only for most subsystems
+    log_filter_set(NULL, Z_LOG_LOCAL_DOMAIN_ID,
+                  log_source_id_get(&quot;sensors&quot;), LOG_LEVEL_WRN);
+
+    // Debug: Full logging for development focus area
+    log_filter_set(NULL, Z_LOG_LOCAL_DOMAIN_ID,
+                  log_source_id_get(&quot;comm&quot;), LOG_LEVEL_DBG);
+
+    // Health monitoring: Always informational
+    log_filter_set(NULL, Z_LOG_LOCAL_DOMAIN_ID,
+                  log_source_id_get(&quot;health&quot;), LOG_LEVEL_INF);
+}
+</code></pre>
+<h3 id="error-pattern-recognition-and-analysis">Error Pattern Recognition and Analysis</h3>
+<p><strong>Structured Error Logging:</strong></p>
+<pre><code class="language-c">typedef enum {
+    ERROR_SENSOR_TIMEOUT = 1000,
+    ERROR_COMM_FAILURE = 2000,
+    ERROR_MEMORY_ALLOCATION = 3000,
+    ERROR_HARDWARE_FAULT = 4000
+} system_error_codes_t;
+
+void log_system_error(system_error_codes_t error_code, 
+                     const char *context, int value)
+{
+    static uint32_t error_counts[5] = {0};
+    uint32_t error_index = (error_code / 1000) - 1;
+
+    if (error_index &lt; ARRAY_SIZE(error_counts)) {
+        error_counts[error_index]++;
+    }
+
+    LOG_ERR(&quot;Error %d in %s: value=%d, count=%u&quot;, 
+            error_code, context, value, error_counts[error_index]);
+
+    // Trigger system health analysis on repeated errors
+    if (error_counts[error_index] &gt; 5) {
+        LOG_ERR(&quot;Repeated error pattern detected - triggering health check&quot;);
+        system_health_monitor();
+        error_counts[error_index] = 0; // Reset counter
+    }
+}
+</code></pre>
+<p><strong>Watchdog Integration with Logging:</strong></p>
+<pre><code class="language-c">#include &lt;zephyr/drivers/watchdog.h&gt;
+
+void watchdog_with_logging(void)
+{
+    const struct device *wdt = DEVICE_DT_GET(DT_ALIAS(watchdog0));
+
+    if (!device_is_ready(wdt)) {
+        LOG_ERR(&quot;Watchdog device not ready&quot;);
+        return;
+    }
+
+    struct wdt_timeout_cfg wdt_config = {
+        .window.min = 0,
+        .window.max = 5000, // 5 second timeout
+        .callback = watchdog_timeout_handler,
+        .flags = WDT_FLAG_RESET_SOC,
+    };
+
+    int wdt_channel_id = wdt_install_timeout(wdt, &amp;wdt_config);
+    if (wdt_channel_id &lt; 0) {
+        LOG_ERR(&quot;Watchdog timeout installation failed: %d&quot;, wdt_channel_id);
+        return;
+    }
+
+    wdt_setup(wdt, WDT_OPT_PAUSE_HALTED_BY_DBG);
+    LOG_INF(&quot;Watchdog configured - 5s timeout&quot;);
+}
+
+void watchdog_timeout_handler(const struct device *wdt_dev, int channel_id)
+{
+    LOG_ERR(&quot;WATCHDOG TIMEOUT - System reset imminent&quot;);
+    thread_analyzer_print(0); // Last-chance thread analysis
+    LOG_ERR(&quot;System will reset in watchdog handler&quot;);
+}
+</code></pre>
+<hr />
+<h2 id="integration-with-development-workflows">Integration with Development Workflows</h2>
+<h3 id="continuous-integration-logging">Continuous Integration Logging</h3>
+<p><strong>Automated Test Logging:</strong></p>
+<pre><code class="language-c">#ifdef CONFIG_ZTEST
+#include &lt;zephyr/ztest.h&gt;
+
+ZTEST(logging_tests, test_logging_performance)
+{
+    uint32_t start_time = k_cycle_get_32();
+
+    for (int i = 0; i &lt; 1000; i++) {
+        LOG_INF(&quot;Test message %d&quot;, i);
+    }
+
+    uint32_t total_cycles = k_cycle_get_32() - start_time;
+    uint32_t avg_cycles_per_log = total_cycles / 1000;
+
+    LOG_INF(&quot;Average logging overhead: %u cycles per message&quot;, avg_cycles_per_log);
+
+    // Assert reasonable performance
+    zassert_true(avg_cycles_per_log &lt; 1000, 
+                &quot;Logging overhead too high: %u cycles&quot;, avg_cycles_per_log);
+}
+
+ZTEST(logging_tests, test_thread_analyzer)
+{
+    // Create test thread
+    k_tid_t test_thread = k_thread_create(&amp;test_thread_data, test_stack,
+                                         K_THREAD_STACK_SIZEOF(test_stack),
+                                         test_thread_entry, NULL, NULL, NULL,
+                                         5, 0, K_NO_WAIT);
+
+    k_sleep(K_MSEC(100)); // Let thread run
+
+    // Analyze thread performance
+    thread_analyzer_run(test_analyzer_callback, 0);
+
+    k_thread_abort(test_thread);
+}
+#endif
+</code></pre>
+<hr />
+<p>This comprehensive theoretical foundation prepares you for implementing professional-grade tracing and logging systems. The Lab section will demonstrate these concepts through hands-on implementation of a complete monitoring system for your Raspberry Pi 4B platform.</p>
+
+
+
+
+
+
+
+  
+    
+  
+  
+
+
+  <aside class="md-source-file">
+    
+      
+  <span class="md-source-file__fact">
+    <span class="md-icon" title="Last update">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M21 13.1c-.1 0-.3.1-.4.2l-1 1 2.1 2.1 1-1c.2-.2.2-.6 0-.8l-1.3-1.3c-.1-.1-.2-.2-.4-.2m-1.9 1.8-6.1 6V23h2.1l6.1-6.1zM12.5 7v5.2l4 2.4-1 1L11 13V7zM11 21.9c-5.1-.5-9-4.8-9-9.9C2 6.5 6.5 2 12 2c5.3 0 9.6 4.1 10 9.3-.3-.1-.6-.2-1-.2s-.7.1-1 .2C19.6 7.2 16.2 4 12 4c-4.4 0-8 3.6-8 8 0 4.1 3.1 7.5 7.1 7.9l-.1.2z"/></svg>
+    </span>
+    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date" title="October 18, 2025 08:49:53 UTC">October 18, 2025</span>
+  </span>
+
+    
+    
+    
+    
+  </aside>
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    
+      
+      <script id="__config" type="application/json">{"base": "../..", "features": [], "search": "../../assets/javascripts/workers/search.973d3a69.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": null}</script>
+    
+    
+      <script src="../../assets/javascripts/bundle.f55a23d4.min.js"></script>
+      
+    
+  </body>
+</html>

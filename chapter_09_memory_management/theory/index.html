@@ -1,0 +1,3350 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+      
+      
+      
+        <link rel="prev" href="../introduction/">
+      
+      
+        <link rel="next" href="../lab/">
+      
+      
+      <link rel="icon" href="../../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.6.22">
+    
+    
+      
+        <title>Theory - Zephyr RTOS Development Course</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../assets/stylesheets/main.84d31ad4.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+    <script>__md_scope=new URL("../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+    
+  </head>
+  
+  
+    <body dir="ltr">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#chapter-9-memory-management-theory-and-implementation" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href="../.." title="Zephyr RTOS Development Course" class="md-header__button md-logo" aria-label="Zephyr RTOS Development Course" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            Zephyr RTOS Development Course
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              Theory
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+
+<nav class="md-nav md-nav--primary" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../.." title="Zephyr RTOS Development Course" class="md-nav__button md-logo" aria-label="Zephyr RTOS Development Course" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    Zephyr RTOS Development Course
+  </label>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../.." class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Home
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2" >
+        
+          
+          <label class="md-nav__link" for="__nav_2" id="__nav_2_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    Contributing
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2">
+            <span class="md-nav__icon md-icon"></span>
+            Contributing
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../CONDUCT/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Code of Conduct
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../CONTRIBUTING/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Contributing
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../chapter_01_course_introduction/introduction/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Chapter 1: Course Introduction
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4" >
+        
+          
+          <label class="md-nav__link" for="__nav_4" id="__nav_4_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    Chapter 2: Introduction to Zephyr
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_4_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_4">
+            <span class="md-nav__icon md-icon"></span>
+            Chapter 2: Introduction to Zephyr
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../chapter_02_introduction_to_zephyr/introduction/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Introduction
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../chapter_02_introduction_to_zephyr/theory/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Theory
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../chapter_02_introduction_to_zephyr/lab/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Lab
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5" >
+        
+          
+          <label class="md-nav__link" for="__nav_5" id="__nav_5_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    Chapter 3: Zephyr Build System
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_5_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_5">
+            <span class="md-nav__icon md-icon"></span>
+            Chapter 3: Zephyr Build System
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../chapter_03_zephyr_build_system/introduction/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Introduction
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../chapter_03_zephyr_build_system/theory/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Theory
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../chapter_03_zephyr_build_system/lab/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Lab
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_6" >
+        
+          
+          <label class="md-nav__link" for="__nav_6" id="__nav_6_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    Chapter 4: Configure Zephyr
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_6_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_6">
+            <span class="md-nav__icon md-icon"></span>
+            Chapter 4: Configure Zephyr
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../chapter_04_configure_zephyr/introduction/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Introduction
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../chapter_04_configure_zephyr/theory/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Theory
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../chapter_04_configure_zephyr/lab/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Lab
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_7" >
+        
+          
+          <label class="md-nav__link" for="__nav_7" id="__nav_7_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    Chapter 5: West
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_7_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_7">
+            <span class="md-nav__icon md-icon"></span>
+            Chapter 5: West
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../chapter_05_west/introduction/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Introduction
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../chapter_05_west/theory/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Theory
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../chapter_05_west/lab/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Lab
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_8" >
+        
+          
+          <label class="md-nav__link" for="__nav_8" id="__nav_8_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    Chapter 6: Zephyr Fundamentals
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_8_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_8">
+            <span class="md-nav__icon md-icon"></span>
+            Chapter 6: Zephyr Fundamentals
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../chapter_06_zephyr_fundamentals/introduction/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Introduction
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../chapter_06_zephyr_fundamentals/theory/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Theory
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../chapter_06_zephyr_fundamentals/lab/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Lab
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_9" >
+        
+          
+          <label class="md-nav__link" for="__nav_9" id="__nav_9_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    Chapter 7: Thread Management
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_9_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_9">
+            <span class="md-nav__icon md-icon"></span>
+            Chapter 7: Thread Management
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../chapter_07_thread_management/introduction/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Introduction
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../chapter_07_thread_management/theory/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Theory
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../chapter_07_thread_management/lab/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Lab
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_10" >
+        
+          
+          <label class="md-nav__link" for="__nav_10" id="__nav_10_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    Chapter 8: Tracing and Logging
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_10_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_10">
+            <span class="md-nav__icon md-icon"></span>
+            Chapter 8: Tracing and Logging
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../chapter_08_tracing_and_logging/introduction/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Introduction
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../chapter_08_tracing_and_logging/theory/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Theory
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../chapter_08_tracing_and_logging/lab/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Lab
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_11" checked>
+        
+          
+          <label class="md-nav__link" for="__nav_11" id="__nav_11_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    Chapter 9: Memory Management
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_11_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_11">
+            <span class="md-nav__icon md-icon"></span>
+            Chapter 9: Memory Management
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../introduction/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Introduction
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    Theory
+    
+  </span>
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        
+  
+  
+  <span class="md-ellipsis">
+    Theory
+    
+  </span>
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#advanced-memory-management-concepts" class="md-nav__link">
+    <span class="md-ellipsis">
+      Advanced Memory Management Concepts
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Advanced Memory Management Concepts">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#memory-allocation-algorithms" class="md-nav__link">
+    <span class="md-ellipsis">
+      Memory Allocation Algorithms
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Memory Allocation Algorithms">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#first-fit-algorithm" class="md-nav__link">
+    <span class="md-ellipsis">
+      First-Fit Algorithm
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#best-fit-considerations" class="md-nav__link">
+    <span class="md-ellipsis">
+      Best-Fit Considerations
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#memory-fragmentation-analysis" class="md-nav__link">
+    <span class="md-ellipsis">
+      Memory Fragmentation Analysis
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Memory Fragmentation Analysis">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#internal-fragmentation" class="md-nav__link">
+    <span class="md-ellipsis">
+      Internal Fragmentation
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#external-fragmentation" class="md-nav__link">
+    <span class="md-ellipsis">
+      External Fragmentation
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#anti-fragmentation-strategies" class="md-nav__link">
+    <span class="md-ellipsis">
+      Anti-Fragmentation Strategies
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Anti-Fragmentation Strategies">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#memory-pool-design" class="md-nav__link">
+    <span class="md-ellipsis">
+      Memory Pool Design
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#thread-stack-management" class="md-nav__link">
+    <span class="md-ellipsis">
+      Thread Stack Management
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Thread Stack Management">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#stack-architecture-and-growth" class="md-nav__link">
+    <span class="md-ellipsis">
+      Stack Architecture and Growth
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#stack-frame-analysis" class="md-nav__link">
+    <span class="md-ellipsis">
+      Stack Frame Analysis
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#dynamic-stack-allocation-patterns" class="md-nav__link">
+    <span class="md-ellipsis">
+      Dynamic Stack Allocation Patterns
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#memory-domains-and-protection" class="md-nav__link">
+    <span class="md-ellipsis">
+      Memory Domains and Protection
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Memory Domains and Protection">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#memory-protection-unit-mpu-integration" class="md-nav__link">
+    <span class="md-ellipsis">
+      Memory Protection Unit (MPU) Integration
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#user-mode-memory-management" class="md-nav__link">
+    <span class="md-ellipsis">
+      User Mode Memory Management
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#memory-access-violation-handling" class="md-nav__link">
+    <span class="md-ellipsis">
+      Memory Access Violation Handling
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#advanced-heap-management" class="md-nav__link">
+    <span class="md-ellipsis">
+      Advanced Heap Management
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Advanced Heap Management">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#custom-heap-implementations" class="md-nav__link">
+    <span class="md-ellipsis">
+      Custom Heap Implementations
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#memory-debugging-and-profiling" class="md-nav__link">
+    <span class="md-ellipsis">
+      Memory Debugging and Profiling
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#real-time-memory-considerations" class="md-nav__link">
+    <span class="md-ellipsis">
+      Real-Time Memory Considerations
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Real-Time Memory Considerations">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#deterministic-allocation-patterns" class="md-nav__link">
+    <span class="md-ellipsis">
+      Deterministic Allocation Patterns
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#priority-based-memory-management" class="md-nav__link">
+    <span class="md-ellipsis">
+      Priority-Based Memory Management
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lab/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Lab
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_12" >
+        
+          
+          <label class="md-nav__link" for="__nav_12" id="__nav_12_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    Chapter 10: User Mode
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_12_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_12">
+            <span class="md-nav__icon md-icon"></span>
+            Chapter 10: User Mode
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../chapter_10_user_mode/introduction/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Introduction
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../chapter_10_user_mode/theory/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Theory
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../chapter_10_user_mode/lab/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Lab
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_13" >
+        
+          
+          <label class="md-nav__link" for="__nav_13" id="__nav_13_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    Chapter 11: Traditional Multithreading Primitives
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_13_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_13">
+            <span class="md-nav__icon md-icon"></span>
+            Chapter 11: Traditional Multithreading Primitives
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../chapter_11_traditional_multithreading_primitives/introduction/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Introduction
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../chapter_11_traditional_multithreading_primitives/theory/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Theory
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../chapter_11_traditional_multithreading_primitives/lab/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Lab
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_14" >
+        
+          
+          <label class="md-nav__link" for="__nav_14" id="__nav_14_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    Chapter 12: Inter-thread Communication
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_14_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_14">
+            <span class="md-nav__icon md-icon"></span>
+            Chapter 12: Inter-thread Communication
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../chapter_12_inter-thread_communication/introduction/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Introduction
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../chapter_12_inter-thread_communication/theory/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Theory
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../chapter_12_inter-thread_communication/lab/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Lab
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_15" >
+        
+          
+          <label class="md-nav__link" for="__nav_15" id="__nav_15_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    Chapter 13: Interrupt Management
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_15_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_15">
+            <span class="md-nav__icon md-icon"></span>
+            Chapter 13: Interrupt Management
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../chapter_13_interrupt_management/introduction/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Introduction
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../chapter_13_interrupt_management/theory/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Theory
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../chapter_13_interrupt_management/lab/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Lab
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_16" >
+        
+          
+          <label class="md-nav__link" for="__nav_16" id="__nav_16_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    Chapter 14: Modules
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_16_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_16">
+            <span class="md-nav__icon md-icon"></span>
+            Chapter 14: Modules
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../chapter_14_modules/introduction/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Introduction
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../chapter_14_modules/theory/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Theory
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../chapter_14_modules/lab/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Lab
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_17" >
+        
+          
+          <label class="md-nav__link" for="__nav_17" id="__nav_17_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    Chapter 15: Writing Kconfig Symbols
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_17_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_17">
+            <span class="md-nav__icon md-icon"></span>
+            Chapter 15: Writing Kconfig Symbols
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../chapter_15_writing_kconfig_symbols/introduction/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Introduction
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../chapter_15_writing_kconfig_symbols/theory/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Theory
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../chapter_15_writing_kconfig_symbols/lab/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Lab
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_18" >
+        
+          
+          <label class="md-nav__link" for="__nav_18" id="__nav_18_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    Chapter 16: Device Driver Architecture
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_18_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_18">
+            <span class="md-nav__icon md-icon"></span>
+            Chapter 16: Device Driver Architecture
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../chapter_16_device_driver_architecture/introduction/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Introduction
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../chapter_16_device_driver_architecture/theory/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Theory
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../chapter_16_device_driver_architecture/lab/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Lab
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_19" >
+        
+          
+          <label class="md-nav__link" for="__nav_19" id="__nav_19_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    Chapter 17: Power Management
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_19_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_19">
+            <span class="md-nav__icon md-icon"></span>
+            Chapter 17: Power Management
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../chapter_17_power_management/introduction/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Introduction
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../chapter_17_power_management/theory/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Theory
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../chapter_17_power_management/lab/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Lab
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_20" >
+        
+          
+          <label class="md-nav__link" for="__nav_20" id="__nav_20_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    Chapter 18: Capstone Project
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_20_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_20">
+            <span class="md-nav__icon md-icon"></span>
+            Chapter 18: Capstone Project
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../chapter_18_capstone_project/introduction/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Introduction
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../chapter_18_capstone_project/theory/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Theory
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../chapter_18_capstone_project/lab/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Lab
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../chapter_18_capstone_project/networked_monitor/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Networked Monitor
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#advanced-memory-management-concepts" class="md-nav__link">
+    <span class="md-ellipsis">
+      Advanced Memory Management Concepts
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Advanced Memory Management Concepts">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#memory-allocation-algorithms" class="md-nav__link">
+    <span class="md-ellipsis">
+      Memory Allocation Algorithms
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Memory Allocation Algorithms">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#first-fit-algorithm" class="md-nav__link">
+    <span class="md-ellipsis">
+      First-Fit Algorithm
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#best-fit-considerations" class="md-nav__link">
+    <span class="md-ellipsis">
+      Best-Fit Considerations
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#memory-fragmentation-analysis" class="md-nav__link">
+    <span class="md-ellipsis">
+      Memory Fragmentation Analysis
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Memory Fragmentation Analysis">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#internal-fragmentation" class="md-nav__link">
+    <span class="md-ellipsis">
+      Internal Fragmentation
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#external-fragmentation" class="md-nav__link">
+    <span class="md-ellipsis">
+      External Fragmentation
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#anti-fragmentation-strategies" class="md-nav__link">
+    <span class="md-ellipsis">
+      Anti-Fragmentation Strategies
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Anti-Fragmentation Strategies">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#memory-pool-design" class="md-nav__link">
+    <span class="md-ellipsis">
+      Memory Pool Design
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#thread-stack-management" class="md-nav__link">
+    <span class="md-ellipsis">
+      Thread Stack Management
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Thread Stack Management">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#stack-architecture-and-growth" class="md-nav__link">
+    <span class="md-ellipsis">
+      Stack Architecture and Growth
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#stack-frame-analysis" class="md-nav__link">
+    <span class="md-ellipsis">
+      Stack Frame Analysis
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#dynamic-stack-allocation-patterns" class="md-nav__link">
+    <span class="md-ellipsis">
+      Dynamic Stack Allocation Patterns
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#memory-domains-and-protection" class="md-nav__link">
+    <span class="md-ellipsis">
+      Memory Domains and Protection
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Memory Domains and Protection">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#memory-protection-unit-mpu-integration" class="md-nav__link">
+    <span class="md-ellipsis">
+      Memory Protection Unit (MPU) Integration
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#user-mode-memory-management" class="md-nav__link">
+    <span class="md-ellipsis">
+      User Mode Memory Management
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#memory-access-violation-handling" class="md-nav__link">
+    <span class="md-ellipsis">
+      Memory Access Violation Handling
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#advanced-heap-management" class="md-nav__link">
+    <span class="md-ellipsis">
+      Advanced Heap Management
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Advanced Heap Management">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#custom-heap-implementations" class="md-nav__link">
+    <span class="md-ellipsis">
+      Custom Heap Implementations
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#memory-debugging-and-profiling" class="md-nav__link">
+    <span class="md-ellipsis">
+      Memory Debugging and Profiling
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#real-time-memory-considerations" class="md-nav__link">
+    <span class="md-ellipsis">
+      Real-Time Memory Considerations
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Real-Time Memory Considerations">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#deterministic-allocation-patterns" class="md-nav__link">
+    <span class="md-ellipsis">
+      Deterministic Allocation Patterns
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#priority-based-memory-management" class="md-nav__link">
+    <span class="md-ellipsis">
+      Priority-Based Memory Management
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+
+<h1 id="chapter-9-memory-management-theory-and-implementation">Chapter 9: Memory Management - Theory and Implementation</h1>
+<h2 id="advanced-memory-management-concepts">Advanced Memory Management Concepts</h2>
+<h3 id="memory-allocation-algorithms">Memory Allocation Algorithms</h3>
+<p>Understanding the algorithms behind memory allocation enables better design decisions and performance optimization.</p>
+<h4 id="first-fit-algorithm">First-Fit Algorithm</h4>
+<p>Zephyr's heap implementation uses sophisticated allocation algorithms:</p>
+<pre><code class="language-c">/*
+ * First-fit allocation strategy:
+ * - Searches for the first available block of sufficient size
+ * - Fast allocation for small to medium-sized blocks
+ * - May lead to fragmentation over time
+ */
+
+struct heap_block {
+    size_t size;
+    bool free;
+    struct heap_block *next;
+};
+</code></pre>
+<h4 id="best-fit-considerations">Best-Fit Considerations</h4>
+<p>While Zephyr primarily uses first-fit, understanding best-fit helps optimize usage:</p>
+<pre><code class="language-c">// Conceptual best-fit approach for comparison
+void *best_fit_alloc(size_t requested_size)
+{
+    struct heap_block *best_block = NULL;
+    size_t smallest_fit = SIZE_MAX;
+
+    // Find the smallest block that satisfies the request
+    for (struct heap_block *block = heap_start; block; block = block-&gt;next) {
+        if (block-&gt;free &amp;&amp; block-&gt;size &gt;= requested_size) {
+            if (block-&gt;size &lt; smallest_fit) {
+                smallest_fit = block-&gt;size;
+                best_block = block;
+            }
+        }
+    }
+
+    return allocate_from_block(best_block, requested_size);
+}
+</code></pre>
+<h3 id="memory-fragmentation-analysis">Memory Fragmentation Analysis</h3>
+<p>Fragmentation significantly impacts long-running embedded systems:</p>
+<h4 id="internal-fragmentation">Internal Fragmentation</h4>
+<p>Memory wasted within allocated blocks due to alignment requirements:</p>
+<pre><code class="language-c">// Example of internal fragmentation
+struct aligned_data {
+    uint8_t flag;        // 1 byte
+    // 3 bytes padding for alignment
+    uint32_t value;      // 4 bytes
+    uint8_t status;      // 1 byte
+    // 3 bytes padding
+} __aligned(4);          // Total: 12 bytes for 6 bytes of data
+</code></pre>
+<h4 id="external-fragmentation">External Fragmentation</h4>
+<p>Free memory scattered across non-contiguous blocks:</p>
+<pre><code class="language-c">// Visual representation of external fragmentation
+/*
+ * Memory Layout After Multiple Allocations/Deallocations:
+ * 
+ * [Used:128][Free:32][Used:256][Free:16][Used:64][Free:128]
+ * 
+ * Total Free: 176 bytes
+ * Largest Contiguous: 128 bytes
+ * Cannot satisfy allocation &gt; 128 bytes despite having enough total free space
+ */
+</code></pre>
+<h3 id="anti-fragmentation-strategies">Anti-Fragmentation Strategies</h3>
+<h4 id="memory-pool-design">Memory Pool Design</h4>
+<pre><code class="language-c">// Pool-based allocation reduces fragmentation
+#define SMALL_BUFFER_SIZE   64
+#define MEDIUM_BUFFER_SIZE  256
+#define LARGE_BUFFER_SIZE   1024
+
+K_MEM_SLAB_DEFINE(small_pool, SMALL_BUFFER_SIZE, 32, 4);
+K_MEM_SLAB_DEFINE(medium_pool, MEDIUM_BUFFER_SIZE, 16, 4);
+K_MEM_SLAB_DEFINE(large_pool, LARGE_BUFFER_SIZE, 8, 4);
+
+void *smart_alloc(size_t size)
+{
+    void *ptr = NULL;
+
+    if (size &lt;= SMALL_BUFFER_SIZE) {
+        k_mem_slab_alloc(&amp;small_pool, &amp;ptr, K_NO_WAIT);
+    } else if (size &lt;= MEDIUM_BUFFER_SIZE) {
+        k_mem_slab_alloc(&amp;medium_pool, &amp;ptr, K_NO_WAIT);
+    } else if (size &lt;= LARGE_BUFFER_SIZE) {
+        k_mem_slab_alloc(&amp;large_pool, &amp;ptr, K_NO_WAIT);
+    } else {
+        // Fall back to heap for very large allocations
+        ptr = k_heap_alloc(&amp;app_heap, size, K_NO_WAIT);
+    }
+
+    return ptr;
+}
+</code></pre>
+<h2 id="thread-stack-management">Thread Stack Management</h2>
+<h3 id="stack-architecture-and-growth">Stack Architecture and Growth</h3>
+<p>Understanding stack behavior is crucial for optimal sizing:</p>
+<pre><code class="language-c">/*
+ * Stack Growth Pattern (ARM Cortex-M):
+ * 
+ * Higher Memory Addresses
+ * ┌─────────────────────────┐  ← Stack Base (Initial SP)
+ * │                         │
+ * │    Available Space      │
+ * │                         │
+ * ├─────────────────────────┤  ← Current Stack Pointer
+ * │  Local Variables        │
+ * │  Function Parameters    │
+ * │  Return Addresses       │
+ * │  Saved Registers        │
+ * └─────────────────────────┘  ← Stack Limit
+ * Lower Memory Addresses
+ */
+</code></pre>
+<h3 id="stack-frame-analysis">Stack Frame Analysis</h3>
+<p>Each function call creates a stack frame:</p>
+<pre><code class="language-c">void analyze_stack_frame(int param1, float param2)
+{
+    // Stack frame contains:
+    // 1. Function parameters (param1, param2)
+    // 2. Return address
+    // 3. Saved registers (r4-r11, lr)
+    // 4. Local variables
+
+    char local_array[256];      // 256 bytes
+    int local_counter;          // 4 bytes + alignment
+    float result;               // 4 bytes
+
+    // Additional space for nested function calls
+    nested_function(local_array, &amp;local_counter);
+
+    // Total frame size: ~280-300 bytes depending on alignment
+}
+
+size_t calculate_stack_usage(void)
+{
+    size_t base_overhead = 64;      // Thread control block overhead
+    size_t function_calls = 8;      // Maximum call depth
+    size_t frame_size = 128;        // Average frame size
+    size_t local_variables = 512;   // Largest local variable space
+    size_t isr_overhead = 256;      // Interrupt service overhead
+    size_t safety_margin = 256;     // 25% safety buffer
+
+    return base_overhead + (function_calls * frame_size) + 
+           local_variables + isr_overhead + safety_margin;
+}
+</code></pre>
+<h3 id="dynamic-stack-allocation-patterns">Dynamic Stack Allocation Patterns</h3>
+<p>Advanced stack management for dynamic systems:</p>
+<pre><code class="language-c">// Stack pool for dynamic thread creation
+#define MAX_DYNAMIC_THREADS 8
+#define DYNAMIC_STACK_SIZE  2048
+
+static k_thread_stack_t *stack_pool[MAX_DYNAMIC_THREADS];
+static bool stack_allocated[MAX_DYNAMIC_THREADS];
+static struct k_spinlock stack_pool_lock;
+
+k_thread_stack_t *acquire_stack(void)
+{
+    k_spinlock_key_t key = k_spin_lock(&amp;stack_pool_lock);
+    k_thread_stack_t *stack = NULL;
+
+    for (int i = 0; i &lt; MAX_DYNAMIC_THREADS; i++) {
+        if (!stack_allocated[i]) {
+            if (stack_pool[i] == NULL) {
+                stack_pool[i] = k_thread_stack_alloc(DYNAMIC_STACK_SIZE, 0);
+            }
+
+            if (stack_pool[i] != NULL) {
+                stack_allocated[i] = true;
+                stack = stack_pool[i];
+                break;
+            }
+        }
+    }
+
+    k_spin_unlock(&amp;stack_pool_lock, key);
+    return stack;
+}
+
+void release_stack(k_thread_stack_t *stack)
+{
+    k_spinlock_key_t key = k_spin_lock(&amp;stack_pool_lock);
+
+    for (int i = 0; i &lt; MAX_DYNAMIC_THREADS; i++) {
+        if (stack_pool[i] == stack) {
+            stack_allocated[i] = false;
+            break;
+        }
+    }
+
+    k_spin_unlock(&amp;stack_pool_lock, key);
+}
+</code></pre>
+<h2 id="memory-domains-and-protection">Memory Domains and Protection</h2>
+<h3 id="memory-protection-unit-mpu-integration">Memory Protection Unit (MPU) Integration</h3>
+<p>Modern embedded processors provide hardware memory protection:</p>
+<pre><code class="language-c">// Memory region definitions for MPU
+struct memory_region {
+    uintptr_t base_addr;
+    size_t size;
+    uint32_t attributes;
+};
+
+static const struct memory_region app_regions[] = {
+    {
+        .base_addr = (uintptr_t)&amp;__app_ram_start,
+        .size = (size_t)&amp;__app_ram_size,
+        .attributes = K_MEM_PARTITION_P_RW_U_RW
+    },
+    {
+        .base_addr = (uintptr_t)&amp;__app_flash_start,
+        .size = (size_t)&amp;__app_flash_size,
+        .attributes = K_MEM_PARTITION_P_RO_U_RO
+    }
+};
+</code></pre>
+<h3 id="user-mode-memory-management">User Mode Memory Management</h3>
+<p>Implementing user mode applications with restricted memory access:</p>
+<pre><code class="language-c">// User mode thread with restricted memory access
+K_THREAD_STACK_DEFINE(user_thread_stack, 2048);
+
+// Define user-accessible memory partition
+K_MEM_PARTITION_DEFINE(user_data_partition,
+                      user_data_start,
+                      sizeof(user_data),
+                      K_MEM_PARTITION_P_RW_U_RW);
+
+// Create memory domain for user threads
+static struct k_mem_partition *user_partitions[] = {
+    &amp;user_data_partition,
+    &amp;k_mbedtls_partition,  // If using mbedTLS
+};
+
+static struct k_mem_domain user_domain;
+
+void setup_user_mode_memory(void)
+{
+    // Initialize user memory domain
+    k_mem_domain_init(&amp;user_domain, 
+                     ARRAY_SIZE(user_partitions), 
+                     user_partitions);
+
+    // Create user mode thread
+    k_tid_t user_thread = k_thread_create(&amp;user_thread_data,
+                                         user_thread_stack,
+                                         K_THREAD_STACK_SIZEOF(user_thread_stack),
+                                         user_thread_entry,
+                                         NULL, NULL, NULL,
+                                         USER_THREAD_PRIORITY,
+                                         K_USER,  // User mode flag
+                                         K_NO_WAIT);
+
+    // Assign thread to memory domain
+    k_mem_domain_add_thread(&amp;user_domain, user_thread);
+}
+</code></pre>
+<h3 id="memory-access-violation-handling">Memory Access Violation Handling</h3>
+<p>Implementing robust error handling for memory violations:</p>
+<pre><code class="language-c">// Memory fault handler
+void memory_fault_handler(const struct arch_esf *esf)
+{
+    k_tid_t current_thread = k_current_get();
+    uint32_t fault_addr = arch_fault_addr_get();
+
+    LOG_ERR(&quot;Memory fault in thread %p at address 0x%08x&quot;, 
+            current_thread, fault_addr);
+
+    // Log thread information
+    LOG_ERR(&quot;Thread: %s, Priority: %d&quot;, 
+            k_thread_name_get(current_thread),
+            k_thread_priority_get(current_thread));
+
+    // Attempt recovery or terminate thread
+    if (is_recoverable_fault(fault_addr)) {
+        handle_recoverable_fault(current_thread, fault_addr);
+    } else {
+        k_thread_abort(current_thread);
+    }
+}
+</code></pre>
+<h2 id="advanced-heap-management">Advanced Heap Management</h2>
+<h3 id="custom-heap-implementations">Custom Heap Implementations</h3>
+<p>Implementing specialized heaps for specific use cases:</p>
+<pre><code class="language-c">// Ring buffer heap for continuous data streaming
+struct ring_heap {
+    uint8_t *buffer;
+    size_t size;
+    size_t head;
+    size_t tail;
+    struct k_spinlock lock;
+};
+
+void ring_heap_init(struct ring_heap *heap, void *memory, size_t size)
+{
+    heap-&gt;buffer = (uint8_t *)memory;
+    heap-&gt;size = size;
+    heap-&gt;head = 0;
+    heap-&gt;tail = 0;
+    heap-&gt;lock = (struct k_spinlock){};
+}
+
+void *ring_heap_alloc(struct ring_heap *heap, size_t bytes)
+{
+    k_spinlock_key_t key = k_spin_lock(&amp;heap-&gt;lock);
+    void *ptr = NULL;
+
+    size_t available = (heap-&gt;tail &gt;= heap-&gt;head) ? 
+                      (heap-&gt;size - heap-&gt;tail + heap-&gt;head) :
+                      (heap-&gt;head - heap-&gt;tail);
+
+    if (bytes &lt;= available) {
+        ptr = &amp;heap-&gt;buffer[heap-&gt;tail];
+        heap-&gt;tail = (heap-&gt;tail + bytes) % heap-&gt;size;
+    }
+
+    k_spin_unlock(&amp;heap-&gt;lock, key);
+    return ptr;
+}
+</code></pre>
+<h3 id="memory-debugging-and-profiling">Memory Debugging and Profiling</h3>
+<p>Advanced debugging techniques for memory issues:</p>
+<pre><code class="language-c">// Memory allocation tracking
+struct alloc_record {
+    void *ptr;
+    size_t size;
+    k_tid_t thread;
+    uint32_t timestamp;
+    const char *file;
+    int line;
+};
+
+#define MAX_ALLOC_RECORDS 256
+static struct alloc_record alloc_records[MAX_ALLOC_RECORDS];
+static int record_index = 0;
+static struct k_spinlock record_lock;
+
+#define TRACKED_MALLOC(size) \
+    tracked_malloc(size, __FILE__, __LINE__)
+
+void *tracked_malloc(size_t size, const char *file, int line)
+{
+    void *ptr = k_malloc(size);
+
+    if (ptr != NULL) {
+        k_spinlock_key_t key = k_spin_lock(&amp;record_lock);
+
+        alloc_records[record_index] = (struct alloc_record){
+            .ptr = ptr,
+            .size = size,
+            .thread = k_current_get(),
+            .timestamp = k_uptime_get_32(),
+            .file = file,
+            .line = line
+        };
+
+        record_index = (record_index + 1) % MAX_ALLOC_RECORDS;
+        k_spin_unlock(&amp;record_lock, key);
+    }
+
+    return ptr;
+}
+
+void print_allocation_report(void)
+{
+    k_spinlock_key_t key = k_spin_lock(&amp;record_lock);
+
+    printk(&quot;=== Memory Allocation Report ===\n&quot;);
+    for (int i = 0; i &lt; MAX_ALLOC_RECORDS; i++) {
+        struct alloc_record *rec = &amp;alloc_records[i];
+        if (rec-&gt;ptr != NULL) {
+            printk(&quot;Ptr: %p, Size: %zu, Thread: %p, Time: %u, %s:%d\n&quot;,
+                   rec-&gt;ptr, rec-&gt;size, rec-&gt;thread, rec-&gt;timestamp,
+                   rec-&gt;file, rec-&gt;line);
+        }
+    }
+
+    k_spin_unlock(&amp;record_lock, key);
+}
+</code></pre>
+<h2 id="real-time-memory-considerations">Real-Time Memory Considerations</h2>
+<h3 id="deterministic-allocation-patterns">Deterministic Allocation Patterns</h3>
+<p>Ensuring predictable timing for real-time systems:</p>
+<pre><code class="language-c">// Pre-allocated message pools for real-time communication
+#define RT_MESSAGE_SIZE 64
+#define RT_MESSAGE_COUNT 32
+
+K_MEM_SLAB_DEFINE(rt_message_slab, RT_MESSAGE_SIZE, RT_MESSAGE_COUNT, 4);
+
+// Real-time safe message allocation
+void *rt_alloc_message(void)
+{
+    void *msg;
+    int ret = k_mem_slab_alloc(&amp;rt_message_slab, &amp;msg, K_NO_WAIT);
+    return (ret == 0) ? msg : NULL;
+}
+
+void rt_free_message(void *msg)
+{
+    k_mem_slab_free(&amp;rt_message_slab, msg);
+}
+</code></pre>
+<h3 id="priority-based-memory-management">Priority-Based Memory Management</h3>
+<p>Implementing priority-aware allocation strategies:</p>
+<pre><code class="language-c">// Priority-based heap allocation
+struct priority_heap {
+    struct k_heap high_priority;
+    struct k_heap normal_priority;
+    struct k_heap low_priority;
+};
+
+void *priority_alloc(struct priority_heap *heap, size_t size, int priority)
+{
+    void *ptr = NULL;
+
+    if (priority &gt;= HIGH_PRIORITY_THRESHOLD) {
+        ptr = k_heap_alloc(&amp;heap-&gt;high_priority, size, K_NO_WAIT);
+    }
+
+    if (ptr == NULL &amp;&amp; priority &gt;= NORMAL_PRIORITY_THRESHOLD) {
+        ptr = k_heap_alloc(&amp;heap-&gt;normal_priority, size, K_NO_WAIT);
+    }
+
+    if (ptr == NULL) {
+        ptr = k_heap_alloc(&amp;heap-&gt;low_priority, size, K_NO_WAIT);
+    }
+
+    return ptr;
+}
+</code></pre>
+<p>This comprehensive theory section provides deep insights into Zephyr's memory management implementation, enabling developers to make informed decisions about memory allocation strategies and optimization techniques.</p>
+
+
+
+
+
+
+
+  
+    
+  
+  
+
+
+  <aside class="md-source-file">
+    
+      
+  <span class="md-source-file__fact">
+    <span class="md-icon" title="Last update">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M21 13.1c-.1 0-.3.1-.4.2l-1 1 2.1 2.1 1-1c.2-.2.2-.6 0-.8l-1.3-1.3c-.1-.1-.2-.2-.4-.2m-1.9 1.8-6.1 6V23h2.1l6.1-6.1zM12.5 7v5.2l4 2.4-1 1L11 13V7zM11 21.9c-5.1-.5-9-4.8-9-9.9C2 6.5 6.5 2 12 2c5.3 0 9.6 4.1 10 9.3-.3-.1-.6-.2-1-.2s-.7.1-1 .2C19.6 7.2 16.2 4 12 4c-4.4 0-8 3.6-8 8 0 4.1 3.1 7.5 7.1 7.9l-.1.2z"/></svg>
+    </span>
+    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date" title="October 18, 2025 08:49:53 UTC">October 18, 2025</span>
+  </span>
+
+    
+    
+    
+    
+  </aside>
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    
+      
+      <script id="__config" type="application/json">{"base": "../..", "features": [], "search": "../../assets/javascripts/workers/search.973d3a69.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": null}</script>
+    
+    
+      <script src="../../assets/javascripts/bundle.f55a23d4.min.js"></script>
+      
+    
+  </body>
+</html>

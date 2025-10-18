@@ -1,0 +1,4125 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+      
+      
+      
+        <link rel="prev" href="../introduction/">
+      
+      
+        <link rel="next" href="../lab/">
+      
+      
+      <link rel="icon" href="../../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.6.22">
+    
+    
+      
+        <title>Theory - Zephyr RTOS Development Course</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../assets/stylesheets/main.84d31ad4.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+    <script>__md_scope=new URL("../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+    
+  </head>
+  
+  
+    <body dir="ltr">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#chapter-11-traditional-multithreading-primitives-theory-and-implementation" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href="../.." title="Zephyr RTOS Development Course" class="md-header__button md-logo" aria-label="Zephyr RTOS Development Course" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            Zephyr RTOS Development Course
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              Theory
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+
+<nav class="md-nav md-nav--primary" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../.." title="Zephyr RTOS Development Course" class="md-nav__button md-logo" aria-label="Zephyr RTOS Development Course" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    Zephyr RTOS Development Course
+  </label>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../.." class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Home
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2" >
+        
+          
+          <label class="md-nav__link" for="__nav_2" id="__nav_2_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    Contributing
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2">
+            <span class="md-nav__icon md-icon"></span>
+            Contributing
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../CONDUCT/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Code of Conduct
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../CONTRIBUTING/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Contributing
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../chapter_01_course_introduction/introduction/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Chapter 1: Course Introduction
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4" >
+        
+          
+          <label class="md-nav__link" for="__nav_4" id="__nav_4_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    Chapter 2: Introduction to Zephyr
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_4_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_4">
+            <span class="md-nav__icon md-icon"></span>
+            Chapter 2: Introduction to Zephyr
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../chapter_02_introduction_to_zephyr/introduction/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Introduction
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../chapter_02_introduction_to_zephyr/theory/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Theory
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../chapter_02_introduction_to_zephyr/lab/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Lab
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5" >
+        
+          
+          <label class="md-nav__link" for="__nav_5" id="__nav_5_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    Chapter 3: Zephyr Build System
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_5_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_5">
+            <span class="md-nav__icon md-icon"></span>
+            Chapter 3: Zephyr Build System
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../chapter_03_zephyr_build_system/introduction/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Introduction
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../chapter_03_zephyr_build_system/theory/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Theory
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../chapter_03_zephyr_build_system/lab/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Lab
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_6" >
+        
+          
+          <label class="md-nav__link" for="__nav_6" id="__nav_6_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    Chapter 4: Configure Zephyr
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_6_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_6">
+            <span class="md-nav__icon md-icon"></span>
+            Chapter 4: Configure Zephyr
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../chapter_04_configure_zephyr/introduction/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Introduction
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../chapter_04_configure_zephyr/theory/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Theory
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../chapter_04_configure_zephyr/lab/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Lab
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_7" >
+        
+          
+          <label class="md-nav__link" for="__nav_7" id="__nav_7_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    Chapter 5: West
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_7_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_7">
+            <span class="md-nav__icon md-icon"></span>
+            Chapter 5: West
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../chapter_05_west/introduction/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Introduction
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../chapter_05_west/theory/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Theory
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../chapter_05_west/lab/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Lab
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_8" >
+        
+          
+          <label class="md-nav__link" for="__nav_8" id="__nav_8_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    Chapter 6: Zephyr Fundamentals
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_8_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_8">
+            <span class="md-nav__icon md-icon"></span>
+            Chapter 6: Zephyr Fundamentals
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../chapter_06_zephyr_fundamentals/introduction/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Introduction
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../chapter_06_zephyr_fundamentals/theory/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Theory
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../chapter_06_zephyr_fundamentals/lab/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Lab
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_9" >
+        
+          
+          <label class="md-nav__link" for="__nav_9" id="__nav_9_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    Chapter 7: Thread Management
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_9_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_9">
+            <span class="md-nav__icon md-icon"></span>
+            Chapter 7: Thread Management
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../chapter_07_thread_management/introduction/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Introduction
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../chapter_07_thread_management/theory/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Theory
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../chapter_07_thread_management/lab/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Lab
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_10" >
+        
+          
+          <label class="md-nav__link" for="__nav_10" id="__nav_10_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    Chapter 8: Tracing and Logging
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_10_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_10">
+            <span class="md-nav__icon md-icon"></span>
+            Chapter 8: Tracing and Logging
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../chapter_08_tracing_and_logging/introduction/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Introduction
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../chapter_08_tracing_and_logging/theory/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Theory
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../chapter_08_tracing_and_logging/lab/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Lab
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_11" >
+        
+          
+          <label class="md-nav__link" for="__nav_11" id="__nav_11_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    Chapter 9: Memory Management
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_11_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_11">
+            <span class="md-nav__icon md-icon"></span>
+            Chapter 9: Memory Management
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../chapter_09_memory_management/introduction/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Introduction
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../chapter_09_memory_management/theory/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Theory
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../chapter_09_memory_management/lab/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Lab
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_12" >
+        
+          
+          <label class="md-nav__link" for="__nav_12" id="__nav_12_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    Chapter 10: User Mode
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_12_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_12">
+            <span class="md-nav__icon md-icon"></span>
+            Chapter 10: User Mode
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../chapter_10_user_mode/introduction/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Introduction
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../chapter_10_user_mode/theory/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Theory
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../chapter_10_user_mode/lab/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Lab
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_13" checked>
+        
+          
+          <label class="md-nav__link" for="__nav_13" id="__nav_13_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    Chapter 11: Traditional Multithreading Primitives
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_13_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_13">
+            <span class="md-nav__icon md-icon"></span>
+            Chapter 11: Traditional Multithreading Primitives
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../introduction/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Introduction
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    Theory
+    
+  </span>
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        
+  
+  
+  <span class="md-ellipsis">
+    Theory
+    
+  </span>
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#fundamental-synchronization-concepts" class="md-nav__link">
+    <span class="md-ellipsis">
+      Fundamental Synchronization Concepts
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Fundamental Synchronization Concepts">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#understanding-concurrency-in-embedded-systems" class="md-nav__link">
+    <span class="md-ellipsis">
+      Understanding Concurrency in Embedded Systems
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Understanding Concurrency in Embedded Systems">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#the-challenge-of-shared-resources" class="md-nav__link">
+    <span class="md-ellipsis">
+      The Challenge of Shared Resources
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#critical-sections-and-atomic-operations" class="md-nav__link">
+    <span class="md-ellipsis">
+      Critical Sections and Atomic Operations
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#mutex-implementation-and-theory" class="md-nav__link">
+    <span class="md-ellipsis">
+      Mutex Implementation and Theory
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Mutex Implementation and Theory">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#mutex-architecture-in-zephyr" class="md-nav__link">
+    <span class="md-ellipsis">
+      Mutex Architecture in Zephyr
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Mutex Architecture in Zephyr">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#basic-mutex-operations" class="md-nav__link">
+    <span class="md-ellipsis">
+      Basic Mutex Operations
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#priority-inheritance-protocol" class="md-nav__link">
+    <span class="md-ellipsis">
+      Priority Inheritance Protocol
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#advanced-mutex-patterns" class="md-nav__link">
+    <span class="md-ellipsis">
+      Advanced Mutex Patterns
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Advanced Mutex Patterns">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#scoped-locking-and-raii-pattern" class="md-nav__link">
+    <span class="md-ellipsis">
+      Scoped Locking and RAII Pattern
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#reader-writer-lock-implementation" class="md-nav__link">
+    <span class="md-ellipsis">
+      Reader-Writer Lock Implementation
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#semaphore-theory-and-implementation" class="md-nav__link">
+    <span class="md-ellipsis">
+      Semaphore Theory and Implementation
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Semaphore Theory and Implementation">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#understanding-semaphore-semantics" class="md-nav__link">
+    <span class="md-ellipsis">
+      Understanding Semaphore Semantics
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Understanding Semaphore Semantics">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#counting-semaphore-for-resource-pool-management" class="md-nav__link">
+    <span class="md-ellipsis">
+      Counting Semaphore for Resource Pool Management
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#producer-consumer-pattern-with-semaphores" class="md-nav__link">
+    <span class="md-ellipsis">
+      Producer-Consumer Pattern with Semaphores
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#spinlock-implementation-and-smp-considerations" class="md-nav__link">
+    <span class="md-ellipsis">
+      Spinlock Implementation and SMP Considerations
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Spinlock Implementation and SMP Considerations">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#understanding-spinlock-mechanics" class="md-nav__link">
+    <span class="md-ellipsis">
+      Understanding Spinlock Mechanics
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Understanding Spinlock Mechanics">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#basic-spinlock-usage" class="md-nav__link">
+    <span class="md-ellipsis">
+      Basic Spinlock Usage
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#lock-free-alternatives-to-spinlocks" class="md-nav__link">
+    <span class="md-ellipsis">
+      Lock-Free Alternatives to Spinlocks
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#condition-variables-and-advanced-synchronization" class="md-nav__link">
+    <span class="md-ellipsis">
+      Condition Variables and Advanced Synchronization
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Condition Variables and Advanced Synchronization">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#condition-variable-theory" class="md-nav__link">
+    <span class="md-ellipsis">
+      Condition Variable Theory
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Condition Variable Theory">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#condition-variable-implementation-patterns" class="md-nav__link">
+    <span class="md-ellipsis">
+      Condition Variable Implementation Patterns
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#performance-analysis-and-optimization" class="md-nav__link">
+    <span class="md-ellipsis">
+      Performance Analysis and Optimization
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Performance Analysis and Optimization">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#synchronization-overhead-analysis" class="md-nav__link">
+    <span class="md-ellipsis">
+      Synchronization Overhead Analysis
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lab/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Lab
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_14" >
+        
+          
+          <label class="md-nav__link" for="__nav_14" id="__nav_14_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    Chapter 12: Inter-thread Communication
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_14_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_14">
+            <span class="md-nav__icon md-icon"></span>
+            Chapter 12: Inter-thread Communication
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../chapter_12_inter-thread_communication/introduction/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Introduction
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../chapter_12_inter-thread_communication/theory/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Theory
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../chapter_12_inter-thread_communication/lab/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Lab
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_15" >
+        
+          
+          <label class="md-nav__link" for="__nav_15" id="__nav_15_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    Chapter 13: Interrupt Management
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_15_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_15">
+            <span class="md-nav__icon md-icon"></span>
+            Chapter 13: Interrupt Management
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../chapter_13_interrupt_management/introduction/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Introduction
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../chapter_13_interrupt_management/theory/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Theory
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../chapter_13_interrupt_management/lab/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Lab
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_16" >
+        
+          
+          <label class="md-nav__link" for="__nav_16" id="__nav_16_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    Chapter 14: Modules
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_16_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_16">
+            <span class="md-nav__icon md-icon"></span>
+            Chapter 14: Modules
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../chapter_14_modules/introduction/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Introduction
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../chapter_14_modules/theory/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Theory
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../chapter_14_modules/lab/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Lab
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_17" >
+        
+          
+          <label class="md-nav__link" for="__nav_17" id="__nav_17_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    Chapter 15: Writing Kconfig Symbols
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_17_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_17">
+            <span class="md-nav__icon md-icon"></span>
+            Chapter 15: Writing Kconfig Symbols
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../chapter_15_writing_kconfig_symbols/introduction/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Introduction
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../chapter_15_writing_kconfig_symbols/theory/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Theory
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../chapter_15_writing_kconfig_symbols/lab/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Lab
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_18" >
+        
+          
+          <label class="md-nav__link" for="__nav_18" id="__nav_18_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    Chapter 16: Device Driver Architecture
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_18_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_18">
+            <span class="md-nav__icon md-icon"></span>
+            Chapter 16: Device Driver Architecture
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../chapter_16_device_driver_architecture/introduction/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Introduction
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../chapter_16_device_driver_architecture/theory/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Theory
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../chapter_16_device_driver_architecture/lab/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Lab
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_19" >
+        
+          
+          <label class="md-nav__link" for="__nav_19" id="__nav_19_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    Chapter 17: Power Management
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_19_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_19">
+            <span class="md-nav__icon md-icon"></span>
+            Chapter 17: Power Management
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../chapter_17_power_management/introduction/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Introduction
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../chapter_17_power_management/theory/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Theory
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../chapter_17_power_management/lab/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Lab
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_20" >
+        
+          
+          <label class="md-nav__link" for="__nav_20" id="__nav_20_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    Chapter 18: Capstone Project
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_20_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_20">
+            <span class="md-nav__icon md-icon"></span>
+            Chapter 18: Capstone Project
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../chapter_18_capstone_project/introduction/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Introduction
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../chapter_18_capstone_project/theory/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Theory
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../chapter_18_capstone_project/lab/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Lab
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../chapter_18_capstone_project/networked_monitor/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Networked Monitor
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#fundamental-synchronization-concepts" class="md-nav__link">
+    <span class="md-ellipsis">
+      Fundamental Synchronization Concepts
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Fundamental Synchronization Concepts">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#understanding-concurrency-in-embedded-systems" class="md-nav__link">
+    <span class="md-ellipsis">
+      Understanding Concurrency in Embedded Systems
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Understanding Concurrency in Embedded Systems">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#the-challenge-of-shared-resources" class="md-nav__link">
+    <span class="md-ellipsis">
+      The Challenge of Shared Resources
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#critical-sections-and-atomic-operations" class="md-nav__link">
+    <span class="md-ellipsis">
+      Critical Sections and Atomic Operations
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#mutex-implementation-and-theory" class="md-nav__link">
+    <span class="md-ellipsis">
+      Mutex Implementation and Theory
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Mutex Implementation and Theory">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#mutex-architecture-in-zephyr" class="md-nav__link">
+    <span class="md-ellipsis">
+      Mutex Architecture in Zephyr
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Mutex Architecture in Zephyr">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#basic-mutex-operations" class="md-nav__link">
+    <span class="md-ellipsis">
+      Basic Mutex Operations
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#priority-inheritance-protocol" class="md-nav__link">
+    <span class="md-ellipsis">
+      Priority Inheritance Protocol
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#advanced-mutex-patterns" class="md-nav__link">
+    <span class="md-ellipsis">
+      Advanced Mutex Patterns
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Advanced Mutex Patterns">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#scoped-locking-and-raii-pattern" class="md-nav__link">
+    <span class="md-ellipsis">
+      Scoped Locking and RAII Pattern
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#reader-writer-lock-implementation" class="md-nav__link">
+    <span class="md-ellipsis">
+      Reader-Writer Lock Implementation
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#semaphore-theory-and-implementation" class="md-nav__link">
+    <span class="md-ellipsis">
+      Semaphore Theory and Implementation
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Semaphore Theory and Implementation">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#understanding-semaphore-semantics" class="md-nav__link">
+    <span class="md-ellipsis">
+      Understanding Semaphore Semantics
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Understanding Semaphore Semantics">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#counting-semaphore-for-resource-pool-management" class="md-nav__link">
+    <span class="md-ellipsis">
+      Counting Semaphore for Resource Pool Management
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#producer-consumer-pattern-with-semaphores" class="md-nav__link">
+    <span class="md-ellipsis">
+      Producer-Consumer Pattern with Semaphores
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#spinlock-implementation-and-smp-considerations" class="md-nav__link">
+    <span class="md-ellipsis">
+      Spinlock Implementation and SMP Considerations
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Spinlock Implementation and SMP Considerations">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#understanding-spinlock-mechanics" class="md-nav__link">
+    <span class="md-ellipsis">
+      Understanding Spinlock Mechanics
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Understanding Spinlock Mechanics">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#basic-spinlock-usage" class="md-nav__link">
+    <span class="md-ellipsis">
+      Basic Spinlock Usage
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#lock-free-alternatives-to-spinlocks" class="md-nav__link">
+    <span class="md-ellipsis">
+      Lock-Free Alternatives to Spinlocks
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#condition-variables-and-advanced-synchronization" class="md-nav__link">
+    <span class="md-ellipsis">
+      Condition Variables and Advanced Synchronization
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Condition Variables and Advanced Synchronization">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#condition-variable-theory" class="md-nav__link">
+    <span class="md-ellipsis">
+      Condition Variable Theory
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Condition Variable Theory">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#condition-variable-implementation-patterns" class="md-nav__link">
+    <span class="md-ellipsis">
+      Condition Variable Implementation Patterns
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#performance-analysis-and-optimization" class="md-nav__link">
+    <span class="md-ellipsis">
+      Performance Analysis and Optimization
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Performance Analysis and Optimization">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#synchronization-overhead-analysis" class="md-nav__link">
+    <span class="md-ellipsis">
+      Synchronization Overhead Analysis
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+
+<h1 id="chapter-11-traditional-multithreading-primitives-theory-and-implementation">Chapter 11: Traditional Multithreading Primitives - Theory and Implementation</h1>
+<h2 id="fundamental-synchronization-concepts">Fundamental Synchronization Concepts</h2>
+<h3 id="understanding-concurrency-in-embedded-systems">Understanding Concurrency in Embedded Systems</h3>
+<p>Concurrency in embedded systems presents unique challenges compared to general-purpose computing environments. The constraints of limited memory, deterministic timing requirements, and direct hardware interaction necessitate careful consideration of synchronization mechanisms.</p>
+<h4 id="the-challenge-of-shared-resources">The Challenge of Shared Resources</h4>
+<pre><code class="language-c">/*
+ * Example: Shared resource without synchronization (PROBLEMATIC)
+ * 
+ * This example demonstrates a classic race condition where multiple
+ * threads access shared data without proper synchronization.
+ */
+
+static volatile uint32_t shared_counter = 0;
+static volatile bool system_ready = false;
+
+// Thread 1: Producer
+void producer_thread(void *arg1, void *arg2, void *arg3)
+{
+    while (1) {
+        // RACE CONDITION: Non-atomic read-modify-write
+        shared_counter++;  // Multiple instructions: load, increment, store
+
+        if (shared_counter &gt;= 100) {
+            system_ready = true;  // Another potential race condition
+        }
+
+        k_msleep(10);
+    }
+}
+
+// Thread 2: Consumer
+void consumer_thread(void *arg1, void *arg2, void *arg3)
+{
+    while (1) {
+        if (system_ready) {
+            // RACE CONDITION: Value may change between check and use
+            printk(&quot;Counter value: %u\n&quot;, shared_counter);
+            shared_counter = 0;  // Reset counter
+            system_ready = false;
+        }
+
+        k_msleep(50);
+    }
+}
+</code></pre>
+<h4 id="critical-sections-and-atomic-operations">Critical Sections and Atomic Operations</h4>
+<p>A critical section is a code segment that accesses shared resources and must not be executed concurrently by multiple threads. Zephyr provides several mechanisms to protect critical sections:</p>
+<pre><code class="language-c">/*
+ * Critical Section Protection Methods in Zephyr
+ */
+
+#include &lt;zephyr/kernel.h&gt;
+#include &lt;zephyr/spinlock.h&gt;
+#include &lt;zephyr/irq.h&gt;
+
+// Method 1: Interrupt disable/enable (single-core systems)
+void critical_section_irq_disable(void)
+{
+    unsigned int key = irq_lock();
+
+    // Critical section - interrupts disabled
+    shared_counter++;
+    if (shared_counter &gt;= 100) {
+        system_ready = true;
+    }
+
+    irq_unlock(key);
+}
+
+// Method 2: Spinlocks (SMP-safe)
+static struct k_spinlock data_lock;
+
+void critical_section_spinlock(void)
+{
+    k_spinlock_key_t key = k_spin_lock(&amp;data_lock);
+
+    // Critical section - SMP-safe protection
+    shared_counter++;
+    if (shared_counter &gt;= 100) {
+        system_ready = true;
+    }
+
+    k_spin_unlock(&amp;data_lock, key);
+}
+
+// Method 3: Atomic operations (when applicable)
+void atomic_operations_example(void)
+{
+    // Atomic increment
+    uint32_t old_value = atomic_inc(&amp;shared_counter);
+
+    // Atomic compare-and-swap
+    bool success = atomic_cas(&amp;system_ready, false, true);
+
+    // Atomic test-and-set
+    atomic_set_bit(&amp;status_flags, READY_FLAG_BIT);
+}
+</code></pre>
+<h2 id="mutex-implementation-and-theory">Mutex Implementation and Theory</h2>
+<h3 id="mutex-architecture-in-zephyr">Mutex Architecture in Zephyr</h3>
+<p>Mutexes (mutual exclusion objects) provide the primary mechanism for protecting shared resources in Zephyr applications. Zephyr's mutex implementation includes advanced features like priority inheritance and recursive locking support.</p>
+<h4 id="basic-mutex-operations">Basic Mutex Operations</h4>
+<pre><code class="language-c">/*
+ * Comprehensive Mutex Usage Example
+ * 
+ * This example demonstrates proper mutex usage patterns,
+ * error handling, and performance considerations.
+ */
+
+#include &lt;zephyr/kernel.h&gt;
+#include &lt;zephyr/logging/log.h&gt;
+
+LOG_MODULE_REGISTER(mutex_example, LOG_LEVEL_DBG);
+
+// Shared data structure requiring protection
+struct shared_resource {
+    uint32_t value;
+    uint64_t timestamp;
+    char description[64];
+    uint32_t access_count;
+};
+
+static struct shared_resource global_resource = {0};
+static K_MUTEX_DEFINE(resource_mutex);
+
+// Safe resource access with comprehensive error handling
+int safe_resource_update(uint32_t new_value, const char *desc)
+{
+    int ret;
+
+    // Attempt to acquire mutex with timeout
+    ret = k_mutex_lock(&amp;resource_mutex, K_MSEC(1000));
+    if (ret != 0) {
+        LOG_ERR(&quot;Failed to acquire mutex: %d&quot;, ret);
+        return ret;
+    }
+
+    // Critical section - exclusive access guaranteed
+    LOG_DBG(&quot;Updating resource: old_value=%u, new_value=%u&quot;, 
+            global_resource.value, new_value);
+
+    global_resource.value = new_value;
+    global_resource.timestamp = k_uptime_get();
+    global_resource.access_count++;
+
+    if (desc != NULL) {
+        strncpy(global_resource.description, desc, 
+                sizeof(global_resource.description) - 1);
+        global_resource.description[sizeof(global_resource.description) - 1] = '\0';
+    }
+
+    // Release mutex
+    ret = k_mutex_unlock(&amp;resource_mutex);
+    if (ret != 0) {
+        LOG_ERR(&quot;Failed to release mutex: %d&quot;, ret);
+    }
+
+    LOG_DBG(&quot;Resource updated successfully, access_count=%u&quot;, 
+            global_resource.access_count);
+
+    return ret;
+}
+
+// Safe resource read with minimal locking time
+int safe_resource_read(struct shared_resource *output)
+{
+    int ret;
+
+    if (output == NULL) {
+        return -EINVAL;
+    }
+
+    ret = k_mutex_lock(&amp;resource_mutex, K_MSEC(500));
+    if (ret != 0) {
+        LOG_WRN(&quot;Read operation timed out&quot;);
+        return ret;
+    }
+
+    // Fast copy to minimize lock time
+    memcpy(output, &amp;global_resource, sizeof(*output));
+
+    k_mutex_unlock(&amp;resource_mutex);
+
+    LOG_DBG(&quot;Resource read: value=%u, timestamp=%llu&quot;, 
+            output-&gt;value, output-&gt;timestamp);
+
+    return 0;
+}
+</code></pre>
+<h4 id="priority-inheritance-protocol">Priority Inheritance Protocol</h4>
+<p>Zephyr implements priority inheritance to prevent priority inversion scenarios:</p>
+<pre><code class="language-c">/*
+ * Priority Inheritance Demonstration
+ * 
+ * This example shows how Zephyr's priority inheritance prevents
+ * priority inversion in complex scheduling scenarios.
+ */
+
+static K_MUTEX_DEFINE(shared_mutex);
+static struct shared_resource critical_data;
+
+// High priority thread
+void high_priority_thread(void *arg1, void *arg2, void *arg3)
+{
+    LOG_INF(&quot;High priority thread starting (priority: %d)&quot;, 
+            k_thread_priority_get(k_current_get()));
+
+    k_msleep(100); // Allow other threads to start
+
+    LOG_INF(&quot;High priority thread requesting mutex&quot;);
+    int ret = k_mutex_lock(&amp;shared_mutex, K_FOREVER);
+
+    if (ret == 0) {
+        LOG_INF(&quot;High priority thread acquired mutex&quot;);
+
+        // Simulate work in critical section
+        k_msleep(50);
+
+        LOG_INF(&quot;High priority thread completed work&quot;);
+        k_mutex_unlock(&amp;shared_mutex);
+    }
+}
+
+// Medium priority thread (potential priority inversion candidate)
+void medium_priority_thread(void *arg1, void *arg2, void *arg3)
+{
+    LOG_INF(&quot;Medium priority thread starting (priority: %d)&quot;, 
+            k_thread_priority_get(k_current_get()));
+
+    k_msleep(50); // Start after low priority acquires mutex
+
+    // CPU-intensive work that could cause priority inversion
+    // without priority inheritance
+    LOG_INF(&quot;Medium priority thread doing intensive work&quot;);
+
+    for (volatile int i = 0; i &lt; 1000000; i++) {
+        // Busy work to consume CPU
+    }
+
+    LOG_INF(&quot;Medium priority thread completed work&quot;);
+}
+
+// Low priority thread
+void low_priority_thread(void *arg1, void *arg2, void *arg3)
+{
+    LOG_INF(&quot;Low priority thread starting (priority: %d)&quot;, 
+            k_thread_priority_get(k_current_get()));
+
+    int ret = k_mutex_lock(&amp;shared_mutex, K_FOREVER);
+
+    if (ret == 0) {
+        LOG_INF(&quot;Low priority thread acquired mutex&quot;);
+
+        // Long operation in critical section
+        // During this time, if high priority thread requests the mutex,
+        // priority inheritance will boost this thread's priority
+        LOG_INF(&quot;Low priority thread doing extended work&quot;);
+        k_msleep(200);
+
+        LOG_INF(&quot;Low priority thread releasing mutex&quot;);
+        k_mutex_unlock(&amp;shared_mutex);
+    }
+}
+
+// Thread creation with priority inheritance test
+void create_priority_test_threads(void)
+{
+    static struct k_thread high_thread, medium_thread, low_thread;
+    static K_THREAD_STACK_DEFINE(high_stack, 1024);
+    static K_THREAD_STACK_DEFINE(medium_stack, 1024);
+    static K_THREAD_STACK_DEFINE(low_stack, 1024);
+
+    // Create threads with different priorities
+    k_thread_create(&amp;low_thread, low_stack, K_THREAD_STACK_SIZEOF(low_stack),
+                   low_priority_thread, NULL, NULL, NULL,
+                   10, 0, K_NO_WAIT);  // Lowest priority
+
+    k_thread_create(&amp;medium_thread, medium_stack, K_THREAD_STACK_SIZEOF(medium_stack),
+                   medium_priority_thread, NULL, NULL, NULL,
+                   5, 0, K_NO_WAIT);   // Medium priority
+
+    k_thread_create(&amp;high_thread, high_stack, K_THREAD_STACK_SIZEOF(high_stack),
+                   high_priority_thread, NULL, NULL, NULL,
+                   1, 0, K_NO_WAIT);   // Highest priority
+}
+</code></pre>
+<h3 id="advanced-mutex-patterns">Advanced Mutex Patterns</h3>
+<h4 id="scoped-locking-and-raii-pattern">Scoped Locking and RAII Pattern</h4>
+<pre><code class="language-c">/*
+ * RAII-style Mutex Management in C
+ * 
+ * While C doesn't have destructors, we can implement
+ * scope-based locking using function wrappers.
+ */
+
+// Scoped mutex lock structure
+struct scoped_mutex_lock {
+    struct k_mutex *mutex;
+    bool acquired;
+    k_timeout_t timeout;
+};
+
+// Initialize scoped lock
+static inline struct scoped_mutex_lock 
+scoped_mutex_init(struct k_mutex *mutex, k_timeout_t timeout)
+{
+    struct scoped_mutex_lock lock = {
+        .mutex = mutex,
+        .acquired = false,
+        .timeout = timeout
+    };
+
+    if (k_mutex_lock(mutex, timeout) == 0) {
+        lock.acquired = true;
+    }
+
+    return lock;
+}
+
+// Release scoped lock
+static inline void scoped_mutex_release(struct scoped_mutex_lock *lock)
+{
+    if (lock-&gt;acquired) {
+        k_mutex_unlock(lock-&gt;mutex);
+        lock-&gt;acquired = false;
+    }
+}
+
+// Macro for automatic scope-based locking
+#define WITH_MUTEX_LOCK(mutex, timeout) \
+    for (struct scoped_mutex_lock __lock = scoped_mutex_init(mutex, timeout); \
+         __lock.acquired; \
+         scoped_mutex_release(&amp;__lock), __lock.acquired = false)
+
+// Usage example
+void scoped_mutex_example(void)
+{
+    WITH_MUTEX_LOCK(&amp;resource_mutex, K_MSEC(1000)) {
+        // Critical section - mutex automatically released on scope exit
+        global_resource.value++;
+        global_resource.timestamp = k_uptime_get();
+
+        // Even early returns or breaks will release the mutex
+        if (global_resource.value &gt; 1000) {
+            LOG_WRN(&quot;Resource value too high, resetting&quot;);
+            global_resource.value = 0;
+            return; // Mutex automatically released
+        }
+    }
+    // Mutex automatically released here
+}
+</code></pre>
+<h4 id="reader-writer-lock-implementation">Reader-Writer Lock Implementation</h4>
+<pre><code class="language-c">/*
+ * Reader-Writer Lock Implementation using Zephyr Primitives
+ * 
+ * Allows multiple readers or one writer, but not both simultaneously.
+ */
+
+struct k_rwlock {
+    struct k_mutex writer_mutex;    // Protects writer access
+    struct k_sem reader_sem;        // Limits concurrent readers
+    atomic_t reader_count;          // Current number of readers
+    atomic_t writer_waiting;        // Writer waiting flag
+};
+
+#define K_RWLOCK_DEFINE(name) \
+    struct k_rwlock name = { \
+        .writer_mutex = Z_MUTEX_INITIALIZER(name.writer_mutex), \
+        .reader_sem = Z_SEM_INITIALIZER(name.reader_sem, 1, 1), \
+        .reader_count = ATOMIC_INIT(0), \
+        .writer_waiting = ATOMIC_INIT(0) \
+    }
+
+// Acquire read lock
+int k_rwlock_read_lock(struct k_rwlock *rwlock, k_timeout_t timeout)
+{
+    int ret;
+
+    // Wait if writer is waiting or active
+    ret = k_sem_take(&amp;rwlock-&gt;reader_sem, timeout);
+    if (ret != 0) {
+        return ret;
+    }
+
+    // Increment reader count
+    int readers = atomic_inc(&amp;rwlock-&gt;reader_count);
+
+    // First reader blocks writers
+    if (readers == 0) {
+        ret = k_mutex_lock(&amp;rwlock-&gt;writer_mutex, timeout);
+        if (ret != 0) {
+            atomic_dec(&amp;rwlock-&gt;reader_count);
+            k_sem_give(&amp;rwlock-&gt;reader_sem);
+            return ret;
+        }
+    }
+
+    k_sem_give(&amp;rwlock-&gt;reader_sem);
+    return 0;
+}
+
+// Release read lock
+void k_rwlock_read_unlock(struct k_rwlock *rwlock)
+{
+    int readers = atomic_dec(&amp;rwlock-&gt;reader_count);
+
+    // Last reader releases writer mutex
+    if (readers == 1) {
+        k_mutex_unlock(&amp;rwlock-&gt;writer_mutex);
+    }
+}
+
+// Acquire write lock
+int k_rwlock_write_lock(struct k_rwlock *rwlock, k_timeout_t timeout)
+{
+    atomic_set(&amp;rwlock-&gt;writer_waiting, 1);
+
+    int ret = k_mutex_lock(&amp;rwlock-&gt;writer_mutex, timeout);
+
+    atomic_set(&amp;rwlock-&gt;writer_waiting, 0);
+    return ret;
+}
+
+// Release write lock
+void k_rwlock_write_unlock(struct k_rwlock *rwlock)
+{
+    k_mutex_unlock(&amp;rwlock-&gt;writer_mutex);
+}
+</code></pre>
+<h2 id="semaphore-theory-and-implementation">Semaphore Theory and Implementation</h2>
+<h3 id="understanding-semaphore-semantics">Understanding Semaphore Semantics</h3>
+<p>Semaphores provide a counting mechanism for resource management and thread signaling. Zephyr supports both binary semaphores (similar to mutexes) and counting semaphores for managing pools of identical resources.</p>
+<h4 id="counting-semaphore-for-resource-pool-management">Counting Semaphore for Resource Pool Management</h4>
+<pre><code class="language-c">/*
+ * Resource Pool Management with Counting Semaphores
+ * 
+ * This example demonstrates managing a pool of identical
+ * resources using counting semaphores.
+ */
+
+#define MAX_CONNECTIONS 5
+#define CONNECTION_BUFFER_SIZE 512
+
+struct network_connection {
+    bool in_use;
+    int socket_fd;
+    char buffer[CONNECTION_BUFFER_SIZE];
+    uint32_t bytes_received;
+    uint64_t last_activity;
+};
+
+static struct network_connection connection_pool[MAX_CONNECTIONS];
+static K_SEM_DEFINE(connection_semaphore, MAX_CONNECTIONS, MAX_CONNECTIONS);
+static K_MUTEX_DEFINE(pool_mutex);
+
+// Acquire connection from pool
+struct network_connection *acquire_connection(k_timeout_t timeout)
+{
+    int ret;
+    struct network_connection *conn = NULL;
+
+    // Wait for available connection
+    ret = k_sem_take(&amp;connection_semaphore, timeout);
+    if (ret != 0) {
+        LOG_WRN(&quot;No connections available within timeout&quot;);
+        return NULL;
+    }
+
+    // Find and allocate connection from pool
+    k_mutex_lock(&amp;pool_mutex, K_FOREVER);
+
+    for (int i = 0; i &lt; MAX_CONNECTIONS; i++) {
+        if (!connection_pool[i].in_use) {
+            conn = &amp;connection_pool[i];
+            conn-&gt;in_use = true;
+            conn-&gt;socket_fd = -1;
+            conn-&gt;bytes_received = 0;
+            conn-&gt;last_activity = k_uptime_get();
+            memset(conn-&gt;buffer, 0, sizeof(conn-&gt;buffer));
+            break;
+        }
+    }
+
+    k_mutex_unlock(&amp;pool_mutex);
+
+    if (conn == NULL) {
+        // This shouldn't happen if semaphore works correctly
+        LOG_ERR(&quot;Semaphore/pool inconsistency detected&quot;);
+        k_sem_give(&amp;connection_semaphore);
+    } else {
+        LOG_DBG(&quot;Acquired connection %p&quot;, conn);
+    }
+
+    return conn;
+}
+
+// Release connection back to pool
+void release_connection(struct network_connection *conn)
+{
+    if (conn == NULL) {
+        return;
+    }
+
+    k_mutex_lock(&amp;pool_mutex, K_FOREVER);
+
+    // Verify connection belongs to pool
+    if (conn &gt;= connection_pool &amp;&amp; 
+        conn &lt; connection_pool + MAX_CONNECTIONS) {
+
+        if (conn-&gt;in_use) {
+            // Clean up connection
+            if (conn-&gt;socket_fd &gt;= 0) {
+                close(conn-&gt;socket_fd);
+                conn-&gt;socket_fd = -1;
+            }
+
+            conn-&gt;in_use = false;
+            conn-&gt;bytes_received = 0;
+            memset(conn-&gt;buffer, 0, sizeof(conn-&gt;buffer));
+
+            LOG_DBG(&quot;Released connection %p&quot;, conn);
+
+            // Signal semaphore that connection is available
+            k_sem_give(&amp;connection_semaphore);
+        } else {
+            LOG_WRN(&quot;Attempting to release already free connection&quot;);
+        }
+    } else {
+        LOG_ERR(&quot;Invalid connection pointer: %p&quot;, conn);
+    }
+
+    k_mutex_unlock(&amp;pool_mutex);
+}
+
+// Get pool statistics
+void get_connection_pool_stats(int *total, int *available, int *in_use)
+{
+    k_mutex_lock(&amp;pool_mutex, K_FOREVER);
+
+    *total = MAX_CONNECTIONS;
+    *in_use = 0;
+
+    for (int i = 0; i &lt; MAX_CONNECTIONS; i++) {
+        if (connection_pool[i].in_use) {
+            (*in_use)++;
+        }
+    }
+
+    *available = *total - *in_use;
+
+    k_mutex_unlock(&amp;pool_mutex);
+
+    LOG_DBG(&quot;Pool stats: total=%d, available=%d, in_use=%d&quot;, 
+            *total, *available, *in_use);
+}
+</code></pre>
+<h4 id="producer-consumer-pattern-with-semaphores">Producer-Consumer Pattern with Semaphores</h4>
+<pre><code class="language-c">/*
+ * Classic Producer-Consumer Implementation
+ * 
+ * Demonstrates coordinated data transfer between threads
+ * using semaphores and circular buffers.
+ */
+
+#define BUFFER_SIZE 32
+
+struct circular_buffer {
+    uint32_t data[BUFFER_SIZE];
+    size_t head;
+    size_t tail;
+    size_t count;
+};
+
+static struct circular_buffer shared_buffer = {0};
+static K_SEM_DEFINE(buffer_full, 0, BUFFER_SIZE);     // Items available
+static K_SEM_DEFINE(buffer_empty, BUFFER_SIZE, BUFFER_SIZE); // Space available
+static K_MUTEX_DEFINE(buffer_mutex);
+
+// Producer function
+void producer_function(void *arg1, void *arg2, void *arg3)
+{
+    uint32_t data_counter = 0;
+
+    while (1) {
+        // Generate data
+        uint32_t data = data_counter++;
+
+        // Wait for space in buffer
+        int ret = k_sem_take(&amp;buffer_empty, K_FOREVER);
+        if (ret != 0) {
+            LOG_ERR(&quot;Producer semaphore error: %d&quot;, ret);
+            continue;
+        }
+
+        // Critical section: add data to buffer
+        k_mutex_lock(&amp;buffer_mutex, K_FOREVER);
+
+        shared_buffer.data[shared_buffer.tail] = data;
+        shared_buffer.tail = (shared_buffer.tail + 1) % BUFFER_SIZE;
+        shared_buffer.count++;
+
+        k_mutex_unlock(&amp;buffer_mutex);
+
+        // Signal that data is available
+        k_sem_give(&amp;buffer_full);
+
+        LOG_DBG(&quot;Produced: %u (buffer count: %zu)&quot;, data, shared_buffer.count);
+
+        // Simulate production time
+        k_msleep(100 + (sys_rand32_get() % 100));
+    }
+}
+
+// Consumer function
+void consumer_function(void *arg1, void *arg2, void *arg3)
+{
+    while (1) {
+        // Wait for data in buffer
+        int ret = k_sem_take(&amp;buffer_full, K_FOREVER);
+        if (ret != 0) {
+            LOG_ERR(&quot;Consumer semaphore error: %d&quot;, ret);
+            continue;
+        }
+
+        // Critical section: remove data from buffer
+        k_mutex_lock(&amp;buffer_mutex, K_FOREVER);
+
+        uint32_t data = shared_buffer.data[shared_buffer.head];
+        shared_buffer.head = (shared_buffer.head + 1) % BUFFER_SIZE;
+        shared_buffer.count--;
+
+        k_mutex_unlock(&amp;buffer_mutex);
+
+        // Signal that space is available
+        k_sem_give(&amp;buffer_empty);
+
+        LOG_DBG(&quot;Consumed: %u (buffer count: %zu)&quot;, data, shared_buffer.count);
+
+        // Process consumed data
+        process_data(data);
+
+        // Simulate consumption time
+        k_msleep(150 + (sys_rand32_get() % 100));
+    }
+}
+
+// Data processing function
+void process_data(uint32_t data)
+{
+    // Simulate data processing
+    static uint32_t processed_count = 0;
+    processed_count++;
+
+    if (processed_count % 10 == 0) {
+        LOG_INF(&quot;Processed %u items, latest: %u&quot;, processed_count, data);
+    }
+}
+</code></pre>
+<h2 id="spinlock-implementation-and-smp-considerations">Spinlock Implementation and SMP Considerations</h2>
+<h3 id="understanding-spinlock-mechanics">Understanding Spinlock Mechanics</h3>
+<p>Spinlocks provide the lowest-overhead synchronization primitive for protecting short critical sections, particularly in SMP (Symmetric Multiprocessing) environments. Unlike mutexes, spinlocks use active waiting, making them unsuitable for long critical sections.</p>
+<h4 id="basic-spinlock-usage">Basic Spinlock Usage</h4>
+<pre><code class="language-c">/*
+ * Spinlock Usage Patterns for High-Performance Synchronization
+ * 
+ * Demonstrates proper spinlock usage for protecting shared
+ * data structures with minimal overhead.
+ */
+
+#include &lt;zephyr/spinlock.h&gt;
+
+// Shared data structure requiring high-performance protection
+struct high_frequency_counter {
+    atomic_t value;
+    uint64_t last_update_cycle;
+    uint32_t update_count;
+} __aligned(64);  // Cache line alignment
+
+static struct high_frequency_counter hf_counter = {0};
+static struct k_spinlock counter_spinlock;
+
+// High-frequency counter increment (ISR-safe)
+void increment_hf_counter(void)
+{
+    k_spinlock_key_t key = k_spin_lock(&amp;counter_spinlock);
+
+    // Very short critical section
+    atomic_inc(&amp;hf_counter.value);
+    hf_counter.last_update_cycle = k_cycle_get_64();
+    hf_counter.update_count++;
+
+    k_spin_unlock(&amp;counter_spinlock, key);
+}
+
+// Read counter with consistent snapshot
+void read_hf_counter(struct high_frequency_counter *snapshot)
+{
+    k_spinlock_key_t key = k_spin_lock(&amp;counter_spinlock);
+
+    // Fast copy for consistent read
+    snapshot-&gt;value = atomic_get(&amp;hf_counter.value);
+    snapshot-&gt;last_update_cycle = hf_counter.last_update_cycle;
+    snapshot-&gt;update_count = hf_counter.update_count;
+
+    k_spin_unlock(&amp;counter_spinlock, key);
+}
+
+// Try-lock pattern for non-blocking access
+bool try_increment_hf_counter(void)
+{
+    k_spinlock_key_t key;
+
+    if (k_spin_trylock(&amp;counter_spinlock, &amp;key) != 0) {
+        return false; // Lock not available
+    }
+
+    // Critical section
+    atomic_inc(&amp;hf_counter.value);
+    hf_counter.last_update_cycle = k_cycle_get_64();
+    hf_counter.update_count++;
+
+    k_spin_unlock(&amp;counter_spinlock, key);
+    return true;
+}
+</code></pre>
+<h4 id="lock-free-alternatives-to-spinlocks">Lock-Free Alternatives to Spinlocks</h4>
+<pre><code class="language-c">/*
+ * Lock-Free Data Structures using Atomic Operations
+ * 
+ * For ultimate performance, some scenarios benefit from
+ * completely lock-free approaches using atomic operations.
+ */
+
+// Lock-free queue node
+struct lockfree_node {
+    atomic_ptr_t next;
+    uint32_t data;
+};
+
+// Lock-free queue structure
+struct lockfree_queue {
+    atomic_ptr_t head;
+    atomic_ptr_t tail;
+    atomic_t size;
+};
+
+// Initialize lock-free queue
+void lockfree_queue_init(struct lockfree_queue *queue)
+{
+    // Create dummy node
+    struct lockfree_node *dummy = k_malloc(sizeof(struct lockfree_node));
+    atomic_set_ptr(&amp;dummy-&gt;next, NULL);
+
+    atomic_set_ptr(&amp;queue-&gt;head, dummy);
+    atomic_set_ptr(&amp;queue-&gt;tail, dummy);
+    atomic_set(&amp;queue-&gt;size, 0);
+}
+
+// Lock-free enqueue operation
+bool lockfree_queue_enqueue(struct lockfree_queue *queue, uint32_t data)
+{
+    struct lockfree_node *new_node = k_malloc(sizeof(struct lockfree_node));
+    if (new_node == NULL) {
+        return false;
+    }
+
+    new_node-&gt;data = data;
+    atomic_set_ptr(&amp;new_node-&gt;next, NULL);
+
+    struct lockfree_node *tail;
+    struct lockfree_node *next;
+
+    while (1) {
+        tail = atomic_get_ptr(&amp;queue-&gt;tail);
+        next = atomic_get_ptr(&amp;tail-&gt;next);
+
+        // Check if tail is still the last node
+        if (tail == atomic_get_ptr(&amp;queue-&gt;tail)) {
+            if (next == NULL) {
+                // Try to link new node at end of list
+                if (atomic_cas_ptr(&amp;tail-&gt;next, NULL, new_node)) {
+                    break; // Success
+                }
+            } else {
+                // Try to advance tail pointer
+                atomic_cas_ptr(&amp;queue-&gt;tail, tail, next);
+            }
+        }
+    }
+
+    // Try to advance tail pointer
+    atomic_cas_ptr(&amp;queue-&gt;tail, tail, new_node);
+    atomic_inc(&amp;queue-&gt;size);
+
+    return true;
+}
+
+// Lock-free dequeue operation
+bool lockfree_queue_dequeue(struct lockfree_queue *queue, uint32_t *data)
+{
+    struct lockfree_node *head;
+    struct lockfree_node *tail;
+    struct lockfree_node *next;
+
+    while (1) {
+        head = atomic_get_ptr(&amp;queue-&gt;head);
+        tail = atomic_get_ptr(&amp;queue-&gt;tail);
+        next = atomic_get_ptr(&amp;head-&gt;next);
+
+        // Check consistency
+        if (head == atomic_get_ptr(&amp;queue-&gt;head)) {
+            if (head == tail) {
+                if (next == NULL) {
+                    return false; // Queue is empty
+                }
+                // Try to advance tail
+                atomic_cas_ptr(&amp;queue-&gt;tail, tail, next);
+            } else {
+                if (next == NULL) {
+                    continue; // Inconsistent state, retry
+                }
+
+                // Read data before dequeue
+                *data = next-&gt;data;
+
+                // Try to advance head
+                if (atomic_cas_ptr(&amp;queue-&gt;head, head, next)) {
+                    break; // Success
+                }
+            }
+        }
+    }
+
+    k_free(head);
+    atomic_dec(&amp;queue-&gt;size);
+    return true;
+}
+</code></pre>
+<h2 id="condition-variables-and-advanced-synchronization">Condition Variables and Advanced Synchronization</h2>
+<h3 id="condition-variable-theory">Condition Variable Theory</h3>
+<p>Condition variables enable threads to wait for specific conditions to become true while atomically releasing associated mutexes. This powerful primitive supports complex synchronization patterns beyond simple mutual exclusion.</p>
+<h4 id="condition-variable-implementation-patterns">Condition Variable Implementation Patterns</h4>
+<pre><code class="language-c">/*
+ * Advanced Thread Coordination with Condition Variables
+ * 
+ * Demonstrates complex synchronization patterns using
+ * condition variables for efficient thread coordination.
+ */
+
+// Shared state structure
+struct work_queue_state {
+    struct k_fifo work_queue;
+    bool shutdown_requested;
+    int active_workers;
+    int pending_work_count;
+    uint64_t total_work_processed;
+};
+
+static struct work_queue_state queue_state = {0};
+static K_MUTEX_DEFINE(state_mutex);
+static K_CONDVAR_DEFINE(work_available_cv);
+static K_CONDVAR_DEFINE(shutdown_complete_cv);
+
+// Work item structure
+struct work_item {
+    void *fifo_reserved; // Required for k_fifo
+    uint32_t work_id;
+    void (*work_function)(uint32_t id);
+    uint64_t submit_time;
+};
+
+// Worker thread implementation
+void worker_thread(void *arg1, void *arg2, void *arg3)
+{
+    int worker_id = POINTER_TO_INT(arg1);
+    struct work_item *item;
+
+    LOG_INF(&quot;Worker %d starting&quot;, worker_id);
+
+    k_mutex_lock(&amp;state_mutex, K_FOREVER);
+    queue_state.active_workers++;
+    k_mutex_unlock(&amp;state_mutex);
+
+    while (1) {
+        k_mutex_lock(&amp;state_mutex, K_FOREVER);
+
+        // Wait for work or shutdown signal
+        while (k_fifo_is_empty(&amp;queue_state.work_queue) &amp;&amp; 
+               !queue_state.shutdown_requested) {
+
+            LOG_DBG(&quot;Worker %d waiting for work&quot;, worker_id);
+            k_condvar_wait(&amp;work_available_cv, &amp;state_mutex, K_FOREVER);
+        }
+
+        // Check for shutdown
+        if (queue_state.shutdown_requested &amp;&amp; 
+            k_fifo_is_empty(&amp;queue_state.work_queue)) {
+
+            queue_state.active_workers--;
+            LOG_INF(&quot;Worker %d shutting down&quot;, worker_id);
+
+            // Signal shutdown completion if last worker
+            if (queue_state.active_workers == 0) {
+                k_condvar_broadcast(&amp;shutdown_complete_cv);
+            }
+
+            k_mutex_unlock(&amp;state_mutex);
+            break;
+        }
+
+        // Get work item
+        item = k_fifo_get(&amp;queue_state.work_queue, K_NO_WAIT);
+        if (item != NULL) {
+            queue_state.pending_work_count--;
+        }
+
+        k_mutex_unlock(&amp;state_mutex);
+
+        // Process work item outside critical section
+        if (item != NULL) {
+            LOG_DBG(&quot;Worker %d processing work item %u&quot;, worker_id, item-&gt;work_id);
+
+            uint64_t start_time = k_uptime_get();
+            item-&gt;work_function(item-&gt;work_id);
+            uint64_t processing_time = k_uptime_get() - start_time;
+
+            LOG_DBG(&quot;Worker %d completed work item %u in %llu ms&quot;, 
+                    worker_id, item-&gt;work_id, processing_time);
+
+            // Update statistics
+            k_mutex_lock(&amp;state_mutex, K_FOREVER);
+            queue_state.total_work_processed++;
+            k_mutex_unlock(&amp;state_mutex);
+
+            k_free(item);
+        }
+    }
+
+    LOG_INF(&quot;Worker %d terminated&quot;, worker_id);
+}
+
+// Submit work to queue
+int submit_work(uint32_t work_id, void (*work_function)(uint32_t))
+{
+    if (work_function == NULL) {
+        return -EINVAL;
+    }
+
+    struct work_item *item = k_malloc(sizeof(struct work_item));
+    if (item == NULL) {
+        return -ENOMEM;
+    }
+
+    item-&gt;work_id = work_id;
+    item-&gt;work_function = work_function;
+    item-&gt;submit_time = k_uptime_get();
+
+    k_mutex_lock(&amp;state_mutex, K_FOREVER);
+
+    if (queue_state.shutdown_requested) {
+        k_mutex_unlock(&amp;state_mutex);
+        k_free(item);
+        return -ESHUTDOWN;
+    }
+
+    k_fifo_put(&amp;queue_state.work_queue, item);
+    queue_state.pending_work_count++;
+
+    // Signal workers that work is available
+    k_condvar_signal(&amp;work_available_cv);
+
+    k_mutex_unlock(&amp;state_mutex);
+
+    LOG_DBG(&quot;Submitted work item %u&quot;, work_id);
+    return 0;
+}
+
+// Shutdown work queue and wait for completion
+void shutdown_work_queue(k_timeout_t timeout)
+{
+    k_mutex_lock(&amp;state_mutex, K_FOREVER);
+
+    LOG_INF(&quot;Initiating work queue shutdown&quot;);
+    queue_state.shutdown_requested = true;
+
+    // Wake up all waiting workers
+    k_condvar_broadcast(&amp;work_available_cv);
+
+    // Wait for all workers to complete
+    while (queue_state.active_workers &gt; 0) {
+        int ret = k_condvar_wait(&amp;shutdown_complete_cv, &amp;state_mutex, timeout);
+        if (ret == -EAGAIN) {
+            LOG_WRN(&quot;Shutdown timeout - %d workers still active&quot;, 
+                    queue_state.active_workers);
+            break;
+        }
+    }
+
+    LOG_INF(&quot;Work queue shutdown complete. Processed %llu total items&quot;, 
+            queue_state.total_work_processed);
+
+    k_mutex_unlock(&amp;state_mutex);
+}
+</code></pre>
+<h2 id="performance-analysis-and-optimization">Performance Analysis and Optimization</h2>
+<h3 id="synchronization-overhead-analysis">Synchronization Overhead Analysis</h3>
+<p>Understanding the performance characteristics of different synchronization primitives is crucial for embedded system optimization:</p>
+<pre><code class="language-c">/*
+ * Performance Benchmarking for Synchronization Primitives
+ * 
+ * Measures and compares the overhead of different synchronization
+ * mechanisms under various load conditions.
+ */
+
+#include &lt;zephyr/sys/printk.h&gt;
+
+// Benchmark configuration
+#define BENCHMARK_ITERATIONS 10000
+#define BENCHMARK_THREADS 4
+
+// Test structures
+static K_MUTEX_DEFINE(bench_mutex);
+static struct k_spinlock bench_spinlock;
+static K_SEM_DEFINE(bench_semaphore, 1, 1);
+static volatile uint32_t shared_counter;
+
+// Benchmark results structure
+struct benchmark_results {
+    uint64_t mutex_time_ns;
+    uint64_t spinlock_time_ns;
+    uint64_t semaphore_time_ns;
+    uint64_t atomic_time_ns;
+    uint32_t iterations;
+};
+
+// Mutex benchmark
+uint64_t benchmark_mutex(uint32_t iterations)
+{
+    uint64_t start_time = k_cycle_get_64();
+
+    for (uint32_t i = 0; i &lt; iterations; i++) {
+        k_mutex_lock(&amp;bench_mutex, K_FOREVER);
+        shared_counter++;
+        k_mutex_unlock(&amp;bench_mutex);
+    }
+
+    uint64_t end_time = k_cycle_get_64();
+    return k_cyc_to_ns_floor64(end_time - start_time);
+}
+
+// Spinlock benchmark
+uint64_t benchmark_spinlock(uint32_t iterations)
+{
+    uint64_t start_time = k_cycle_get_64();
+
+    for (uint32_t i = 0; i &lt; iterations; i++) {
+        k_spinlock_key_t key = k_spin_lock(&amp;bench_spinlock);
+        shared_counter++;
+        k_spin_unlock(&amp;bench_spinlock, key);
+    }
+
+    uint64_t end_time = k_cycle_get_64();
+    return k_cyc_to_ns_floor64(end_time - start_time);
+}
+
+// Semaphore benchmark
+uint64_t benchmark_semaphore(uint32_t iterations)
+{
+    uint64_t start_time = k_cycle_get_64();
+
+    for (uint32_t i = 0; i &lt; iterations; i++) {
+        k_sem_take(&amp;bench_semaphore, K_FOREVER);
+        shared_counter++;
+        k_sem_give(&amp;bench_semaphore);
+    }
+
+    uint64_t end_time = k_cycle_get_64();
+    return k_cyc_to_ns_floor64(end_time - start_time);
+}
+
+// Atomic operations benchmark
+uint64_t benchmark_atomic(uint32_t iterations)
+{
+    uint64_t start_time = k_cycle_get_64();
+
+    for (uint32_t i = 0; i &lt; iterations; i++) {
+        atomic_inc((atomic_t *)&amp;shared_counter);
+    }
+
+    uint64_t end_time = k_cycle_get_64();
+    return k_cyc_to_ns_floor64(end_time - start_time);
+}
+
+// Run comprehensive benchmarks
+void run_synchronization_benchmarks(struct benchmark_results *results)
+{
+    LOG_INF(&quot;Starting synchronization primitive benchmarks&quot;);
+
+    results-&gt;iterations = BENCHMARK_ITERATIONS;
+
+    // Reset counter
+    shared_counter = 0;
+    results-&gt;mutex_time_ns = benchmark_mutex(BENCHMARK_ITERATIONS);
+    LOG_INF(&quot;Mutex benchmark: %llu ns total, %.2f ns/op&quot;, 
+            results-&gt;mutex_time_ns, 
+            (double)results-&gt;mutex_time_ns / BENCHMARK_ITERATIONS);
+
+    // Reset counter
+    shared_counter = 0;
+    results-&gt;spinlock_time_ns = benchmark_spinlock(BENCHMARK_ITERATIONS);
+    LOG_INF(&quot;Spinlock benchmark: %llu ns total, %.2f ns/op&quot;, 
+            results-&gt;spinlock_time_ns,
+            (double)results-&gt;spinlock_time_ns / BENCHMARK_ITERATIONS);
+
+    // Reset counter
+    shared_counter = 0;
+    results-&gt;semaphore_time_ns = benchmark_semaphore(BENCHMARK_ITERATIONS);
+    LOG_INF(&quot;Semaphore benchmark: %llu ns total, %.2f ns/op&quot;, 
+            results-&gt;semaphore_time_ns,
+            (double)results-&gt;semaphore_time_ns / BENCHMARK_ITERATIONS);
+
+    // Reset counter
+    shared_counter = 0;
+    results-&gt;atomic_time_ns = benchmark_atomic(BENCHMARK_ITERATIONS);
+    LOG_INF(&quot;Atomic benchmark: %llu ns total, %.2f ns/op&quot;, 
+            results-&gt;atomic_time_ns,
+            (double)results-&gt;atomic_time_ns / BENCHMARK_ITERATIONS);
+
+    // Performance comparison
+    LOG_INF(&quot;Performance comparison (relative to atomic):&quot;);
+    LOG_INF(&quot;  Atomic:    1.00x&quot;);
+    LOG_INF(&quot;  Spinlock:  %.2fx&quot;, 
+            (double)results-&gt;spinlock_time_ns / results-&gt;atomic_time_ns);
+    LOG_INF(&quot;  Semaphore: %.2fx&quot;, 
+            (double)results-&gt;semaphore_time_ns / results-&gt;atomic_time_ns);
+    LOG_INF(&quot;  Mutex:     %.2fx&quot;, 
+            (double)results-&gt;mutex_time_ns / results-&gt;atomic_time_ns);
+}
+</code></pre>
+<p>This comprehensive theory section provides the foundation for understanding and implementing traditional multithreading primitives in Zephyr RTOS, combining theoretical concepts with practical implementation patterns and performance considerations essential for professional embedded system development.</p>
+
+
+
+
+
+
+
+  
+    
+  
+  
+
+
+  <aside class="md-source-file">
+    
+      
+  <span class="md-source-file__fact">
+    <span class="md-icon" title="Last update">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M21 13.1c-.1 0-.3.1-.4.2l-1 1 2.1 2.1 1-1c.2-.2.2-.6 0-.8l-1.3-1.3c-.1-.1-.2-.2-.4-.2m-1.9 1.8-6.1 6V23h2.1l6.1-6.1zM12.5 7v5.2l4 2.4-1 1L11 13V7zM11 21.9c-5.1-.5-9-4.8-9-9.9C2 6.5 6.5 2 12 2c5.3 0 9.6 4.1 10 9.3-.3-.1-.6-.2-1-.2s-.7.1-1 .2C19.6 7.2 16.2 4 12 4c-4.4 0-8 3.6-8 8 0 4.1 3.1 7.5 7.1 7.9l-.1.2z"/></svg>
+    </span>
+    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date" title="October 18, 2025 08:49:53 UTC">October 18, 2025</span>
+  </span>
+
+    
+    
+    
+    
+  </aside>
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    
+      
+      <script id="__config" type="application/json">{"base": "../..", "features": [], "search": "../../assets/javascripts/workers/search.973d3a69.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": null}</script>
+    
+    
+      <script src="../../assets/javascripts/bundle.f55a23d4.min.js"></script>
+      
+    
+  </body>
+</html>

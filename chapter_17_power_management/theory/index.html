@@ -1,0 +1,3406 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+      
+      
+      
+        <link rel="prev" href="../introduction/">
+      
+      
+        <link rel="next" href="../lab/">
+      
+      
+      <link rel="icon" href="../../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.6.22">
+    
+    
+      
+        <title>Theory - Zephyr RTOS Development Course</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../assets/stylesheets/main.84d31ad4.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+    <script>__md_scope=new URL("../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+    
+  </head>
+  
+  
+    <body dir="ltr">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#chapter-17-power-management-theory" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href="../.." title="Zephyr RTOS Development Course" class="md-header__button md-logo" aria-label="Zephyr RTOS Development Course" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            Zephyr RTOS Development Course
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              Theory
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+
+<nav class="md-nav md-nav--primary" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../.." title="Zephyr RTOS Development Course" class="md-nav__button md-logo" aria-label="Zephyr RTOS Development Course" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    Zephyr RTOS Development Course
+  </label>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../.." class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Home
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2" >
+        
+          
+          <label class="md-nav__link" for="__nav_2" id="__nav_2_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    Contributing
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2">
+            <span class="md-nav__icon md-icon"></span>
+            Contributing
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../CONDUCT/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Code of Conduct
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../CONTRIBUTING/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Contributing
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../chapter_01_course_introduction/introduction/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Chapter 1: Course Introduction
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4" >
+        
+          
+          <label class="md-nav__link" for="__nav_4" id="__nav_4_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    Chapter 2: Introduction to Zephyr
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_4_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_4">
+            <span class="md-nav__icon md-icon"></span>
+            Chapter 2: Introduction to Zephyr
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../chapter_02_introduction_to_zephyr/introduction/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Introduction
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../chapter_02_introduction_to_zephyr/theory/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Theory
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../chapter_02_introduction_to_zephyr/lab/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Lab
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5" >
+        
+          
+          <label class="md-nav__link" for="__nav_5" id="__nav_5_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    Chapter 3: Zephyr Build System
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_5_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_5">
+            <span class="md-nav__icon md-icon"></span>
+            Chapter 3: Zephyr Build System
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../chapter_03_zephyr_build_system/introduction/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Introduction
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../chapter_03_zephyr_build_system/theory/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Theory
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../chapter_03_zephyr_build_system/lab/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Lab
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_6" >
+        
+          
+          <label class="md-nav__link" for="__nav_6" id="__nav_6_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    Chapter 4: Configure Zephyr
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_6_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_6">
+            <span class="md-nav__icon md-icon"></span>
+            Chapter 4: Configure Zephyr
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../chapter_04_configure_zephyr/introduction/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Introduction
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../chapter_04_configure_zephyr/theory/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Theory
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../chapter_04_configure_zephyr/lab/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Lab
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_7" >
+        
+          
+          <label class="md-nav__link" for="__nav_7" id="__nav_7_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    Chapter 5: West
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_7_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_7">
+            <span class="md-nav__icon md-icon"></span>
+            Chapter 5: West
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../chapter_05_west/introduction/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Introduction
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../chapter_05_west/theory/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Theory
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../chapter_05_west/lab/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Lab
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_8" >
+        
+          
+          <label class="md-nav__link" for="__nav_8" id="__nav_8_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    Chapter 6: Zephyr Fundamentals
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_8_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_8">
+            <span class="md-nav__icon md-icon"></span>
+            Chapter 6: Zephyr Fundamentals
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../chapter_06_zephyr_fundamentals/introduction/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Introduction
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../chapter_06_zephyr_fundamentals/theory/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Theory
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../chapter_06_zephyr_fundamentals/lab/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Lab
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_9" >
+        
+          
+          <label class="md-nav__link" for="__nav_9" id="__nav_9_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    Chapter 7: Thread Management
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_9_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_9">
+            <span class="md-nav__icon md-icon"></span>
+            Chapter 7: Thread Management
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../chapter_07_thread_management/introduction/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Introduction
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../chapter_07_thread_management/theory/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Theory
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../chapter_07_thread_management/lab/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Lab
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_10" >
+        
+          
+          <label class="md-nav__link" for="__nav_10" id="__nav_10_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    Chapter 8: Tracing and Logging
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_10_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_10">
+            <span class="md-nav__icon md-icon"></span>
+            Chapter 8: Tracing and Logging
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../chapter_08_tracing_and_logging/introduction/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Introduction
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../chapter_08_tracing_and_logging/theory/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Theory
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../chapter_08_tracing_and_logging/lab/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Lab
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_11" >
+        
+          
+          <label class="md-nav__link" for="__nav_11" id="__nav_11_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    Chapter 9: Memory Management
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_11_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_11">
+            <span class="md-nav__icon md-icon"></span>
+            Chapter 9: Memory Management
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../chapter_09_memory_management/introduction/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Introduction
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../chapter_09_memory_management/theory/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Theory
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../chapter_09_memory_management/lab/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Lab
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_12" >
+        
+          
+          <label class="md-nav__link" for="__nav_12" id="__nav_12_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    Chapter 10: User Mode
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_12_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_12">
+            <span class="md-nav__icon md-icon"></span>
+            Chapter 10: User Mode
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../chapter_10_user_mode/introduction/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Introduction
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../chapter_10_user_mode/theory/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Theory
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../chapter_10_user_mode/lab/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Lab
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_13" >
+        
+          
+          <label class="md-nav__link" for="__nav_13" id="__nav_13_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    Chapter 11: Traditional Multithreading Primitives
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_13_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_13">
+            <span class="md-nav__icon md-icon"></span>
+            Chapter 11: Traditional Multithreading Primitives
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../chapter_11_traditional_multithreading_primitives/introduction/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Introduction
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../chapter_11_traditional_multithreading_primitives/theory/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Theory
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../chapter_11_traditional_multithreading_primitives/lab/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Lab
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_14" >
+        
+          
+          <label class="md-nav__link" for="__nav_14" id="__nav_14_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    Chapter 12: Inter-thread Communication
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_14_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_14">
+            <span class="md-nav__icon md-icon"></span>
+            Chapter 12: Inter-thread Communication
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../chapter_12_inter-thread_communication/introduction/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Introduction
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../chapter_12_inter-thread_communication/theory/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Theory
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../chapter_12_inter-thread_communication/lab/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Lab
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_15" >
+        
+          
+          <label class="md-nav__link" for="__nav_15" id="__nav_15_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    Chapter 13: Interrupt Management
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_15_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_15">
+            <span class="md-nav__icon md-icon"></span>
+            Chapter 13: Interrupt Management
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../chapter_13_interrupt_management/introduction/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Introduction
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../chapter_13_interrupt_management/theory/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Theory
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../chapter_13_interrupt_management/lab/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Lab
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_16" >
+        
+          
+          <label class="md-nav__link" for="__nav_16" id="__nav_16_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    Chapter 14: Modules
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_16_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_16">
+            <span class="md-nav__icon md-icon"></span>
+            Chapter 14: Modules
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../chapter_14_modules/introduction/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Introduction
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../chapter_14_modules/theory/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Theory
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../chapter_14_modules/lab/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Lab
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_17" >
+        
+          
+          <label class="md-nav__link" for="__nav_17" id="__nav_17_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    Chapter 15: Writing Kconfig Symbols
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_17_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_17">
+            <span class="md-nav__icon md-icon"></span>
+            Chapter 15: Writing Kconfig Symbols
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../chapter_15_writing_kconfig_symbols/introduction/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Introduction
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../chapter_15_writing_kconfig_symbols/theory/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Theory
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../chapter_15_writing_kconfig_symbols/lab/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Lab
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_18" >
+        
+          
+          <label class="md-nav__link" for="__nav_18" id="__nav_18_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    Chapter 16: Device Driver Architecture
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_18_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_18">
+            <span class="md-nav__icon md-icon"></span>
+            Chapter 16: Device Driver Architecture
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../chapter_16_device_driver_architecture/introduction/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Introduction
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../chapter_16_device_driver_architecture/theory/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Theory
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../chapter_16_device_driver_architecture/lab/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Lab
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_19" checked>
+        
+          
+          <label class="md-nav__link" for="__nav_19" id="__nav_19_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    Chapter 17: Power Management
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_19_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_19">
+            <span class="md-nav__icon md-icon"></span>
+            Chapter 17: Power Management
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../introduction/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Introduction
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    Theory
+    
+  </span>
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        
+  
+  
+  <span class="md-ellipsis">
+    Theory
+    
+  </span>
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#171-understanding-power-management-in-embedded-systems" class="md-nav__link">
+    <span class="md-ellipsis">
+      17.1 Understanding Power Management in Embedded Systems
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="17.1 Understanding Power Management in Embedded Systems">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#why-power-management-matters" class="md-nav__link">
+    <span class="md-ellipsis">
+      Why Power Management Matters
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#power-management-challenges" class="md-nav__link">
+    <span class="md-ellipsis">
+      Power Management Challenges
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#172-zephyr-power-management-architecture" class="md-nav__link">
+    <span class="md-ellipsis">
+      17.2 Zephyr Power Management Architecture
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="17.2 Zephyr Power Management Architecture">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#system-power-management" class="md-nav__link">
+    <span class="md-ellipsis">
+      System Power Management
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#device-power-management" class="md-nav__link">
+    <span class="md-ellipsis">
+      Device Power Management
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#173-device-tree-power-configuration" class="md-nav__link">
+    <span class="md-ellipsis">
+      17.3 Device Tree Power Configuration
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="17.3 Device Tree Power Configuration">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#power-states-definition" class="md-nav__link">
+    <span class="md-ellipsis">
+      Power States Definition
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#device-power-domains" class="md-nav__link">
+    <span class="md-ellipsis">
+      Device Power Domains
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#174-runtime-power-management" class="md-nav__link">
+    <span class="md-ellipsis">
+      17.4 Runtime Power Management
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="17.4 Runtime Power Management">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#device-runtime-pm-api" class="md-nav__link">
+    <span class="md-ellipsis">
+      Device Runtime PM API
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#device-pm-implementation-pattern" class="md-nav__link">
+    <span class="md-ellipsis">
+      Device PM Implementation Pattern
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#175-system-power-management" class="md-nav__link">
+    <span class="md-ellipsis">
+      17.5 System Power Management
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="17.5 System Power Management">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#system-pm-policy" class="md-nav__link">
+    <span class="md-ellipsis">
+      System PM Policy
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#wake-up-sources" class="md-nav__link">
+    <span class="md-ellipsis">
+      Wake-up Sources
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#176-advanced-power-management-features" class="md-nav__link">
+    <span class="md-ellipsis">
+      17.6 Advanced Power Management Features
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="17.6 Advanced Power Management Features">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#power-domains" class="md-nav__link">
+    <span class="md-ellipsis">
+      Power Domains
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#dynamic-voltage-and-frequency-scaling-dvfs" class="md-nav__link">
+    <span class="md-ellipsis">
+      Dynamic Voltage and Frequency Scaling (DVFS)
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#177-power-management-best-practices" class="md-nav__link">
+    <span class="md-ellipsis">
+      17.7 Power Management Best Practices
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="17.7 Power Management Best Practices">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#design-guidelines" class="md-nav__link">
+    <span class="md-ellipsis">
+      Design Guidelines
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#implementation-patterns" class="md-nav__link">
+    <span class="md-ellipsis">
+      Implementation Patterns
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#debugging-and-monitoring" class="md-nav__link">
+    <span class="md-ellipsis">
+      Debugging and Monitoring
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lab/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Lab
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_20" >
+        
+          
+          <label class="md-nav__link" for="__nav_20" id="__nav_20_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    Chapter 18: Capstone Project
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_20_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_20">
+            <span class="md-nav__icon md-icon"></span>
+            Chapter 18: Capstone Project
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../chapter_18_capstone_project/introduction/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Introduction
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../chapter_18_capstone_project/theory/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Theory
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../chapter_18_capstone_project/lab/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Lab
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../chapter_18_capstone_project/networked_monitor/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Networked Monitor
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#171-understanding-power-management-in-embedded-systems" class="md-nav__link">
+    <span class="md-ellipsis">
+      17.1 Understanding Power Management in Embedded Systems
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="17.1 Understanding Power Management in Embedded Systems">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#why-power-management-matters" class="md-nav__link">
+    <span class="md-ellipsis">
+      Why Power Management Matters
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#power-management-challenges" class="md-nav__link">
+    <span class="md-ellipsis">
+      Power Management Challenges
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#172-zephyr-power-management-architecture" class="md-nav__link">
+    <span class="md-ellipsis">
+      17.2 Zephyr Power Management Architecture
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="17.2 Zephyr Power Management Architecture">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#system-power-management" class="md-nav__link">
+    <span class="md-ellipsis">
+      System Power Management
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#device-power-management" class="md-nav__link">
+    <span class="md-ellipsis">
+      Device Power Management
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#173-device-tree-power-configuration" class="md-nav__link">
+    <span class="md-ellipsis">
+      17.3 Device Tree Power Configuration
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="17.3 Device Tree Power Configuration">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#power-states-definition" class="md-nav__link">
+    <span class="md-ellipsis">
+      Power States Definition
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#device-power-domains" class="md-nav__link">
+    <span class="md-ellipsis">
+      Device Power Domains
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#174-runtime-power-management" class="md-nav__link">
+    <span class="md-ellipsis">
+      17.4 Runtime Power Management
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="17.4 Runtime Power Management">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#device-runtime-pm-api" class="md-nav__link">
+    <span class="md-ellipsis">
+      Device Runtime PM API
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#device-pm-implementation-pattern" class="md-nav__link">
+    <span class="md-ellipsis">
+      Device PM Implementation Pattern
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#175-system-power-management" class="md-nav__link">
+    <span class="md-ellipsis">
+      17.5 System Power Management
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="17.5 System Power Management">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#system-pm-policy" class="md-nav__link">
+    <span class="md-ellipsis">
+      System PM Policy
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#wake-up-sources" class="md-nav__link">
+    <span class="md-ellipsis">
+      Wake-up Sources
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#176-advanced-power-management-features" class="md-nav__link">
+    <span class="md-ellipsis">
+      17.6 Advanced Power Management Features
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="17.6 Advanced Power Management Features">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#power-domains" class="md-nav__link">
+    <span class="md-ellipsis">
+      Power Domains
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#dynamic-voltage-and-frequency-scaling-dvfs" class="md-nav__link">
+    <span class="md-ellipsis">
+      Dynamic Voltage and Frequency Scaling (DVFS)
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#177-power-management-best-practices" class="md-nav__link">
+    <span class="md-ellipsis">
+      17.7 Power Management Best Practices
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="17.7 Power Management Best Practices">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#design-guidelines" class="md-nav__link">
+    <span class="md-ellipsis">
+      Design Guidelines
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#implementation-patterns" class="md-nav__link">
+    <span class="md-ellipsis">
+      Implementation Patterns
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#debugging-and-monitoring" class="md-nav__link">
+    <span class="md-ellipsis">
+      Debugging and Monitoring
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+
+<h1 id="chapter-17-power-management-theory">Chapter 17 - Power Management Theory</h1>
+<h2 id="171-understanding-power-management-in-embedded-systems">17.1 Understanding Power Management in Embedded Systems</h2>
+<p>Power management is critical for modern embedded systems, especially battery-powered devices. Effective power management extends battery life, reduces heat generation, and improves system reliability.</p>
+<h3 id="why-power-management-matters">Why Power Management Matters</h3>
+<ul>
+<li><strong>Battery Life</strong>: IoT sensors, wearables, and mobile devices require extended operation without charging</li>
+<li><strong>Thermal Management</strong>: Reduced power consumption prevents overheating and improves reliability</li>
+<li><strong>Cost Efficiency</strong>: Lower power consumption reduces operational costs in large deployments</li>
+<li><strong>Environmental Impact</strong>: Energy-efficient systems contribute to sustainability goals</li>
+</ul>
+<h3 id="power-management-challenges">Power Management Challenges</h3>
+<ul>
+<li><strong>Performance vs. Power Trade-offs</strong>: Balancing responsiveness with power savings</li>
+<li><strong>Complex Wake-up Scenarios</strong>: Managing multiple wake-up sources and conditions</li>
+<li><strong>Hardware Dependencies</strong>: Different processors and peripherals have varying power capabilities</li>
+<li><strong>Software Coordination</strong>: Synchronizing power states across multiple system components</li>
+</ul>
+<h2 id="172-zephyr-power-management-architecture">17.2 Zephyr Power Management Architecture</h2>
+<p>Zephyr provides a comprehensive power management framework with multiple layers:</p>
+<h3 id="system-power-management">System Power Management</h3>
+<p>System-level power management controls the overall system state:</p>
+<pre><code class="language-c">/* System power states */
+enum pm_state {
+    PM_STATE_ACTIVE,           /* System fully active */
+    PM_STATE_RUNTIME_IDLE,     /* CPU idle, peripherals active */
+    PM_STATE_SUSPEND_TO_IDLE,  /* CPU and most peripherals suspended */
+    PM_STATE_SUSPEND_TO_RAM,   /* System state preserved in RAM */
+    PM_STATE_SUSPEND_TO_DISK,  /* System state saved to persistent storage */
+    PM_STATE_SOFT_OFF,         /* System off, but can be awakened */
+};
+</code></pre>
+<h3 id="device-power-management">Device Power Management</h3>
+<p>Device-level power management controls individual peripherals:</p>
+<pre><code class="language-c">/* Device power states */
+enum pm_device_state {
+    PM_DEVICE_STATE_ACTIVE,      /* Device fully functional */
+    PM_DEVICE_STATE_LOW_POWER,   /* Device in low power mode */
+    PM_DEVICE_STATE_SUSPEND,     /* Device suspended */
+    PM_DEVICE_STATE_OFF,         /* Device powered off */
+};
+
+/* Device power actions */
+enum pm_device_action {
+    PM_DEVICE_ACTION_SUSPEND,    /* Suspend device */
+    PM_DEVICE_ACTION_RESUME,     /* Resume device */
+    PM_DEVICE_ACTION_TURN_ON,    /* Power on device */
+    PM_DEVICE_ACTION_TURN_OFF,   /* Power off device */
+    PM_DEVICE_ACTION_LOW_POWER,  /* Enter low power mode */
+};
+</code></pre>
+<h2 id="173-device-tree-power-configuration">17.3 Device Tree Power Configuration</h2>
+<h3 id="power-states-definition">Power States Definition</h3>
+<p>Define available power states in device tree:</p>
+<pre><code class="language-dts">/ {
+    cpus {
+        power-states {
+            state0: state0 {
+                compatible = &quot;zephyr,power-state&quot;;
+                power-state-name = &quot;suspend-to-idle&quot;;
+                min-residency-us = &lt;10000&gt;;
+                exit-latency-us = &lt;100&gt;;
+            };
+
+            state1: state1 {
+                compatible = &quot;zephyr,power-state&quot;;
+                power-state-name = &quot;suspend-to-ram&quot;;
+                min-residency-us = &lt;100000&gt;;
+                exit-latency-us = &lt;1000&gt;;
+            };
+        };
+
+        cpu@0 {
+            device_type = &quot;cpu&quot;;
+            compatible = &quot;arm,cortex-m4&quot;;
+            cpu-power-states = &lt;&amp;state0 &amp;state1&gt;;
+        };
+    };
+};
+</code></pre>
+<h3 id="device-power-domains">Device Power Domains</h3>
+<p>Configure power domains for peripheral control:</p>
+<pre><code class="language-dts">/ {
+    power-domains {
+        pd_sensor: power-domain-sensor {
+            compatible = &quot;power-domain&quot;;
+            #power-domain-cells = &lt;0&gt;;
+        };
+
+        pd_communication: power-domain-comm {
+            compatible = &quot;power-domain&quot;;
+            #power-domain-cells = &lt;0&gt;;
+        };
+    };
+
+    soc {
+        sensor@40001000 {
+            compatible = &quot;vendor,sensor&quot;;
+            reg = &lt;0x40001000 0x1000&gt;;
+            power-domains = &lt;&amp;pd_sensor&gt;;
+        };
+
+        uart@40002000 {
+            compatible = &quot;vendor,uart&quot;;
+            reg = &lt;0x40002000 0x1000&gt;;
+            power-domains = &lt;&amp;pd_communication&gt;;
+        };
+    };
+};
+</code></pre>
+<h2 id="174-runtime-power-management">17.4 Runtime Power Management</h2>
+<h3 id="device-runtime-pm-api">Device Runtime PM API</h3>
+<pre><code class="language-c">#include &lt;zephyr/pm/device.h&gt;
+
+/**
+ * @brief Enable runtime power management for device
+ * 
+ * @param dev Device instance
+ * @return 0 on success, negative errno on failure
+ */
+int pm_device_runtime_enable(const struct device *dev);
+
+/**
+ * @brief Disable runtime power management for device
+ * 
+ * @param dev Device instance
+ * @return 0 on success, negative errno on failure
+ */
+int pm_device_runtime_disable(const struct device *dev);
+
+/**
+ * @brief Get device for use (increment reference count)
+ * 
+ * @param dev Device instance
+ * @return 0 on success, negative errno on failure
+ */
+int pm_device_runtime_get(const struct device *dev);
+
+/**
+ * @brief Put device after use (decrement reference count)
+ * 
+ * @param dev Device instance
+ * @return 0 on success, negative errno on failure
+ */
+int pm_device_runtime_put(const struct device *dev);
+
+/**
+ * @brief Put device asynchronously
+ * 
+ * @param dev Device instance
+ * @return 0 on success, negative errno on failure
+ */
+int pm_device_runtime_put_async(const struct device *dev);
+</code></pre>
+<h3 id="device-pm-implementation-pattern">Device PM Implementation Pattern</h3>
+<pre><code class="language-c">#include &lt;zephyr/pm/device.h&gt;
+
+struct my_device_data {
+    /* Device runtime data */
+    uint32_t usage_count;
+    bool suspended;
+
+    /* Power management */
+    struct k_work_delayable pm_work;
+    k_timeout_t suspend_delay;
+};
+
+/* Power management action handler */
+static int my_device_pm_action(const struct device *dev,
+                               enum pm_device_action action)
+{
+    struct my_device_data *data = dev-&gt;data;
+    int ret = 0;
+
+    switch (action) {
+    case PM_DEVICE_ACTION_SUSPEND:
+        if (!data-&gt;suspended) {
+            /* Save device context */
+            ret = my_device_save_context(dev);
+            if (ret == 0) {
+                /* Power down hardware */
+                my_device_power_down(dev);
+                data-&gt;suspended = true;
+                LOG_DBG(&quot;Device suspended&quot;);
+            }
+        }
+        break;
+
+    case PM_DEVICE_ACTION_RESUME:
+        if (data-&gt;suspended) {
+            /* Power up hardware */
+            ret = my_device_power_up(dev);
+            if (ret == 0) {
+                /* Restore device context */
+                ret = my_device_restore_context(dev);
+                data-&gt;suspended = false;
+                LOG_DBG(&quot;Device resumed&quot;);
+            }
+        }
+        break;
+
+    case PM_DEVICE_ACTION_TURN_OFF:
+        /* Complete power off */
+        my_device_power_off(dev);
+        data-&gt;suspended = true;
+        break;
+
+    case PM_DEVICE_ACTION_TURN_ON:
+        /* Complete power on */
+        ret = my_device_power_on(dev);
+        data-&gt;suspended = false;
+        break;
+
+    default:
+        ret = -ENOTSUP;
+    }
+
+    return ret;
+}
+
+/* Device usage tracking */
+static int my_device_get(const struct device *dev)
+{
+    struct my_device_data *data = dev-&gt;data;
+    int ret;
+
+    /* Get device for runtime PM */
+    ret = pm_device_runtime_get(dev);
+    if (ret &lt; 0) {
+        return ret;
+    }
+
+    /* Cancel any pending suspend operation */
+    k_work_cancel_delayable(&amp;data-&gt;pm_work);
+
+    return 0;
+}
+
+static int my_device_put(const struct device *dev)
+{
+    struct my_device_data *data = dev-&gt;data;
+
+    /* Schedule delayed suspend */
+    k_work_schedule(&amp;data-&gt;pm_work, data-&gt;suspend_delay);
+
+    /* Put device for runtime PM */
+    return pm_device_runtime_put_async(dev);
+}
+
+/* PM work handler */
+static void my_device_pm_work_handler(struct k_work *work)
+{
+    struct k_work_delayable *dwork = k_work_delayable_from_work(work);
+    struct my_device_data *data = 
+        CONTAINER_OF(dwork, struct my_device_data, pm_work);
+    const struct device *dev = data-&gt;dev;
+
+    /* Check if device is still unused */
+    if (pm_device_runtime_usage(dev) == 0) {
+        /* Suspend device */
+        pm_device_action_run(dev, PM_DEVICE_ACTION_SUSPEND);
+    }
+}
+</code></pre>
+<h2 id="175-system-power-management">17.5 System Power Management</h2>
+<h3 id="system-pm-policy">System PM Policy</h3>
+<pre><code class="language-c">#include &lt;zephyr/pm/policy.h&gt;
+
+/* Custom power policy */
+const struct pm_state_info *pm_policy_next_state(uint8_t cpu, int32_t ticks)
+{
+    static const struct pm_state_info states[] = {
+        {PM_STATE_RUNTIME_IDLE, 0, 0},
+        {PM_STATE_SUSPEND_TO_IDLE, 0, 10000},  /* min 10ms residency */
+        {PM_STATE_SUSPEND_TO_RAM, 0, 100000},  /* min 100ms residency */
+    };
+
+    /* Convert ticks to microseconds */
+    int32_t residency_us = k_ticks_to_us_floor32(ticks);
+
+    /* Select appropriate state based on expected idle time */
+    for (int i = ARRAY_SIZE(states) - 1; i &gt;= 0; i--) {
+        if (residency_us &gt;= states[i].min_residency_us) {
+            return &amp;states[i];
+        }
+    }
+
+    return NULL; /* Stay active */
+}
+</code></pre>
+<h3 id="wake-up-sources">Wake-up Sources</h3>
+<pre><code class="language-c">#include &lt;zephyr/pm/device.h&gt;
+
+/* Configure wake-up sources */
+static int configure_wakeup_sources(void)
+{
+    const struct device *gpio_dev = DEVICE_DT_GET(DT_NODELABEL(gpio0));
+    const struct device *rtc_dev = DEVICE_DT_GET(DT_NODELABEL(rtc));
+
+    /* Configure GPIO wake-up */
+    pm_device_wakeup_enable(gpio_dev, true);
+
+    /* Configure RTC wake-up */
+    pm_device_wakeup_enable(rtc_dev, true);
+
+    return 0;
+}
+
+/* Handle wake-up events */
+static void handle_wakeup_event(const struct device *dev, 
+                               enum pm_device_wakeup_reason reason)
+{
+    switch (reason) {
+    case PM_DEVICE_WAKEUP_SOURCE_GPIO:
+        LOG_INF(&quot;Woken up by GPIO&quot;);
+        /* Handle GPIO wake-up */
+        break;
+
+    case PM_DEVICE_WAKEUP_SOURCE_TIMER:
+        LOG_INF(&quot;Woken up by timer&quot;);
+        /* Handle timer wake-up */
+        break;
+
+    default:
+        LOG_INF(&quot;Unknown wake-up source&quot;);
+        break;
+    }
+}
+</code></pre>
+<h2 id="176-advanced-power-management-features">17.6 Advanced Power Management Features</h2>
+<h3 id="power-domains">Power Domains</h3>
+<pre><code class="language-c">#include &lt;zephyr/pm/domain.h&gt;
+
+/* Power domain control */
+struct power_domain {
+    const struct device *regulator;
+    bool enabled;
+    uint32_t ref_count;
+};
+
+static int power_domain_on(struct power_domain *pd)
+{
+    if (pd-&gt;ref_count == 0) {
+        /* Enable power supply */
+        int ret = regulator_enable(pd-&gt;regulator);
+        if (ret &lt; 0) {
+            return ret;
+        }
+        pd-&gt;enabled = true;
+    }
+
+    pd-&gt;ref_count++;
+    return 0;
+}
+
+static int power_domain_off(struct power_domain *pd)
+{
+    if (pd-&gt;ref_count &gt; 0) {
+        pd-&gt;ref_count--;
+
+        if (pd-&gt;ref_count == 0) {
+            /* Disable power supply */
+            regulator_disable(pd-&gt;regulator);
+            pd-&gt;enabled = false;
+        }
+    }
+
+    return 0;
+}
+</code></pre>
+<h3 id="dynamic-voltage-and-frequency-scaling-dvfs">Dynamic Voltage and Frequency Scaling (DVFS)</h3>
+<pre><code class="language-c">#include &lt;zephyr/pm/cpu.h&gt;
+
+/* CPU frequency scaling */
+static int scale_cpu_frequency(uint32_t target_freq_hz)
+{
+    const struct device *cpu_dev = DEVICE_DT_GET(DT_NODELABEL(cpu0));
+    struct pm_cpu_info info;
+    int ret;
+
+    /* Get current CPU info */
+    ret = pm_cpu_info_get(cpu_dev, &amp;info);
+    if (ret &lt; 0) {
+        return ret;
+    }
+
+    /* Scale frequency */
+    if (target_freq_hz != info.current_frequency) {
+        ret = pm_cpu_frequency_set(cpu_dev, target_freq_hz);
+        if (ret &lt; 0) {
+            LOG_ERR(&quot;Failed to set CPU frequency: %d&quot;, ret);
+            return ret;
+        }
+
+        LOG_INF(&quot;CPU frequency scaled from %u to %u Hz&quot;,
+                info.current_frequency, target_freq_hz);
+    }
+
+    return 0;
+}
+
+/* Adaptive frequency scaling based on workload */
+static void adaptive_frequency_scaling(void)
+{
+    static uint32_t last_idle_time = 0;
+    uint32_t current_idle_time = k_thread_runtime_stats_get_idle();
+    uint32_t idle_percentage;
+
+    /* Calculate idle percentage */
+    if (current_idle_time &gt; last_idle_time) {
+        uint32_t total_time = k_uptime_get_32();
+        idle_percentage = ((current_idle_time - last_idle_time) * 100) / 
+                         (total_time);
+    } else {
+        idle_percentage = 0;
+    }
+
+    /* Adjust frequency based on idle time */
+    if (idle_percentage &gt; 80) {
+        /* System mostly idle - reduce frequency */
+        scale_cpu_frequency(48000000); /* 48 MHz */
+    } else if (idle_percentage &lt; 20) {
+        /* System busy - increase frequency */
+        scale_cpu_frequency(168000000); /* 168 MHz */
+    } else {
+        /* Moderate load - balanced frequency */
+        scale_cpu_frequency(84000000); /* 84 MHz */
+    }
+
+    last_idle_time = current_idle_time;
+}
+</code></pre>
+<h2 id="177-power-management-best-practices">17.7 Power Management Best Practices</h2>
+<h3 id="design-guidelines">Design Guidelines</h3>
+<ol>
+<li><strong>Minimize Active Time</strong>: Complete tasks quickly and return to idle</li>
+<li><strong>Use Appropriate Power States</strong>: Match power state to expected idle duration</li>
+<li><strong>Optimize Wake-up Latency</strong>: Balance power savings with responsiveness requirements</li>
+<li><strong>Coordinate Device Dependencies</strong>: Manage power domains and device relationships</li>
+<li><strong>Monitor Power Consumption</strong>: Use power statistics to validate optimizations</li>
+</ol>
+<h3 id="implementation-patterns">Implementation Patterns</h3>
+<pre><code class="language-c">/* Efficient power-aware operation */
+static int power_aware_operation(const struct device *dev)
+{
+    int ret;
+
+    /* Get device for use */
+    ret = pm_device_runtime_get(dev);
+    if (ret &lt; 0) {
+        return ret;
+    }
+
+    /* Perform operation efficiently */
+    ret = perform_device_operation(dev);
+
+    /* Release device immediately after use */
+    pm_device_runtime_put_async(dev);
+
+    return ret;
+}
+
+/* Batch operations for efficiency */
+static int batch_operations(const struct device *dev,
+                           const void **data, size_t count)
+{
+    int ret;
+
+    /* Get device once for multiple operations */
+    ret = pm_device_runtime_get(dev);
+    if (ret &lt; 0) {
+        return ret;
+    }
+
+    /* Perform all operations while device is active */
+    for (size_t i = 0; i &lt; count; i++) {
+        ret = perform_single_operation(dev, data[i]);
+        if (ret &lt; 0) {
+            break;
+        }
+    }
+
+    /* Release device after batch completion */
+    pm_device_runtime_put(dev);
+
+    return ret;
+}
+</code></pre>
+<h3 id="debugging-and-monitoring">Debugging and Monitoring</h3>
+<pre><code class="language-c">/* Power management statistics */
+static void print_power_stats(void)
+{
+    struct pm_stats stats;
+
+    pm_stats_get(&amp;stats);
+
+    LOG_INF(&quot;Power Management Statistics:&quot;);
+    LOG_INF(&quot;  Active time: %u ms&quot;, stats.active_time_ms);
+    LOG_INF(&quot;  Idle time: %u ms&quot;, stats.idle_time_ms);
+    LOG_INF(&quot;  Suspend count: %u&quot;, stats.suspend_count);
+    LOG_INF(&quot;  Resume count: %u&quot;, stats.resume_count);
+    LOG_INF(&quot;  Average suspend time: %u ms&quot;, stats.avg_suspend_time_ms);
+}
+
+/* Device power state monitoring */
+static void monitor_device_power_states(void)
+{
+    const struct device *dev;
+    enum pm_device_state state;
+
+    /* Iterate through all devices */
+    STRUCT_SECTION_FOREACH(device, dev) {
+        if (pm_device_state_get(dev, &amp;state) == 0) {
+            LOG_INF(&quot;Device %s: state = %d&quot;, dev-&gt;name, state);
+        }
+    }
+}
+</code></pre>
+<p>This comprehensive theory foundation provides the knowledge needed to implement effective power management in Zephyr applications.</p>
+
+
+
+
+
+
+
+  
+    
+  
+  
+
+
+  <aside class="md-source-file">
+    
+      
+  <span class="md-source-file__fact">
+    <span class="md-icon" title="Last update">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M21 13.1c-.1 0-.3.1-.4.2l-1 1 2.1 2.1 1-1c.2-.2.2-.6 0-.8l-1.3-1.3c-.1-.1-.2-.2-.4-.2m-1.9 1.8-6.1 6V23h2.1l6.1-6.1zM12.5 7v5.2l4 2.4-1 1L11 13V7zM11 21.9c-5.1-.5-9-4.8-9-9.9C2 6.5 6.5 2 12 2c5.3 0 9.6 4.1 10 9.3-.3-.1-.6-.2-1-.2s-.7.1-1 .2C19.6 7.2 16.2 4 12 4c-4.4 0-8 3.6-8 8 0 4.1 3.1 7.5 7.1 7.9l-.1.2z"/></svg>
+    </span>
+    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date" title="October 18, 2025 08:49:53 UTC">October 18, 2025</span>
+  </span>
+
+    
+    
+    
+    
+  </aside>
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    
+      
+      <script id="__config" type="application/json">{"base": "../..", "features": [], "search": "../../assets/javascripts/workers/search.973d3a69.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": null}</script>
+    
+    
+      <script src="../../assets/javascripts/bundle.f55a23d4.min.js"></script>
+      
+    
+  </body>
+</html>

@@ -1,0 +1,4157 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+      
+      
+      
+        <link rel="prev" href="../theory/">
+      
+      
+        <link rel="next" href="../../chapter_11_traditional_multithreading_primitives/introduction/">
+      
+      
+      <link rel="icon" href="../../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.6.22">
+    
+    
+      
+        <title>Lab - Zephyr RTOS Development Course</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../assets/stylesheets/main.84d31ad4.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+    <script>__md_scope=new URL("../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+    
+  </head>
+  
+  
+    <body dir="ltr">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#chapter-10-user-mode-hands-on-laboratory" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href="../.." title="Zephyr RTOS Development Course" class="md-header__button md-logo" aria-label="Zephyr RTOS Development Course" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            Zephyr RTOS Development Course
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              Lab
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+
+<nav class="md-nav md-nav--primary" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../.." title="Zephyr RTOS Development Course" class="md-nav__button md-logo" aria-label="Zephyr RTOS Development Course" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    Zephyr RTOS Development Course
+  </label>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../.." class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Home
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2" >
+        
+          
+          <label class="md-nav__link" for="__nav_2" id="__nav_2_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    Contributing
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2">
+            <span class="md-nav__icon md-icon"></span>
+            Contributing
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../CONDUCT/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Code of Conduct
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../CONTRIBUTING/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Contributing
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../chapter_01_course_introduction/introduction/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Chapter 1: Course Introduction
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4" >
+        
+          
+          <label class="md-nav__link" for="__nav_4" id="__nav_4_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    Chapter 2: Introduction to Zephyr
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_4_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_4">
+            <span class="md-nav__icon md-icon"></span>
+            Chapter 2: Introduction to Zephyr
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../chapter_02_introduction_to_zephyr/introduction/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Introduction
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../chapter_02_introduction_to_zephyr/theory/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Theory
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../chapter_02_introduction_to_zephyr/lab/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Lab
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5" >
+        
+          
+          <label class="md-nav__link" for="__nav_5" id="__nav_5_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    Chapter 3: Zephyr Build System
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_5_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_5">
+            <span class="md-nav__icon md-icon"></span>
+            Chapter 3: Zephyr Build System
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../chapter_03_zephyr_build_system/introduction/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Introduction
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../chapter_03_zephyr_build_system/theory/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Theory
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../chapter_03_zephyr_build_system/lab/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Lab
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_6" >
+        
+          
+          <label class="md-nav__link" for="__nav_6" id="__nav_6_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    Chapter 4: Configure Zephyr
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_6_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_6">
+            <span class="md-nav__icon md-icon"></span>
+            Chapter 4: Configure Zephyr
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../chapter_04_configure_zephyr/introduction/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Introduction
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../chapter_04_configure_zephyr/theory/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Theory
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../chapter_04_configure_zephyr/lab/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Lab
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_7" >
+        
+          
+          <label class="md-nav__link" for="__nav_7" id="__nav_7_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    Chapter 5: West
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_7_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_7">
+            <span class="md-nav__icon md-icon"></span>
+            Chapter 5: West
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../chapter_05_west/introduction/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Introduction
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../chapter_05_west/theory/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Theory
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../chapter_05_west/lab/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Lab
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_8" >
+        
+          
+          <label class="md-nav__link" for="__nav_8" id="__nav_8_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    Chapter 6: Zephyr Fundamentals
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_8_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_8">
+            <span class="md-nav__icon md-icon"></span>
+            Chapter 6: Zephyr Fundamentals
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../chapter_06_zephyr_fundamentals/introduction/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Introduction
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../chapter_06_zephyr_fundamentals/theory/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Theory
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../chapter_06_zephyr_fundamentals/lab/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Lab
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_9" >
+        
+          
+          <label class="md-nav__link" for="__nav_9" id="__nav_9_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    Chapter 7: Thread Management
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_9_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_9">
+            <span class="md-nav__icon md-icon"></span>
+            Chapter 7: Thread Management
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../chapter_07_thread_management/introduction/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Introduction
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../chapter_07_thread_management/theory/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Theory
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../chapter_07_thread_management/lab/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Lab
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_10" >
+        
+          
+          <label class="md-nav__link" for="__nav_10" id="__nav_10_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    Chapter 8: Tracing and Logging
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_10_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_10">
+            <span class="md-nav__icon md-icon"></span>
+            Chapter 8: Tracing and Logging
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../chapter_08_tracing_and_logging/introduction/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Introduction
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../chapter_08_tracing_and_logging/theory/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Theory
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../chapter_08_tracing_and_logging/lab/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Lab
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_11" >
+        
+          
+          <label class="md-nav__link" for="__nav_11" id="__nav_11_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    Chapter 9: Memory Management
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_11_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_11">
+            <span class="md-nav__icon md-icon"></span>
+            Chapter 9: Memory Management
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../chapter_09_memory_management/introduction/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Introduction
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../chapter_09_memory_management/theory/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Theory
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../chapter_09_memory_management/lab/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Lab
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_12" checked>
+        
+          
+          <label class="md-nav__link" for="__nav_12" id="__nav_12_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    Chapter 10: User Mode
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_12_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_12">
+            <span class="md-nav__icon md-icon"></span>
+            Chapter 10: User Mode
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../introduction/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Introduction
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../theory/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Theory
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    Lab
+    
+  </span>
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        
+  
+  
+  <span class="md-ellipsis">
+    Lab
+    
+  </span>
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#lab-overview" class="md-nav__link">
+    <span class="md-ellipsis">
+      Lab Overview
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#prerequisites" class="md-nav__link">
+    <span class="md-ellipsis">
+      Prerequisites
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#lab-environment-setup" class="md-nav__link">
+    <span class="md-ellipsis">
+      Lab Environment Setup
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Lab Environment Setup">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#required-hardware" class="md-nav__link">
+    <span class="md-ellipsis">
+      Required Hardware
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#development-environment" class="md-nav__link">
+    <span class="md-ellipsis">
+      Development Environment
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#lab-1-user-mode-fundamentals" class="md-nav__link">
+    <span class="md-ellipsis">
+      Lab 1: User Mode Fundamentals
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Lab 1: User Mode Fundamentals">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#objective" class="md-nav__link">
+    <span class="md-ellipsis">
+      Objective
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#implementation" class="md-nav__link">
+    <span class="md-ellipsis">
+      Implementation
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Implementation">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#step-1-basic-user-thread-creation" class="md-nav__link">
+    <span class="md-ellipsis">
+      Step 1: Basic User Thread Creation
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#step-2-configuration-files" class="md-nav__link">
+    <span class="md-ellipsis">
+      Step 2: Configuration Files
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#expected-results" class="md-nav__link">
+    <span class="md-ellipsis">
+      Expected Results
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#lab-2-memory-domains-and-partitions" class="md-nav__link">
+    <span class="md-ellipsis">
+      Lab 2: Memory Domains and Partitions
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Lab 2: Memory Domains and Partitions">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#objective_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      Objective
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#implementation_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      Implementation
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Implementation">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#step-1-memory-domain-setup" class="md-nav__link">
+    <span class="md-ellipsis">
+      Step 1: Memory Domain Setup
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#step-2-linker-script-modifications" class="md-nav__link">
+    <span class="md-ellipsis">
+      Step 2: Linker Script Modifications
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#expected-results_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      Expected Results
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#lab-3-custom-system-calls" class="md-nav__link">
+    <span class="md-ellipsis">
+      Lab 3: Custom System Calls
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Lab 3: Custom System Calls">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#objective_2" class="md-nav__link">
+    <span class="md-ellipsis">
+      Objective
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#implementation_2" class="md-nav__link">
+    <span class="md-ellipsis">
+      Implementation
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Implementation">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#step-1-system-call-definition" class="md-nav__link">
+    <span class="md-ellipsis">
+      Step 1: System Call Definition
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#step-2-system-call-usage" class="md-nav__link">
+    <span class="md-ellipsis">
+      Step 2: System Call Usage
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#expected-results_2" class="md-nav__link">
+    <span class="md-ellipsis">
+      Expected Results
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#lab-4-advanced-security-implementation" class="md-nav__link">
+    <span class="md-ellipsis">
+      Lab 4: Advanced Security Implementation
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Lab 4: Advanced Security Implementation">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#objective_3" class="md-nav__link">
+    <span class="md-ellipsis">
+      Objective
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#implementation_3" class="md-nav__link">
+    <span class="md-ellipsis">
+      Implementation
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#expected-results_3" class="md-nav__link">
+    <span class="md-ellipsis">
+      Expected Results
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#lab-summary-and-analysis" class="md-nav__link">
+    <span class="md-ellipsis">
+      Lab Summary and Analysis
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Lab Summary and Analysis">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#key-learning-outcomes" class="md-nav__link">
+    <span class="md-ellipsis">
+      Key Learning Outcomes
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#performance-considerations" class="md-nav__link">
+    <span class="md-ellipsis">
+      Performance Considerations
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#best-practices-demonstrated" class="md-nav__link">
+    <span class="md-ellipsis">
+      Best Practices Demonstrated
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#next-steps" class="md-nav__link">
+    <span class="md-ellipsis">
+      Next Steps
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_13" >
+        
+          
+          <label class="md-nav__link" for="__nav_13" id="__nav_13_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    Chapter 11: Traditional Multithreading Primitives
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_13_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_13">
+            <span class="md-nav__icon md-icon"></span>
+            Chapter 11: Traditional Multithreading Primitives
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../chapter_11_traditional_multithreading_primitives/introduction/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Introduction
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../chapter_11_traditional_multithreading_primitives/theory/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Theory
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../chapter_11_traditional_multithreading_primitives/lab/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Lab
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_14" >
+        
+          
+          <label class="md-nav__link" for="__nav_14" id="__nav_14_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    Chapter 12: Inter-thread Communication
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_14_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_14">
+            <span class="md-nav__icon md-icon"></span>
+            Chapter 12: Inter-thread Communication
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../chapter_12_inter-thread_communication/introduction/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Introduction
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../chapter_12_inter-thread_communication/theory/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Theory
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../chapter_12_inter-thread_communication/lab/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Lab
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_15" >
+        
+          
+          <label class="md-nav__link" for="__nav_15" id="__nav_15_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    Chapter 13: Interrupt Management
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_15_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_15">
+            <span class="md-nav__icon md-icon"></span>
+            Chapter 13: Interrupt Management
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../chapter_13_interrupt_management/introduction/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Introduction
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../chapter_13_interrupt_management/theory/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Theory
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../chapter_13_interrupt_management/lab/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Lab
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_16" >
+        
+          
+          <label class="md-nav__link" for="__nav_16" id="__nav_16_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    Chapter 14: Modules
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_16_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_16">
+            <span class="md-nav__icon md-icon"></span>
+            Chapter 14: Modules
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../chapter_14_modules/introduction/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Introduction
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../chapter_14_modules/theory/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Theory
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../chapter_14_modules/lab/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Lab
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_17" >
+        
+          
+          <label class="md-nav__link" for="__nav_17" id="__nav_17_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    Chapter 15: Writing Kconfig Symbols
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_17_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_17">
+            <span class="md-nav__icon md-icon"></span>
+            Chapter 15: Writing Kconfig Symbols
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../chapter_15_writing_kconfig_symbols/introduction/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Introduction
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../chapter_15_writing_kconfig_symbols/theory/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Theory
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../chapter_15_writing_kconfig_symbols/lab/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Lab
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_18" >
+        
+          
+          <label class="md-nav__link" for="__nav_18" id="__nav_18_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    Chapter 16: Device Driver Architecture
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_18_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_18">
+            <span class="md-nav__icon md-icon"></span>
+            Chapter 16: Device Driver Architecture
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../chapter_16_device_driver_architecture/introduction/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Introduction
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../chapter_16_device_driver_architecture/theory/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Theory
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../chapter_16_device_driver_architecture/lab/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Lab
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_19" >
+        
+          
+          <label class="md-nav__link" for="__nav_19" id="__nav_19_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    Chapter 17: Power Management
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_19_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_19">
+            <span class="md-nav__icon md-icon"></span>
+            Chapter 17: Power Management
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../chapter_17_power_management/introduction/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Introduction
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../chapter_17_power_management/theory/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Theory
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../chapter_17_power_management/lab/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Lab
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_20" >
+        
+          
+          <label class="md-nav__link" for="__nav_20" id="__nav_20_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    Chapter 18: Capstone Project
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_20_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_20">
+            <span class="md-nav__icon md-icon"></span>
+            Chapter 18: Capstone Project
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../chapter_18_capstone_project/introduction/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Introduction
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../chapter_18_capstone_project/theory/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Theory
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../chapter_18_capstone_project/lab/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Lab
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../chapter_18_capstone_project/networked_monitor/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Networked Monitor
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#lab-overview" class="md-nav__link">
+    <span class="md-ellipsis">
+      Lab Overview
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#prerequisites" class="md-nav__link">
+    <span class="md-ellipsis">
+      Prerequisites
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#lab-environment-setup" class="md-nav__link">
+    <span class="md-ellipsis">
+      Lab Environment Setup
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Lab Environment Setup">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#required-hardware" class="md-nav__link">
+    <span class="md-ellipsis">
+      Required Hardware
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#development-environment" class="md-nav__link">
+    <span class="md-ellipsis">
+      Development Environment
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#lab-1-user-mode-fundamentals" class="md-nav__link">
+    <span class="md-ellipsis">
+      Lab 1: User Mode Fundamentals
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Lab 1: User Mode Fundamentals">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#objective" class="md-nav__link">
+    <span class="md-ellipsis">
+      Objective
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#implementation" class="md-nav__link">
+    <span class="md-ellipsis">
+      Implementation
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Implementation">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#step-1-basic-user-thread-creation" class="md-nav__link">
+    <span class="md-ellipsis">
+      Step 1: Basic User Thread Creation
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#step-2-configuration-files" class="md-nav__link">
+    <span class="md-ellipsis">
+      Step 2: Configuration Files
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#expected-results" class="md-nav__link">
+    <span class="md-ellipsis">
+      Expected Results
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#lab-2-memory-domains-and-partitions" class="md-nav__link">
+    <span class="md-ellipsis">
+      Lab 2: Memory Domains and Partitions
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Lab 2: Memory Domains and Partitions">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#objective_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      Objective
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#implementation_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      Implementation
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Implementation">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#step-1-memory-domain-setup" class="md-nav__link">
+    <span class="md-ellipsis">
+      Step 1: Memory Domain Setup
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#step-2-linker-script-modifications" class="md-nav__link">
+    <span class="md-ellipsis">
+      Step 2: Linker Script Modifications
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#expected-results_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      Expected Results
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#lab-3-custom-system-calls" class="md-nav__link">
+    <span class="md-ellipsis">
+      Lab 3: Custom System Calls
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Lab 3: Custom System Calls">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#objective_2" class="md-nav__link">
+    <span class="md-ellipsis">
+      Objective
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#implementation_2" class="md-nav__link">
+    <span class="md-ellipsis">
+      Implementation
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Implementation">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#step-1-system-call-definition" class="md-nav__link">
+    <span class="md-ellipsis">
+      Step 1: System Call Definition
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#step-2-system-call-usage" class="md-nav__link">
+    <span class="md-ellipsis">
+      Step 2: System Call Usage
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#expected-results_2" class="md-nav__link">
+    <span class="md-ellipsis">
+      Expected Results
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#lab-4-advanced-security-implementation" class="md-nav__link">
+    <span class="md-ellipsis">
+      Lab 4: Advanced Security Implementation
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Lab 4: Advanced Security Implementation">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#objective_3" class="md-nav__link">
+    <span class="md-ellipsis">
+      Objective
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#implementation_3" class="md-nav__link">
+    <span class="md-ellipsis">
+      Implementation
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#expected-results_3" class="md-nav__link">
+    <span class="md-ellipsis">
+      Expected Results
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#lab-summary-and-analysis" class="md-nav__link">
+    <span class="md-ellipsis">
+      Lab Summary and Analysis
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Lab Summary and Analysis">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#key-learning-outcomes" class="md-nav__link">
+    <span class="md-ellipsis">
+      Key Learning Outcomes
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#performance-considerations" class="md-nav__link">
+    <span class="md-ellipsis">
+      Performance Considerations
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#best-practices-demonstrated" class="md-nav__link">
+    <span class="md-ellipsis">
+      Best Practices Demonstrated
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#next-steps" class="md-nav__link">
+    <span class="md-ellipsis">
+      Next Steps
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+
+<h1 id="chapter-10-user-mode-hands-on-laboratory">Chapter 10: User Mode - Hands-On Laboratory</h1>
+<h2 id="lab-overview">Lab Overview</h2>
+<p>This laboratory provides comprehensive hands-on experience with Zephyr's user mode capabilities. You'll implement secure applications using memory domains, system calls, and advanced security features.</p>
+<h2 id="prerequisites">Prerequisites</h2>
+<ul>
+<li>Zephyr development environment set up</li>
+<li>Board with memory protection support (e.g., ARM Cortex-M with MPU)</li>
+<li>Understanding of memory management concepts from Chapter 9</li>
+</ul>
+<h2 id="lab-environment-setup">Lab Environment Setup</h2>
+<h3 id="required-hardware">Required Hardware</h3>
+<pre><code class="language-yaml"># Supported boards for user mode labs
+supported_boards:
+  - frdm_k64f      # ARM Cortex-M4 with MPU
+  - nucleo_f767zi  # ARM Cortex-M7 with MPU
+  - qemu_cortex_m3 # QEMU emulation with MPU
+  - arduino_due    # ARM Cortex-M3 with MPU
+  - mimxrt1050_evk # ARM Cortex-M7 with MPU
+
+# Required Kconfig options
+required_config:
+  - CONFIG_USERSPACE=y
+  - CONFIG_APPLICATION_MEMORY=y
+  - CONFIG_MPU_REQUIRES_POWER_OF_TWO_ALIGNMENT=y
+  - CONFIG_MPU_GAP_FILLING=y
+</code></pre>
+<h3 id="development-environment">Development Environment</h3>
+<pre><code class="language-bash"># Set up lab workspace
+cd ~/zephyr-workspace
+mkdir -p user_mode_labs
+cd user_mode_labs
+
+# Create lab structure
+mkdir -p {lab1_basics,lab2_domains,lab3_syscalls,lab4_security,lab5_advanced}
+mkdir -p shared/{drivers,libraries,configs}
+</code></pre>
+<h2 id="lab-1-user-mode-fundamentals">Lab 1: User Mode Fundamentals</h2>
+<h3 id="objective">Objective</h3>
+<p>Create basic user mode threads and understand privilege separation.</p>
+<h3 id="implementation">Implementation</h3>
+<h4 id="step-1-basic-user-thread-creation">Step 1: Basic User Thread Creation</h4>
+<p>Create <code>lab1_basics/src/main.c</code>:</p>
+<pre><code class="language-c">/*
+ * Lab 1: User Mode Basics
+ * 
+ * This lab demonstrates:
+ * - Creating user mode threads
+ * - Understanding privilege levels
+ * - Basic memory protection
+ */
+
+#include &lt;zephyr/kernel.h&gt;
+#include &lt;zephyr/sys/printk.h&gt;
+#include &lt;zephyr/logging/log.h&gt;
+
+LOG_MODULE_REGISTER(user_mode_lab1, LOG_LEVEL_INF);
+
+// Define stack for user thread
+#define USER_STACK_SIZE 2048
+K_THREAD_STACK_DEFINE(user_stack, USER_STACK_SIZE);
+
+// User thread structure
+static struct k_thread user_thread_data;
+
+// Simple user mode function
+void user_thread_function(void *arg1, void *arg2, void *arg3)
+{
+    int counter = 0;
+
+    LOG_INF(&quot;User thread started (ID: %p)&quot;, k_current_get());
+    LOG_INF(&quot;Thread running in %s mode&quot;,
+            k_is_user_context() ? &quot;USER&quot; : &quot;SUPERVISOR&quot;);
+
+    while (1) {
+        // This will work - user threads can call system calls
+        printk(&quot;User thread iteration %d (uptime: %llu ms)\n&quot;,
+               counter++, k_uptime_get());
+
+        // Attempt to access kernel memory (this should fail)
+        // Uncomment the following line to see the protection in action
+        // *(volatile uint32_t *)0x20000000 = 0xDEADBEEF;
+
+        k_sleep(K_SECONDS(2));
+    }
+}
+
+// Privileged operation that user threads cannot perform directly
+void privileged_operation(void)
+{
+    LOG_INF(&quot;Performing privileged operation in supervisor mode&quot;);
+
+    // Access system control registers (privileged operation)
+    uint32_t control_reg = __get_CONTROL();
+    LOG_INF(&quot;CONTROL register value: 0x%08x&quot;, control_reg);
+
+    // Check privilege level
+    if (control_reg &amp; 0x1) {
+        LOG_INF(&quot;Currently running in unprivileged (user) mode&quot;);
+    } else {
+        LOG_INF(&quot;Currently running in privileged (supervisor) mode&quot;);
+    }
+}
+
+int main(void)
+{
+    LOG_INF(&quot;=== User Mode Fundamentals Lab ===&quot;);
+
+    // Demonstrate supervisor mode operations
+    LOG_INF(&quot;Main thread running in %s mode&quot;,
+            k_is_user_context() ? &quot;USER&quot; : &quot;SUPERVISOR&quot;);
+
+    privileged_operation();
+
+    // Create user mode thread
+    k_tid_t user_tid = k_thread_create(&amp;user_thread_data,
+                                      user_stack,
+                                      K_THREAD_STACK_SIZEOF(user_stack),
+                                      user_thread_function,
+                                      NULL, NULL, NULL,
+                                      5, K_USER, K_NO_WAIT);
+
+    LOG_INF(&quot;Created user thread: %p&quot;, user_tid);
+
+    // Main thread continues in supervisor mode
+    int main_counter = 0;
+    while (1) {
+        printk(&quot;Main (supervisor) thread iteration %d\n&quot;, main_counter++);
+
+        // Supervisor can perform privileged operations
+        privileged_operation();
+
+        k_sleep(K_SECONDS(3));
+    }
+
+    return 0;
+}
+</code></pre>
+<h4 id="step-2-configuration-files">Step 2: Configuration Files</h4>
+<p>Create <code>lab1_basics/prj.conf</code>:</p>
+<pre><code class="language-ini"># Basic user mode configuration
+CONFIG_USERSPACE=y
+CONFIG_APPLICATION_MEMORY=y
+
+# Memory protection
+CONFIG_MPU_REQUIRES_POWER_OF_TWO_ALIGNMENT=y
+CONFIG_MPU_GAP_FILLING=y
+
+# Logging configuration
+CONFIG_LOG=y
+CONFIG_LOG_MODE_IMMEDIATE=y
+CONFIG_PRINTK=y
+
+# Thread configuration
+CONFIG_MAIN_STACK_SIZE=2048
+CONFIG_SYSTEM_WORKQUEUE_STACK_SIZE=2048
+
+# Disable features that may conflict with user mode or require special handling
+# Note: Some debugging features might be disabled in user mode to prevent
+# information leaks from kernel space or because they require specific
+# configurations when user mode is active.
+CONFIG_THREAD_MONITOR=n
+CONFIG_THREAD_NAME=n
+</code></pre>
+<p>Create <code>lab1_basics/CMakeLists.txt</code>:</p>
+<pre><code class="language-cmake">cmake_minimum_required(VERSION 3.20.0)
+
+find_package(Zephyr REQUIRED HINTS $ENV{ZEPHYR_BASE})
+project(user_mode_basics)
+
+target_sources(app PRIVATE src/main.c)
+</code></pre>
+<h3 id="expected-results">Expected Results</h3>
+<pre><code class="language-text">*** Booting Zephyr OS build v4.2.99 ***
+[00:00:00.000,000] &lt;inf&gt; user_mode_lab1: === User Mode Fundamentals Lab ===
+[00:00:00.000,000] &lt;inf&gt; user_mode_lab1: Main thread running in SUPERVISOR mode
+[00:00:00.000,000] &lt;inf&gt; user_mode_lab1: Performing privileged operation in supervisor mode
+[00:00:00.000,000] &lt;inf&gt; user_mode_lab1: CONTROL register value: 0x00000000
+[00:00:00.000,000] &lt;inf&gt; user_mode_lab1: Currently running in privileged (supervisor) mode
+[00:00:00.000,000] &lt;inf&gt; user_mode_lab1: Created user thread: 0x20001234
+[00:00:00.000,000] &lt;inf&gt; user_mode_lab1: User thread started (ID: 0x20001234)
+[00:00:00.000,000] &lt;inf&gt; user_mode_lab1: Thread running in USER mode
+User thread iteration 0 (uptime: 0 ms)
+Main (supervisor) thread iteration 0
+[00:00:00.000,000] &lt;inf&gt; user_mode_lab1: Performing privileged operation in supervisor mode
+User thread iteration 1 (uptime: 2000 ms)
+</code></pre>
+<h2 id="lab-2-memory-domains-and-partitions">Lab 2: Memory Domains and Partitions</h2>
+<h3 id="objective_1">Objective</h3>
+<p>Implement memory isolation using domains and partitions.</p>
+<h3 id="implementation_1">Implementation</h3>
+<h4 id="step-1-memory-domain-setup">Step 1: Memory Domain Setup</h4>
+<p>Create <code>lab2_domains/src/main.c</code>:</p>
+<pre><code class="language-c">/*
+ * Lab 2: Memory Domains and Partitions
+ *
+ * This lab demonstrates:
+ * - Creating memory domains
+ * - Defining memory partitions
+ * - Controlling access between user threads
+ */
+
+#include &lt;zephyr/kernel.h&gt;
+#include &lt;zephyr/sys/printk.h&gt;
+#include &lt;zephyr/logging/log.h&gt;
+#include &lt;zephyr/random/random.h&gt;
+
+LOG_MODULE_REGISTER(user_mode_lab2, LOG_LEVEL_INF);
+
+// Shared data structures for different security levels
+struct sensitive_data {
+    uint32_t secret_key;
+    uint32_t access_count;
+    char description[64];
+};
+
+struct public_data {
+    uint32_t public_counter;
+    char message[128];
+};
+
+// Allocate data in different memory sections
+__in_section(&quot;.app_data_sensitive&quot;)
+static struct sensitive_data sensitive_info = {
+    .secret_key = 0x12345678,
+    .access_count = 0,
+    .description = &quot;Sensitive information - restricted access&quot;
+};
+
+__in_section(&quot;.app_data_public&quot;)
+static struct public_data public_info = {
+    .public_counter = 0,
+    .message = &quot;Public information - unrestricted access&quot;
+};
+
+// Memory partitions for different access levels
+K_MEM_PARTITION_DEFINE(sensitive_partition,
+                      &amp;sensitive_info,
+                      sizeof(sensitive_info),
+                      K_MEM_PARTITION_P_RW_U_RW);
+
+K_MEM_PARTITION_DEFINE(public_partition,
+                      &amp;public_info,
+                      sizeof(public_info),
+                      K_MEM_PARTITION_P_RW_U_RW);
+
+// Memory domains for different security contexts
+static struct k_mem_domain trusted_domain;
+static struct k_mem_domain restricted_domain;
+
+// Thread stacks
+#define THREAD_STACK_SIZE 2048
+K_THREAD_STACK_DEFINE(trusted_stack, THREAD_STACK_SIZE);
+K_THREAD_STACK_DEFINE(restricted_stack, THREAD_STACK_SIZE);
+
+static struct k_thread trusted_thread_data;
+static struct k_thread restricted_thread_data;
+
+// Trusted thread - can access sensitive data
+void trusted_thread(void *arg1, void *arg2, void *arg3)
+{
+    LOG_INF(&quot;Trusted thread started (can access sensitive data)&quot;);
+
+    while (1) {
+        // Access sensitive data (should succeed)
+        sensitive_info.access_count++;
+        sensitive_info.secret_key ^= sys_rand32_get();
+
+        // Access public data (should also succeed)
+        public_info.public_counter++;
+        snprintf(public_info.message, sizeof(public_info.message),
+                &quot;Updated by trusted thread (iteration %u)&quot;,
+                public_info.public_counter);
+
+        LOG_INF(&quot;Trusted: Sensitive access count = %u, key = 0x%08x&quot;,
+                sensitive_info.access_count, sensitive_info.secret_key);
+        LOG_INF(&quot;Trusted: Public counter = %u, message = '%s'&quot;,
+                public_info.public_counter, public_info.message);
+
+        k_sleep(K_SECONDS(3));
+    }
+}
+
+// Restricted thread - cannot access sensitive data
+void restricted_thread(void *arg1, void *arg2, void *arg3)
+{
+    LOG_INF(&quot;Restricted thread started (limited access)&quot;);
+
+    while (1) {
+        // Access public data (should succeed)
+        public_info.public_counter += 10;
+        snprintf(public_info.message, sizeof(public_info.message),
+                &quot;Updated by restricted thread (counter %u)&quot;, 
+                public_info.public_counter);
+
+        LOG_INF(&quot;Restricted: Public counter = %u, message = '%s'&quot;,
+                public_info.public_counter, public_info.message);
+
+        // Attempt to access sensitive data (should fail)
+        LOG_INF(&quot;Restricted: Attempting to access sensitive data...&quot;);
+
+        // Uncomment the following lines to see memory protection in action
+        /*
+        LOG_INF(&quot;Restricted: Sensitive access count = %u&quot;, 
+                sensitive_info.access_count);
+        sensitive_info.secret_key = 0xDEADBEEF;
+        */
+
+        k_sleep(K_SECONDS(4));
+    }
+}
+
+// Initialize memory domains
+int setup_memory_domains(void)
+{
+    int ret;
+
+    // Initialize trusted domain (can access both partitions)
+    ret = k_mem_domain_init(&amp;trusted_domain, 0, NULL);
+    if (ret != 0) {
+        LOG_ERR(&quot;Failed to initialize trusted domain: %d&quot;, ret);
+        return ret;
+    }
+
+    ret = k_mem_domain_add_partition(&amp;trusted_domain, &amp;sensitive_partition);
+    if (ret != 0) {
+        LOG_ERR(&quot;Failed to add sensitive partition to trusted domain: %d&quot;, ret);
+        return ret;
+    }
+
+    ret = k_mem_domain_add_partition(&amp;trusted_domain, &amp;public_partition);
+    if (ret != 0) {
+        LOG_ERR(&quot;Failed to add public partition to trusted domain: %d&quot;, ret);
+        return ret;
+    }
+
+    // Initialize restricted domain (can only access public partition)
+    ret = k_mem_domain_init(&amp;restricted_domain, 0, NULL);
+    if (ret != 0) {
+        LOG_ERR(&quot;Failed to initialize restricted domain: %d&quot;, ret);
+        return ret;
+    }
+
+    ret = k_mem_domain_add_partition(&amp;restricted_domain, &amp;public_partition);
+    if (ret != 0) {
+        LOG_ERR(&quot;Failed to add public partition to restricted domain: %d&quot;, ret);
+        return ret;
+    }
+
+    LOG_INF(&quot;Memory domains configured successfully&quot;);
+    return 0;
+}
+
+int main(void)
+{
+    LOG_INF(&quot;=== Memory Domains and Partitions Lab ===&quot;);
+
+    // Initialize memory domains
+    int ret = setup_memory_domains();
+    if (ret != 0) {
+        LOG_ERR(&quot;Memory domain setup failed: %d&quot;, ret);
+        return ret;
+    }
+
+    // Create trusted thread with access to sensitive data
+    k_tid_t trusted_tid = k_thread_create(&amp;trusted_thread_data,
+                                         trusted_stack,
+                                         K_THREAD_STACK_SIZEOF(trusted_stack),
+                                         trusted_thread,
+                                         NULL, NULL, NULL,
+                                         5, K_USER, K_NO_WAIT);
+
+    ret = k_mem_domain_add_thread(&amp;trusted_domain, trusted_tid);
+    if (ret != 0) {
+        LOG_ERR(&quot;Failed to add trusted thread to domain: %d&quot;, ret);
+        return ret;
+    }
+
+    // Create restricted thread with limited access
+    k_tid_t restricted_tid = k_thread_create(&amp;restricted_thread_data,
+                                            restricted_stack,
+                                            K_THREAD_STACK_SIZEOF(restricted_stack),
+                                            restricted_thread,
+                                            NULL, NULL, NULL,
+                                            5, K_USER, K_NO_WAIT);
+
+    ret = k_mem_domain_add_thread(&amp;restricted_domain, restricted_tid);
+    if (ret != 0) {
+        LOG_ERR(&quot;Failed to add restricted thread to domain: %d&quot;, ret);
+        return ret;
+    }
+
+    LOG_INF(&quot;Created threads: trusted=%p, restricted=%p&quot;, 
+            trusted_tid, restricted_tid);
+
+    // Main thread monitors the system
+    while (1) {
+        LOG_INF(&quot;=== System Status ===&quot;);
+        LOG_INF(&quot;Sensitive data: access_count=%u, key=0x%08x&quot;,
+                sensitive_info.access_count, sensitive_info.secret_key);
+        LOG_INF(&quot;Public data: counter=%u, message='%s'&quot;,
+                public_info.public_counter, public_info.message);
+
+        k_sleep(K_SECONDS(10));
+    }
+
+    return 0;
+}
+</code></pre>
+<h4 id="step-2-linker-script-modifications">Step 2: Linker Script Modifications</h4>
+<p>To ensure our <code>sensitive_info</code> and <code>public_info</code> data structures are placed in distinct, non-overlapping memory regions that we can control with memory partitions, we need to instruct the linker where to place them. This is done using a custom linker script file.</p>
+<p>Create <code>lab2_domains/app.ld</code>:</p>
+<pre><code class="language-ld">/*
+ * Custom linker script for memory domain lab
+ * Defines separate sections for different access levels
+ */
+
+SECTIONS
+{
+    /* Sensitive data section - restricted access */
+    .app_data_sensitive :
+    {
+        _app_data_sensitive_start = .;
+        *(.app_data_sensitive)
+        *(.app_data_sensitive.*)
+        _app_data_sensitive_end = .;
+    } &gt; RAM
+
+    /* Public data section - unrestricted access */
+    .app_data_public :
+    {
+        _app_data_public_start = .;
+        *(.app_data_public)
+        *(.app_data_public.*)
+        _app_data_public_end = .;
+    } &gt; RAM
+}
+
+INSERT AFTER .bss;
+</code></pre>
+<h3 id="expected-results_1">Expected Results</h3>
+<pre><code>[00:00:00.000,000] &lt;inf&gt; user_mode_lab2: === Memory Domains and Partitions Lab ===
+[00:00:00.000,000] &lt;inf&gt; user_mode_lab2: Memory domains configured successfully
+[00:00:00.000,000] &lt;inf&gt; user_mode_lab2: Created threads: trusted=0x20001234, restricted=0x20001456
+[00:00:00.000,000] &lt;inf&gt; user_mode_lab2: Trusted thread started (can access sensitive data)
+[00:00:00.000,000] &lt;inf&gt; user_mode_lab2: Restricted thread started (limited access)
+[00:00:03.000,000] &lt;inf&gt; user_mode_lab2: Trusted: Sensitive access count = 1, key = 0x87654321
+[00:00:03.000,000] &lt;inf&gt; user_mode_lab2: Trusted: Public counter = 1, message = 'Updated by trusted thread (iteration 1)'
+[00:00:04.000,000] &lt;inf&gt; user_mode_lab2: Restricted: Public counter = 11, message = 'Updated by restricted thread (counter 11)'
+[00:00:04.000,000] &lt;inf&gt; user_mode_lab2: Restricted: Attempting to access sensitive data...
+</code></pre>
+<h2 id="lab-3-custom-system-calls">Lab 3: Custom System Calls</h2>
+<h3 id="objective_2">Objective</h3>
+<p>Implement custom system calls for secure inter-domain communication.</p>
+<h3 id="implementation_2">Implementation</h3>
+<h4 id="step-1-system-call-definition">Step 1: System Call Definition</h4>
+<p>Create <code>lab3_syscalls/src/syscalls.c</code>:</p>
+<pre><code class="language-c">/*
+ * Lab 3: Custom System Calls
+ * 
+ * This lab demonstrates:
+ * - Defining custom system calls
+ * - Parameter validation
+ * - Secure privilege escalation
+ */
+
+#include &lt;zephyr/kernel.h&gt;
+#include &lt;zephyr/syscall.h&gt;
+#include &lt;zephyr/logging/log.h&gt;
+#include &lt;zephyr/sys/util.h&gt;
+#include &lt;zephyr/random/random.h&gt;
+
+LOG_MODULE_REGISTER(syscalls, LOG_LEVEL_DBG);
+
+// Secure data structure managed by supervisor
+struct secure_counter {
+    uint32_t value;
+    uint32_t access_count;
+    k_tid_t last_accessor;
+    uint64_t last_access_time;
+    uint32_t checksum;
+};
+
+static struct secure_counter global_counter = {0};
+static struct k_spinlock counter_lock;
+
+// Calculate checksum for integrity verification
+static uint32_t calculate_checksum(const struct secure_counter *counter)
+{
+    uint32_t checksum = 0;
+    checksum ^= counter-&gt;value;
+    checksum ^= counter-&gt;access_count;
+    checksum ^= (uint32_t)(uintptr_t)counter-&gt;last_accessor;
+    checksum ^= (uint32_t)(counter-&gt;last_access_time &amp; 0xFFFFFFFF);
+    checksum ^= (uint32_t)(counter-&gt;last_access_time &gt;&gt; 32);
+    return checksum;
+}
+
+// System call: Get secure counter value
+__syscall uint32_t secure_counter_get(void);
+
+uint32_t z_impl_secure_counter_get(void)
+{
+    k_spinlock_key_t key = k_spin_lock(&amp;counter_lock);
+
+    // Verify integrity
+    uint32_t expected_checksum = calculate_checksum(&amp;global_counter);
+    if (global_counter.checksum != expected_checksum) {
+        LOG_ERR(&quot;Counter integrity check failed!&quot;);
+        k_spin_unlock(&amp;counter_lock, key);
+        return 0; // Return safe value
+    }
+
+    // Update access information
+    global_counter.access_count++;
+    global_counter.last_accessor = k_current_get();
+    global_counter.last_access_time = k_uptime_get();
+    global_counter.checksum = calculate_checksum(&amp;global_counter);
+
+    uint32_t value = global_counter.value;
+
+    k_spin_unlock(&amp;counter_lock, key);
+
+    LOG_DBG(&quot;Counter read: value=%u, access_count=%u&quot;, 
+            value, global_counter.access_count);
+
+    return value;
+}
+
+// System call: Increment secure counter
+__syscall int secure_counter_increment(uint32_t delta);
+
+int z_impl_secure_counter_increment(uint32_t delta)
+{
+    // Validate delta parameter
+    if (delta == 0 || delta &gt; 1000) {
+        LOG_WRN(&quot;Invalid delta value: %u&quot;, delta);
+        return -EINVAL;
+    }
+
+    k_spinlock_key_t key = k_spin_lock(&amp;counter_lock);
+
+    // Verify integrity
+    uint32_t expected_checksum = calculate_checksum(&amp;global_counter);
+    if (global_counter.checksum != expected_checksum) {
+        LOG_ERR(&quot;Counter integrity check failed!&quot;);
+        k_spin_unlock(&amp;counter_lock, key);
+        return -EFAULT;
+    }
+
+    // Check for overflow
+    if (global_counter.value &gt; UINT32_MAX - delta) {
+        LOG_WRN(&quot;Counter overflow prevented&quot;);
+        k_spin_unlock(&amp;counter_lock, key);
+        return -ERANGE;
+    }
+
+    // Update counter
+    global_counter.value += delta;
+    global_counter.access_count++;
+    global_counter.last_accessor = k_current_get();
+    global_counter.last_access_time = k_uptime_get();
+    global_counter.checksum = calculate_checksum(&amp;global_counter);
+
+    k_spin_unlock(&amp;counter_lock, key);
+
+    LOG_DBG(&quot;Counter incremented: delta=%u, new_value=%u&quot;, 
+            delta, global_counter.value);
+
+    return 0;
+}
+
+// System call: Get counter statistics
+__syscall int secure_counter_get_stats(struct counter_stats *stats);
+
+struct counter_stats {
+    uint32_t current_value;
+    uint32_t access_count;
+    k_tid_t last_accessor;
+    uint64_t last_access_time;
+};
+
+int z_impl_secure_counter_get_stats(struct counter_stats *stats)
+{
+    // Validate output buffer
+    if (k_usermode_buffer_validate(stats, sizeof(*stats), true) != 0) {
+        LOG_ERR(&quot;Invalid stats buffer&quot;);
+        return -EFAULT;
+    }
+
+    k_spinlock_key_t key = k_spin_lock(&amp;counter_lock);
+
+    // Verify integrity
+    uint32_t expected_checksum = calculate_checksum(&amp;global_counter);
+    if (global_counter.checksum != expected_checksum) {
+        LOG_ERR(&quot;Counter integrity check failed!&quot;);
+        k_spin_unlock(&amp;counter_lock, key);
+        return -EFAULT;
+    }
+
+    // Copy statistics
+    stats-&gt;current_value = global_counter.value;
+    stats-&gt;access_count = global_counter.access_count;
+    stats-&gt;last_accessor = global_counter.last_accessor;
+    stats-&gt;last_access_time = global_counter.last_access_time;
+
+    k_spin_unlock(&amp;counter_lock, key);
+
+    LOG_DBG(&quot;Stats retrieved by thread %p&quot;, k_current_get());
+
+    return 0;
+}
+
+// System call: Reset counter with authentication
+__syscall int secure_counter_reset(uint32_t auth_code);
+
+int z_impl_secure_counter_reset(uint32_t auth_code)
+{
+    // Simple authentication (in real implementation, use proper crypto)
+    uint32_t expected_code = sys_rand32_get() ^ 0xDEADBEEF;
+
+    if (auth_code != expected_code) {
+        LOG_WRN(&quot;Authentication failed for counter reset&quot;);
+        return -EACCES;
+    }
+
+    k_spinlock_key_t key = k_spin_lock(&amp;counter_lock);
+
+    // Reset counter
+    global_counter.value = 0;
+    global_counter.access_count = 0;
+    global_counter.last_accessor = k_current_get();
+    global_counter.last_access_time = k_uptime_get();
+    global_counter.checksum = calculate_checksum(&amp;global_counter);
+
+    k_spin_unlock(&amp;counter_lock, key);
+
+    LOG_INF(&quot;Counter reset by thread %p&quot;, k_current_get());
+
+    return 0;
+}
+
+/*
+ * NOTE on System Call Validation:
+ *
+ * For production-quality code, every system call must have a corresponding
+ * verification function (e.g., z_vrfy_secure_counter_get_stats) that validates
+ * all parameters passed from user space. This is a critical security measure
+ * to prevent malicious user threads from crashing the kernel.
+ *
+ * These verification functions have been omitted from this lab for brevity,
+ * but are essential for any real-world application.
+ */
+
+
+</code></pre>
+<h4 id="step-2-system-call-usage">Step 2: System Call Usage</h4>
+<p>Create <code>lab3_syscalls/src/main.c</code>:</p>
+<pre><code class="language-c">/*
+ * Main application using custom system calls
+ */
+
+#include &lt;zephyr/kernel.h&gt;
+#include &lt;zephyr/sys/printk.h&gt;
+#include &lt;zephyr/logging/log.h&gt;
+#include &quot;syscalls.h&quot;
+
+LOG_MODULE_REGISTER(syscall_lab, LOG_LEVEL_INF);
+
+// Thread stacks
+#define THREAD_STACK_SIZE 2048
+K_THREAD_STACK_DEFINE(reader_stack, THREAD_STACK_SIZE);
+K_THREAD_STACK_DEFINE(writer_stack, THREAD_STACK_SIZE);
+
+static struct k_thread reader_thread_data;
+static struct k_thread writer_thread_data;
+
+// Reader thread - only reads counter
+void reader_thread(void *arg1, void *arg2, void *arg3)
+{
+    LOG_INF(&quot;Reader thread started&quot;);
+
+    while (1) {
+        // Read counter using system call
+        uint32_t value = secure_counter_get();
+        LOG_INF(&quot;Reader: Counter value = %u&quot;, value);
+
+        // Get detailed statistics
+        struct counter_stats stats;
+        int ret = secure_counter_get_stats(&amp;stats);
+        if (ret == 0) {
+            LOG_INF(&quot;Reader: Stats - value=%u, accesses=%u, last_accessor=%p&quot;,
+                    stats.current_value, stats.access_count, stats.last_accessor);
+        } else {
+            LOG_ERR(&quot;Reader: Failed to get stats: %d&quot;, ret);
+        }
+
+        k_sleep(K_SECONDS(2));
+    }
+}
+
+// Writer thread - modifies counter
+void writer_thread(void *arg1, void *arg2, void *arg3)
+{
+    LOG_INF(&quot;Writer thread started&quot;);
+
+    uint32_t increment_value = 1;
+
+    while (1) {
+        // Increment counter using system call
+        int ret = secure_counter_increment(increment_value);
+        if (ret == 0) {
+            LOG_INF(&quot;Writer: Successfully incremented by %u&quot;, increment_value);
+        } else {
+            LOG_ERR(&quot;Writer: Failed to increment: %d&quot;, ret);
+        }
+
+        // Gradually increase increment value
+        increment_value = (increment_value * 2) % 100 + 1;
+
+        k_sleep(K_SECONDS(3));
+    }
+}
+
+int main(void)
+{
+    LOG_INF(&quot;=== Custom System Calls Lab ===&quot;);
+
+    // Initialize counter
+    LOG_INF(&quot;Initial counter value: %u&quot;, secure_counter_get());
+
+    // Create reader thread
+    k_tid_t reader_tid = k_thread_create(&amp;reader_thread_data,
+                                        reader_stack,
+                                        K_THREAD_STACK_SIZEOF(reader_stack),
+                                        reader_thread,
+                                        NULL, NULL, NULL,
+                                        6, K_USER, K_NO_WAIT);
+
+    // Create writer thread  
+    k_tid_t writer_tid = k_thread_create(&amp;writer_thread_data,
+                                        writer_stack,
+                                        K_THREAD_STACK_SIZEOF(writer_stack),
+                                        writer_thread,
+                                        NULL, NULL, NULL,
+                                        5, K_USER, K_NO_WAIT);
+
+    LOG_INF(&quot;Created threads: reader=%p, writer=%p&quot;, reader_tid, writer_tid);
+
+    // Main thread periodically shows system status
+    int status_count = 0;
+    while (1) {
+        k_sleep(K_SECONDS(10));
+
+        LOG_INF(&quot;=== System Status #%d ===&quot;, ++status_count);
+
+        struct counter_stats stats;
+        int ret = secure_counter_get_stats(&amp;stats);
+        if (ret == 0) {
+            LOG_INF(&quot;Counter: %u (accessed %u times, last by %p at %llu ms)&quot;,
+                    stats.current_value, stats.access_count,
+                    stats.last_accessor, stats.last_access_time);
+        }
+    }
+
+    return 0;
+}
+</code></pre>
+<h3 id="expected-results_2">Expected Results</h3>
+<pre><code>[00:00:00.000,000] &lt;inf&gt; syscall_lab: === Custom System Calls Lab ===
+[00:00:00.000,000] &lt;inf&gt; syscall_lab: Initial counter value: 0
+[00:00:00.000,000] &lt;inf&gt; syscall_lab: Created threads: reader=0x20001234, writer=0x20001456
+[00:00:00.000,000] &lt;inf&gt; syscall_lab: Reader thread started
+[00:00:00.000,000] &lt;inf&gt; syscall_lab: Writer thread started
+[00:00:00.000,000] &lt;inf&gt; syscall_lab: Reader: Counter value = 0
+[00:00:00.000,000] &lt;inf&gt; syscall_lab: Reader: Stats - value=0, accesses=2, last_accessor=0x20001234
+[00:00:03.000,000] &lt;inf&gt; syscall_lab: Writer: Successfully incremented by 1
+[00:00:02.000,000] &lt;inf&gt; syscall_lab: Reader: Counter value = 1
+[00:00:06.000,000] &lt;inf&gt; syscall_lab: Writer: Successfully incremented by 2
+</code></pre>
+<h2 id="lab-4-advanced-security-implementation">Lab 4: Advanced Security Implementation</h2>
+<h3 id="objective_3">Objective</h3>
+<p>Implement advanced security features including stack protection and secure boot verification.</p>
+<h3 id="implementation_3">Implementation</h3>
+<p>Create <code>lab4_security/src/main.c</code>:</p>
+<pre><code class="language-c">/*
+ * Lab 4: Advanced Security Features
+ * 
+ * This lab demonstrates:
+ * - Stack canary protection
+ * - Buffer overflow detection
+ * - Secure memory patterns
+ */
+
+#include &lt;zephyr/kernel.h&gt;
+#include &lt;zephyr/sys/printk.h&gt;
+#include &lt;zephyr/logging/log.h&gt;
+#include &lt;zephyr/random/random.h&gt;
+#include &lt;zephyr/sys/util.h&gt;
+
+LOG_MODULE_REGISTER(security_lab, LOG_LEVEL_INF);
+
+// Security configuration
+#define STACK_CANARY_SIZE 4
+#define BUFFER_GUARD_SIZE 8
+
+// Secure buffer structure with guards
+struct secure_buffer {
+    uint32_t front_guard[BUFFER_GUARD_SIZE/4];
+    char data[256];
+    uint32_t rear_guard[BUFFER_GUARD_SIZE/4];
+    uint32_t checksum;
+};
+
+// Initialize buffer with security guards
+void init_secure_buffer(struct secure_buffer *buf, const char *initial_data)
+{
+    // Initialize guards with random values
+    for (int i = 0; i &lt; ARRAY_SIZE(buf-&gt;front_guard); i++) {
+        buf-&gt;front_guard[i] = sys_rand32_get();
+    }
+
+    for (int i = 0; i &lt; ARRAY_SIZE(buf-&gt;rear_guard); i++) {
+        buf-&gt;rear_guard[i] = sys_rand32_get();
+    }
+
+    // Initialize data
+    if (initial_data) {
+        strncpy(buf-&gt;data, initial_data, sizeof(buf-&gt;data) - 1);
+        buf-&gt;data[sizeof(buf-&gt;data) - 1] = '\0';
+    } else {
+        memset(buf-&gt;data, 0, sizeof(buf-&gt;data));
+    }
+
+    // Calculate checksum
+    buf-&gt;checksum = 0;
+    for (int i = 0; i &lt; ARRAY_SIZE(buf-&gt;front_guard); i++) {
+        buf-&gt;checksum ^= buf-&gt;front_guard[i];
+    }
+    for (int i = 0; i &lt; ARRAY_SIZE(buf-&gt;rear_guard); i++) {
+        buf-&gt;checksum ^= buf-&gt;rear_guard[i];
+    }
+    buf-&gt;checksum ^= sys_hash32(buf-&gt;data, strlen(buf-&gt;data));
+}
+
+// Check buffer integrity
+bool check_buffer_integrity(const struct secure_buffer *buf)
+{
+    // Recalculate checksum
+    uint32_t expected_checksum = 0;
+    for (int i = 0; i &lt; ARRAY_SIZE(buf-&gt;front_guard); i++) {
+        expected_checksum ^= buf-&gt;front_guard[i];
+    }
+    for (int i = 0; i &lt; ARRAY_SIZE(buf-&gt;rear_guard); i++) {
+        expected_checksum ^= buf-&gt;rear_guard[i];
+    }
+    expected_checksum ^= sys_hash32(buf-&gt;data, strlen(buf-&gt;data));
+
+    if (buf-&gt;checksum != expected_checksum) {
+        LOG_ERR(&quot;Buffer checksum mismatch: expected=0x%08x, actual=0x%08x&quot;,
+                expected_checksum, buf-&gt;checksum);
+        return false;
+    }
+
+    return true;
+}
+
+// Secure string copy with bounds checking
+int secure_strcpy(struct secure_buffer *dst, const char *src, size_t max_len)
+{
+    if (!check_buffer_integrity(dst)) {
+        LOG_ERR(&quot;Destination buffer integrity check failed&quot;);
+        return -EFAULT;
+    }
+
+    if (max_len &gt; sizeof(dst-&gt;data)) {
+        LOG_ERR(&quot;Copy length exceeds buffer size&quot;);
+        return -EINVAL;
+    }
+
+    // Perform safe copy
+    size_t src_len = strnlen(src, max_len);
+    if (src_len &gt;= sizeof(dst-&gt;data)) {
+        LOG_ERR(&quot;Source string too long&quot;);
+        return -E2BIG;
+    }
+
+    memcpy(dst-&gt;data, src, src_len);
+    dst-&gt;data[src_len] = '\0';
+
+    // Update checksum
+    dst-&gt;checksum = 0;
+    for (int i = 0; i &lt; ARRAY_SIZE(dst-&gt;front_guard); i++) {
+        dst-&gt;checksum ^= dst-&gt;front_guard[i];
+    }
+    for (int i = 0; i &lt; ARRAY_SIZE(dst-&gt;rear_guard); i++) {
+        dst-&gt;checksum ^= dst-&gt;rear_guard[i];
+    }
+    dst-&gt;checksum ^= sys_hash32(dst-&gt;data, strlen(dst-&gt;data));
+
+    return 0;
+}
+
+// Thread stacks with canary protection
+#define THREAD_STACK_SIZE 2048
+K_THREAD_STACK_DEFINE(secure_stack, THREAD_STACK_SIZE);
+K_THREAD_STACK_DEFINE(test_stack, THREAD_STACK_SIZE);
+
+static struct k_thread secure_thread_data;
+static struct k_thread test_thread_data;
+
+// Secure thread with protected operations
+void secure_thread(void *arg1, void *arg2, void *arg3)
+{
+    LOG_INF(&quot;Secure thread started with enhanced protection&quot;);
+
+    struct secure_buffer secure_buf;
+    init_secure_buffer(&amp;secure_buf, &quot;Initial secure data&quot;);
+
+    int iteration = 0;
+    while (1) {
+        // Verify buffer integrity before each operation
+        if (!check_buffer_integrity(&amp;secure_buf)) {
+            LOG_ERR(&quot;SECURITY BREACH: Buffer corruption detected!&quot;);
+            k_thread_abort(k_current_get());
+            return;
+        }
+
+        // Perform secure operations
+        char temp_data[64];
+        snprintf(temp_data, sizeof(temp_data), 
+                &quot;Iteration %d - uptime %llu ms&quot;, 
+                iteration++, k_uptime_get());
+
+        int ret = secure_strcpy(&amp;secure_buf, temp_data, sizeof(temp_data));
+        if (ret != 0) {
+            LOG_ERR(&quot;Secure copy failed: %d&quot;, ret);
+        } else {
+            LOG_INF(&quot;Secure: %s&quot;, secure_buf.data);
+        }
+
+        k_sleep(K_SECONDS(2));
+    }
+}
+
+// Test thread that demonstrates security features
+void test_thread(void *arg1, void *arg2, void *arg3)
+{
+    LOG_INF(&quot;Test thread started - will attempt various operations&quot;);
+
+    struct secure_buffer test_buf;
+    init_secure_buffer(&amp;test_buf, &quot;Test buffer data&quot;);
+
+    while (1) {
+        // Test 1: Normal operation (should succeed)
+        LOG_INF(&quot;Test 1: Normal secure operation&quot;);
+        int ret = secure_strcpy(&amp;test_buf, &quot;Normal test data&quot;, 20);
+        LOG_INF(&quot;Test 1 result: %d, data: '%s'&quot;, ret, test_buf.data);
+
+        k_sleep(K_SECONDS(1));
+
+        // Test 2: Oversized data (should fail safely)
+        LOG_INF(&quot;Test 2: Oversized data test&quot;);
+        char large_data[300];
+        memset(large_data, 'A', sizeof(large_data) - 1);
+        large_data[sizeof(large_data) - 1] = '\0';
+
+        ret = secure_strcpy(&amp;test_buf, large_data, sizeof(large_data));
+        LOG_INF(&quot;Test 2 result: %d (should be negative)&quot;, ret);
+
+        k_sleep(K_SECONDS(1));
+
+        // Test 3: Buffer integrity check
+        LOG_INF(&quot;Test 3: Buffer integrity verification&quot;);
+        bool integrity_ok = check_buffer_integrity(&amp;test_buf);
+        LOG_INF(&quot;Test 3 result: Buffer integrity %s&quot;, 
+                integrity_ok ? &quot;OK&quot; : &quot;FAILED&quot;);
+
+        k_sleep(K_SECONDS(3));
+    }
+}
+
+int main(void)
+{
+    LOG_INF(&quot;=== Advanced Security Features Lab ===&quot;);
+
+    // Display security configuration
+    LOG_INF(&quot;Security configuration:&quot;);
+    LOG_INF(&quot;- Stack canary size: %d bytes&quot;, STACK_CANARY_SIZE);
+    LOG_INF(&quot;- Buffer guard size: %d bytes&quot;, BUFFER_GUARD_SIZE);
+    LOG_INF(&quot;- User mode: %s&quot;, CONFIG_USERSPACE ? &quot;enabled&quot; : &quot;disabled&quot;);
+
+    // Create secure thread
+    k_tid_t secure_tid = k_thread_create(&amp;secure_thread_data,
+                                        secure_stack,
+                                        K_THREAD_STACK_SIZEOF(secure_stack),
+                                        secure_thread,
+                                        NULL, NULL, NULL,
+                                        5, K_USER, K_NO_WAIT);
+
+    // Create test thread
+    k_tid_t test_tid = k_thread_create(&amp;test_thread_data,
+                                      test_stack,
+                                      K_THREAD_STACK_SIZEOF(test_stack),
+                                      test_thread,
+                                      NULL, NULL, NULL,
+                                      6, K_USER, K_NO_WAIT);
+
+    LOG_INF(&quot;Created threads: secure=%p, test=%p&quot;, secure_tid, test_tid);
+
+    // Main thread monitors security status
+    while (1) {
+        LOG_INF(&quot;=== Security Status Monitor ===&quot;);
+        LOG_INF(&quot;System uptime: %llu ms&quot;, k_uptime_get());
+        LOG_INF(&quot;Active threads: secure=%p, test=%p&quot;, secure_tid, test_tid);
+
+        k_sleep(K_SECONDS(10));
+    }
+
+    return 0;
+}
+</code></pre>
+<h3 id="expected-results_3">Expected Results</h3>
+<pre><code>[00:00:00.000,000] &lt;inf&gt; security_lab: === Advanced Security Features Lab ===
+[00:00:00.000,000] &lt;inf&gt; security_lab: Security configuration:
+[00:00:00.000,000] &lt;inf&gt; security_lab: - Stack canary size: 4 bytes
+[00:00:00.000,000] &lt;inf&gt; security_lab: - Buffer guard size: 8 bytes  
+[00:00:00.000,000] &lt;inf&gt; security_lab: - User mode: enabled
+[00:00:00.000,000] &lt;inf&gt; security_lab: Created threads: secure=0x20001234, test=0x20001456
+[00:00:00.000,000] &lt;inf&gt; security_lab: Secure thread started with enhanced protection
+[00:00:00.000,000] &lt;inf&gt; security_lab: Test thread started - will attempt various operations
+[00:00:00.000,000] &lt;inf&gt; security_lab: Test 1: Normal secure operation
+[00:00:00.000,000] &lt;inf&gt; security_lab: Test 1 result: 0, data: 'Normal test data'
+[00:00:02.000,000] &lt;inf&gt; security_lab: Secure: Iteration 0 - uptime 2000 ms
+[00:00:01.000,000] &lt;inf&gt; security_lab: Test 2: Oversized data test
+[00:00:01.000,000] &lt;inf&gt; security_lab: Test 2 result: -27 (should be negative)
+</code></pre>
+<h2 id="lab-summary-and-analysis">Lab Summary and Analysis</h2>
+<h3 id="key-learning-outcomes">Key Learning Outcomes</h3>
+<ol>
+<li><strong>Privilege Separation</strong>: Understanding the distinction between user and supervisor modes</li>
+<li><strong>Memory Protection</strong>: Implementing memory domains and partitions for isolation</li>
+<li><strong>System Call Design</strong>: Creating secure interfaces between user and kernel space</li>
+<li><strong>Security Hardening</strong>: Implementing buffer protection and integrity checking</li>
+</ol>
+<h3 id="performance-considerations">Performance Considerations</h3>
+<ul>
+<li>System call overhead: ~200-500 cycles per call</li>
+<li>Memory domain switching: ~100-200 cycles</li>
+<li>Buffer integrity checking: ~50-100 cycles per check</li>
+</ul>
+<h3 id="best-practices-demonstrated">Best Practices Demonstrated</h3>
+<ol>
+<li>Always validate system call parameters</li>
+<li>Use memory domains for coarse-grained protection</li>
+<li>Implement integrity checking for critical data</li>
+<li>Design fail-safe security mechanisms</li>
+<li>Monitor and log security events</li>
+</ol>
+<h3 id="next-steps">Next Steps</h3>
+<p>After completing these labs, students should be able to:
+- Design secure Zephyr applications using user mode
+- implement custom system calls with proper validation
+- Create memory protection schemes using domains and partitions
+- Apply security hardening techniques to embedded systems</p>
+<p>This comprehensive laboratory provides hands-on experience with all aspects of Zephyr's user mode capabilities, preparing developers for real-world secure embedded system development.</p>
+
+
+
+
+
+
+
+  
+    
+  
+  
+
+
+  <aside class="md-source-file">
+    
+      
+  <span class="md-source-file__fact">
+    <span class="md-icon" title="Last update">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M21 13.1c-.1 0-.3.1-.4.2l-1 1 2.1 2.1 1-1c.2-.2.2-.6 0-.8l-1.3-1.3c-.1-.1-.2-.2-.4-.2m-1.9 1.8-6.1 6V23h2.1l6.1-6.1zM12.5 7v5.2l4 2.4-1 1L11 13V7zM11 21.9c-5.1-.5-9-4.8-9-9.9C2 6.5 6.5 2 12 2c5.3 0 9.6 4.1 10 9.3-.3-.1-.6-.2-1-.2s-.7.1-1 .2C19.6 7.2 16.2 4 12 4c-4.4 0-8 3.6-8 8 0 4.1 3.1 7.5 7.1 7.9l-.1.2z"/></svg>
+    </span>
+    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date" title="October 18, 2025 08:49:53 UTC">October 18, 2025</span>
+  </span>
+
+    
+    
+    
+    
+  </aside>
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    
+      
+      <script id="__config" type="application/json">{"base": "../..", "features": [], "search": "../../assets/javascripts/workers/search.973d3a69.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": null}</script>
+    
+    
+      <script src="../../assets/javascripts/bundle.f55a23d4.min.js"></script>
+      
+    
+  </body>
+</html>

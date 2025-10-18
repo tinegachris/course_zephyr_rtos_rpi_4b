@@ -1,0 +1,4012 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+      
+      
+      
+        <link rel="prev" href="../theory/">
+      
+      
+        <link rel="next" href="../../chapter_06_zephyr_fundamentals/introduction/">
+      
+      
+      <link rel="icon" href="../../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.6.22">
+    
+    
+      
+        <title>Lab - Zephyr RTOS Development Course</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../assets/stylesheets/main.84d31ad4.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+    <script>__md_scope=new URL("../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+    
+  </head>
+  
+  
+    <body dir="ltr">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#chapter-5-west-lab" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href="../.." title="Zephyr RTOS Development Course" class="md-header__button md-logo" aria-label="Zephyr RTOS Development Course" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            Zephyr RTOS Development Course
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              Lab
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+
+<nav class="md-nav md-nav--primary" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../.." title="Zephyr RTOS Development Course" class="md-nav__button md-logo" aria-label="Zephyr RTOS Development Course" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    Zephyr RTOS Development Course
+  </label>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../.." class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Home
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2" >
+        
+          
+          <label class="md-nav__link" for="__nav_2" id="__nav_2_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    Contributing
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2">
+            <span class="md-nav__icon md-icon"></span>
+            Contributing
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../CONDUCT/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Code of Conduct
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../CONTRIBUTING/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Contributing
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../chapter_01_course_introduction/introduction/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Chapter 1: Course Introduction
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4" >
+        
+          
+          <label class="md-nav__link" for="__nav_4" id="__nav_4_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    Chapter 2: Introduction to Zephyr
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_4_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_4">
+            <span class="md-nav__icon md-icon"></span>
+            Chapter 2: Introduction to Zephyr
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../chapter_02_introduction_to_zephyr/introduction/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Introduction
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../chapter_02_introduction_to_zephyr/theory/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Theory
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../chapter_02_introduction_to_zephyr/lab/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Lab
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5" >
+        
+          
+          <label class="md-nav__link" for="__nav_5" id="__nav_5_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    Chapter 3: Zephyr Build System
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_5_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_5">
+            <span class="md-nav__icon md-icon"></span>
+            Chapter 3: Zephyr Build System
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../chapter_03_zephyr_build_system/introduction/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Introduction
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../chapter_03_zephyr_build_system/theory/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Theory
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../chapter_03_zephyr_build_system/lab/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Lab
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_6" >
+        
+          
+          <label class="md-nav__link" for="__nav_6" id="__nav_6_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    Chapter 4: Configure Zephyr
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_6_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_6">
+            <span class="md-nav__icon md-icon"></span>
+            Chapter 4: Configure Zephyr
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../chapter_04_configure_zephyr/introduction/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Introduction
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../chapter_04_configure_zephyr/theory/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Theory
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../chapter_04_configure_zephyr/lab/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Lab
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_7" checked>
+        
+          
+          <label class="md-nav__link" for="__nav_7" id="__nav_7_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    Chapter 5: West
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_7_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_7">
+            <span class="md-nav__icon md-icon"></span>
+            Chapter 5: West
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../introduction/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Introduction
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../theory/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Theory
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    Lab
+    
+  </span>
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        
+  
+  
+  <span class="md-ellipsis">
+    Lab
+    
+  </span>
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#prerequisites-and-setup" class="md-nav__link">
+    <span class="md-ellipsis">
+      Prerequisites and Setup
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#lab-exercise-1-understanding-west-workspaces" class="md-nav__link">
+    <span class="md-ellipsis">
+      Lab Exercise 1: Understanding West Workspaces
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Lab Exercise 1: Understanding West Workspaces">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#objective" class="md-nav__link">
+    <span class="md-ellipsis">
+      Objective
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#step-1-analyze-current-workspace-structure" class="md-nav__link">
+    <span class="md-ellipsis">
+      Step 1: Analyze Current Workspace Structure
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#step-2-explore-west-commands" class="md-nav__link">
+    <span class="md-ellipsis">
+      Step 2: Explore West Commands
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#step-3-workspace-configuration" class="md-nav__link">
+    <span class="md-ellipsis">
+      Step 3: Workspace Configuration
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#lab-exercise-2-creating-custom-manifests" class="md-nav__link">
+    <span class="md-ellipsis">
+      Lab Exercise 2: Creating Custom Manifests
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Lab Exercise 2: Creating Custom Manifests">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#objective_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      Objective
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#step-1-create-a-development-manifest" class="md-nav__link">
+    <span class="md-ellipsis">
+      Step 1: Create a Development Manifest
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#step-2-test-custom-manifests" class="md-nav__link">
+    <span class="md-ellipsis">
+      Step 2: Test Custom Manifests
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#step-3-manifest-validation-and-debugging" class="md-nav__link">
+    <span class="md-ellipsis">
+      Step 3: Manifest Validation and Debugging
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#lab-exercise-3-multi-repository-development-workflow" class="md-nav__link">
+    <span class="md-ellipsis">
+      Lab Exercise 3: Multi-Repository Development Workflow
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Lab Exercise 3: Multi-Repository Development Workflow">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#objective_2" class="md-nav__link">
+    <span class="md-ellipsis">
+      Objective
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#step-1-set-up-multi-repository-project" class="md-nav__link">
+    <span class="md-ellipsis">
+      Step 1: Set Up Multi-Repository Project
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#step-2-create-comprehensive-project-manifest" class="md-nav__link">
+    <span class="md-ellipsis">
+      Step 2: Create Comprehensive Project Manifest
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#step-3-test-multi-repository-workflow" class="md-nav__link">
+    <span class="md-ellipsis">
+      Step 3: Test Multi-Repository Workflow
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#step-4-feature-development-workflow" class="md-nav__link">
+    <span class="md-ellipsis">
+      Step 4: Feature Development Workflow
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#lab-exercise-4-advanced-west-configuration" class="md-nav__link">
+    <span class="md-ellipsis">
+      Lab Exercise 4: Advanced West Configuration
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Lab Exercise 4: Advanced West Configuration">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#objective_3" class="md-nav__link">
+    <span class="md-ellipsis">
+      Objective
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#step-1-advanced-configuration-setup" class="md-nav__link">
+    <span class="md-ellipsis">
+      Step 1: Advanced Configuration Setup
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#step-2-test-advanced-features" class="md-nav__link">
+    <span class="md-ellipsis">
+      Step 2: Test Advanced Features
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#lab-exercise-5-production-deployment-workflow" class="md-nav__link">
+    <span class="md-ellipsis">
+      Lab Exercise 5: Production Deployment Workflow
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Lab Exercise 5: Production Deployment Workflow">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#objective_4" class="md-nav__link">
+    <span class="md-ellipsis">
+      Objective
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#step-1-create-release-management-system" class="md-nav__link">
+    <span class="md-ellipsis">
+      Step 1: Create Release Management System
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#step-2-test-release-workflow" class="md-nav__link">
+    <span class="md-ellipsis">
+      Step 2: Test Release Workflow
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#lab-summary-and-best-practices" class="md-nav__link">
+    <span class="md-ellipsis">
+      Lab Summary and Best Practices
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Lab Summary and Best Practices">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#key-skills-developed" class="md-nav__link">
+    <span class="md-ellipsis">
+      Key Skills Developed
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#professional-development-workflows" class="md-nav__link">
+    <span class="md-ellipsis">
+      Professional Development Workflows
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#real-world-applications" class="md-nav__link">
+    <span class="md-ellipsis">
+      Real-World Applications
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#next-steps" class="md-nav__link">
+    <span class="md-ellipsis">
+      Next Steps
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_8" >
+        
+          
+          <label class="md-nav__link" for="__nav_8" id="__nav_8_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    Chapter 6: Zephyr Fundamentals
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_8_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_8">
+            <span class="md-nav__icon md-icon"></span>
+            Chapter 6: Zephyr Fundamentals
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../chapter_06_zephyr_fundamentals/introduction/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Introduction
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../chapter_06_zephyr_fundamentals/theory/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Theory
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../chapter_06_zephyr_fundamentals/lab/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Lab
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_9" >
+        
+          
+          <label class="md-nav__link" for="__nav_9" id="__nav_9_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    Chapter 7: Thread Management
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_9_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_9">
+            <span class="md-nav__icon md-icon"></span>
+            Chapter 7: Thread Management
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../chapter_07_thread_management/introduction/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Introduction
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../chapter_07_thread_management/theory/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Theory
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../chapter_07_thread_management/lab/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Lab
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_10" >
+        
+          
+          <label class="md-nav__link" for="__nav_10" id="__nav_10_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    Chapter 8: Tracing and Logging
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_10_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_10">
+            <span class="md-nav__icon md-icon"></span>
+            Chapter 8: Tracing and Logging
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../chapter_08_tracing_and_logging/introduction/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Introduction
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../chapter_08_tracing_and_logging/theory/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Theory
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../chapter_08_tracing_and_logging/lab/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Lab
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_11" >
+        
+          
+          <label class="md-nav__link" for="__nav_11" id="__nav_11_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    Chapter 9: Memory Management
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_11_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_11">
+            <span class="md-nav__icon md-icon"></span>
+            Chapter 9: Memory Management
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../chapter_09_memory_management/introduction/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Introduction
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../chapter_09_memory_management/theory/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Theory
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../chapter_09_memory_management/lab/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Lab
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_12" >
+        
+          
+          <label class="md-nav__link" for="__nav_12" id="__nav_12_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    Chapter 10: User Mode
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_12_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_12">
+            <span class="md-nav__icon md-icon"></span>
+            Chapter 10: User Mode
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../chapter_10_user_mode/introduction/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Introduction
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../chapter_10_user_mode/theory/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Theory
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../chapter_10_user_mode/lab/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Lab
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_13" >
+        
+          
+          <label class="md-nav__link" for="__nav_13" id="__nav_13_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    Chapter 11: Traditional Multithreading Primitives
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_13_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_13">
+            <span class="md-nav__icon md-icon"></span>
+            Chapter 11: Traditional Multithreading Primitives
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../chapter_11_traditional_multithreading_primitives/introduction/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Introduction
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../chapter_11_traditional_multithreading_primitives/theory/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Theory
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../chapter_11_traditional_multithreading_primitives/lab/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Lab
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_14" >
+        
+          
+          <label class="md-nav__link" for="__nav_14" id="__nav_14_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    Chapter 12: Inter-thread Communication
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_14_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_14">
+            <span class="md-nav__icon md-icon"></span>
+            Chapter 12: Inter-thread Communication
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../chapter_12_inter-thread_communication/introduction/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Introduction
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../chapter_12_inter-thread_communication/theory/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Theory
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../chapter_12_inter-thread_communication/lab/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Lab
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_15" >
+        
+          
+          <label class="md-nav__link" for="__nav_15" id="__nav_15_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    Chapter 13: Interrupt Management
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_15_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_15">
+            <span class="md-nav__icon md-icon"></span>
+            Chapter 13: Interrupt Management
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../chapter_13_interrupt_management/introduction/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Introduction
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../chapter_13_interrupt_management/theory/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Theory
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../chapter_13_interrupt_management/lab/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Lab
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_16" >
+        
+          
+          <label class="md-nav__link" for="__nav_16" id="__nav_16_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    Chapter 14: Modules
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_16_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_16">
+            <span class="md-nav__icon md-icon"></span>
+            Chapter 14: Modules
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../chapter_14_modules/introduction/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Introduction
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../chapter_14_modules/theory/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Theory
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../chapter_14_modules/lab/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Lab
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_17" >
+        
+          
+          <label class="md-nav__link" for="__nav_17" id="__nav_17_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    Chapter 15: Writing Kconfig Symbols
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_17_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_17">
+            <span class="md-nav__icon md-icon"></span>
+            Chapter 15: Writing Kconfig Symbols
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../chapter_15_writing_kconfig_symbols/introduction/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Introduction
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../chapter_15_writing_kconfig_symbols/theory/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Theory
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../chapter_15_writing_kconfig_symbols/lab/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Lab
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_18" >
+        
+          
+          <label class="md-nav__link" for="__nav_18" id="__nav_18_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    Chapter 16: Device Driver Architecture
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_18_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_18">
+            <span class="md-nav__icon md-icon"></span>
+            Chapter 16: Device Driver Architecture
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../chapter_16_device_driver_architecture/introduction/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Introduction
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../chapter_16_device_driver_architecture/theory/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Theory
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../chapter_16_device_driver_architecture/lab/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Lab
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_19" >
+        
+          
+          <label class="md-nav__link" for="__nav_19" id="__nav_19_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    Chapter 17: Power Management
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_19_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_19">
+            <span class="md-nav__icon md-icon"></span>
+            Chapter 17: Power Management
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../chapter_17_power_management/introduction/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Introduction
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../chapter_17_power_management/theory/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Theory
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../chapter_17_power_management/lab/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Lab
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_20" >
+        
+          
+          <label class="md-nav__link" for="__nav_20" id="__nav_20_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    Chapter 18: Capstone Project
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_20_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_20">
+            <span class="md-nav__icon md-icon"></span>
+            Chapter 18: Capstone Project
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../chapter_18_capstone_project/introduction/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Introduction
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../chapter_18_capstone_project/theory/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Theory
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../chapter_18_capstone_project/lab/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Lab
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../chapter_18_capstone_project/networked_monitor/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Networked Monitor
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#prerequisites-and-setup" class="md-nav__link">
+    <span class="md-ellipsis">
+      Prerequisites and Setup
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#lab-exercise-1-understanding-west-workspaces" class="md-nav__link">
+    <span class="md-ellipsis">
+      Lab Exercise 1: Understanding West Workspaces
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Lab Exercise 1: Understanding West Workspaces">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#objective" class="md-nav__link">
+    <span class="md-ellipsis">
+      Objective
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#step-1-analyze-current-workspace-structure" class="md-nav__link">
+    <span class="md-ellipsis">
+      Step 1: Analyze Current Workspace Structure
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#step-2-explore-west-commands" class="md-nav__link">
+    <span class="md-ellipsis">
+      Step 2: Explore West Commands
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#step-3-workspace-configuration" class="md-nav__link">
+    <span class="md-ellipsis">
+      Step 3: Workspace Configuration
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#lab-exercise-2-creating-custom-manifests" class="md-nav__link">
+    <span class="md-ellipsis">
+      Lab Exercise 2: Creating Custom Manifests
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Lab Exercise 2: Creating Custom Manifests">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#objective_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      Objective
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#step-1-create-a-development-manifest" class="md-nav__link">
+    <span class="md-ellipsis">
+      Step 1: Create a Development Manifest
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#step-2-test-custom-manifests" class="md-nav__link">
+    <span class="md-ellipsis">
+      Step 2: Test Custom Manifests
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#step-3-manifest-validation-and-debugging" class="md-nav__link">
+    <span class="md-ellipsis">
+      Step 3: Manifest Validation and Debugging
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#lab-exercise-3-multi-repository-development-workflow" class="md-nav__link">
+    <span class="md-ellipsis">
+      Lab Exercise 3: Multi-Repository Development Workflow
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Lab Exercise 3: Multi-Repository Development Workflow">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#objective_2" class="md-nav__link">
+    <span class="md-ellipsis">
+      Objective
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#step-1-set-up-multi-repository-project" class="md-nav__link">
+    <span class="md-ellipsis">
+      Step 1: Set Up Multi-Repository Project
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#step-2-create-comprehensive-project-manifest" class="md-nav__link">
+    <span class="md-ellipsis">
+      Step 2: Create Comprehensive Project Manifest
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#step-3-test-multi-repository-workflow" class="md-nav__link">
+    <span class="md-ellipsis">
+      Step 3: Test Multi-Repository Workflow
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#step-4-feature-development-workflow" class="md-nav__link">
+    <span class="md-ellipsis">
+      Step 4: Feature Development Workflow
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#lab-exercise-4-advanced-west-configuration" class="md-nav__link">
+    <span class="md-ellipsis">
+      Lab Exercise 4: Advanced West Configuration
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Lab Exercise 4: Advanced West Configuration">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#objective_3" class="md-nav__link">
+    <span class="md-ellipsis">
+      Objective
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#step-1-advanced-configuration-setup" class="md-nav__link">
+    <span class="md-ellipsis">
+      Step 1: Advanced Configuration Setup
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#step-2-test-advanced-features" class="md-nav__link">
+    <span class="md-ellipsis">
+      Step 2: Test Advanced Features
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#lab-exercise-5-production-deployment-workflow" class="md-nav__link">
+    <span class="md-ellipsis">
+      Lab Exercise 5: Production Deployment Workflow
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Lab Exercise 5: Production Deployment Workflow">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#objective_4" class="md-nav__link">
+    <span class="md-ellipsis">
+      Objective
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#step-1-create-release-management-system" class="md-nav__link">
+    <span class="md-ellipsis">
+      Step 1: Create Release Management System
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#step-2-test-release-workflow" class="md-nav__link">
+    <span class="md-ellipsis">
+      Step 2: Test Release Workflow
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#lab-summary-and-best-practices" class="md-nav__link">
+    <span class="md-ellipsis">
+      Lab Summary and Best Practices
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Lab Summary and Best Practices">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#key-skills-developed" class="md-nav__link">
+    <span class="md-ellipsis">
+      Key Skills Developed
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#professional-development-workflows" class="md-nav__link">
+    <span class="md-ellipsis">
+      Professional Development Workflows
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#real-world-applications" class="md-nav__link">
+    <span class="md-ellipsis">
+      Real-World Applications
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#next-steps" class="md-nav__link">
+    <span class="md-ellipsis">
+      Next Steps
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+
+<h1 id="chapter-5-west-lab">Chapter 5: West - Lab</h1>
+<p>This lab provides hands-on experience with West workspace management, manifest creation, and multi-repository development workflows. You'll build practical skills using your Raspberry Pi 4B while learning professional West techniques used in production Zephyr development.</p>
+<hr />
+<h2 id="prerequisites-and-setup">Prerequisites and Setup</h2>
+<p>Before starting this lab, ensure you have:</p>
+<ul>
+<li><strong>Hardware:</strong> Raspberry Pi 4B with SD card and development setup</li>
+<li><strong>Software Environment:</strong> Working Zephyr development environment from previous chapters</li>
+<li><strong>Completed:</strong> Chapters 1-4 of this course</li>
+<li><strong>Git Knowledge:</strong> Basic understanding of Git commands and repository management</li>
+</ul>
+<p><strong>Verify Your Current Environment:</strong></p>
+<pre><code class="language-bash"># Check if you have an existing West workspace
+ls -la ~/zephyrproject
+echo $ZEPHYR_BASE
+
+# Verify Git configuration
+git config --global user.name
+git config --global user.email
+
+# If not configured, set them now
+git config --global user.name &quot;Your Name&quot;
+git config --global user.email &quot;your.email@domain.com&quot;
+</code></pre>
+<hr />
+<h2 id="lab-exercise-1-understanding-west-workspaces">Lab Exercise 1: Understanding West Workspaces</h2>
+<h3 id="objective">Objective</h3>
+<p>Explore and analyze an existing West workspace to understand its structure, manifest configuration, and repository relationships.</p>
+<h3 id="step-1-analyze-current-workspace-structure">Step 1: Analyze Current Workspace Structure</h3>
+<p><strong>Examine your existing Zephyr workspace:</strong></p>
+<pre><code class="language-bash">cd ~/zephyrproject
+
+# Display workspace structure
+tree -L 2 -a .
+
+# Examine West configuration
+ls -la .west/
+cat .west/config
+
+# Show manifest file location
+cat .west/config | grep -A 2 &quot;\[manifest\]&quot;
+</code></pre>
+<p><strong>Understand the manifest file:</strong></p>
+<pre><code class="language-bash"># View the current manifest
+cat zephyr/west.yml | head -50
+
+# Count total projects in manifest
+grep -c &quot;^  - name:&quot; zephyr/west.yml
+
+# Show remotes configuration
+grep -A 10 &quot;remotes:&quot; zephyr/west.yml
+</code></pre>
+<h3 id="step-2-explore-west-commands">Step 2: Explore West Commands</h3>
+<p><strong>Repository status and information:</strong></p>
+<pre><code class="language-bash"># Show all projects in workspace
+west list
+
+# Display detailed project information
+west list -f &quot;{name:20} {path:30} {revision:12}&quot;
+
+# Check status of all repositories
+west status
+
+# Show any local modifications
+west diff --name-only
+</code></pre>
+<p><strong>Advanced workspace queries:</strong></p>
+<pre><code class="language-bash"># Show projects with specific groups
+west list -f &quot;{name:20} {groups}&quot; | grep -v &quot;None&quot;
+
+# Find projects with local changes
+west forall -c &quot;git status --porcelain&quot; 2&gt;/dev/null | grep -B1 -A5 &quot;^[AMDRC]&quot;
+
+# Show commit information across repositories
+west log --oneline -n 3
+</code></pre>
+<h3 id="step-3-workspace-configuration">Step 3: Workspace Configuration</h3>
+<p><strong>Examine and modify West configuration:</strong></p>
+<pre><code class="language-bash"># Show all configuration settings
+west config
+
+# Set workspace-specific defaults
+west config build.board rpi_4b
+west config build.pristine auto
+west config build.cmake-args -- -DCMAKE_VERBOSE_MAKEFILE=ON
+
+# Verify configuration changes
+west config | grep &quot;build\.&quot;
+</code></pre>
+<hr />
+<h2 id="lab-exercise-2-creating-custom-manifests">Lab Exercise 2: Creating Custom Manifests</h2>
+<h3 id="objective_1">Objective</h3>
+<p>Create custom manifest files for different development scenarios, understanding how to manage dependencies and repository versions.</p>
+<h3 id="step-1-create-a-development-manifest">Step 1: Create a Development Manifest</h3>
+<p><strong>Set up the exercise directory:</strong></p>
+<pre><code class="language-bash">cd ~
+mkdir west_lab
+cd west_lab
+
+# Create a manifest repository
+mkdir custom-manifest
+cd custom-manifest
+git init
+</code></pre>
+<p><strong>Create a development-focused manifest:</strong></p>
+<pre><code class="language-bash">cat &gt; west.yml &lt;&lt; 'EOF'
+# Development Manifest for IoT Sensor Project
+# Includes development tools and testing frameworks
+manifest:
+  defaults:
+    remote: upstream
+    revision: main
+
+  remotes:
+    - name: upstream
+      url-base: https://github.com/zephyrproject-rtos
+    - name: zephyr-testing
+      url-base: https://github.com/zephyrproject-rtos
+
+  projects:
+    # Core Zephyr with specific stable version
+    - name: zephyr
+      revision: v3.5.0
+      west-commands: scripts/west-commands.yml
+      import: true
+
+    # Additional testing and development tools
+    - name: net-tools
+      remote: zephyr-testing
+      revision: f49bd1354616fae4093bf36e5eaee43c51a55127
+      path: tools/net-tools
+      groups:
+        - tools
+
+    # Custom application placeholder
+    - name: sensor-app
+      url: https://github.com/example/sensor-app.git
+      revision: develop
+      path: applications/sensor-app
+      groups:
+        - applications
+
+  group-filter: [+tools, +applications]
+
+  self:
+    path: manifests
+EOF
+</code></pre>
+<p><strong>Create a production manifest:</strong></p>
+<pre><code class="language-bash">cat &gt; west-production.yml &lt;&lt; 'EOF'
+# Production Manifest for IoT Sensor Project
+# Locked versions for stable deployment
+manifest:
+  defaults:
+    remote: upstream
+
+  remotes:
+    - name: upstream
+      url-base: https://github.com/zephyrproject-rtos
+    - name: production
+      url-base: https://github.com/mycompany/production
+
+  projects:
+    # Zephyr locked to specific commit for stability
+    - name: zephyr
+      revision: 8a63b32f1c2d3e4f5a6b7c8d9e0f1a2b3c4d5e6f
+      west-commands: scripts/west-commands.yml
+      import: 
+        # Only import essential modules, exclude testing
+        name-allowlist: 
+          - hal_nordic
+          - cmsis
+          - mbedtls
+          - lvgl
+
+    # Production application with tagged release
+    - name: sensor-app
+      remote: production
+      revision: v2.1.0
+      path: applications/sensor-app
+
+  # Exclude all development and testing groups
+  group-filter: [-babblesim, -optional, -testing]
+
+  self:
+    path: manifests
+EOF
+</code></pre>
+<h3 id="step-2-test-custom-manifests">Step 2: Test Custom Manifests</h3>
+<p><strong>Initialize workspace with development manifest:</strong></p>
+<pre><code class="language-bash"># Commit manifest files
+git add .
+git commit -m &quot;Add development and production manifests&quot;
+
+# Create development workspace
+cd ~/west_lab
+mkdir dev-workspace
+cd dev-workspace
+
+# Initialize with development manifest
+west init -l ../custom-manifest/
+west update --stats
+
+# Verify workspace contents
+west list -f &quot;{name:20} {path:30} {groups}&quot;
+</code></pre>
+<p><strong>Test manifest switching:</strong></p>
+<pre><code class="language-bash"># Switch to production manifest
+west config manifest.file west-production.yml
+west update --stats
+
+# Compare project lists
+echo &quot;=== Development Projects ===&quot;
+west config manifest.file west.yml
+west list | wc -l
+
+echo &quot;=== Production Projects ===&quot;
+west config manifest.file west-production.yml
+west list | wc -l
+</code></pre>
+<h3 id="step-3-manifest-validation-and-debugging">Step 3: Manifest Validation and Debugging</h3>
+<p><strong>Validate manifest syntax:</strong></p>
+<pre><code class="language-bash"># Check manifest validity
+west manifest --validate
+
+# Show resolved manifest content
+west manifest --resolve | head -50
+
+# Debug manifest processing
+west --verbose manifest --resolve &gt; resolved-manifest.yml
+</code></pre>
+<hr />
+<h2 id="lab-exercise-3-multi-repository-development-workflow">Lab Exercise 3: Multi-Repository Development Workflow</h2>
+<h3 id="objective_2">Objective</h3>
+<p>Implement a professional development workflow using multiple repositories, feature branches, and coordinated updates across the workspace.</p>
+<h3 id="step-1-set-up-multi-repository-project">Step 1: Set Up Multi-Repository Project</h3>
+<p><strong>Create a realistic project structure:</strong></p>
+<pre><code class="language-bash">cd ~/west_lab
+mkdir iot-project
+cd iot-project
+
+# Create application repository
+mkdir sensor-application
+cd sensor-application
+git init
+
+# Create basic application structure
+mkdir -p src include boards/rpi_4b
+cat &gt; CMakeLists.txt &lt;&lt; 'EOF'
+cmake_minimum_required(VERSION 3.20.0)
+find_package(Zephyr REQUIRED HINTS $ENV{ZEPHYR_BASE})
+project(iot_sensor)
+
+target_sources(app PRIVATE
+    src/main.c
+    src/sensor_manager.c
+    src/data_processor.c
+)
+
+target_include_directories(app PRIVATE include)
+EOF
+
+cat &gt; prj.conf &lt;&lt; 'EOF'
+# IoT Sensor Application Configuration
+CONFIG_MAIN_STACK_SIZE=4096
+CONFIG_SYSTEM_WORKQUEUE_STACK_SIZE=2048
+
+# Sensor support
+CONFIG_I2C=y
+CONFIG_SENSOR=y
+CONFIG_GPIO=y
+
+# Logging
+CONFIG_LOG=y
+CONFIG_LOG_DEFAULT_LEVEL=3
+
+# Networking (for IoT connectivity)
+CONFIG_NETWORKING=y
+CONFIG_NET_IPV4=y
+CONFIG_NET_UDP=y
+CONFIG_NET_DHCPV4=y
+EOF
+
+cat &gt; src/main.c &lt;&lt; 'EOF'
+#include &lt;zephyr/kernel.h&gt;
+#include &lt;zephyr/drivers/gpio.h&gt;
+#include &lt;zephyr/drivers/sensor.h&gt;
+#include &lt;zephyr/logging/log.h&gt;
+
+LOG_MODULE_REGISTER(iot_sensor, LOG_LEVEL_INF);
+
+#define LED_NODE DT_ALIAS(led0)
+static const struct gpio_dt_spec led = GPIO_DT_SPEC_GET_OR(LED_NODE, gpios, {0});
+
+int main(void)
+{
+    LOG_INF(&quot;IoT Sensor Application Starting&quot;);
+    LOG_INF(&quot;Target: %s&quot;, CONFIG_BOARD);
+
+    // Initialize LED
+    if (gpio_is_ready_dt(&amp;led)) {
+        gpio_pin_configure_dt(&amp;led, GPIO_OUTPUT_INACTIVE);
+        LOG_INF(&quot;LED initialized successfully&quot;);
+    } else {
+        LOG_WRN(&quot;LED not available&quot;);
+    }
+
+    while (1) {
+        if (gpio_is_ready_dt(&amp;led)) {
+            gpio_pin_toggle_dt(&amp;led);
+        }
+
+        LOG_INF(&quot;Sensor reading cycle&quot;);
+        k_sleep(K_SECONDS(2));
+    }
+
+    return 0;
+}
+EOF
+
+cat &gt; src/sensor_manager.c &lt;&lt; 'EOF'
+#include &lt;zephyr/kernel.h&gt;
+#include &lt;zephyr/logging/log.h&gt;
+
+LOG_MODULE_REGISTER(sensor_mgr, LOG_LEVEL_DBG);
+
+void sensor_manager_init(void)
+{
+    LOG_INF(&quot;Sensor manager initialized&quot;);
+}
+
+int sensor_read_temperature(float *temperature)
+{
+    // Simulated temperature reading
+    *temperature = 23.5f;
+    LOG_DBG(&quot;Temperature reading: %.1f°C&quot;, *temperature);
+    return 0;
+}
+EOF
+
+cat &gt; src/data_processor.c &lt;&lt; 'EOF'
+#include &lt;zephyr/kernel.h&gt;
+#include &lt;zephyr/logging/log.h&gt;
+
+LOG_MODULE_REGISTER(data_proc, LOG_LEVEL_DBG);
+
+void data_processor_init(void)
+{
+    LOG_INF(&quot;Data processor initialized&quot;);
+}
+
+int process_sensor_data(float temperature)
+{
+    LOG_DBG(&quot;Processing temperature: %.1f°C&quot;, temperature);
+
+    // Simple processing logic
+    if (temperature &gt; 25.0f) {
+        LOG_WRN(&quot;High temperature detected: %.1f°C&quot;, temperature);
+        return 1;
+    }
+
+    return 0;
+}
+EOF
+
+# Create header files
+cat &gt; include/sensor_manager.h &lt;&lt; 'EOF'
+#ifndef SENSOR_MANAGER_H
+#define SENSOR_MANAGER_H
+
+void sensor_manager_init(void);
+int sensor_read_temperature(float *temperature);
+
+#endif
+EOF
+
+cat &gt; include/data_processor.h &lt;&lt; 'EOF'
+#ifndef DATA_PROCESSOR_H
+#define DATA_PROCESSOR_H
+
+void data_processor_init(void);
+int process_sensor_data(float temperature);
+
+#endif
+EOF
+
+# Create board-specific overlay
+cat &gt; boards/rpi_4b.overlay &lt;&lt; 'EOF'
+/ {
+    aliases {
+        led0 = &amp;status_led;
+    };
+
+    leds {
+        compatible = &quot;gpio-leds&quot;;
+        status_led: led_0 {
+            gpios = &lt;&amp;gpio0 18 GPIO_ACTIVE_HIGH&gt;;
+            label = &quot;Status LED&quot;;
+        };
+    };
+};
+
+&amp;gpio0 {
+    status = &quot;okay&quot;;
+};
+EOF
+
+git add .
+git commit -m &quot;Initial IoT sensor application&quot;
+cd ..
+</code></pre>
+<p><strong>Create custom drivers repository:</strong></p>
+<pre><code class="language-bash">mkdir custom-drivers
+cd custom-drivers
+git init
+
+mkdir -p drivers/sensor include/drivers
+cat &gt; drivers/sensor/custom_temp_sensor.c &lt;&lt; 'EOF'
+#include &lt;zephyr/kernel.h&gt;
+#include &lt;zephyr/device.h&gt;
+#include &lt;zephyr/drivers/sensor.h&gt;
+#include &lt;zephyr/logging/log.h&gt;
+
+LOG_MODULE_REGISTER(custom_temp_sensor, LOG_LEVEL_DBG);
+
+struct custom_temp_data {
+    float temperature;
+};
+
+static int custom_temp_sample_fetch(const struct device *dev,
+                                  enum sensor_channel chan)
+{
+    struct custom_temp_data *data = dev-&gt;data;
+
+    // Simulate sensor reading
+    data-&gt;temperature = 22.0f + (k_uptime_get() % 100) / 10.0f;
+
+    LOG_DBG(&quot;Fetched temperature: %.1f°C&quot;, data-&gt;temperature);
+    return 0;
+}
+
+static int custom_temp_channel_get(const struct device *dev,
+                                 enum sensor_channel chan,
+                                 struct sensor_value *val)
+{
+    struct custom_temp_data *data = dev-&gt;data;
+
+    if (chan != SENSOR_CHAN_AMBIENT_TEMP) {
+        return -ENOTSUP;
+    }
+
+    val-&gt;val1 = (int32_t)data-&gt;temperature;
+    val-&gt;val2 = ((int32_t)(data-&gt;temperature * 1000000)) % 1000000;
+
+    return 0;
+}
+
+static const struct sensor_driver_api custom_temp_api = {
+    .sample_fetch = custom_temp_sample_fetch,
+    .channel_get = custom_temp_channel_get,
+};
+
+static struct custom_temp_data custom_temp_data_0;
+
+DEVICE_DT_INST_DEFINE(0, NULL, NULL,
+                      &amp;custom_temp_data_0, NULL,
+                      POST_KERNEL, CONFIG_SENSOR_INIT_PRIORITY,
+                      &amp;custom_temp_api);
+EOF
+
+cat &gt; include/drivers/custom_temp_sensor.h &lt;&lt; 'EOF'
+#ifndef CUSTOM_TEMP_SENSOR_H
+#define CUSTOM_TEMP_SENSOR_H
+
+#include &lt;zephyr/drivers/sensor.h&gt;
+
+#define CUSTOM_TEMP_SENSOR_NODE DT_INST(0, custom_temp_sensor)
+
+#endif
+EOF
+
+git add .
+git commit -m &quot;Add custom temperature sensor driver&quot;
+cd ..
+</code></pre>
+<h3 id="step-2-create-comprehensive-project-manifest">Step 2: Create Comprehensive Project Manifest</h3>
+<p><strong>Create project manifest:</strong></p>
+<pre><code class="language-bash">cd ~/west_lab/iot-project
+mkdir manifests
+cd manifests
+git init
+
+cat &gt; west.yml &lt;&lt; 'EOF'
+      url-base: file://..
+
+  projects:
+    # Core Zephyr RTOS
+    - name: zephyr
+      revision: v3.5.0
+      west-commands: scripts/west-commands.yml
+      import: true
+
+    # Our application code
+    - name: sensor-application
+      remote: local
+      path: app
+      groups: [app]
+
+    # Custom drivers
+    - name: custom-drivers
+      remote: local
+      path: modules/drivers/custom
+      groups: [drivers]
+
+  group-filter: [+app, +drivers]
+
+  self:
+    path: manifests
+EOF
+
+git add west.yml
+git commit -m &quot;Initial IoT project manifest&quot;
+cd ..
+</code></pre>
+<h3 id="step-3-test-multi-repository-workflow">Step 3: Test Multi-Repository Workflow</h3>
+<p><strong>Initialize and test the workspace:</strong></p>
+<pre><code class="language-bash">cd ~/west_lab
+mkdir iot-workspace
+cd iot-workspace
+
+# Initialize workspace
+west init -l ../iot-project/manifests/
+west update
+
+# Verify workspace structure
+tree -L 3 .
+
+# Examine project layout
+west list -f &quot;{name:20} {path:25} {groups}&quot;
+</code></pre>
+<p><strong>Test building the application:</strong></p>
+<pre><code class="language-bash"># Build the IoT application
+west build -b rpi_4b app
+
+# Check build output
+ls -la build/zephyr/
+
+# Test with debug configuration
+echo 'CONFIG_LOG_DEFAULT_LEVEL=4' &gt;&gt; app/prj.conf
+west build -b rpi_4b --pristine app
+
+# Verify debug output in configuration
+grep LOG_DEFAULT_LEVEL build/zephyr/include/generated/autoconf.h
+</code></pre>
+<h3 id="step-4-feature-development-workflow">Step 4: Feature Development Workflow</h3>
+<p><strong>Implement feature branch workflow:</strong></p>
+<pre><code class="language-bash"># Create feature branch across repositories
+west forall -c &quot;git checkout -b feature/enhanced-logging&quot;
+
+# Modify application for enhanced logging
+cat &gt;&gt; app/src/main.c &lt;&lt; 'EOF'
+
+void log_system_info(void) 
+{
+    LOG_INF(&quot;=== System Information ===&quot;);
+    LOG_INF(&quot;Kernel version: %s&quot;, KERNEL_VERSION_STRING);
+    LOG_INF(&quot;Board: %s&quot;, CONFIG_BOARD);
+    LOG_INF(&quot;CPU: %s&quot;, CONFIG_SOC);
+    LOG_INF(&quot;Free memory: %zu bytes&quot;, k_heap_free_get(&amp;k_malloc_heap));
+    LOG_INF(&quot;==========================&quot;);
+}
+EOF
+
+# Update main function to call system info
+sed -i '/LOG_INF(&quot;IoT Sensor Application Starting&quot;);/a\    log_system_info();' app/src/main.c
+
+# Commit changes in application
+cd app
+git add .
+git commit -m &quot;Add enhanced system information logging&quot;
+cd ..
+
+# Update custom driver with more detailed logging
+sed -i 's/LOG_DBG(&quot;Fetched temperature:/LOG_INF(&quot;Sensor fetch - temperature:/g' modules/drivers/custom/drivers/sensor/custom_temp_sensor.c
+
+cd modules/drivers/custom
+git add .
+git commit -m &quot;Enhance driver logging for debugging&quot;
+cd ../../..
+
+# Test the enhanced feature
+west build -b rpi_4b --pristine app
+
+# Show git status across all repositories
+west status
+</code></pre>
+<hr />
+<h2 id="lab-exercise-4-advanced-west-configuration">Lab Exercise 4: Advanced West Configuration</h2>
+<h3 id="objective_3">Objective</h3>
+<p>Configure advanced West features including build defaults, extension commands, and workspace automation.</p>
+<h3 id="step-1-advanced-configuration-setup">Step 1: Advanced Configuration Setup</h3>
+<p><strong>Configure build defaults:</strong></p>
+<pre><code class="language-bash">cd ~/west_lab/iot-workspace
+
+# Set comprehensive build defaults
+west config build.board rpi_4b
+west config build.pristine auto
+west config build.dir-fmt &quot;build-{board}-{source_dir}&quot;
+west config build.cmake-args -- &quot;-DCMAKE_EXPORT_COMPILE_COMMANDS=ON&quot;
+
+# Configure update behavior
+west config update.sync true
+west config update.narrow false
+
+# Set debugging preferences
+west config runner.openocd.gdb-port 3333
+west config runner.gdb.exe arm-none-eabi-gdb
+</code></pre>
+<p><strong>Create custom West extension commands:</strong></p>
+<pre><code class="language-bash">mkdir -p tools/west-commands
+cat &gt; tools/west-commands/custom_commands.py &lt;&lt; 'EOF'
+&quot;&quot;&quot;Custom West commands for IoT project development&quot;&quot;&quot;
+
+import os
+import subprocess
+from west.commands import WestCommand
+from west import log
+
+class ProjectInfo(WestCommand):
+    def __init__(self):
+        super().__init__(
+            'project-info',
+            'show detailed project information',
+            'Display comprehensive information about the IoT project workspace')
+
+    def do_add_parser(self, parser_adder):
+        parser = parser_adder.add_parser(self.name, help=self.help)
+        parser.add_argument('--verbose', '-v', action='store_true',
+                          help='show verbose output')
+        return parser
+
+    def do_run(self, args, unknown_args):
+        log.inf(&quot;=== IoT Project Information ===&quot;)
+
+        # Show workspace info
+        result = subprocess.run(['west', 'topdir'], capture_output=True, text=True)
+        if result.returncode == 0:
+            log.inf(f&quot;Workspace root: {result.stdout.strip()}&quot;)
+
+        # Show active projects
+        result = subprocess.run(['west', 'list', '--format={name}'], 
+                              capture_output=True, text=True)
+        if result.returncode == 0:
+            projects = result.stdout.strip().split('\n')
+            log.inf(f&quot;Active projects: {len(projects)}&quot;)
+            if args.verbose:
+                for project in projects:
+                    log.inf(f&quot;  - {project}&quot;)
+
+        # Show build configuration
+        result = subprocess.run(['west', 'config', 'build.board'], 
+                              capture_output=True, text=True)
+        if result.returncode == 0:
+            log.inf(f&quot;Default board: {result.stdout.strip()}&quot;)
+
+class QuickBuild(WestCommand):
+    def __init__(self):
+        super().__init__(
+            'quick-build',
+            'build with predefined configurations',
+            'Quick build command with common configuration presets')
+
+    def do_add_parser(self, parser_adder):
+        parser = parser_adder.add_parser(self.name, help=self.help)
+        parser.add_argument('preset', choices=['debug', 'release', 'test'],
+                          help='build preset to use')
+        parser.add_argument('--board', '-b', 
+                          help='target board (overrides default)')
+        return parser
+
+    def do_run(self, args, unknown_args):
+        board = args.board or 'rpi_4b'
+
+        config_files = {
+            'debug': 'prj.conf',
+            'release': 'prj.conf',  # Could add release-specific config
+            'test': 'prj.conf'      # Could add test-specific config
+        }
+
+        build_args = ['west', 'build', '-b', board, '--pristine']
+
+        if args.preset == 'debug':
+            build_args.extend(['--', '-DCONF_FILE=prj.conf', 
+                             '-DCMAKE_BUILD_TYPE=Debug'])
+        elif args.preset == 'release':
+            build_args.extend(['--', '-DCONF_FILE=prj.conf',
+                             '-DCMAKE_BUILD_TYPE=Release'])
+        elif args.preset == 'test':
+            build_args.extend(['--', '-DCONF_FILE=prj.conf',
+                             '-DCONFIG_ZTEST=y'])
+
+        build_args.append('app')
+
+        log.inf(f&quot;Building {args.preset} configuration for {board}&quot;)
+        subprocess.run(build_args)
+
+# Register commands
+WEST_COMMANDS = [ProjectInfo(), QuickBuild()]
+EOF
+
+cat &gt; tools/west-commands.yml &lt;&lt; 'EOF'
+west-commands:
+  - file: tools/west-commands/custom_commands.py
+EOF
+
+# Add custom commands to manifest
+cd manifests
+sed -i '/self:/a\    west-commands: ../tools/west-commands.yml' west.yml
+git add ../tools/
+git add west.yml
+git commit -m &quot;Add custom West extension commands&quot;
+cd ..
+
+# Update workspace to include new commands
+west update
+</code></pre>
+<h3 id="step-2-test-advanced-features">Step 2: Test Advanced Features</h3>
+<p><strong>Test custom commands:</strong></p>
+<pre><code class="language-bash"># Test project info command
+west project-info
+west project-info --verbose
+
+# Test quick build presets
+west quick-build debug
+west quick-build release --board rpi_4b
+
+# Verify build outputs
+ls -la build*/zephyr/zephyr.elf
+</code></pre>
+<p><strong>Advanced workspace operations:</strong></p>
+<pre><code class="language-bash"># Show comprehensive workspace status
+west status --verbose
+
+# Perform batch operations across repositories
+west forall -c &quot;git log --oneline -3&quot;
+
+# Check for security vulnerabilities in dependencies
+west forall -c &quot;git fsck --full&quot; | grep -i error || echo &quot;All repositories healthy&quot;
+
+# Generate workspace documentation
+west list -f &quot;{name:15} {url:50} {revision:10}&quot; &gt; workspace-inventory.txt
+cat workspace-inventory.txt
+</code></pre>
+<hr />
+<h2 id="lab-exercise-5-production-deployment-workflow">Lab Exercise 5: Production Deployment Workflow</h2>
+<h3 id="objective_4">Objective</h3>
+<p>Implement a production-ready deployment workflow with version locking, automated testing, and release management.</p>
+<h3 id="step-1-create-release-management-system">Step 1: Create Release Management System</h3>
+<p><strong>Set up release configuration:</strong></p>
+<pre><code class="language-bash">cd ~/west_lab/iot-project/manifests
+
+# Create production release manifest
+cat &gt; west-release-v1.0.yml &lt;&lt; 'EOF'
+# IoT Project Production Release v1.0
+# All components locked to tested versions
+manifest:
+  defaults:
+    remote: upstream
+
+  remotes:
+    - name: upstream
+      url-base: https://github.com/zephyrproject-rtos
+    # Note: Using a relative file path for a local manifest repository.
+    # This is useful for self-contained projects like this lab.
+    - name: local      url-base: file:///home/user/west_lab/iot-project
+
+  projects:
+    # Zephyr locked to LTS version
+    - name: zephyr
+      revision: v3.5.0  # LTS release
+      west-commands: scripts/west-commands.yml
+      import:
+        # Only essential modules for production
+        name-allowlist:
+          - cmsis
+          - hal_rpi_pico
+          - mbedtls
+          - tinycrypt
+        name-blocklist:
+          - bsim
+          - babblesim
+          - openthread
+
+    # Application locked to release tag
+    - name: sensor-application
+      remote: local
+      revision: HEAD  # Would be a release tag in real scenario
+      path: app
+
+    # Drivers locked to stable version
+    - name: custom-drivers
+      remote: local  
+      revision: HEAD  # Would be a release tag in real scenario
+      path: modules/drivers/custom
+
+  # Exclude all non-production groups
+  group-filter: [-babblesim, -optional, -testing]
+
+  self:
+    path: manifests
+EOF
+
+git add west-release-v1.0.yml
+git commit -m &quot;Add production release manifest v1.0&quot;
+</code></pre>
+<p><strong>Create automated build and test script:</strong></p>
+<pre><code class="language-bash">cd ~/west_lab/iot-project
+cat &gt; tools/build-release.sh &lt;&lt; 'EOF'
+#!/bin/bash
+set -e
+
+RELEASE_VERSION=$1
+BOARDS=(&quot;rpi_4b&quot;)
+
+if [ -z &quot;$RELEASE_VERSION&quot; ]; then
+    echo &quot;Usage: $0 &lt;release-version&gt;&quot;
+    echo &quot;Example: $0 v1.0.0&quot;
+    exit 1
+fi
+
+echo &quot;=== Building Release $RELEASE_VERSION ===&quot;
+
+# Create release workspace
+RELEASE_DIR=&quot;release-$RELEASE_VERSION&quot;
+rm -rf &quot;$RELEASE_DIR&quot;
+mkdir &quot;$RELEASE_DIR&quot;
+cd &quot;$RELEASE_DIR&quot;
+
+# Initialize with release manifest
+west init -l &quot;../manifests/&quot; -m &quot;west-release-$RELEASE_VERSION.yml&quot;
+west update --stats
+
+echo &quot;=== Workspace initialized ===&quot;
+west list
+
+# Build for all supported boards
+for board in &quot;${BOARDS[@]}&quot;; do
+    echo &quot;=== Building for $board ===&quot;
+    west build -b &quot;$board&quot; --pristine app
+
+    # Copy binary to release artifacts
+    mkdir -p &quot;artifacts/$board&quot;
+    cp &quot;build/zephyr/zephyr.elf&quot; &quot;artifacts/$board/&quot;
+    cp &quot;build/zephyr/zephyr.bin&quot; &quot;artifacts/$board/&quot; 2&gt;/dev/null || true
+    cp &quot;build/zephyr/zephyr.hex&quot; &quot;artifacts/$board/&quot; 2&gt;/dev/null || true
+
+    # Generate build info
+    echo &quot;Build Date: $(date)&quot; &gt; &quot;artifacts/$board/build-info.txt&quot;
+    echo &quot;Release: $RELEASE_VERSION&quot; &gt;&gt; &quot;artifacts/$board/build-info.txt&quot;
+    echo &quot;Board: $board&quot; &gt;&gt; &quot;artifacts/$board/build-info.txt&quot;
+    echo &quot;Zephyr Version: $(cat zephyr/VERSION)&quot; &gt;&gt; &quot;artifacts/$board/build-info.txt&quot;
+
+    # Clean build directory for next iteration
+    rm -rf build/
+done
+
+echo &quot;=== Release Build Complete ===&quot;
+echo &quot;Artifacts available in: $(pwd)/artifacts/&quot;
+ls -la artifacts/*/
+EOF
+
+chmod +x tools/build-release.sh
+</code></pre>
+<h3 id="step-2-test-release-workflow">Step 2: Test Release Workflow</h3>
+<p><strong>Execute release build:</strong></p>
+<pre><code class="language-bash">cd ~/west_lab/iot-project
+
+# Test the release build process
+./tools/build-release.sh v1.0
+
+# Examine release artifacts
+ls -la release-v1.0/artifacts/
+cat release-v1.0/artifacts/rpi_4b/build-info.txt
+
+# Verify binary size and contents
+file release-v1.0/artifacts/rpi_4b/zephyr.elf
+size release-v1.0/artifacts/rpi_4b/zephyr.elf
+</code></pre>
+<p><strong>Create release validation script:</strong></p>
+<pre><code class="language-bash">cat &gt; tools/validate-release.sh &lt;&lt; 'EOF'
+#!/bin/bash
+set -e
+
+RELEASE_DIR=$1
+
+if [ ! -d &quot;$RELEASE_DIR&quot; ]; then
+    echo &quot;Release directory $RELEASE_DIR not found&quot;
+    exit 1
+fi
+
+echo &quot;=== Validating Release: $RELEASE_DIR ===&quot;
+
+cd &quot;$RELEASE_DIR&quot;
+
+# Validate workspace integrity
+echo &quot;Checking workspace integrity...&quot;
+west status | grep -q &quot;^$&quot; &amp;&amp; echo &quot;✓ All repositories clean&quot; || echo &quot;✗ Uncommitted changes found&quot;
+
+# Validate build artifacts
+echo &quot;Checking build artifacts...&quot;
+for board_dir in artifacts/*/; do
+    board=$(basename &quot;$board_dir&quot;)
+    echo &quot;Validating $board artifacts...&quot;
+
+    if [ -f &quot;$board_dir/zephyr.elf&quot; ]; then
+        echo &quot;✓ ELF binary exists&quot;
+        file_output=$(file &quot;$board_dir/zephyr.elf&quot;)
+        echo &quot;  Type: $file_output&quot;
+    else
+        echo &quot;✗ ELF binary missing&quot;
+    fi
+
+    if [ -f &quot;$board_dir/build-info.txt&quot; ]; then
+        echo &quot;✓ Build info exists&quot;
+        echo &quot;  $(cat &quot;$board_dir/build-info.txt&quot; | head -2)&quot;
+    else
+        echo &quot;✗ Build info missing&quot;
+    fi
+done
+
+# Generate release report
+echo &quot;=== Release Report ===&quot; &gt; release-report.txt
+date &gt;&gt; release-report.txt
+west list -f &quot;{name:20} {revision:40}&quot; &gt;&gt; release-report.txt
+echo &quot;&quot; &gt;&gt; release-report.txt
+echo &quot;Build Artifacts:&quot; &gt;&gt; release-report.txt
+find artifacts/ -name &quot;*.elf&quot; -exec ls -lh {} \; &gt;&gt; release-report.txt
+
+echo &quot;✓ Release validation complete&quot;
+echo &quot;Report saved to: $(pwd)/release-report.txt&quot;
+EOF
+
+chmod +x tools/validate-release.sh
+
+# Validate the release
+./tools/validate-release.sh release-v1.0
+
+# Review validation report
+cat release-v1.0/release-report.txt
+</code></pre>
+<hr />
+<h2 id="lab-summary-and-best-practices">Lab Summary and Best Practices</h2>
+<h3 id="key-skills-developed">Key Skills Developed</h3>
+<p>Through these exercises, you have mastered:</p>
+<ol>
+<li><strong>West Workspace Management:</strong> Understanding workspace structure, manifest configuration, and repository relationships</li>
+<li><strong>Custom Manifest Creation:</strong> Building development, production, and testing manifest configurations</li>
+<li><strong>Multi-Repository Workflows:</strong> Coordinating development across multiple repositories with proper branching strategies</li>
+<li><strong>Advanced West Configuration:</strong> Implementing custom commands, build defaults, and automation scripts</li>
+<li><strong>Production Deployment:</strong> Creating reproducible release processes with version locking and validation</li>
+</ol>
+<h3 id="professional-development-workflows">Professional Development Workflows</h3>
+<p><strong>Development Phase Best Practices:</strong>
+- Use development manifests with latest stable versions
+- Enable comprehensive testing and debugging tools
+- Implement feature branch workflows across all repositories
+- Maintain clean commit history in all repositories</p>
+<p><strong>Production Release Best Practices:</strong>
+- Lock all dependencies to specific commit hashes or stable tags
+- Exclude testing and development-only modules from production builds
+- Implement automated build and validation processes
+- Generate comprehensive build reports and artifact inventories</p>
+<p><strong>Team Collaboration Best Practices:</strong>
+- Use shared manifest repositories for team synchronization
+- Implement consistent configuration across all team members
+- Document manifest changes with clear commit messages
+- Use group filters to manage different team roles and requirements</p>
+<h3 id="real-world-applications">Real-World Applications</h3>
+<p>The techniques learned in this lab directly apply to:</p>
+<ul>
+<li><strong>IoT Product Development:</strong> Managing multiple hardware variants and software configurations</li>
+<li><strong>Embedded Systems Teams:</strong> Coordinating development across distributed teams with consistent environments</li>
+<li><strong>Continuous Integration:</strong> Implementing reproducible builds in automated pipelines</li>
+<li><strong>Version Control:</strong> Maintaining precise control over all project dependencies</li>
+</ul>
+<h3 id="next-steps">Next Steps</h3>
+<p>With West mastery complete, you're prepared for:
+- <strong>Advanced Zephyr Development:</strong> Complex applications requiring multiple modules and dependencies
+- <strong>Custom Board Support:</strong> Creating board support packages with proper manifest integration
+- <strong>Production Deployment:</strong> Implementing professional-grade release management processes
+- <strong>Team Leadership:</strong> Architecting development workflows for embedded systems teams</p>
+<p>West provides the foundation for scalable, maintainable Zephyr development. These lab exercises have equipped you with production-ready skills for professional embedded development environments.</p>
+
+
+
+
+
+
+
+  
+    
+  
+  
+
+
+  <aside class="md-source-file">
+    
+      
+  <span class="md-source-file__fact">
+    <span class="md-icon" title="Last update">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M21 13.1c-.1 0-.3.1-.4.2l-1 1 2.1 2.1 1-1c.2-.2.2-.6 0-.8l-1.3-1.3c-.1-.1-.2-.2-.4-.2m-1.9 1.8-6.1 6V23h2.1l6.1-6.1zM12.5 7v5.2l4 2.4-1 1L11 13V7zM11 21.9c-5.1-.5-9-4.8-9-9.9C2 6.5 6.5 2 12 2c5.3 0 9.6 4.1 10 9.3-.3-.1-.6-.2-1-.2s-.7.1-1 .2C19.6 7.2 16.2 4 12 4c-4.4 0-8 3.6-8 8 0 4.1 3.1 7.5 7.1 7.9l-.1.2z"/></svg>
+    </span>
+    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date" title="October 18, 2025 08:49:53 UTC">October 18, 2025</span>
+  </span>
+
+    
+    
+    
+    
+  </aside>
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    
+      
+      <script id="__config" type="application/json">{"base": "../..", "features": [], "search": "../../assets/javascripts/workers/search.973d3a69.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": null}</script>
+    
+    
+      <script src="../../assets/javascripts/bundle.f55a23d4.min.js"></script>
+      
+    
+  </body>
+</html>

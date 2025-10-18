@@ -1,0 +1,3594 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+      
+      
+      
+        <link rel="prev" href="../introduction/">
+      
+      
+        <link rel="next" href="../lab/">
+      
+      
+      <link rel="icon" href="../../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.6.22">
+    
+    
+      
+        <title>Theory - Zephyr RTOS Development Course</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../assets/stylesheets/main.84d31ad4.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+    <script>__md_scope=new URL("../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+    
+  </head>
+  
+  
+    <body dir="ltr">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#chapter-12-inter-thread-communication" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href="../.." title="Zephyr RTOS Development Course" class="md-header__button md-logo" aria-label="Zephyr RTOS Development Course" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            Zephyr RTOS Development Course
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              Theory
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+
+<nav class="md-nav md-nav--primary" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../.." title="Zephyr RTOS Development Course" class="md-nav__button md-logo" aria-label="Zephyr RTOS Development Course" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    Zephyr RTOS Development Course
+  </label>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../.." class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Home
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2" >
+        
+          
+          <label class="md-nav__link" for="__nav_2" id="__nav_2_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    Contributing
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2">
+            <span class="md-nav__icon md-icon"></span>
+            Contributing
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../CONDUCT/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Code of Conduct
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../CONTRIBUTING/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Contributing
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../chapter_01_course_introduction/introduction/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Chapter 1: Course Introduction
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4" >
+        
+          
+          <label class="md-nav__link" for="__nav_4" id="__nav_4_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    Chapter 2: Introduction to Zephyr
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_4_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_4">
+            <span class="md-nav__icon md-icon"></span>
+            Chapter 2: Introduction to Zephyr
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../chapter_02_introduction_to_zephyr/introduction/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Introduction
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../chapter_02_introduction_to_zephyr/theory/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Theory
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../chapter_02_introduction_to_zephyr/lab/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Lab
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5" >
+        
+          
+          <label class="md-nav__link" for="__nav_5" id="__nav_5_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    Chapter 3: Zephyr Build System
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_5_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_5">
+            <span class="md-nav__icon md-icon"></span>
+            Chapter 3: Zephyr Build System
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../chapter_03_zephyr_build_system/introduction/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Introduction
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../chapter_03_zephyr_build_system/theory/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Theory
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../chapter_03_zephyr_build_system/lab/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Lab
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_6" >
+        
+          
+          <label class="md-nav__link" for="__nav_6" id="__nav_6_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    Chapter 4: Configure Zephyr
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_6_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_6">
+            <span class="md-nav__icon md-icon"></span>
+            Chapter 4: Configure Zephyr
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../chapter_04_configure_zephyr/introduction/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Introduction
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../chapter_04_configure_zephyr/theory/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Theory
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../chapter_04_configure_zephyr/lab/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Lab
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_7" >
+        
+          
+          <label class="md-nav__link" for="__nav_7" id="__nav_7_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    Chapter 5: West
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_7_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_7">
+            <span class="md-nav__icon md-icon"></span>
+            Chapter 5: West
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../chapter_05_west/introduction/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Introduction
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../chapter_05_west/theory/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Theory
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../chapter_05_west/lab/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Lab
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_8" >
+        
+          
+          <label class="md-nav__link" for="__nav_8" id="__nav_8_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    Chapter 6: Zephyr Fundamentals
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_8_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_8">
+            <span class="md-nav__icon md-icon"></span>
+            Chapter 6: Zephyr Fundamentals
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../chapter_06_zephyr_fundamentals/introduction/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Introduction
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../chapter_06_zephyr_fundamentals/theory/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Theory
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../chapter_06_zephyr_fundamentals/lab/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Lab
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_9" >
+        
+          
+          <label class="md-nav__link" for="__nav_9" id="__nav_9_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    Chapter 7: Thread Management
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_9_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_9">
+            <span class="md-nav__icon md-icon"></span>
+            Chapter 7: Thread Management
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../chapter_07_thread_management/introduction/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Introduction
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../chapter_07_thread_management/theory/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Theory
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../chapter_07_thread_management/lab/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Lab
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_10" >
+        
+          
+          <label class="md-nav__link" for="__nav_10" id="__nav_10_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    Chapter 8: Tracing and Logging
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_10_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_10">
+            <span class="md-nav__icon md-icon"></span>
+            Chapter 8: Tracing and Logging
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../chapter_08_tracing_and_logging/introduction/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Introduction
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../chapter_08_tracing_and_logging/theory/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Theory
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../chapter_08_tracing_and_logging/lab/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Lab
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_11" >
+        
+          
+          <label class="md-nav__link" for="__nav_11" id="__nav_11_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    Chapter 9: Memory Management
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_11_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_11">
+            <span class="md-nav__icon md-icon"></span>
+            Chapter 9: Memory Management
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../chapter_09_memory_management/introduction/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Introduction
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../chapter_09_memory_management/theory/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Theory
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../chapter_09_memory_management/lab/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Lab
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_12" >
+        
+          
+          <label class="md-nav__link" for="__nav_12" id="__nav_12_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    Chapter 10: User Mode
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_12_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_12">
+            <span class="md-nav__icon md-icon"></span>
+            Chapter 10: User Mode
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../chapter_10_user_mode/introduction/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Introduction
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../chapter_10_user_mode/theory/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Theory
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../chapter_10_user_mode/lab/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Lab
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_13" >
+        
+          
+          <label class="md-nav__link" for="__nav_13" id="__nav_13_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    Chapter 11: Traditional Multithreading Primitives
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_13_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_13">
+            <span class="md-nav__icon md-icon"></span>
+            Chapter 11: Traditional Multithreading Primitives
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../chapter_11_traditional_multithreading_primitives/introduction/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Introduction
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../chapter_11_traditional_multithreading_primitives/theory/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Theory
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../chapter_11_traditional_multithreading_primitives/lab/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Lab
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_14" checked>
+        
+          
+          <label class="md-nav__link" for="__nav_14" id="__nav_14_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    Chapter 12: Inter-thread Communication
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_14_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_14">
+            <span class="md-nav__icon md-icon"></span>
+            Chapter 12: Inter-thread Communication
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../introduction/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Introduction
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    Theory
+    
+  </span>
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        
+  
+  
+  <span class="md-ellipsis">
+    Theory
+    
+  </span>
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#theory-and-implementation" class="md-nav__link">
+    <span class="md-ellipsis">
+      Theory and Implementation
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Theory and Implementation">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#1-message-queues-structured-data-exchange" class="md-nav__link">
+    <span class="md-ellipsis">
+      1. Message Queues: Structured Data Exchange
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="1. Message Queues: Structured Data Exchange">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#core-concepts" class="md-nav__link">
+    <span class="md-ellipsis">
+      Core Concepts
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#api-usage-patterns" class="md-nav__link">
+    <span class="md-ellipsis">
+      API Usage Patterns
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#advanced-queue-operations" class="md-nav__link">
+    <span class="md-ellipsis">
+      Advanced Queue Operations
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#2-fifos-and-lifos-ordered-data-processing" class="md-nav__link">
+    <span class="md-ellipsis">
+      2. FIFOs and LIFOs: Ordered Data Processing
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="2. FIFOs and LIFOs: Ordered Data Processing">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#fifo-implementation" class="md-nav__link">
+    <span class="md-ellipsis">
+      FIFO Implementation
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#lifo-implementation" class="md-nav__link">
+    <span class="md-ellipsis">
+      LIFO Implementation
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#3-mailboxes-complex-message-passing" class="md-nav__link">
+    <span class="md-ellipsis">
+      3. Mailboxes: Complex Message Passing
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="3. Mailboxes: Complex Message Passing">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#basic-mailbox-operations" class="md-nav__link">
+    <span class="md-ellipsis">
+      Basic Mailbox Operations
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#4-zephyr-bus-zbus-publish-subscribe-architecture" class="md-nav__link">
+    <span class="md-ellipsis">
+      4. Zephyr Bus (Zbus): Publish-Subscribe Architecture
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="4. Zephyr Bus (Zbus): Publish-Subscribe Architecture">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#channel-definition-and-management" class="md-nav__link">
+    <span class="md-ellipsis">
+      Channel Definition and Management
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#observer-implementation" class="md-nav__link">
+    <span class="md-ellipsis">
+      Observer Implementation
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#publishing-data" class="md-nav__link">
+    <span class="md-ellipsis">
+      Publishing Data
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#runtime-observer-management" class="md-nav__link">
+    <span class="md-ellipsis">
+      Runtime Observer Management
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#5-pipes-streaming-data-communication" class="md-nav__link">
+    <span class="md-ellipsis">
+      5. Pipes: Streaming Data Communication
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="5. Pipes: Streaming Data Communication">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#basic-pipe-operations" class="md-nav__link">
+    <span class="md-ellipsis">
+      Basic Pipe Operations
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#advanced-pipe-usage" class="md-nav__link">
+    <span class="md-ellipsis">
+      Advanced Pipe Usage
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#6-communication-mechanism-selection-guide" class="md-nav__link">
+    <span class="md-ellipsis">
+      6. Communication Mechanism Selection Guide
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="6. Communication Mechanism Selection Guide">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#decision-matrix" class="md-nav__link">
+    <span class="md-ellipsis">
+      Decision Matrix
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#selection-criteria" class="md-nav__link">
+    <span class="md-ellipsis">
+      Selection Criteria
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lab/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Lab
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_15" >
+        
+          
+          <label class="md-nav__link" for="__nav_15" id="__nav_15_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    Chapter 13: Interrupt Management
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_15_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_15">
+            <span class="md-nav__icon md-icon"></span>
+            Chapter 13: Interrupt Management
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../chapter_13_interrupt_management/introduction/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Introduction
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../chapter_13_interrupt_management/theory/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Theory
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../chapter_13_interrupt_management/lab/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Lab
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_16" >
+        
+          
+          <label class="md-nav__link" for="__nav_16" id="__nav_16_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    Chapter 14: Modules
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_16_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_16">
+            <span class="md-nav__icon md-icon"></span>
+            Chapter 14: Modules
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../chapter_14_modules/introduction/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Introduction
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../chapter_14_modules/theory/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Theory
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../chapter_14_modules/lab/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Lab
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_17" >
+        
+          
+          <label class="md-nav__link" for="__nav_17" id="__nav_17_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    Chapter 15: Writing Kconfig Symbols
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_17_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_17">
+            <span class="md-nav__icon md-icon"></span>
+            Chapter 15: Writing Kconfig Symbols
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../chapter_15_writing_kconfig_symbols/introduction/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Introduction
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../chapter_15_writing_kconfig_symbols/theory/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Theory
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../chapter_15_writing_kconfig_symbols/lab/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Lab
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_18" >
+        
+          
+          <label class="md-nav__link" for="__nav_18" id="__nav_18_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    Chapter 16: Device Driver Architecture
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_18_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_18">
+            <span class="md-nav__icon md-icon"></span>
+            Chapter 16: Device Driver Architecture
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../chapter_16_device_driver_architecture/introduction/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Introduction
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../chapter_16_device_driver_architecture/theory/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Theory
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../chapter_16_device_driver_architecture/lab/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Lab
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_19" >
+        
+          
+          <label class="md-nav__link" for="__nav_19" id="__nav_19_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    Chapter 17: Power Management
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_19_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_19">
+            <span class="md-nav__icon md-icon"></span>
+            Chapter 17: Power Management
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../chapter_17_power_management/introduction/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Introduction
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../chapter_17_power_management/theory/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Theory
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../chapter_17_power_management/lab/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Lab
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_20" >
+        
+          
+          <label class="md-nav__link" for="__nav_20" id="__nav_20_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    Chapter 18: Capstone Project
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_20_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_20">
+            <span class="md-nav__icon md-icon"></span>
+            Chapter 18: Capstone Project
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../chapter_18_capstone_project/introduction/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Introduction
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../chapter_18_capstone_project/theory/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Theory
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../chapter_18_capstone_project/lab/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Lab
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../chapter_18_capstone_project/networked_monitor/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Networked Monitor
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#theory-and-implementation" class="md-nav__link">
+    <span class="md-ellipsis">
+      Theory and Implementation
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Theory and Implementation">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#1-message-queues-structured-data-exchange" class="md-nav__link">
+    <span class="md-ellipsis">
+      1. Message Queues: Structured Data Exchange
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="1. Message Queues: Structured Data Exchange">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#core-concepts" class="md-nav__link">
+    <span class="md-ellipsis">
+      Core Concepts
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#api-usage-patterns" class="md-nav__link">
+    <span class="md-ellipsis">
+      API Usage Patterns
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#advanced-queue-operations" class="md-nav__link">
+    <span class="md-ellipsis">
+      Advanced Queue Operations
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#2-fifos-and-lifos-ordered-data-processing" class="md-nav__link">
+    <span class="md-ellipsis">
+      2. FIFOs and LIFOs: Ordered Data Processing
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="2. FIFOs and LIFOs: Ordered Data Processing">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#fifo-implementation" class="md-nav__link">
+    <span class="md-ellipsis">
+      FIFO Implementation
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#lifo-implementation" class="md-nav__link">
+    <span class="md-ellipsis">
+      LIFO Implementation
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#3-mailboxes-complex-message-passing" class="md-nav__link">
+    <span class="md-ellipsis">
+      3. Mailboxes: Complex Message Passing
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="3. Mailboxes: Complex Message Passing">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#basic-mailbox-operations" class="md-nav__link">
+    <span class="md-ellipsis">
+      Basic Mailbox Operations
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#4-zephyr-bus-zbus-publish-subscribe-architecture" class="md-nav__link">
+    <span class="md-ellipsis">
+      4. Zephyr Bus (Zbus): Publish-Subscribe Architecture
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="4. Zephyr Bus (Zbus): Publish-Subscribe Architecture">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#channel-definition-and-management" class="md-nav__link">
+    <span class="md-ellipsis">
+      Channel Definition and Management
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#observer-implementation" class="md-nav__link">
+    <span class="md-ellipsis">
+      Observer Implementation
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#publishing-data" class="md-nav__link">
+    <span class="md-ellipsis">
+      Publishing Data
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#runtime-observer-management" class="md-nav__link">
+    <span class="md-ellipsis">
+      Runtime Observer Management
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#5-pipes-streaming-data-communication" class="md-nav__link">
+    <span class="md-ellipsis">
+      5. Pipes: Streaming Data Communication
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="5. Pipes: Streaming Data Communication">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#basic-pipe-operations" class="md-nav__link">
+    <span class="md-ellipsis">
+      Basic Pipe Operations
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#advanced-pipe-usage" class="md-nav__link">
+    <span class="md-ellipsis">
+      Advanced Pipe Usage
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#6-communication-mechanism-selection-guide" class="md-nav__link">
+    <span class="md-ellipsis">
+      6. Communication Mechanism Selection Guide
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="6. Communication Mechanism Selection Guide">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#decision-matrix" class="md-nav__link">
+    <span class="md-ellipsis">
+      Decision Matrix
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#selection-criteria" class="md-nav__link">
+    <span class="md-ellipsis">
+      Selection Criteria
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+
+<h1 id="chapter-12-inter-thread-communication">Chapter 12: Inter-Thread Communication</h1>
+<h2 id="theory-and-implementation">Theory and Implementation</h2>
+<h3 id="1-message-queues-structured-data-exchange">1. Message Queues: Structured Data Exchange</h3>
+<p>Message queues provide the fundamental building blocks for thread-safe data exchange in embedded systems. They implement a producer-consumer pattern where threads can send and receive structured data asynchronously, with built-in buffering and synchronization.</p>
+<h4 id="core-concepts">Core Concepts</h4>
+<p><strong>Message Queue Architecture</strong>: Zephyr message queues store fixed-size messages in a circular buffer. Each queue has a defined capacity and message size, providing predictable memory usage and performance characteristics.</p>
+<p><strong>Thread Safety</strong>: All queue operations are atomic and thread-safe. Multiple threads can safely send and receive messages simultaneously without external synchronization.</p>
+<p><strong>Blocking Behavior</strong>: Operations support configurable timeouts, allowing threads to block indefinitely, timeout after a specified period, or return immediately if the operation cannot complete.</p>
+<h4 id="api-usage-patterns">API Usage Patterns</h4>
+<pre><code class="language-c">#include &lt;zephyr/kernel.h&gt;
+
+// Define message structure
+struct sensor_data {
+    uint32_t timestamp;
+    int16_t temperature;
+    int16_t humidity;
+    uint8_t sensor_id;
+};
+
+// Define message queue with 10 message capacity
+K_MSGQ_DEFINE(sensor_queue, sizeof(struct sensor_data), 10, 4);
+
+// Producer thread - sensor reading
+void sensor_thread(void *arg1, void *arg2, void *arg3)
+{
+    struct sensor_data reading;
+
+    while (1) {
+        // Simulate sensor reading
+        reading.timestamp = k_uptime_get_32();
+        reading.temperature = get_temperature();
+        reading.humidity = get_humidity();
+        reading.sensor_id = SENSOR_DHT22;
+
+        // Send message with 100ms timeout
+        int ret = k_msgq_put(&amp;sensor_queue, &amp;reading, K_MSEC(100));
+        if (ret != 0) {
+            printk(&quot;Failed to send sensor data: %d\n&quot;, ret);
+        }
+
+        k_msleep(1000); // Read every second
+    }
+}
+
+// Consumer thread - data processing
+void processing_thread(void *arg1, void *arg2, void *arg3)
+{
+    struct sensor_data data;
+
+    while (1) {
+        // Wait indefinitely for new data
+        int ret = k_msgq_get(&amp;sensor_queue, &amp;data, K_FOREVER);
+        if (ret == 0) {
+            // Process the sensor data
+            process_sensor_reading(&amp;data);
+
+            // Check queue status
+            uint32_t used = k_msgq_num_used_get(&amp;sensor_queue);
+            if (used &gt; 7) {
+                printk(&quot;Warning: Queue nearly full (%u/10)\n&quot;, used);
+            }
+        }
+    }
+}
+</code></pre>
+<h4 id="advanced-queue-operations">Advanced Queue Operations</h4>
+<p><strong>Queue Inspection</strong>: Monitor queue state for performance analysis and debugging:</p>
+<pre><code class="language-c">void monitor_queue_health(void)
+{
+    uint32_t used = k_msgq_num_used_get(&amp;sensor_queue);
+    uint32_t free = k_msgq_num_free_get(&amp;sensor_queue);
+
+    printk(&quot;Queue status: %u used, %u free\n&quot;, used, free);
+
+    if (used &gt; 8) {
+        // Queue nearly full - consider priority processing
+        handle_queue_congestion();
+    }
+}
+</code></pre>
+<p><strong>Queue Purging</strong>: Clear all pending messages when needed:</p>
+<pre><code class="language-c">void reset_sensor_pipeline(void)
+{
+    k_msgq_purge(&amp;sensor_queue);
+    printk(&quot;Sensor queue cleared\n&quot;);
+}
+</code></pre>
+<h3 id="2-fifos-and-lifos-ordered-data-processing">2. FIFOs and LIFOs: Ordered Data Processing</h3>
+<p>FIFOs (First-In-First-Out) and LIFOs (Last-In-First-Out) provide lightweight mechanisms for passing pointers between threads, enabling efficient zero-copy data transfer for variable-sized objects.</p>
+<h4 id="fifo-implementation">FIFO Implementation</h4>
+<p>FIFOs maintain insertion order, making them ideal for streaming data and sequential processing:</p>
+<pre><code class="language-c">#include &lt;zephyr/kernel.h&gt;
+
+// Data structure for FIFO items
+struct data_packet {
+    void *fifo_reserved;  // Required for FIFO linkage
+    uint8_t *payload;
+    size_t length;
+    uint32_t sequence_num;
+};
+
+// Define FIFO
+K_FIFO_DEFINE(packet_fifo);
+
+// Memory pool for packets
+K_MEM_SLAB_DEFINE(packet_slab, sizeof(struct data_packet), 20, 4);
+
+// Producer thread
+void network_rx_thread(void *arg1, void *arg2, void *arg3)
+{
+    struct data_packet *packet;
+    static uint32_t seq_num = 0;
+
+    while (1) {
+        // Allocate packet from memory pool
+        int ret = k_mem_slab_alloc(&amp;packet_slab, (void **)&amp;packet, K_MSEC(100));
+        if (ret != 0) {
+            printk(&quot;Failed to allocate packet\n&quot;);
+            continue;
+        }
+
+        // Simulate receiving network data
+        packet-&gt;payload = receive_network_data(&amp;packet-&gt;length);
+        packet-&gt;sequence_num = seq_num++;
+
+        // Add to FIFO - never blocks
+        k_fifo_put(&amp;packet_fifo, packet);
+
+        k_yield(); // Allow other threads to run
+    }
+}
+
+// Consumer thread
+void packet_processor_thread(void *arg1, void *arg2, void *arg3)
+{
+    struct data_packet *packet;
+
+    while (1) {
+        // Get next packet in order
+        packet = k_fifo_get(&amp;packet_fifo, K_FOREVER);
+
+        // Process packet data
+        process_packet_data(packet-&gt;payload, packet-&gt;length);
+
+        // Free packet resources
+        free_network_buffer(packet-&gt;payload);
+        k_mem_slab_free(&amp;packet_slab, (void *)packet);
+    }
+}
+</code></pre>
+<h4 id="lifo-implementation">LIFO Implementation</h4>
+<p>LIFOs provide stack behavior, useful for undo operations and recursive processing:</p>
+<pre><code class="language-c">K_LIFO_DEFINE(task_lifo);
+
+struct task_item {
+    void *lifo_reserved;  // Required for LIFO linkage
+    int task_type;
+    void *task_data;
+    k_timeout_t deadline;
+};
+
+// Add urgent task (will be processed first)
+void add_urgent_task(int type, void *data)
+{
+    struct task_item *task = allocate_task_item();
+    task-&gt;task_type = type;
+    task-&gt;task_data = data;
+    task-&gt;deadline = K_MSEC(100);
+
+    k_lifo_put(&amp;task_lifo, task);  // Goes to front of queue
+}
+
+// Task processor
+void task_processor_thread(void *arg1, void *arg2, void *arg3)
+{
+    struct task_item *task;
+
+    while (1) {
+        task = k_lifo_get(&amp;task_lifo, K_MSEC(50));
+        if (task != NULL) {
+            // Process most recent task first
+            execute_task(task-&gt;task_type, task-&gt;task_data);
+            free_task_item(task);
+        } else {
+            // No tasks - perform background maintenance
+            system_maintenance();
+        }
+    }
+}
+</code></pre>
+<h3 id="3-mailboxes-complex-message-passing">3. Mailboxes: Complex Message Passing</h3>
+<p>Mailboxes provide sophisticated message passing with support for variable message sizes and complex delivery semantics. They're ideal for request-response patterns and inter-service communication.</p>
+<h4 id="basic-mailbox-operations">Basic Mailbox Operations</h4>
+<pre><code class="language-c">#include &lt;zephyr/kernel.h&gt;
+
+// Define mailbox
+K_MBOX_DEFINE(service_mbox);
+
+// Message structure
+struct service_request {
+    uint32_t request_id;
+    uint8_t service_type;
+    void *request_data;
+    size_t data_size;
+    k_tid_t sender_tid;
+};
+
+struct service_response {
+    uint32_t request_id;
+    int status_code;
+    void *response_data;
+    size_t data_size;
+};
+
+// Client thread - send request
+int send_service_request(uint8_t service, void *data, size_t size, 
+                        struct service_response *response)
+{
+    static uint32_t req_id = 1;
+    struct service_request request = {
+        .request_id = req_id++,
+        .service_type = service,
+        .request_data = data,
+        .data_size = size,
+        .sender_tid = k_current_get()
+    };
+
+    struct k_mbox_msg send_msg = {
+        .info = request.request_id,
+        .size = sizeof(request),
+        .tx_data = &amp;request,
+        .tx_target_thread = K_ANY
+    };
+
+    // Send request
+    int ret = k_mbox_put(&amp;service_mbox, &amp;send_msg, K_MSEC(1000));
+    if (ret != 0) {
+        return ret;
+    }
+
+    // Wait for response
+    struct k_mbox_msg recv_msg = {
+        .info = request.request_id,
+        .size = sizeof(*response),
+        .rx_source_thread = K_ANY
+    };
+
+    ret = k_mbox_get(&amp;service_mbox, &amp;recv_msg, response, K_MSEC(5000));
+    return ret;
+}
+
+// Service thread - handle requests
+void service_thread(void *arg1, void *arg2, void *arg3)
+{
+    struct k_mbox_msg msg;
+    struct service_request request;
+    struct service_response response;
+
+    while (1) {
+        // Wait for service request
+        int ret = k_mbox_get(&amp;service_mbox, &amp;msg, &amp;request, K_FOREVER);
+        if (ret != 0) {
+            continue;
+        }
+
+        // Process the request
+        response.request_id = request.request_id;
+        response.status_code = process_service_request(&amp;request, &amp;response);
+
+        // Send response back to client
+        struct k_mbox_msg reply_msg = {
+            .info = response.request_id,
+            .size = sizeof(response),
+            .tx_data = &amp;response,
+            .tx_target_thread = request.sender_tid
+        };
+
+        k_mbox_put(&amp;service_mbox, &amp;reply_msg, K_NO_WAIT);
+    }
+}
+</code></pre>
+<h3 id="4-zephyr-bus-zbus-publish-subscribe-architecture">4. Zephyr Bus (Zbus): Publish-Subscribe Architecture</h3>
+<p>Zbus provides a sophisticated publish-subscribe communication framework for building scalable, event-driven systems. It supports multiple observer types and enables loose coupling between system components.</p>
+<h4 id="channel-definition-and-management">Channel Definition and Management</h4>
+<pre><code class="language-c">#include &lt;zephyr/zbus/zbus.h&gt;
+
+// Define message structures
+struct sensor_event {
+    uint32_t timestamp;
+    uint8_t sensor_id;
+    float value;
+    uint8_t status;
+};
+
+struct control_command {
+    uint8_t device_id;
+    uint8_t command_type;
+    float parameter;
+    uint32_t timeout_ms;
+};
+
+// Validation function for sensor data
+bool sensor_data_validator(const void *msg, size_t msg_size)
+{
+    const struct sensor_event *event = (const struct sensor_event *)msg;
+    return (event-&gt;sensor_id &lt; MAX_SENSORS &amp;&amp; 
+            event-&gt;value &gt;= MIN_SENSOR_VALUE &amp;&amp; 
+            event-&gt;value &lt;= MAX_SENSOR_VALUE);
+}
+
+// Define channels with observers
+ZBUS_CHAN_DEFINE(sensor_chan,           // Channel name
+                struct sensor_event,    // Message type
+                sensor_data_validator,  // Validator function
+                NULL,                   // User data
+                ZBUS_OBSERVERS(sensor_processor_sub, 
+                              data_logger_sub,
+                              alert_listener), // Observer list
+                ZBUS_MSG_INIT(.timestamp = 0,
+                             .sensor_id = 0,
+                             .value = 0.0f,
+                             .status = 0));
+
+ZBUS_CHAN_DEFINE(control_chan,
+                struct control_command,
+                NULL,                   // No validator
+                NULL,                   // No user data
+                ZBUS_OBSERVERS(actuator_sub,
+                              status_listener),
+                ZBUS_MSG_INIT(.device_id = 0,
+                             .command_type = 0,
+                             .parameter = 0.0f,
+                             .timeout_ms = 0));
+</code></pre>
+<h4 id="observer-implementation">Observer Implementation</h4>
+<p><strong>Listeners (Synchronous Observers)</strong>:</p>
+<pre><code class="language-c">// Fast synchronous processing
+void sensor_alert_callback(const struct zbus_channel *chan)
+{
+    if (chan == &amp;sensor_chan) {
+        const struct sensor_event *event = zbus_chan_const_msg(chan);
+
+        // Quick alert processing - no blocking operations
+        if (event-&gt;value &gt; CRITICAL_THRESHOLD) {
+            set_alert_led(true);
+            trigger_emergency_shutdown();
+        }
+    }
+}
+
+ZBUS_LISTENER_DEFINE(alert_listener, sensor_alert_callback);
+
+// Status monitoring listener
+void system_status_callback(const struct zbus_channel *chan)
+{
+    static uint32_t event_count = 0;
+
+    event_count++;
+
+    if (chan == &amp;sensor_chan) {
+        update_sensor_status_display();
+    } else if (chan == &amp;control_chan) {
+        update_control_status_display();
+    }
+
+    // Periodic health check
+    if (event_count % 100 == 0) {
+        perform_system_health_check();
+    }
+}
+
+ZBUS_LISTENER_DEFINE(status_listener, system_status_callback);
+</code></pre>
+<p><strong>Subscribers (Asynchronous Observers)</strong>:</p>
+<pre><code class="language-c">// Define subscribers with different priorities
+ZBUS_SUBSCRIBER_DEFINE(sensor_processor_sub, 4);  // High priority
+ZBUS_SUBSCRIBER_DEFINE(data_logger_sub, 6);       // Medium priority
+ZBUS_SUBSCRIBER_DEFINE(actuator_sub, 3);          // Highest priority
+
+// Sensor data processor thread
+void sensor_processor_thread(void *arg1, void *arg2, void *arg3)
+{
+    const struct zbus_channel *chan;
+    struct sensor_event event;
+
+    while (1) {
+        // Wait for sensor data
+        int ret = zbus_sub_wait_msg(&amp;sensor_processor_sub, &amp;chan, 
+                                   &amp;event, K_FOREVER);
+        if (ret != 0) {
+            continue;
+        }
+
+        if (chan == &amp;sensor_chan) {
+            // Complex sensor data processing
+            float processed_value = apply_sensor_calibration(event.value, 
+                                                             event.sensor_id);
+
+            // Apply filtering
+            processed_value = low_pass_filter(processed_value, event.sensor_id);
+
+            // Check for trends
+            analyze_sensor_trends(event.sensor_id, processed_value);
+
+            // Store processed data
+            store_processed_sensor_data(event.sensor_id, processed_value, 
+                                       event.timestamp);
+        }
+    }
+}
+
+// Data logging thread
+void data_logger_thread(void *arg1, void *arg2, void *arg3)
+{
+    const struct zbus_channel *chan;
+
+    while (1) {
+        // Wait for any channel update
+        int ret = zbus_sub_wait(&amp;data_logger_sub, &amp;chan, K_FOREVER);
+        if (ret != 0) {
+            continue;
+        }
+
+        // Log all channel activity
+        uint32_t timestamp = k_uptime_get_32();
+
+        if (chan == &amp;sensor_chan) {
+            const struct sensor_event *event = zbus_chan_const_msg(chan);
+            log_sensor_event(timestamp, event);
+        } else if (chan == &amp;control_chan) {
+            const struct control_command *cmd = zbus_chan_const_msg(chan);
+            log_control_command(timestamp, cmd);
+        }
+    }
+}
+
+// Actuator control thread
+void actuator_thread(void *arg1, void *arg2, void *arg3)
+{
+    const struct zbus_channel *chan;
+    struct control_command cmd;
+
+    while (1) {
+        int ret = zbus_sub_wait_msg(&amp;actuator_sub, &amp;chan, &amp;cmd, K_FOREVER);
+        if (ret != 0) {
+            continue;
+        }
+
+        if (chan == &amp;control_chan) {
+            // Execute control command
+            execute_actuator_command(&amp;cmd);
+
+            // Provide feedback
+            struct sensor_event feedback = {
+                .timestamp = k_uptime_get_32(),
+                .sensor_id = cmd.device_id + ACTUATOR_FEEDBACK_OFFSET,
+                .value = get_actuator_position(cmd.device_id),
+                .status = FEEDBACK_STATUS_OK
+            };
+
+            // Publish feedback to sensor channel
+            zbus_chan_pub(&amp;sensor_chan, &amp;feedback, K_MSEC(100));
+        }
+    }
+}
+</code></pre>
+<h4 id="publishing-data">Publishing Data</h4>
+<pre><code class="language-c">// Sensor reading thread
+void sensor_reading_thread(void *arg1, void *arg2, void *arg3)
+{
+    struct sensor_event event;
+
+    while (1) {
+        // Read from multiple sensors
+        for (int i = 0; i &lt; NUM_SENSORS; i++) {
+            event.timestamp = k_uptime_get_32();
+            event.sensor_id = i;
+            event.value = read_sensor_value(i);
+            event.status = get_sensor_status(i);
+
+            // Publish sensor data - triggers all observers
+            int ret = zbus_chan_pub(&amp;sensor_chan, &amp;event, K_MSEC(10));
+            if (ret != 0) {
+                printk(&quot;Failed to publish sensor %d data: %d\n&quot;, i, ret);
+            }
+        }
+
+        k_msleep(SENSOR_READING_INTERVAL_MS);
+    }
+}
+
+// Control command generator
+void control_logic_thread(void *arg1, void *arg2, void *arg3)
+{
+    struct control_command cmd;
+
+    while (1) {
+        // Wait for control trigger
+        k_sem_take(&amp;control_trigger_sem, K_FOREVER);
+
+        // Generate control commands based on system state
+        for (int device = 0; device &lt; NUM_ACTUATORS; device++) {
+            if (needs_control_update(device)) {
+                cmd.device_id = device;
+                cmd.command_type = calculate_command_type(device);
+                cmd.parameter = calculate_command_parameter(device);
+                cmd.timeout_ms = COMMAND_TIMEOUT_MS;
+
+                // Publish control command
+                int ret = zbus_chan_pub(&amp;control_chan, &amp;cmd, K_MSEC(50));
+                if (ret != 0) {
+                    printk(&quot;Failed to publish control command for device %d\n&quot;, 
+                           device);
+                }
+            }
+        }
+    }
+}
+</code></pre>
+<h4 id="runtime-observer-management">Runtime Observer Management</h4>
+<pre><code class="language-c">// Runtime observer registration
+int register_runtime_observer(void)
+{
+    // Create runtime observer
+    ZBUS_LISTENER_DEFINE(runtime_listener, runtime_callback);
+
+    // Add to existing channel
+    int ret = zbus_chan_add_obs(&amp;sensor_chan, &amp;runtime_listener, K_MSEC(100));
+    if (ret != 0) {
+        printk(&quot;Failed to add runtime observer: %d\n&quot;, ret);
+        return ret;
+    }
+
+    printk(&quot;Runtime observer registered successfully\n&quot;);
+    return 0;
+}
+
+// Runtime observer removal
+int unregister_runtime_observer(void)
+{
+    int ret = zbus_chan_rm_obs(&amp;sensor_chan, &amp;runtime_listener, K_MSEC(100));
+    if (ret != 0) {
+        printk(&quot;Failed to remove runtime observer: %d\n&quot;, ret);
+        return ret;
+    }
+
+    printk(&quot;Runtime observer unregistered successfully\n&quot;);
+    return 0;
+}
+</code></pre>
+<h3 id="5-pipes-streaming-data-communication">5. Pipes: Streaming Data Communication</h3>
+<p>Pipes provide efficient streaming data transfer between threads, supporting variable-size data blocks and flow control. They're ideal for data streaming, buffering between threads with different processing rates, and implementing data pipelines.</p>
+<h4 id="basic-pipe-operations">Basic Pipe Operations</h4>
+<pre><code class="language-c">#include &lt;zephyr/kernel.h&gt;
+
+// Define pipe with 1KB buffer
+K_PIPE_DEFINE(data_pipe, 1024, 4);
+
+// Producer thread - streaming data generator
+void data_producer_thread(void *arg1, void *arg2, void *arg3)
+{
+    uint8_t buffer[256];
+    size_t bytes_written;
+
+    while (1) {
+        // Generate streaming data
+        size_t data_size = generate_stream_data(buffer, sizeof(buffer));
+
+        // Write to pipe - may write partial data
+        int ret = k_pipe_put(&amp;data_pipe, buffer, data_size, 
+                           &amp;bytes_written, 1, K_MSEC(100));
+
+        if (ret == 0) {
+            printk(&quot;Wrote %zu bytes to pipe\n&quot;, bytes_written);
+        } else if (ret == -EAGAIN) {
+            // Pipe full - apply backpressure
+            k_msleep(10);
+        } else {
+            printk(&quot;Pipe write error: %d\n&quot;, ret);
+        }
+
+        k_yield();
+    }
+}
+
+// Consumer thread - streaming data processor
+void data_consumer_thread(void *arg1, void *arg2, void *arg3)
+{
+    uint8_t buffer[512];
+    size_t bytes_read;
+
+    while (1) {
+        // Read available data from pipe
+        int ret = k_pipe_get(&amp;data_pipe, buffer, sizeof(buffer),
+                           &amp;bytes_read, 1, K_MSEC(1000));
+
+        if (ret == 0 &amp;&amp; bytes_read &gt; 0) {
+            // Process received data
+            process_stream_data(buffer, bytes_read);
+            printk(&quot;Processed %zu bytes from pipe\n&quot;, bytes_read);
+        } else if (ret == -EAGAIN) {
+            // No data available
+            perform_idle_tasks();
+        } else {
+            printk(&quot;Pipe read error: %d\n&quot;, ret);
+        }
+    }
+}
+</code></pre>
+<h4 id="advanced-pipe-usage">Advanced Pipe Usage</h4>
+<p><strong>Flow Control and Buffering</strong>:</p>
+<pre><code class="language-c">// Monitoring pipe utilization
+void monitor_pipe_health(void)
+{
+    size_t bytes_used, bytes_available;
+
+    k_pipe_read_avail(&amp;data_pipe, &amp;bytes_available);
+    k_pipe_write_avail(&amp;data_pipe, &amp;bytes_used);
+
+    float utilization = (float)bytes_used / (bytes_used + bytes_available) * 100;
+
+    printk(&quot;Pipe utilization: %.1f%% (%zu used, %zu free)\n&quot;,
+           utilization, bytes_used, bytes_available);
+
+    if (utilization &gt; 80.0f) {
+        // High utilization - consider flow control
+        enable_flow_control();
+    }
+}
+
+// Flush pipe contents
+void reset_data_pipeline(void)
+{
+    k_pipe_flush(&amp;data_pipe);
+    printk(&quot;Data pipeline flushed\n&quot;);
+}
+</code></pre>
+<h3 id="6-communication-mechanism-selection-guide">6. Communication Mechanism Selection Guide</h3>
+<p>Choosing the right communication mechanism depends on your specific requirements:</p>
+<h4 id="decision-matrix">Decision Matrix</h4>
+<table>
+<thead>
+<tr>
+<th>Mechanism</th>
+<th>Data Size</th>
+<th>Ordering</th>
+<th>Overhead</th>
+<th>Use Case</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Message Queue</td>
+<td>Fixed</td>
+<td>FIFO</td>
+<td>Medium</td>
+<td>Structured messages</td>
+</tr>
+<tr>
+<td>FIFO</td>
+<td>Variable</td>
+<td>FIFO</td>
+<td>Low</td>
+<td>Sequential processing</td>
+</tr>
+<tr>
+<td>LIFO</td>
+<td>Variable</td>
+<td>LIFO</td>
+<td>Low</td>
+<td>Stack operations</td>
+</tr>
+<tr>
+<td>Mailbox</td>
+<td>Variable</td>
+<td>None</td>
+<td>High</td>
+<td>Complex messaging</td>
+</tr>
+<tr>
+<td>Zbus</td>
+<td>Variable</td>
+<td>Observer</td>
+<td>Medium</td>
+<td>Event-driven systems</td>
+</tr>
+<tr>
+<td>Pipe</td>
+<td>Stream</td>
+<td>FIFO</td>
+<td>Low</td>
+<td>Data streaming</td>
+</tr>
+</tbody>
+</table>
+<h4 id="selection-criteria">Selection Criteria</h4>
+<p><strong>For Simple Data Exchange</strong>:</p>
+<ul>
+<li>Use <strong>Message Queues</strong> for fixed-size structured data</li>
+<li>Use <strong>FIFOs</strong> for variable-size data with ordering requirements</li>
+</ul>
+<p><strong>For Complex Communication</strong>:</p>
+<ul>
+<li>Use <strong>Mailboxes</strong> for request-response patterns</li>
+<li>Use <strong>Zbus</strong> for publish-subscribe architectures</li>
+</ul>
+<p><strong>For Streaming Data</strong>:</p>
+<ul>
+<li>Use <strong>Pipes</strong> for continuous data streams</li>
+<li>Use <strong>FIFOs</strong> for discrete data packets</li>
+</ul>
+<p><strong>Performance Considerations</strong>:</p>
+<ul>
+<li><strong>Lowest Overhead</strong>: FIFOs, LIFOs, Pipes</li>
+<li><strong>Medium Overhead</strong>: Message Queues, Zbus</li>
+<li><strong>Highest Overhead</strong>: Mailboxes</li>
+</ul>
+<p><strong>Memory Usage</strong>:</p>
+<ul>
+<li><strong>Fixed Memory</strong>: Message Queues</li>
+<li><strong>Dynamic Memory</strong>: FIFOs, LIFOs, Mailboxes</li>
+<li><strong>Configurable</strong>: Pipes, Zbus</li>
+</ul>
+<p>This comprehensive coverage of Zephyr's inter-thread communication mechanisms provides the foundation for building sophisticated embedded systems. The next section will demonstrate these concepts through practical laboratory exercises.</p>
+
+
+
+
+
+
+
+  
+    
+  
+  
+
+
+  <aside class="md-source-file">
+    
+      
+  <span class="md-source-file__fact">
+    <span class="md-icon" title="Last update">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M21 13.1c-.1 0-.3.1-.4.2l-1 1 2.1 2.1 1-1c.2-.2.2-.6 0-.8l-1.3-1.3c-.1-.1-.2-.2-.4-.2m-1.9 1.8-6.1 6V23h2.1l6.1-6.1zM12.5 7v5.2l4 2.4-1 1L11 13V7zM11 21.9c-5.1-.5-9-4.8-9-9.9C2 6.5 6.5 2 12 2c5.3 0 9.6 4.1 10 9.3-.3-.1-.6-.2-1-.2s-.7.1-1 .2C19.6 7.2 16.2 4 12 4c-4.4 0-8 3.6-8 8 0 4.1 3.1 7.5 7.1 7.9l-.1.2z"/></svg>
+    </span>
+    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date" title="October 18, 2025 08:49:53 UTC">October 18, 2025</span>
+  </span>
+
+    
+    
+    
+    
+  </aside>
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    
+      
+      <script id="__config" type="application/json">{"base": "../..", "features": [], "search": "../../assets/javascripts/workers/search.973d3a69.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": null}</script>
+    
+    
+      <script src="../../assets/javascripts/bundle.f55a23d4.min.js"></script>
+      
+    
+  </body>
+</html>
