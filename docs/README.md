@@ -1,4 +1,4 @@
-# Zephyr RTOS Professional Development Course
+# Zephyr RTOS Development Course
 
 [![GitHub License](https://img.shields.io/github/license/tinegachris/course_zephyr_rtos_rpi_4b.svg)](https://github.com/tinegachris/course_zephyr_rtos_rpi_4b/blob/main/LICENSE)
 [![GitHub Contributors](https://img.shields.io/github/contributors/tinegachris/course_zephyr_rtos_rpi_4b.svg)](https://github.com/tinegachris/course_zephyr_rtos_rpi_4b/graphs/contributors)
@@ -11,76 +11,36 @@
 
 ![alt text](Zephyr_RTOS_Development_Course.jpg)
 
-Welcome to the comprehensive Zephyr Real-Time Operating System (RTOS) course! This repository contains all the materials needed to transform you from an embedded systems enthusiast into a confident Zephyr developer capable of building professional-grade, real-time applications.
+Welcome to the Zephyr RTOS Development Course! This repository provides everything you need to master Zephyr, from foundational concepts to hands-on labs. Whether you're new to embedded systems or looking to deepen your expertise, you'll find step-by-step guidance, practical examples, and resources to help you build robust, real-time applications.
 
-## What to Expect
+Use this page to navigate chapters, access setup instructions, and explore labs. Start your journey to becoming a confident Zephyr developer!
 
-This course is designed to be a hands-on, practical guide to modern embedded systems development with Zephyr. The codebase reflects professional practices and is structured to guide you from fundamental concepts to advanced, real-world applications.
+## Course navigation
 
-- **Structured Learning:** The course is divided into 18 chapters, each with a dedicated directory containing `introduction.md`, `theory.md`, and `lab.md` files.
-- **Hands-On Labs:** Every chapter includes detailed lab exercises designed to be built and run. The source code for these labs is provided directly within the `lab.md` files.
-- **Modern Tooling:** You will master the modern Zephyr development workflow using tools like the `west` meta-tool, `CMake` for building, `Kconfig` for feature configuration, and the `Device Tree` for hardware description.
-- **Target Hardware:** The primary hardware target for this course is the **Raspberry Pi 4B**, with concepts applicable to a wide range of other Zephyr-supported boards.
+- [Chapter 1 — Course Introduction](chapter_01_course_introduction/)
+- [Chapter 2 — Introduction to Zephyr](chapter_02_introduction_to_zephyr/)
+- [Chapter 3 — Zephyr Build System](chapter_03_zephyr_build_system/)
+- [Chapter 4 — Configure Zephyr](chapter_04_configure_zephyr/)
+- [Chapter 5 — West Tool](chapter_05_west/)
+- [Chapter 6 — Zephyr Fundamentals](chapter_06_zephyr_fundamentals/)
+- [Chapter 7 — Thread Management](chapter_07_thread_management/)
+- [Chapter 8 — Tracing and Logging](chapter_08_tracing_and_logging/)
+- [Chapter 9 — Memory Management](chapter_09_memory_management/)
+- [Chapter 10 — User Mode](chapter_10_user_mode/)
+- [Chapter 11 — Traditional Multithreading Primitives](chapter_11_traditional_multithreading_primitives/)
+- [Chapter 12 — Inter-thread Communication](chapter_12_inter-thread_communication/)
+- [Chapter 13 — Interrupt Management](chapter_13_interrupt_management/)
+- [Chapter 14 — Modules](chapter_14_modules/)
+- [Chapter 15 — Writing Kconfig Symbols](chapter_15_writing_kconfig_symbols/)
+- [Chapter 16 — Device Driver Architecture](chapter_16_device_driver_architecture/)
+- [Chapter 17 — Power Management](chapter_17_power_management/)
+- [Chapter 18 — Capstone Project](chapter_18_capstone_project/)
 
-## Course Structure
+## How to use this site
 
-The course is divided into three main phases, taking you from basic setup to advanced system architecture.
+- Click a chapter to open its landing page. Each chapter contains: Introduction, Theory, and Lab.
+- If a chapter page is missing, it will be added soon — you can also browse the repository's docs/ directory on GitHub.
 
-```mermaid
-graph TD
-    subgraph "Part 1: Foundation (Chapters 1-6)"
-        A[1. Course Introduction] --> B[2. Introduction to Zephyr]
-        B --> C[3. Zephyr Build System]
-        C --> D[4. Configure Zephyr]
-        D --> E[5. West Tool]
-        E --> F[6. Zephyr Fundamentals]
-    end
+## Contributing
 
-    subgraph "Part 2: Core Skills (Chapters 7-13)"
-        F --> G[7. Thread Management]
-        G --> H[8. Tracing and Logging]
-        H --> I[9. Memory Management]
-        I --> J[10. User Mode]
-        J --> K[11. Multithreading Primitives]
-        K --> L[12. Inter-Thread Communication]
-        L --> M[13. Interrupt Management]
-    end
-
-    subgraph "Part 3: Advanced Topics (Chapters 14-17)"
-        M --> N[14. Modules]
-        N --> O[15. Writing Kconfig Symbols]
-        O --> P[16. Device Driver Architecture]
-        P --> Q[17. Power Management]
-    end
-
-    subgraph "Part 4: Capstone Project"
-        Q --> R[Capstone: Comprehensive Zephyr Application]
-    end
-```
-
-## Key Learning Areas
-
-- **Zephyr Fundamentals:** Learn the core concepts of the Zephyr RTOS, including its architecture, build system (`west` and `CMake`), and configuration systems (`Kconfig` and `Device Tree`).
-- **Hardware Interaction:** Master GPIO, I2C, and other peripheral communication through Zephyr's hardware abstraction layer.
-- **Concurrent Programming:** Dive deep into thread management, synchronization primitives (mutexes, semaphores), and inter-thread communication mechanisms (message queues, Zbus).
-- **System Security & Stability:** Understand and implement user mode for process isolation and memory protection.
-- **Debugging and Observability:** Use Zephyr's powerful logging and tracing features to debug and optimize complex concurrent systems.
-- **Professional Architectures:** Learn to structure your applications using modules, write custom Kconfig symbols for configurability, and develop robust device drivers.
-- **Power Management:** Master the techniques for building power-efficient, battery-powered devices.
-
-## Hardware and Software Requirements
-
-- **Primary Hardware:** Raspberry Pi 4B
-- **Development Environment:** A Linux, macOS, or Windows machine with the Zephyr SDK installed.
-- **Recommended IDE:** VS Code with the official Zephyr extension.
-- **Key Tools:** `west`, `git`, Python 3.8+
-
-## How to Use This Repository
-
-1.  Navigate to the `course_content` directory.
-2.  Start with `chapter_01_course_introduction` and proceed chronologically.
-3.  Within each chapter directory, read the `introduction.md` and `theory.md` files to understand the concepts.
-4.  Follow the `lab.md` file to complete the hands-on exercises. The lab files contain all the necessary code snippets and build commands.
-5.  The `zephyr` directory in the parent folder contains the Zephyr RTOS source code, which serves as the reference for this course.
-
-This repository is designed to be a complete, self-contained resource for learning Zephyr RTOS development.
+Contributions and corrections are welcome. See [CONTRIBUTING.md](CONTRIBUTING.md) and [CONDUCT.md](CONDUCT.md) for guidelines.

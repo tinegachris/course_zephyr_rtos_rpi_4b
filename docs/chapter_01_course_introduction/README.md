@@ -1,8 +1,12 @@
 # Chapter 1: Course Introduction
 
+---
+[Introduction](./README.md) | [Course Home](../README.md)
+---
+
 ## Welcome to Zephyr RTOS Development
 
-Welcome to the comprehensive Zephyr Real-Time Operating System (RTOS) course! This course will transform you from an embedded systems enthusiast into a confident Zephyr developer capable of building professional-grade, real-time applications.
+Welcome to the comprehensive Zephyr Real-Time Operating System (RTOS) course! This course will transform you from an embedded systems enthusiast into a confident Zephyr developer capable of building production-grade, real-time embedded applications using modern tools and workflows.
 
 ## What You'll Master
 
@@ -47,7 +51,7 @@ This course follows a carefully designed progression from fundamentals to advanc
 **Goal:** Establish core knowledge and development environment
 
 * Course overview and motivation
-* Introduction to Zephyr ecosystem and installation
+* Introduction to the Zephyr ecosystem and installation
 * Build system mastery (West, CMake, configuration)
 * Core RTOS concepts and Zephyr fundamentals
 
@@ -57,15 +61,15 @@ This course follows a carefully designed progression from fundamentals to advanc
 
 * Thread management and scheduling
 * Debugging with tracing and logging
-* Memory management and optimization
-* Synchronization and inter-thread communication
-* Interrupt handling and real-time behavior
+* Memory management and optimisation
+* Synchronisation and inter-thread communication
+* Interrupt handling and real-time behaviour
 
 ### Advanced Topics (Chapters 14-17)
 
 **Goal:** Professional-level system integration
 
-* Module system and code organization
+* Module system and code organisation
 * Custom configuration with Kconfig
 * Device driver development
 * Power management for battery-powered systems
@@ -88,10 +92,10 @@ Upon completion of this course, you will be able to:
 
 * Set up and configure a complete Zephyr development environment
 * Build, flash, and debug Zephyr applications on multiple hardware platforms
-* Implement multithreaded real-time applications with proper synchronization
+* Implement multithreaded real-time applications with proper synchronisation
 * Create custom device drivers and integrate hardware peripherals
-* Optimize applications for memory usage, power consumption, and performance
-* Use advanced debugging techniques including tracing and logging
+* Optimise applications for memory usage, power consumption, and performance
+* Use advanced debugging techniques, including tracing and logging
 
 **Professional Competencies:**
 
@@ -136,7 +140,7 @@ graph TD
 
 **Development Hardware:**
 
-This course primarily uses the **Raspberry Pi 4B** as the target platform, with alternative instructions provided for other popular development boards like Nordic nRF52840 DK and STM32 Discovery boards.
+This course primarily uses the **Raspberry Pi 4B** as the target platform, with alternative instructions provided for other popular development boards like Nordic nRF52840 DK and STM32 Discovery.
 
 **Required Tools:**
 
@@ -150,7 +154,7 @@ This course primarily uses the **Raspberry Pi 4B** as the target platform, with 
 **Time Commitment:**
 
 * **Estimated Duration:** 8-12 weeks (self-paced)
-* **Chapter Time:** 2-4 hours per chapter including hands-on labs
+* **Chapter Time:** 2-4 hours per chapter, including hands-on labs
 * **Prerequisites Review:** 1-2 hours if needed
 
 ## Learning Approach
@@ -180,4 +184,4 @@ By the end of this chapter, you will:
 
 ---
 
-**Ready to begin?** Continue to Chapter 2 where you'll discover what Zephyr RTOS is, why it's the ideal choice for modern embedded systems development, and complete your hands-on development environment setup.
+**Ready to begin?** [Continue to Chapter 2](../chapter_02_introduction_to_zephyr/README.md), where you'll discover what Zephyr RTOS is, why it's the ideal choice for modern embedded systems development, and complete your hands-on development environment setup.
