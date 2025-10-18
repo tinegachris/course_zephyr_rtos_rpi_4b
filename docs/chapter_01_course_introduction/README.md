@@ -2,6 +2,7 @@
 
 ---
 [Introduction](./README.md) | [Course Home](../README.md)
+
 ---
 
 ## Welcome to Zephyr RTOS Development
