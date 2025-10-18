@@ -1,4 +1,5 @@
 site_name: Zephyr RTOS Development Course
+site_url: https://tinegachris.github.io/course_zephyr_rtos_rpi_4b/
 theme:
   name: material
 plugins:
