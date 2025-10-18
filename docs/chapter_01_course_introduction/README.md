@@ -135,6 +135,10 @@ graph TD
         O --> P[16. Device Driver Architecture]
         P --> Q[17. Power Management]
     end
+
+    subgraph "Capstone Project"
+        Q --> R[18. Capstone Project]
+    end
 ```
 
 ## Getting Started

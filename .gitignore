@@ -3,3 +3,28 @@
 
 # Ignore Gemini-related files
 GEMINI*
+
+# Ignore Python cache files
+__pycache__/
+*.py[cod]
+*.pyo
+*.pyd
+
+# Ignore build directories
+build/
+dist/
+
+# Ignore Zephyr build artifacts
+zephyr/build/
+zephyr-out/
+
+# Ignore OS-specific files
+.DS_Store
+Thumbs.db
+
+# Ignore venv directories
+.venv/
+
+
+# Ignore mkdocs site directory
+site/
