@@ -192,7 +192,10 @@ west build -t run
    #include <stdio.h>
    #include <zephyr/kernel.h>
    #include <zephyr/drivers/gpio.h>
-   
+   #include <zephyr/logging/log.h>
+
+   LOG_MODULE_REGISTER(main);
+
    #define FAST_BLINK_MS   250    // Fast blink mode
    #define SLOW_BLINK_MS   1500   // Slow blink mode
    #define LED0_NODE DT_ALIAS(led0)
@@ -206,16 +209,16 @@ west build -t run
        bool fast_mode = true;
        int blink_count = 0;
    
-       printf("Custom Blinky Application Starting\n");
+       LOG_INF("Custom Blinky Application Starting");
    
        if (!gpio_is_ready_dt(&led)) {
-           printf("Error: LED device not ready\n");
+           LOG_ERR("Error: LED device not ready");
            return 0;
        }
    
        ret = gpio_pin_configure_dt(&led, GPIO_OUTPUT_ACTIVE);
        if (ret < 0) {
-           printf("Error: Failed to configure LED pin\n");
+           LOG_ERR("Error: Failed to configure LED pin");
            return 0;
        }
    
@@ -223,19 +226,17 @@ west build -t run
            // Toggle LED
            ret = gpio_pin_toggle_dt(&led);
            if (ret < 0) {
-               printf("Error: Failed to toggle LED\n");
+               LOG_ERR("Error: Failed to toggle LED");
                return 0;
            }
    
            led_state = !led_state;
-           printf("LED %s (blink #%d)\n", 
-                  led_state ? "ON " : "OFF", ++blink_count);
+           LOG_INF("LED %s (blink #%d)", led_state ? "ON " : "OFF", ++blink_count);
    
            // Switch between fast and slow blinking every 10 blinks
            if (blink_count % 10 == 0) {
                fast_mode = !fast_mode;
-               printf("Switching to %s mode\n", 
-                      fast_mode ? "FAST" : "SLOW");
+               LOG_INF("Switching to %s mode", fast_mode ? "FAST" : "SLOW");
            }
    
            k_msleep(fast_mode ? FAST_BLINK_MS : SLOW_BLINK_MS);
@@ -263,7 +264,7 @@ west build -t run
    #define BUTTON0_NODE DT_ALIAS(sw0)
    static const struct gpio_dt_spec button = GPIO_DT_SPEC_GET(BUTTON0_NODE, gpios);
    static struct gpio_callback button_cb_data;
-   
+
    void button_pressed(const struct device *dev, struct gpio_callback *cb,
                        uint32_t pins)
    {
@@ -272,7 +273,15 @@ west build -t run
    }
    ```
 
-**Note:** This challenge requires understanding of interrupts and callbacks, which will be covered in detail in later chapters.
+**Note:** This challenge requires an understanding of interrupts and callbacks, which will be covered in detail in later chapters. The `DT_ALIAS(sw0)` macro also requires a `sw0` alias to be defined in your board's device tree file. For example:
+
+```dts
+/ {
+    aliases {
+        sw0 = &button0;
+    };
+};
+```
 
 ---
 
@@ -332,6 +341,8 @@ CONFIG_SHELL_BACKEND_SERIAL=y
 west build -t ram_report
 west build -t rom_report
 ```
+
+The memory usage report is automatically generated every time you build your application. You can find this information in the build output, typically near the end. Look for a section that shows the memory usage for different regions like Flash and RAM.
 
 **Optimize for size:**
 ```
