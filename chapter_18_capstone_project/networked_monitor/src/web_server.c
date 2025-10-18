@@ -1,6 +1,8 @@
 #include <zephyr/kernel.h>
 #include <zephyr/logging/log.h>
 #include <zephyr/net/socket.h>
+#include <stdio.h>
+#include <string.h>
 #include "sensor_manager.h"
 
 LOG_MODULE_REGISTER(web_server, LOG_LEVEL_INF);
