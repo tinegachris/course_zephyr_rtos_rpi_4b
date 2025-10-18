@@ -14,7 +14,7 @@
         <link rel="prev" href="../theory/">
       
       
-        <link rel="next" href="../../chapter_03_zephyr_build_system/introduction/">
+        <link rel="next" href="../../chapter_03_zephyr_build_system/theory/">
       
       
       <link rel="icon" href="../../assets/images/favicon.png">
@@ -331,7 +331,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../introduction/" class="md-nav__link">
+      <a href="../introduction.md" class="md-nav__link">
         
   
   
@@ -784,7 +784,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../chapter_03_zephyr_build_system/introduction/" class="md-nav__link">
+      <a href="../../chapter_03_zephyr_build_system/introduction.md" class="md-nav__link">
         
   
   
@@ -898,7 +898,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../chapter_04_configure_zephyr/introduction/" class="md-nav__link">
+      <a href="../../chapter_04_configure_zephyr/introduction.md" class="md-nav__link">
         
   
   
@@ -1012,7 +1012,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../chapter_05_west/introduction/" class="md-nav__link">
+      <a href="../../chapter_05_west/introduction.md" class="md-nav__link">
         
   
   
@@ -1126,7 +1126,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../chapter_06_zephyr_fundamentals/introduction/" class="md-nav__link">
+      <a href="../../chapter_06_zephyr_fundamentals/introduction.md" class="md-nav__link">
         
   
   
@@ -1240,7 +1240,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../chapter_07_thread_management/introduction/" class="md-nav__link">
+      <a href="../../chapter_07_thread_management/introduction.md" class="md-nav__link">
         
   
   
@@ -1354,7 +1354,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../chapter_08_tracing_and_logging/introduction/" class="md-nav__link">
+      <a href="../../chapter_08_tracing_and_logging/introduction.md" class="md-nav__link">
         
   
   
@@ -1468,7 +1468,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../chapter_09_memory_management/introduction/" class="md-nav__link">
+      <a href="../../chapter_09_memory_management/introduction.md" class="md-nav__link">
         
   
   
@@ -1582,7 +1582,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../chapter_10_user_mode/introduction/" class="md-nav__link">
+      <a href="../../chapter_10_user_mode/introduction.md" class="md-nav__link">
         
   
   
@@ -1696,7 +1696,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../chapter_11_traditional_multithreading_primitives/introduction/" class="md-nav__link">
+      <a href="../../chapter_11_traditional_multithreading_primitives/introduction.md" class="md-nav__link">
         
   
   
@@ -1810,7 +1810,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../chapter_12_inter-thread_communication/introduction/" class="md-nav__link">
+      <a href="../../chapter_12_inter-thread_communication/introduction.md" class="md-nav__link">
         
   
   
@@ -1924,7 +1924,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../chapter_13_interrupt_management/introduction/" class="md-nav__link">
+      <a href="../../chapter_13_interrupt_management/introduction.md" class="md-nav__link">
         
   
   
@@ -2038,7 +2038,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../chapter_14_modules/introduction/" class="md-nav__link">
+      <a href="../../chapter_14_modules/introduction.md" class="md-nav__link">
         
   
   
@@ -2152,7 +2152,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../chapter_15_writing_kconfig_symbols/introduction/" class="md-nav__link">
+      <a href="../../chapter_15_writing_kconfig_symbols/introduction.md" class="md-nav__link">
         
   
   
@@ -2266,7 +2266,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../chapter_16_device_driver_architecture/introduction/" class="md-nav__link">
+      <a href="../../chapter_16_device_driver_architecture/introduction.md" class="md-nav__link">
         
   
   
@@ -2380,7 +2380,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../chapter_17_power_management/introduction/" class="md-nav__link">
+      <a href="../../chapter_17_power_management/introduction.md" class="md-nav__link">
         
   
   
@@ -2494,7 +2494,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../chapter_18_capstone_project/introduction/" class="md-nav__link">
+      <a href="../../chapter_18_capstone_project/introduction.md" class="md-nav__link">
         
   
   
@@ -2926,6 +2926,9 @@
 
 
 <h1 id="chapter-2-introduction-to-zephyr-lab">Chapter 2: Introduction to Zephyr - Lab</h1>
+<hr />
+<p><a href="../">Introduction</a> | <a href="../theory/">Theory</a> | <a href="./">Lab</a> | <a href="../../">Course Home</a></p>
+<hr />
 <p>Now that you understand Zephyr's concepts and architecture, let's get hands-on experience with setting up a development environment and building your first applications.</p>
 <hr />
 <h2 id="lab-exercise-1-development-environment-setup">Lab Exercise 1: Development Environment Setup</h2>
@@ -2963,13 +2966,11 @@
 <li>Look for the SDK version that matches the version used in this course, which is <strong>0.17.4</strong>.</li>
 <li>Download the <code>zephyr-sdk-*.tar.xz</code> archive for your operating system.</li>
 <li>Extract the archive to a suitable location, for example, <code>~/zephyr-sdk</code>.</li>
-<li>
-<p>Run the SDK's setup script:</p>
-<p><code>bash
-cd ~/zephyr-sdk
-./setup.sh</code></p>
-</li>
+<li>Run the SDK's setup script:</li>
 </ol>
+<pre><code class="language-bash">cd ~/zephyr-sdk
+./setup.sh
+</code></pre>
 <h3 id="step-3-verify-installation">Step 3: Verify Installation</h3>
 <p>Test your setup by building a sample application:</p>
 <pre><code class="language-bash">cd ~/zephyrproject
@@ -3001,13 +3002,16 @@ west build -b rpi_4b zephyr/samples/hello_world --pristine
 <h3 id="step-2-prepare-sd-card">Step 2: Prepare SD Card</h3>
 <ol>
 <li><strong>Format SD card</strong> with FAT32 file system</li>
-<li><strong>Copy the kernel image:</strong>
-   <code>bash
-   cp build/zephyr/zephyr.bin /path/to/sdcard/kernel8.img</code></li>
-<li><strong>Add minimal config.txt</strong> to SD card:
-   <code>arm_64bit=1
-   kernel=kernel8.img</code></li>
+<li><strong>Copy the kernel image:</strong></li>
 </ol>
+<p><code>bash
+   cp build/zephyr/zephyr.bin /path/to/sdcard/kernel8.img</code></p>
+<ol>
+<li><strong>Add minimal config.txt</strong> to SD card:</li>
+</ol>
+<p><code>bash
+   arm_64bit=1
+   kernel=kernel8.img</code></p>
 <h3 id="step-3-connect-serial-console">Step 3: Connect Serial Console</h3>
 <ol>
 <li><strong>Connect USB-to-UART adapter:</strong></li>
@@ -3017,12 +3021,12 @@ west build -b rpi_4b zephyr/samples/hello_world --pristine
 <p>TX → Pin 10 (GPIO 15, UART RX)</p>
 </li>
 <li>
-<p><strong>Open terminal emulator:</strong>
-   ```bash
-   # Linux/macOS
-   screen /dev/ttyUSB0 115200</p>
+<p><strong>Open terminal emulator:</strong></p>
 </li>
 </ol>
+<p>```bash
+   # Linux/macOS
+   screen /dev/ttyUSB0 115200</p>
 <p># Or use minicom
    minicom -D /dev/ttyUSB0 -b 115200
    ```</p>
@@ -3035,10 +3039,12 @@ west build -b rpi_4b zephyr/samples/hello_world --pristine
 <pre><code class="language-console">*** Booting Zephyr OS build v4.2.99 ***
 Hello World! rpi_4b
 </code></pre>
-<p><strong>Troubleshooting:</strong>
-* <strong>No output:</strong> Check UART connections and baud rate
-* <strong>Boot failure:</strong> Verify SD card formatting and file names
-* <strong>Build errors:</strong> Ensure you have the latest Zephyr SDK</p>
+<p><strong>Troubleshooting:</strong></p>
+<ul>
+<li><strong>No output:</strong> Check UART connections and baud rate</li>
+<li><strong>Boot failure:</strong> Verify SD card formatting and file names</li>
+<li><strong>Build errors:</strong> Ensure you have the latest Zephyr SDK</li>
+</ul>
 <hr />
 <h2 id="lab-exercise-3-blinking-led">Lab Exercise 3: Blinking LED</h2>
 <h3 id="objective_2">Objective</h3>
@@ -3181,11 +3187,13 @@ west build -t run
 <pre><code class="language-bash">cd ~/zephyrproject/my_blinky
 west build -t menuconfig
 </code></pre>
-<p>This opens an interactive menu where you can:
-* Browse available configuration options
-* Enable/disable features
-* See help text for each option
-* Save your configuration</p>
+<p>This opens an interactive menu where you can:</p>
+<ul>
+<li>Browse available configuration options</li>
+<li>Enable/disable features</li>
+<li>See help text for each option</li>
+<li>Save your configuration</li>
+</ul>
 <h3 id="step-2-common-configuration-experiments">Step 2: Common Configuration Experiments</h3>
 <p><strong>Enable Logging:</strong>
 Add to prj.conf:</p>
@@ -3237,12 +3245,15 @@ CONFIG_ASSERT=n
 <li><strong>Development Workflow:</strong> West provides a streamlined build and deployment process</li>
 </ul>
 <h3 id="next-steps">Next Steps</h3>
-<p>You now have hands-on experience with Zephyr development. In Chapter 3, we'll dive deeper into the build system, explore advanced West features, and learn about project structure and organization.</p>
-<p><strong>Continue practicing by:</strong>
-* Trying different boards and comparing the differences
-* Exploring other samples in the zephyr/samples directory
-* Experimenting with different Kconfig options
-* Adding more complex GPIO interactions (multiple LEDs, buttons, etc.)</p>
+<p>You now have hands-on experience with Zephyr development. In <a href="./chapter_03_build_system.md">Chapter 3</a>, we'll dive deeper into the build system, explore advanced West features, and learn about project structure and organization.</p>
+<p><strong>Continue practicing by:</strong></p>
+<ul>
+<li>Trying different boards and comparing the differences</li>
+<li>Exploring other samples in the zephyr/samples directory</li>
+<li>Experimenting with different Kconfig options</li>
+<li>Adding more complex GPIO interactions (multiple LEDs, buttons, etc.)</li>
+</ul>
+<p><a href="../../chapter_03_zephyr_build_system/">Next: Chapter 3: Zephyr Build System</a></p>
 
 
 
@@ -3263,7 +3274,7 @@ CONFIG_ASSERT=n
     <span class="md-icon" title="Last update">
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M21 13.1c-.1 0-.3.1-.4.2l-1 1 2.1 2.1 1-1c.2-.2.2-.6 0-.8l-1.3-1.3c-.1-.1-.2-.2-.4-.2m-1.9 1.8-6.1 6V23h2.1l6.1-6.1zM12.5 7v5.2l4 2.4-1 1L11 13V7zM11 21.9c-5.1-.5-9-4.8-9-9.9C2 6.5 6.5 2 12 2c5.3 0 9.6 4.1 10 9.3-.3-.1-.6-.2-1-.2s-.7.1-1 .2C19.6 7.2 16.2 4 12 4c-4.4 0-8 3.6-8 8 0 4.1 3.1 7.5 7.1 7.9l-.1.2z"/></svg>
     </span>
-    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date" title="October 18, 2025 09:55:24 UTC">October 18, 2025</span>
+    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date" title="October 18, 2025 10:58:25 UTC">October 18, 2025</span>
   </span>
 
     

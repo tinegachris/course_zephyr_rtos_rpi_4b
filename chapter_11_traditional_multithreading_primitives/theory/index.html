@@ -11,7 +11,7 @@
         <link rel="canonical" href="https://tinegachris.github.io/course_zephyr_rtos_rpi_4b/chapter_11_traditional_multithreading_primitives/theory/">
       
       
-        <link rel="prev" href="../introduction/">
+        <link rel="prev" href="../../chapter_10_user_mode/lab/">
       
       
         <link rel="next" href="../lab/">
@@ -329,7 +329,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../chapter_02_introduction_to_zephyr/introduction/" class="md-nav__link">
+      <a href="../../chapter_02_introduction_to_zephyr/introduction.md" class="md-nav__link">
         
   
   
@@ -443,7 +443,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../chapter_03_zephyr_build_system/introduction/" class="md-nav__link">
+      <a href="../../chapter_03_zephyr_build_system/introduction.md" class="md-nav__link">
         
   
   
@@ -557,7 +557,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../chapter_04_configure_zephyr/introduction/" class="md-nav__link">
+      <a href="../../chapter_04_configure_zephyr/introduction.md" class="md-nav__link">
         
   
   
@@ -671,7 +671,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../chapter_05_west/introduction/" class="md-nav__link">
+      <a href="../../chapter_05_west/introduction.md" class="md-nav__link">
         
   
   
@@ -785,7 +785,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../chapter_06_zephyr_fundamentals/introduction/" class="md-nav__link">
+      <a href="../../chapter_06_zephyr_fundamentals/introduction.md" class="md-nav__link">
         
   
   
@@ -899,7 +899,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../chapter_07_thread_management/introduction/" class="md-nav__link">
+      <a href="../../chapter_07_thread_management/introduction.md" class="md-nav__link">
         
   
   
@@ -1013,7 +1013,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../chapter_08_tracing_and_logging/introduction/" class="md-nav__link">
+      <a href="../../chapter_08_tracing_and_logging/introduction.md" class="md-nav__link">
         
   
   
@@ -1127,7 +1127,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../chapter_09_memory_management/introduction/" class="md-nav__link">
+      <a href="../../chapter_09_memory_management/introduction.md" class="md-nav__link">
         
   
   
@@ -1241,7 +1241,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../chapter_10_user_mode/introduction/" class="md-nav__link">
+      <a href="../../chapter_10_user_mode/introduction.md" class="md-nav__link">
         
   
   
@@ -1357,7 +1357,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../introduction/" class="md-nav__link">
+      <a href="../introduction.md" class="md-nav__link">
         
   
   
@@ -1801,7 +1801,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../chapter_12_inter-thread_communication/introduction/" class="md-nav__link">
+      <a href="../../chapter_12_inter-thread_communication/introduction.md" class="md-nav__link">
         
   
   
@@ -1915,7 +1915,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../chapter_13_interrupt_management/introduction/" class="md-nav__link">
+      <a href="../../chapter_13_interrupt_management/introduction.md" class="md-nav__link">
         
   
   
@@ -2029,7 +2029,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../chapter_14_modules/introduction/" class="md-nav__link">
+      <a href="../../chapter_14_modules/introduction.md" class="md-nav__link">
         
   
   
@@ -2143,7 +2143,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../chapter_15_writing_kconfig_symbols/introduction/" class="md-nav__link">
+      <a href="../../chapter_15_writing_kconfig_symbols/introduction.md" class="md-nav__link">
         
   
   
@@ -2257,7 +2257,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../chapter_16_device_driver_architecture/introduction/" class="md-nav__link">
+      <a href="../../chapter_16_device_driver_architecture/introduction.md" class="md-nav__link">
         
   
   
@@ -2371,7 +2371,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../chapter_17_power_management/introduction/" class="md-nav__link">
+      <a href="../../chapter_17_power_management/introduction.md" class="md-nav__link">
         
   
   
@@ -2485,7 +2485,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../chapter_18_capstone_project/introduction/" class="md-nav__link">
+      <a href="../../chapter_18_capstone_project/introduction.md" class="md-nav__link">
         
   
   
@@ -2908,13 +2908,16 @@
 
 
 <h1 id="chapter-11-traditional-multithreading-primitives-theory-and-implementation">Chapter 11: Traditional Multithreading Primitives - Theory and Implementation</h1>
+<hr />
+<p><a href="../">Introduction</a> | <a href="./">Theory</a> | <a href="../lab/">Lab</a> | <a href="../../">Course Home</a></p>
+<hr />
 <h2 id="fundamental-synchronization-concepts">Fundamental Synchronization Concepts</h2>
 <h3 id="understanding-concurrency-in-embedded-systems">Understanding Concurrency in Embedded Systems</h3>
 <p>Concurrency in embedded systems presents unique challenges compared to general-purpose computing environments. The constraints of limited memory, deterministic timing requirements, and direct hardware interaction necessitate careful consideration of synchronization mechanisms.</p>
 <h4 id="the-challenge-of-shared-resources">The Challenge of Shared Resources</h4>
 <pre><code class="language-c">/*
  * Example: Shared resource without synchronization (PROBLEMATIC)
- * 
+ *
  * This example demonstrates a classic race condition where multiple
  * threads access shared data without proper synchronization.
  */
@@ -4048,6 +4051,7 @@ void run_synchronization_benchmarks(struct benchmark_results *results)
 }
 </code></pre>
 <p>This comprehensive theory section provides the foundation for understanding and implementing traditional multithreading primitives in Zephyr RTOS, combining theoretical concepts with practical implementation patterns and performance considerations essential for professional embedded system development.</p>
+<p><a href="../lab/">Next: Traditional Multithreading Primitives Lab</a></p>
 
 
 
@@ -4068,7 +4072,7 @@ void run_synchronization_benchmarks(struct benchmark_results *results)
     <span class="md-icon" title="Last update">
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M21 13.1c-.1 0-.3.1-.4.2l-1 1 2.1 2.1 1-1c.2-.2.2-.6 0-.8l-1.3-1.3c-.1-.1-.2-.2-.4-.2m-1.9 1.8-6.1 6V23h2.1l6.1-6.1zM12.5 7v5.2l4 2.4-1 1L11 13V7zM11 21.9c-5.1-.5-9-4.8-9-9.9C2 6.5 6.5 2 12 2c5.3 0 9.6 4.1 10 9.3-.3-.1-.6-.2-1-.2s-.7.1-1 .2C19.6 7.2 16.2 4 12 4c-4.4 0-8 3.6-8 8 0 4.1 3.1 7.5 7.1 7.9l-.1.2z"/></svg>
     </span>
-    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date" title="October 18, 2025 09:55:24 UTC">October 18, 2025</span>
+    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date" title="October 18, 2025 10:58:25 UTC">October 18, 2025</span>
   </span>
 
     

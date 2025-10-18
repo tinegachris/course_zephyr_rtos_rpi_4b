@@ -8,25 +8,21 @@
       
       
       
-        <link rel="canonical" href="https://tinegachris.github.io/course_zephyr_rtos_rpi_4b/chapter_02_introduction_to_zephyr/introduction/">
+        <link rel="canonical" href="https://tinegachris.github.io/course_zephyr_rtos_rpi_4b/chapter_07_thread_management/">
       
       
-        <link rel="prev" href="../../CONTRIBUTING/">
       
       
-        <link rel="next" href="../theory/">
-      
-      
-      <link rel="icon" href="../../assets/images/favicon.png">
+      <link rel="icon" href="../assets/images/favicon.png">
       <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.6.22">
     
     
       
-        <title>Introduction - Zephyr RTOS Development Course</title>
+        <title>Chapter 7: Thread Management - Introduction - Zephyr RTOS Development Course</title>
       
     
     
-      <link rel="stylesheet" href="../../assets/stylesheets/main.84d31ad4.min.css">
+      <link rel="stylesheet" href="../assets/stylesheets/main.84d31ad4.min.css">
       
       
 
@@ -45,7 +41,7 @@
       
     
     
-    <script>__md_scope=new URL("../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    <script>__md_scope=new URL("..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
     
       
 
@@ -64,7 +60,7 @@
     <div data-md-component="skip">
       
         
-        <a href="#chapter-2-introduction-to-zephyr-introduction" class="md-skip">
+        <a href="#chapter-7-thread-management-introduction" class="md-skip">
           Skip to content
         </a>
       
@@ -80,7 +76,7 @@
 
 <header class="md-header md-header--shadow" data-md-component="header">
   <nav class="md-header__inner md-grid" aria-label="Header">
-    <a href="../.." title="Zephyr RTOS Development Course" class="md-header__button md-logo" aria-label="Zephyr RTOS Development Course" data-md-component="logo">
+    <a href=".." title="Zephyr RTOS Development Course" class="md-header__button md-logo" aria-label="Zephyr RTOS Development Course" data-md-component="logo">
       
   
   <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
@@ -100,7 +96,7 @@
         <div class="md-header__topic" data-md-component="header-topic">
           <span class="md-ellipsis">
             
-              Introduction
+              Chapter 7: Thread Management - Introduction
             
           </span>
         </div>
@@ -138,7 +134,7 @@
 
 <nav class="md-nav md-nav--primary" aria-label="Navigation" data-md-level="0">
   <label class="md-nav__title" for="__drawer">
-    <a href="../.." title="Zephyr RTOS Development Course" class="md-nav__button md-logo" aria-label="Zephyr RTOS Development Course" data-md-component="logo">
+    <a href=".." title="Zephyr RTOS Development Course" class="md-nav__button md-logo" aria-label="Zephyr RTOS Development Course" data-md-component="logo">
       
   
   <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
@@ -156,7 +152,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../.." class="md-nav__link">
+      <a href=".." class="md-nav__link">
         
   
   
@@ -216,7 +212,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../CONDUCT/" class="md-nav__link">
+      <a href="../CONDUCT/" class="md-nav__link">
         
   
   
@@ -239,7 +235,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../CONTRIBUTING/" class="md-nav__link">
+      <a href="../CONTRIBUTING/" class="md-nav__link">
         
   
   
@@ -269,7 +265,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../chapter_01_course_introduction/introduction.md" class="md-nav__link">
+      <a href="../chapter_01_course_introduction/introduction.md" class="md-nav__link">
         
   
   
@@ -288,20 +284,18 @@
       
   
   
-    
   
   
-  
     
     
     
     
     
-    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+    <li class="md-nav__item md-nav__item--nested">
       
         
         
-        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4" checked>
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4" >
         
           
           <label class="md-nav__link" for="__nav_4" id="__nav_4_label" tabindex="0">
@@ -317,7 +311,7 @@
             <span class="md-nav__icon md-icon"></span>
           </label>
         
-        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_4_label" aria-expanded="true">
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_4_label" aria-expanded="false">
           <label class="md-nav__title" for="__nav_4">
             <span class="md-nav__icon md-icon"></span>
             Chapter 2: Introduction to Zephyr
@@ -328,32 +322,10 @@
                 
   
   
-    
   
   
-  
-    <li class="md-nav__item md-nav__item--active">
-      
-      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
-      
-      
-        
-      
-      
-        <label class="md-nav__link md-nav__link--active" for="__toc">
-          
-  
-  
-  <span class="md-ellipsis">
-    Introduction
-    
-  </span>
-  
-
-          <span class="md-nav__icon md-icon"></span>
-        </label>
-      
-      <a href="./" class="md-nav__link md-nav__link--active">
+    <li class="md-nav__item">
+      <a href="../chapter_02_introduction_to_zephyr/introduction.md" class="md-nav__link">
         
   
   
@@ -364,71 +336,6 @@
   
 
       </a>
-      
-        
-
-<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
-  
-  
-  
-    
-  
-  
-    <label class="md-nav__title" for="__toc">
-      <span class="md-nav__icon md-icon"></span>
-      Table of contents
-    </label>
-    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
-      
-        <li class="md-nav__item">
-  <a href="#what-is-zephyr-rtos" class="md-nav__link">
-    <span class="md-ellipsis">
-      What is Zephyr RTOS?
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#why-choose-zephyr" class="md-nav__link">
-    <span class="md-ellipsis">
-      Why Choose Zephyr?
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#real-world-applications" class="md-nav__link">
-    <span class="md-ellipsis">
-      Real-World Applications
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#chapter-2-learning-objectives" class="md-nav__link">
-    <span class="md-ellipsis">
-      Chapter 2 Learning Objectives
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#course-flow-connection" class="md-nav__link">
-    <span class="md-ellipsis">
-      Course Flow Connection
-    </span>
-  </a>
-  
-</li>
-      
-    </ul>
-  
-</nav>
-      
     </li>
   
 
@@ -441,7 +348,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../theory/" class="md-nav__link">
+      <a href="../chapter_02_introduction_to_zephyr/theory/" class="md-nav__link">
         
   
   
@@ -464,7 +371,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../lab/" class="md-nav__link">
+      <a href="../chapter_02_introduction_to_zephyr/lab/" class="md-nav__link">
         
   
   
@@ -532,7 +439,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../chapter_03_zephyr_build_system/introduction/" class="md-nav__link">
+      <a href="../chapter_03_zephyr_build_system/introduction.md" class="md-nav__link">
         
   
   
@@ -555,7 +462,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../chapter_03_zephyr_build_system/theory/" class="md-nav__link">
+      <a href="../chapter_03_zephyr_build_system/theory/" class="md-nav__link">
         
   
   
@@ -578,7 +485,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../chapter_03_zephyr_build_system/lab/" class="md-nav__link">
+      <a href="../chapter_03_zephyr_build_system/lab/" class="md-nav__link">
         
   
   
@@ -646,7 +553,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../chapter_04_configure_zephyr/introduction/" class="md-nav__link">
+      <a href="../chapter_04_configure_zephyr/introduction.md" class="md-nav__link">
         
   
   
@@ -669,7 +576,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../chapter_04_configure_zephyr/theory/" class="md-nav__link">
+      <a href="../chapter_04_configure_zephyr/theory/" class="md-nav__link">
         
   
   
@@ -692,7 +599,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../chapter_04_configure_zephyr/lab/" class="md-nav__link">
+      <a href="../chapter_04_configure_zephyr/lab/" class="md-nav__link">
         
   
   
@@ -760,7 +667,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../chapter_05_west/introduction/" class="md-nav__link">
+      <a href="../chapter_05_west/introduction.md" class="md-nav__link">
         
   
   
@@ -783,7 +690,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../chapter_05_west/theory/" class="md-nav__link">
+      <a href="../chapter_05_west/theory/" class="md-nav__link">
         
   
   
@@ -806,7 +713,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../chapter_05_west/lab/" class="md-nav__link">
+      <a href="../chapter_05_west/lab/" class="md-nav__link">
         
   
   
@@ -874,7 +781,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../chapter_06_zephyr_fundamentals/introduction/" class="md-nav__link">
+      <a href="../chapter_06_zephyr_fundamentals/introduction.md" class="md-nav__link">
         
   
   
@@ -897,7 +804,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../chapter_06_zephyr_fundamentals/theory/" class="md-nav__link">
+      <a href="../chapter_06_zephyr_fundamentals/theory/" class="md-nav__link">
         
   
   
@@ -920,7 +827,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../chapter_06_zephyr_fundamentals/lab/" class="md-nav__link">
+      <a href="../chapter_06_zephyr_fundamentals/lab/" class="md-nav__link">
         
   
   
@@ -988,7 +895,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../chapter_07_thread_management/introduction/" class="md-nav__link">
+      <a href="introduction.md" class="md-nav__link">
         
   
   
@@ -1011,7 +918,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../chapter_07_thread_management/theory/" class="md-nav__link">
+      <a href="theory/" class="md-nav__link">
         
   
   
@@ -1034,7 +941,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../chapter_07_thread_management/lab/" class="md-nav__link">
+      <a href="lab/" class="md-nav__link">
         
   
   
@@ -1102,7 +1009,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../chapter_08_tracing_and_logging/introduction/" class="md-nav__link">
+      <a href="../chapter_08_tracing_and_logging/introduction.md" class="md-nav__link">
         
   
   
@@ -1125,7 +1032,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../chapter_08_tracing_and_logging/theory/" class="md-nav__link">
+      <a href="../chapter_08_tracing_and_logging/theory/" class="md-nav__link">
         
   
   
@@ -1148,7 +1055,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../chapter_08_tracing_and_logging/lab/" class="md-nav__link">
+      <a href="../chapter_08_tracing_and_logging/lab/" class="md-nav__link">
         
   
   
@@ -1216,7 +1123,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../chapter_09_memory_management/introduction/" class="md-nav__link">
+      <a href="../chapter_09_memory_management/introduction.md" class="md-nav__link">
         
   
   
@@ -1239,7 +1146,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../chapter_09_memory_management/theory/" class="md-nav__link">
+      <a href="../chapter_09_memory_management/theory/" class="md-nav__link">
         
   
   
@@ -1262,7 +1169,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../chapter_09_memory_management/lab/" class="md-nav__link">
+      <a href="../chapter_09_memory_management/lab/" class="md-nav__link">
         
   
   
@@ -1330,7 +1237,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../chapter_10_user_mode/introduction/" class="md-nav__link">
+      <a href="../chapter_10_user_mode/introduction.md" class="md-nav__link">
         
   
   
@@ -1353,7 +1260,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../chapter_10_user_mode/theory/" class="md-nav__link">
+      <a href="../chapter_10_user_mode/theory/" class="md-nav__link">
         
   
   
@@ -1376,7 +1283,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../chapter_10_user_mode/lab/" class="md-nav__link">
+      <a href="../chapter_10_user_mode/lab/" class="md-nav__link">
         
   
   
@@ -1444,7 +1351,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../chapter_11_traditional_multithreading_primitives/introduction/" class="md-nav__link">
+      <a href="../chapter_11_traditional_multithreading_primitives/introduction.md" class="md-nav__link">
         
   
   
@@ -1467,7 +1374,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../chapter_11_traditional_multithreading_primitives/theory/" class="md-nav__link">
+      <a href="../chapter_11_traditional_multithreading_primitives/theory/" class="md-nav__link">
         
   
   
@@ -1490,7 +1397,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../chapter_11_traditional_multithreading_primitives/lab/" class="md-nav__link">
+      <a href="../chapter_11_traditional_multithreading_primitives/lab/" class="md-nav__link">
         
   
   
@@ -1558,7 +1465,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../chapter_12_inter-thread_communication/introduction/" class="md-nav__link">
+      <a href="../chapter_12_inter-thread_communication/introduction.md" class="md-nav__link">
         
   
   
@@ -1581,7 +1488,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../chapter_12_inter-thread_communication/theory/" class="md-nav__link">
+      <a href="../chapter_12_inter-thread_communication/theory/" class="md-nav__link">
         
   
   
@@ -1604,7 +1511,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../chapter_12_inter-thread_communication/lab/" class="md-nav__link">
+      <a href="../chapter_12_inter-thread_communication/lab/" class="md-nav__link">
         
   
   
@@ -1672,7 +1579,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../chapter_13_interrupt_management/introduction/" class="md-nav__link">
+      <a href="../chapter_13_interrupt_management/introduction.md" class="md-nav__link">
         
   
   
@@ -1695,7 +1602,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../chapter_13_interrupt_management/theory/" class="md-nav__link">
+      <a href="../chapter_13_interrupt_management/theory/" class="md-nav__link">
         
   
   
@@ -1718,7 +1625,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../chapter_13_interrupt_management/lab/" class="md-nav__link">
+      <a href="../chapter_13_interrupt_management/lab/" class="md-nav__link">
         
   
   
@@ -1786,7 +1693,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../chapter_14_modules/introduction/" class="md-nav__link">
+      <a href="../chapter_14_modules/introduction.md" class="md-nav__link">
         
   
   
@@ -1809,7 +1716,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../chapter_14_modules/theory/" class="md-nav__link">
+      <a href="../chapter_14_modules/theory/" class="md-nav__link">
         
   
   
@@ -1832,7 +1739,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../chapter_14_modules/lab/" class="md-nav__link">
+      <a href="../chapter_14_modules/lab/" class="md-nav__link">
         
   
   
@@ -1900,7 +1807,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../chapter_15_writing_kconfig_symbols/introduction/" class="md-nav__link">
+      <a href="../chapter_15_writing_kconfig_symbols/introduction.md" class="md-nav__link">
         
   
   
@@ -1923,7 +1830,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../chapter_15_writing_kconfig_symbols/theory/" class="md-nav__link">
+      <a href="../chapter_15_writing_kconfig_symbols/theory/" class="md-nav__link">
         
   
   
@@ -1946,7 +1853,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../chapter_15_writing_kconfig_symbols/lab/" class="md-nav__link">
+      <a href="../chapter_15_writing_kconfig_symbols/lab/" class="md-nav__link">
         
   
   
@@ -2014,7 +1921,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../chapter_16_device_driver_architecture/introduction/" class="md-nav__link">
+      <a href="../chapter_16_device_driver_architecture/introduction.md" class="md-nav__link">
         
   
   
@@ -2037,7 +1944,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../chapter_16_device_driver_architecture/theory/" class="md-nav__link">
+      <a href="../chapter_16_device_driver_architecture/theory/" class="md-nav__link">
         
   
   
@@ -2060,7 +1967,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../chapter_16_device_driver_architecture/lab/" class="md-nav__link">
+      <a href="../chapter_16_device_driver_architecture/lab/" class="md-nav__link">
         
   
   
@@ -2128,7 +2035,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../chapter_17_power_management/introduction/" class="md-nav__link">
+      <a href="../chapter_17_power_management/introduction.md" class="md-nav__link">
         
   
   
@@ -2151,7 +2058,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../chapter_17_power_management/theory/" class="md-nav__link">
+      <a href="../chapter_17_power_management/theory/" class="md-nav__link">
         
   
   
@@ -2174,7 +2081,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../chapter_17_power_management/lab/" class="md-nav__link">
+      <a href="../chapter_17_power_management/lab/" class="md-nav__link">
         
   
   
@@ -2242,7 +2149,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../chapter_18_capstone_project/introduction/" class="md-nav__link">
+      <a href="../chapter_18_capstone_project/introduction.md" class="md-nav__link">
         
   
   
@@ -2265,7 +2172,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../chapter_18_capstone_project/theory/" class="md-nav__link">
+      <a href="../chapter_18_capstone_project/theory/" class="md-nav__link">
         
   
   
@@ -2288,7 +2195,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../chapter_18_capstone_project/lab/" class="md-nav__link">
+      <a href="../chapter_18_capstone_project/lab/" class="md-nav__link">
         
   
   
@@ -2311,7 +2218,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../chapter_18_capstone_project/networked_monitor/" class="md-nav__link">
+      <a href="../chapter_18_capstone_project/networked_monitor/" class="md-nav__link">
         
   
   
@@ -2361,47 +2268,95 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
-  <a href="#what-is-zephyr-rtos" class="md-nav__link">
+  <a href="#why-thread-management-is-essential" class="md-nav__link">
     <span class="md-ellipsis">
-      What is Zephyr RTOS?
+      Why Thread Management is Essential
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Why Thread Management is Essential">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#the-concurrency-challenge" class="md-nav__link">
+    <span class="md-ellipsis">
+      The Concurrency Challenge
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#real-world-application-scenarios" class="md-nav__link">
+    <span class="md-ellipsis">
+      Real-World Application Scenarios
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#zephyrs-thread-architecture" class="md-nav__link">
+    <span class="md-ellipsis">
+      Zephyr's Thread Architecture
     </span>
   </a>
   
 </li>
       
         <li class="md-nav__item">
-  <a href="#why-choose-zephyr" class="md-nav__link">
+  <a href="#learning-objectives" class="md-nav__link">
     <span class="md-ellipsis">
-      Why Choose Zephyr?
+      Learning Objectives
     </span>
   </a>
   
 </li>
       
         <li class="md-nav__item">
-  <a href="#real-world-applications" class="md-nav__link">
+  <a href="#chapter-structure-and-raspberry-pi-4b-integration" class="md-nav__link">
     <span class="md-ellipsis">
-      Real-World Applications
+      Chapter Structure and Raspberry Pi 4B Integration
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Chapter Structure and Raspberry Pi 4B Integration">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#progression-through-the-chapter" class="md-nav__link">
+    <span class="md-ellipsis">
+      Progression Through the Chapter
     </span>
   </a>
   
 </li>
-      
-        <li class="md-nav__item">
-  <a href="#chapter-2-learning-objectives" class="md-nav__link">
+        
+          <li class="md-nav__item">
+  <a href="#building-on-previous-knowledge" class="md-nav__link">
     <span class="md-ellipsis">
-      Chapter 2 Learning Objectives
+      Building on Previous Knowledge
     </span>
   </a>
   
 </li>
-      
-        <li class="md-nav__item">
-  <a href="#course-flow-connection" class="md-nav__link">
+        
+          <li class="md-nav__item">
+  <a href="#preparing-for-advanced-topics" class="md-nav__link">
     <span class="md-ellipsis">
-      Course Flow Connection
+      Preparing for Advanced Topics
     </span>
   </a>
+  
+</li>
+        
+      </ul>
+    </nav>
   
 </li>
       
@@ -2421,57 +2376,86 @@
 
 
 
-<h1 id="chapter-2-introduction-to-zephyr-introduction">Chapter 2: Introduction to Zephyr - Introduction</h1>
-<h2 id="what-is-zephyr-rtos">What is Zephyr RTOS?</h2>
-<p>Zephyr is a small, scalable real-time operating system (RTOS) for connected, resource-constrained devices supporting multiple architectures. Unlike traditional desktop operating systems, Zephyr is specifically designed for embedded systems where every byte of memory and every CPU cycle counts.</p>
-<p><strong>Key Characteristics:</strong>
-* <strong>Real-time:</strong> Predictable response times for time-critical applications
-* <strong>Scalable:</strong> From simple 8-bit microcontrollers to powerful ARM Cortex-A processors<br />
-<em> </em><em>Open Source:</em><em> Apache 2.0 licensed, backed by the Linux Foundation
-* </em><em>Modular:</em><em> Include only the features your application needs
-* </em><em>Connected:</em>* Built-in networking, Bluetooth, and IoT protocol support</p>
-<h2 id="why-choose-zephyr">Why Choose Zephyr?</h2>
-<p>The world of embedded systems is exploding! From smartwatches and IoT devices to industrial automation and medical equipment, real-time systems are everywhere. However, developing these systems presents unique challenges:</p>
-<p><strong>Traditional Challenges:</strong>
-* <strong>Resource Constraints:</strong> Limited memory, processing power, and energy
-* <strong>Real-time Requirements:</strong> Deterministic response times for critical operations<br />
-<em> </em><em>Complexity:</em><em> Managing hardware peripherals, communication protocols, and application logic
-* </em><em>Portability:</em>* Code that works across different microcontroller families</p>
-<p><strong>Why Zephyr Solves These:</strong>
-* <strong>Lightweight:</strong> Minimal memory footprint (as low as 8KB RAM)
-* <strong>Deterministic:</strong> Preemptive multi-tasking with predictable scheduling
-* <strong>Comprehensive:</strong> Includes drivers, networking, security, and middleware
-* <strong>Portable:</strong> Single codebase runs on 500+ supported boards</p>
-<h2 id="real-world-applications">Real-World Applications</h2>
-<p><strong>Smart Agriculture Sensor Node:</strong>
-Imagine developing a wireless sensor that monitors soil moisture, temperature, and humidity. It needs to:
-* Collect sensor data every 30 minutes
-* Transmit data via LoRaWAN when connectivity is available<br />
-* Operate on battery power for months
-* Handle sensor failures gracefully</p>
-<p>Zephyr provides the scheduling, power management, networking protocols, and fault tolerance needed for this application.</p>
-<p><strong>Medical Device Controller:</strong>
-Consider a portable ECG monitor that must:
-* Sample heart signals with microsecond precision
-* Process data in real-time to detect arrhythmias
-* Store patient data securely
-* Communicate with smartphones via Bluetooth</p>
-<p>Zephyr's deterministic real-time behavior, security features, and Bluetooth stack make this possible.</p>
-<h2 id="chapter-2-learning-objectives">Chapter 2 Learning Objectives</h2>
-<p>By the end of this chapter, you will be able to:</p>
-<ul>
-<li>Understand what Zephyr RTOS is and why it's chosen for embedded systems</li>
-<li>Identify the key components of the Zephyr ecosystem</li>
-<li>Recognize real-world applications where Zephyr excels</li>
-<li>Set up a development environment (covered in Theory section)</li>
-<li>Build and run your first Zephyr application (covered in Lab section)</li>
-</ul>
-<h2 id="course-flow-connection">Course Flow Connection</h2>
-<p><strong>From Chapter 1:</strong> You learned about the overall course structure and the importance of RTOS in embedded systems.</p>
-<p><strong>This Chapter:</strong> We introduce Zephyr specifically - what it is, why it matters, and see it in action.</p>
-<p><strong>To Chapter 3:</strong> With Zephyr fundamentals understood, we'll dive deep into the build system and project structure.</p>
+<h1 id="chapter-7-thread-management-introduction">Chapter 7: Thread Management - Introduction</h1>
 <hr />
-<p><strong>Next:</strong> Continue to the Theory section to explore the Zephyr ecosystem in detail and learn about the development tools.</p>
+<p><a href="./">Introduction</a> | <a href="theory/">Theory</a> | <a href="lab/">Lab</a> | <a href="../">Course Home</a></p>
+<hr />
+<p>Mastering thread management transforms your embedded applications from sequential, blocking programs into responsive, concurrent systems capable of handling multiple tasks simultaneously. This chapter empowers you to harness Zephyr's powerful threading capabilities, building applications that can monitor sensors, control actuators, manage communications, and respond to user input—all concurrently and with precise timing control.</p>
+<p>Building on your GPIO, I2C, and shell development skills from Chapter 6, you'll now orchestrate multiple concurrent execution paths, creating sophisticated applications that demonstrate professional real-time embedded system architecture.</p>
+<h2 id="why-thread-management-is-essential">Why Thread Management is Essential</h2>
+<p>Modern embedded systems must handle numerous concurrent responsibilities. A single-threaded approach creates bottlenecks where time-critical tasks wait for slower operations to complete, resulting in missed deadlines, unresponsive interfaces, and unreliable system behavior.</p>
+<h3 id="the-concurrency-challenge">The Concurrency Challenge</h3>
+<p><strong>Sequential Processing Limitations:</strong>
+Consider a sensor monitoring system that must read temperature data, update an LCD display, respond to button presses, and transmit data over WiFi. In a single-threaded design, each operation blocks the others, creating cascading delays that compound into system-wide responsiveness problems.</p>
+<p><strong>Thread-Based Solutions:</strong>
+With proper thread management, each responsibility runs independently. Temperature readings occur on schedule regardless of WiFi transmission status. Button presses receive immediate attention even during lengthy sensor calibrations. Display updates maintain smooth refresh rates independent of communication activities.</p>
+<h3 id="real-world-application-scenarios">Real-World Application Scenarios</h3>
+<p><strong>Industrial IoT Edge Gateway:</strong>
+Your factory automation system manages dozens of sensors across multiple communication protocols (I2C, SPI, Modbus), provides local data processing and alarm handling, maintains cloud connectivity for data reporting, and supports operator interfaces for configuration and diagnostics. Thread management enables each subsystem to operate independently while sharing resources efficiently.</p>
+<p><strong>Medical Patient Monitor:</strong>
+A bedside monitoring system continuously processes ECG signals, measures blood oxygen levels, monitors blood pressure, manages alarm states, updates displays, logs data, and communicates with central nursing stations. Thread-based architecture ensures that critical alarm detection never waits for network communications or display updates.</p>
+<p><strong>Autonomous Vehicle Sensor Fusion:</strong>
+An automotive ADAS system processes camera feeds, LIDAR point clouds, radar returns, GPS positioning, and inertial measurements while running collision detection algorithms, path planning calculations, and vehicle control systems. Thread management provides the concurrent processing power essential for real-time safety-critical operations.</p>
+<p><strong>Smart Building Controller:</strong>
+A building automation hub manages HVAC systems, lighting controls, security sensors, access control, energy monitoring, and occupancy tracking while providing web interfaces, mobile app connectivity, and integration with cloud services. Threaded architecture ensures responsive control regardless of network conditions or computational loads.</p>
+<h2 id="zephyrs-thread-architecture">Zephyr's Thread Architecture</h2>
+<p>Zephyr provides a sophisticated, RTOS-grade threading system designed specifically for resource-constrained embedded systems:</p>
+<p><strong>Deterministic Scheduling:</strong> Zephyr's scheduler provides predictable, priority-based thread execution with configurable preemptive and cooperative scheduling policies, ensuring critical tasks receive processor time when needed.</p>
+<p><strong>Lightweight Context Switching:</strong> Optimized assembly-language context switching minimizes overhead, enabling responsive thread switching even on resource-constrained microcontrollers.</p>
+<p><strong>Comprehensive Synchronization:</strong> Mutexes, semaphores, condition variables, and other synchronization primitives prevent race conditions while enabling efficient resource sharing between threads.</p>
+<p><strong>Memory Efficiency:</strong> Threads share address space and resources, minimizing memory overhead compared to process-based approaches while maintaining isolation where needed.</p>
+<h2 id="learning-objectives">Learning Objectives</h2>
+<p>By completing this chapter, you will:</p>
+<ol>
+<li>
+<p><strong>Master Thread Creation Patterns:</strong> Implement both static and dynamic thread creation using K_THREAD_DEFINE and k_thread_create, understanding when to apply each approach</p>
+</li>
+<li>
+<p><strong>Apply Thread Synchronization:</strong> Use mutexes, semaphores, and condition variables to coordinate thread interactions and protect shared resources from race conditions</p>
+</li>
+<li>
+<p><strong>Implement Precise Timing Control:</strong> Apply k_sleep, k_msleep, and timeout mechanisms for accurate timing and non-blocking operations</p>
+</li>
+<li>
+<p><strong>Design Concurrent Architectures:</strong> Structure multi-threaded applications with proper separation of concerns, resource sharing, and error handling</p>
+</li>
+<li>
+<p><strong>Optimize Thread Performance:</strong> Configure thread priorities, stack sizes, and scheduling parameters for optimal system performance and resource utilization</p>
+</li>
+<li>
+<p><strong>Debug Multi-Threaded Systems:</strong> Use Zephyr's thread monitoring and debugging capabilities to identify and resolve concurrency issues</p>
+</li>
+</ol>
+<h2 id="chapter-structure-and-raspberry-pi-4b-integration">Chapter Structure and Raspberry Pi 4B Integration</h2>
+<p>Your Raspberry Pi 4B provides an excellent platform for exploring thread management concepts:</p>
+<p><strong>Multi-Core Architecture:</strong> The Pi's quad-core ARM processor demonstrates true parallel execution, allowing visualization of concurrent thread behavior across multiple CPU cores.</p>
+<p><strong>Rich Peripheral Set:</strong> Multiple GPIO pins, I2C buses, SPI interfaces, and UARTs enable complex multi-threaded applications that manage diverse hardware simultaneously.</p>
+<p><strong>Performance Monitoring:</strong> The Pi's processing power supports comprehensive thread monitoring and debugging without impacting real-time behavior.</p>
+<h3 id="progression-through-the-chapter">Progression Through the Chapter</h3>
+<ul>
+<li><strong>Theory Section:</strong> Deep exploration of thread creation, lifecycle management, synchronization mechanisms, and performance optimization techniques</li>
+<li><strong>Lab Exercises:</strong> Progressive hands-on projects building from basic thread creation to complex multi-threaded sensor monitoring systems  </li>
+<li><strong>Integration Projects:</strong> Real-world applications combining threading with GPIO, I2C, and shell interfaces for comprehensive system design</li>
+</ul>
+<h3 id="building-on-previous-knowledge">Building on Previous Knowledge</h3>
+<p>This chapter leverages your existing skills:</p>
+<ul>
+<li><strong>GPIO expertise</strong> from Chapter 6 enables multi-threaded hardware control applications  </li>
+<li><strong>I2C communication</strong> skills support concurrent sensor data acquisition from multiple devices</li>
+<li><strong>Shell interface</strong> knowledge allows interactive thread monitoring and control commands</li>
+<li><strong>Device tree</strong> understanding facilitates hardware resource allocation across multiple threads</li>
+</ul>
+<h3 id="preparing-for-advanced-topics">Preparing for Advanced Topics</h3>
+<p>Thread management skills enable advanced Zephyr development:</p>
+<ul>
+<li><strong>Inter-thread communication</strong> mechanisms for data sharing and coordination</li>
+<li><strong>Memory management</strong> optimization for multi-threaded applications</li>
+<li><strong>Power management</strong> strategies that consider thread behavior and timing requirements</li>
+<li><strong>Driver development</strong> requiring thread-safe implementations and interrupt handling</li>
+</ul>
+<hr />
+<p>Thread management represents the foundation of professional embedded system architecture. By mastering these concepts, you'll create responsive, reliable, and maintainable embedded applications that meet the demanding requirements of modern IoT, industrial, medical, and automotive systems.</p>
+<p><a href="theory/">Next: Thread Management Theory</a></p>
 
 
 
@@ -2492,7 +2476,7 @@ Consider a portable ECG monitor that must:
     <span class="md-icon" title="Last update">
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M21 13.1c-.1 0-.3.1-.4.2l-1 1 2.1 2.1 1-1c.2-.2.2-.6 0-.8l-1.3-1.3c-.1-.1-.2-.2-.4-.2m-1.9 1.8-6.1 6V23h2.1l6.1-6.1zM12.5 7v5.2l4 2.4-1 1L11 13V7zM11 21.9c-5.1-.5-9-4.8-9-9.9C2 6.5 6.5 2 12 2c5.3 0 9.6 4.1 10 9.3-.3-.1-.6-.2-1-.2s-.7.1-1 .2C19.6 7.2 16.2 4 12 4c-4.4 0-8 3.6-8 8 0 4.1 3.1 7.5 7.1 7.9l-.1.2z"/></svg>
     </span>
-    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date" title="October 18, 2025 09:55:24 UTC">October 18, 2025</span>
+    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date" title="October 18, 2025 10:58:25 UTC">October 18, 2025</span>
   </span>
 
     
@@ -2541,10 +2525,10 @@ Consider a portable ECG monitor that must:
     
     
       
-      <script id="__config" type="application/json">{"base": "../..", "features": [], "search": "../../assets/javascripts/workers/search.973d3a69.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": null}</script>
+      <script id="__config" type="application/json">{"base": "..", "features": [], "search": "../assets/javascripts/workers/search.973d3a69.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": null}</script>
     
     
-      <script src="../../assets/javascripts/bundle.f55a23d4.min.js"></script>
+      <script src="../assets/javascripts/bundle.f55a23d4.min.js"></script>
       
     
   </body>

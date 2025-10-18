@@ -8,25 +8,21 @@
       
       
       
-        <link rel="canonical" href="https://tinegachris.github.io/course_zephyr_rtos_rpi_4b/chapter_11_traditional_multithreading_primitives/introduction/">
+        <link rel="canonical" href="https://tinegachris.github.io/course_zephyr_rtos_rpi_4b/chapter_17_power_management/">
       
       
-        <link rel="prev" href="../../chapter_10_user_mode/lab/">
       
       
-        <link rel="next" href="../theory/">
-      
-      
-      <link rel="icon" href="../../assets/images/favicon.png">
+      <link rel="icon" href="../assets/images/favicon.png">
       <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.6.22">
     
     
       
-        <title>Introduction - Zephyr RTOS Development Course</title>
+        <title>Chapter 17: Power Management - Zephyr RTOS Development Course</title>
       
     
     
-      <link rel="stylesheet" href="../../assets/stylesheets/main.84d31ad4.min.css">
+      <link rel="stylesheet" href="../assets/stylesheets/main.84d31ad4.min.css">
       
       
 
@@ -45,7 +41,7 @@
       
     
     
-    <script>__md_scope=new URL("../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    <script>__md_scope=new URL("..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
     
       
 
@@ -64,7 +60,7 @@
     <div data-md-component="skip">
       
         
-        <a href="#chapter-11-traditional-multithreading-primitives-professional-introduction" class="md-skip">
+        <a href="#chapter-17-power-management" class="md-skip">
           Skip to content
         </a>
       
@@ -80,7 +76,7 @@
 
 <header class="md-header md-header--shadow" data-md-component="header">
   <nav class="md-header__inner md-grid" aria-label="Header">
-    <a href="../.." title="Zephyr RTOS Development Course" class="md-header__button md-logo" aria-label="Zephyr RTOS Development Course" data-md-component="logo">
+    <a href=".." title="Zephyr RTOS Development Course" class="md-header__button md-logo" aria-label="Zephyr RTOS Development Course" data-md-component="logo">
       
   
   <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
@@ -100,7 +96,7 @@
         <div class="md-header__topic" data-md-component="header-topic">
           <span class="md-ellipsis">
             
-              Introduction
+              Chapter 17: Power Management
             
           </span>
         </div>
@@ -138,7 +134,7 @@
 
 <nav class="md-nav md-nav--primary" aria-label="Navigation" data-md-level="0">
   <label class="md-nav__title" for="__drawer">
-    <a href="../.." title="Zephyr RTOS Development Course" class="md-nav__button md-logo" aria-label="Zephyr RTOS Development Course" data-md-component="logo">
+    <a href=".." title="Zephyr RTOS Development Course" class="md-nav__button md-logo" aria-label="Zephyr RTOS Development Course" data-md-component="logo">
       
   
   <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
@@ -156,7 +152,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../.." class="md-nav__link">
+      <a href=".." class="md-nav__link">
         
   
   
@@ -216,7 +212,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../CONDUCT/" class="md-nav__link">
+      <a href="../CONDUCT/" class="md-nav__link">
         
   
   
@@ -239,7 +235,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../CONTRIBUTING/" class="md-nav__link">
+      <a href="../CONTRIBUTING/" class="md-nav__link">
         
   
   
@@ -269,7 +265,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../chapter_01_course_introduction/introduction.md" class="md-nav__link">
+      <a href="../chapter_01_course_introduction/introduction.md" class="md-nav__link">
         
   
   
@@ -329,7 +325,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../chapter_02_introduction_to_zephyr/introduction/" class="md-nav__link">
+      <a href="../chapter_02_introduction_to_zephyr/introduction.md" class="md-nav__link">
         
   
   
@@ -352,7 +348,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../chapter_02_introduction_to_zephyr/theory/" class="md-nav__link">
+      <a href="../chapter_02_introduction_to_zephyr/theory/" class="md-nav__link">
         
   
   
@@ -375,7 +371,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../chapter_02_introduction_to_zephyr/lab/" class="md-nav__link">
+      <a href="../chapter_02_introduction_to_zephyr/lab/" class="md-nav__link">
         
   
   
@@ -443,7 +439,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../chapter_03_zephyr_build_system/introduction/" class="md-nav__link">
+      <a href="../chapter_03_zephyr_build_system/introduction.md" class="md-nav__link">
         
   
   
@@ -466,7 +462,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../chapter_03_zephyr_build_system/theory/" class="md-nav__link">
+      <a href="../chapter_03_zephyr_build_system/theory/" class="md-nav__link">
         
   
   
@@ -489,7 +485,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../chapter_03_zephyr_build_system/lab/" class="md-nav__link">
+      <a href="../chapter_03_zephyr_build_system/lab/" class="md-nav__link">
         
   
   
@@ -557,7 +553,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../chapter_04_configure_zephyr/introduction/" class="md-nav__link">
+      <a href="../chapter_04_configure_zephyr/introduction.md" class="md-nav__link">
         
   
   
@@ -580,7 +576,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../chapter_04_configure_zephyr/theory/" class="md-nav__link">
+      <a href="../chapter_04_configure_zephyr/theory/" class="md-nav__link">
         
   
   
@@ -603,7 +599,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../chapter_04_configure_zephyr/lab/" class="md-nav__link">
+      <a href="../chapter_04_configure_zephyr/lab/" class="md-nav__link">
         
   
   
@@ -671,7 +667,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../chapter_05_west/introduction/" class="md-nav__link">
+      <a href="../chapter_05_west/introduction.md" class="md-nav__link">
         
   
   
@@ -694,7 +690,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../chapter_05_west/theory/" class="md-nav__link">
+      <a href="../chapter_05_west/theory/" class="md-nav__link">
         
   
   
@@ -717,7 +713,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../chapter_05_west/lab/" class="md-nav__link">
+      <a href="../chapter_05_west/lab/" class="md-nav__link">
         
   
   
@@ -785,7 +781,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../chapter_06_zephyr_fundamentals/introduction/" class="md-nav__link">
+      <a href="../chapter_06_zephyr_fundamentals/introduction.md" class="md-nav__link">
         
   
   
@@ -808,7 +804,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../chapter_06_zephyr_fundamentals/theory/" class="md-nav__link">
+      <a href="../chapter_06_zephyr_fundamentals/theory/" class="md-nav__link">
         
   
   
@@ -831,7 +827,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../chapter_06_zephyr_fundamentals/lab/" class="md-nav__link">
+      <a href="../chapter_06_zephyr_fundamentals/lab/" class="md-nav__link">
         
   
   
@@ -899,7 +895,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../chapter_07_thread_management/introduction/" class="md-nav__link">
+      <a href="../chapter_07_thread_management/introduction.md" class="md-nav__link">
         
   
   
@@ -922,7 +918,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../chapter_07_thread_management/theory/" class="md-nav__link">
+      <a href="../chapter_07_thread_management/theory/" class="md-nav__link">
         
   
   
@@ -945,7 +941,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../chapter_07_thread_management/lab/" class="md-nav__link">
+      <a href="../chapter_07_thread_management/lab/" class="md-nav__link">
         
   
   
@@ -1013,7 +1009,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../chapter_08_tracing_and_logging/introduction/" class="md-nav__link">
+      <a href="../chapter_08_tracing_and_logging/introduction.md" class="md-nav__link">
         
   
   
@@ -1036,7 +1032,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../chapter_08_tracing_and_logging/theory/" class="md-nav__link">
+      <a href="../chapter_08_tracing_and_logging/theory/" class="md-nav__link">
         
   
   
@@ -1059,7 +1055,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../chapter_08_tracing_and_logging/lab/" class="md-nav__link">
+      <a href="../chapter_08_tracing_and_logging/lab/" class="md-nav__link">
         
   
   
@@ -1127,7 +1123,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../chapter_09_memory_management/introduction/" class="md-nav__link">
+      <a href="../chapter_09_memory_management/introduction.md" class="md-nav__link">
         
   
   
@@ -1150,7 +1146,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../chapter_09_memory_management/theory/" class="md-nav__link">
+      <a href="../chapter_09_memory_management/theory/" class="md-nav__link">
         
   
   
@@ -1173,7 +1169,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../chapter_09_memory_management/lab/" class="md-nav__link">
+      <a href="../chapter_09_memory_management/lab/" class="md-nav__link">
         
   
   
@@ -1241,7 +1237,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../chapter_10_user_mode/introduction/" class="md-nav__link">
+      <a href="../chapter_10_user_mode/introduction.md" class="md-nav__link">
         
   
   
@@ -1264,7 +1260,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../chapter_10_user_mode/theory/" class="md-nav__link">
+      <a href="../chapter_10_user_mode/theory/" class="md-nav__link">
         
   
   
@@ -1287,7 +1283,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../chapter_10_user_mode/lab/" class="md-nav__link">
+      <a href="../chapter_10_user_mode/lab/" class="md-nav__link">
         
   
   
@@ -1314,20 +1310,18 @@
       
   
   
-    
   
   
-  
     
     
     
     
     
-    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+    <li class="md-nav__item md-nav__item--nested">
       
         
         
-        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_13" checked>
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_13" >
         
           
           <label class="md-nav__link" for="__nav_13" id="__nav_13_label" tabindex="0">
@@ -1343,7 +1337,7 @@
             <span class="md-nav__icon md-icon"></span>
           </label>
         
-        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_13_label" aria-expanded="true">
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_13_label" aria-expanded="false">
           <label class="md-nav__title" for="__nav_13">
             <span class="md-nav__icon md-icon"></span>
             Chapter 11: Traditional Multithreading Primitives
@@ -1354,32 +1348,10 @@
                 
   
   
-    
   
   
-  
-    <li class="md-nav__item md-nav__item--active">
-      
-      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
-      
-      
-        
-      
-      
-        <label class="md-nav__link md-nav__link--active" for="__toc">
-          
-  
-  
-  <span class="md-ellipsis">
-    Introduction
-    
-  </span>
-  
-
-          <span class="md-nav__icon md-icon"></span>
-        </label>
-      
-      <a href="./" class="md-nav__link md-nav__link--active">
+    <li class="md-nav__item">
+      <a href="../chapter_11_traditional_multithreading_primitives/introduction.md" class="md-nav__link">
         
   
   
@@ -1390,122 +1362,6 @@
   
 
       </a>
-      
-        
-
-<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
-  
-  
-  
-    
-  
-  
-    <label class="md-nav__title" for="__toc">
-      <span class="md-nav__icon md-icon"></span>
-      Table of contents
-    </label>
-    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
-      
-        <li class="md-nav__item">
-  <a href="#building-on-memory-management-and-security-foundations" class="md-nav__link">
-    <span class="md-ellipsis">
-      Building on Memory Management and Security Foundations
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#introduction-to-concurrent-programming-with-zephyr" class="md-nav__link">
-    <span class="md-ellipsis">
-      Introduction to Concurrent Programming with Zephyr
-    </span>
-  </a>
-  
-    <nav class="md-nav" aria-label="Introduction to Concurrent Programming with Zephyr">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#the-critical-importance-of-synchronization" class="md-nav__link">
-    <span class="md-ellipsis">
-      The Critical Importance of Synchronization
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#zephyrs-multithreading-architecture" class="md-nav__link">
-    <span class="md-ellipsis">
-      Zephyr's Multithreading Architecture
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#modern-relevance-of-traditional-primitives" class="md-nav__link">
-    <span class="md-ellipsis">
-      Modern Relevance of Traditional Primitives
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#performance-and-scalability-considerations" class="md-nav__link">
-    <span class="md-ellipsis">
-      Performance and Scalability Considerations
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#integration-with-zephyrs-architecture" class="md-nav__link">
-    <span class="md-ellipsis">
-      Integration with Zephyr's Architecture
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#chapter-objectives-and-learning-outcomes" class="md-nav__link">
-    <span class="md-ellipsis">
-      Chapter Objectives and Learning Outcomes
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#real-world-application-domains" class="md-nav__link">
-    <span class="md-ellipsis">
-      Real-World Application Domains
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#advanced-topics-preview" class="md-nav__link">
-    <span class="md-ellipsis">
-      Advanced Topics Preview
-    </span>
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
-</li>
-      
-    </ul>
-  
-</nav>
-      
     </li>
   
 
@@ -1518,7 +1374,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../theory/" class="md-nav__link">
+      <a href="../chapter_11_traditional_multithreading_primitives/theory/" class="md-nav__link">
         
   
   
@@ -1541,7 +1397,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../lab/" class="md-nav__link">
+      <a href="../chapter_11_traditional_multithreading_primitives/lab/" class="md-nav__link">
         
   
   
@@ -1609,7 +1465,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../chapter_12_inter-thread_communication/introduction/" class="md-nav__link">
+      <a href="../chapter_12_inter-thread_communication/introduction.md" class="md-nav__link">
         
   
   
@@ -1632,7 +1488,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../chapter_12_inter-thread_communication/theory/" class="md-nav__link">
+      <a href="../chapter_12_inter-thread_communication/theory/" class="md-nav__link">
         
   
   
@@ -1655,7 +1511,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../chapter_12_inter-thread_communication/lab/" class="md-nav__link">
+      <a href="../chapter_12_inter-thread_communication/lab/" class="md-nav__link">
         
   
   
@@ -1723,7 +1579,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../chapter_13_interrupt_management/introduction/" class="md-nav__link">
+      <a href="../chapter_13_interrupt_management/introduction.md" class="md-nav__link">
         
   
   
@@ -1746,7 +1602,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../chapter_13_interrupt_management/theory/" class="md-nav__link">
+      <a href="../chapter_13_interrupt_management/theory/" class="md-nav__link">
         
   
   
@@ -1769,7 +1625,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../chapter_13_interrupt_management/lab/" class="md-nav__link">
+      <a href="../chapter_13_interrupt_management/lab/" class="md-nav__link">
         
   
   
@@ -1837,7 +1693,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../chapter_14_modules/introduction/" class="md-nav__link">
+      <a href="../chapter_14_modules/introduction.md" class="md-nav__link">
         
   
   
@@ -1860,7 +1716,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../chapter_14_modules/theory/" class="md-nav__link">
+      <a href="../chapter_14_modules/theory/" class="md-nav__link">
         
   
   
@@ -1883,7 +1739,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../chapter_14_modules/lab/" class="md-nav__link">
+      <a href="../chapter_14_modules/lab/" class="md-nav__link">
         
   
   
@@ -1951,7 +1807,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../chapter_15_writing_kconfig_symbols/introduction/" class="md-nav__link">
+      <a href="../chapter_15_writing_kconfig_symbols/introduction.md" class="md-nav__link">
         
   
   
@@ -1974,7 +1830,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../chapter_15_writing_kconfig_symbols/theory/" class="md-nav__link">
+      <a href="../chapter_15_writing_kconfig_symbols/theory/" class="md-nav__link">
         
   
   
@@ -1997,7 +1853,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../chapter_15_writing_kconfig_symbols/lab/" class="md-nav__link">
+      <a href="../chapter_15_writing_kconfig_symbols/lab/" class="md-nav__link">
         
   
   
@@ -2065,7 +1921,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../chapter_16_device_driver_architecture/introduction/" class="md-nav__link">
+      <a href="../chapter_16_device_driver_architecture/introduction.md" class="md-nav__link">
         
   
   
@@ -2088,7 +1944,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../chapter_16_device_driver_architecture/theory/" class="md-nav__link">
+      <a href="../chapter_16_device_driver_architecture/theory/" class="md-nav__link">
         
   
   
@@ -2111,7 +1967,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../chapter_16_device_driver_architecture/lab/" class="md-nav__link">
+      <a href="../chapter_16_device_driver_architecture/lab/" class="md-nav__link">
         
   
   
@@ -2179,7 +2035,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../chapter_17_power_management/introduction/" class="md-nav__link">
+      <a href="introduction.md" class="md-nav__link">
         
   
   
@@ -2202,7 +2058,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../chapter_17_power_management/theory/" class="md-nav__link">
+      <a href="theory/" class="md-nav__link">
         
   
   
@@ -2225,7 +2081,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../chapter_17_power_management/lab/" class="md-nav__link">
+      <a href="lab/" class="md-nav__link">
         
   
   
@@ -2293,7 +2149,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../chapter_18_capstone_project/introduction/" class="md-nav__link">
+      <a href="../chapter_18_capstone_project/introduction.md" class="md-nav__link">
         
   
   
@@ -2316,7 +2172,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../chapter_18_capstone_project/theory/" class="md-nav__link">
+      <a href="../chapter_18_capstone_project/theory/" class="md-nav__link">
         
   
   
@@ -2339,7 +2195,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../chapter_18_capstone_project/lab/" class="md-nav__link">
+      <a href="../chapter_18_capstone_project/lab/" class="md-nav__link">
         
   
   
@@ -2362,7 +2218,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../chapter_18_capstone_project/networked_monitor/" class="md-nav__link">
+      <a href="../chapter_18_capstone_project/networked_monitor/" class="md-nav__link">
         
   
   
@@ -2412,91 +2268,37 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
-  <a href="#building-on-memory-management-and-security-foundations" class="md-nav__link">
+  <a href="#completing-the-professional-architecture" class="md-nav__link">
     <span class="md-ellipsis">
-      Building on Memory Management and Security Foundations
+      Completing the Professional Architecture
     </span>
   </a>
   
 </li>
       
         <li class="md-nav__item">
-  <a href="#introduction-to-concurrent-programming-with-zephyr" class="md-nav__link">
+  <a href="#introduction" class="md-nav__link">
     <span class="md-ellipsis">
-      Introduction to Concurrent Programming with Zephyr
+      Introduction
     </span>
   </a>
   
-    <nav class="md-nav" aria-label="Introduction to Concurrent Programming with Zephyr">
+    <nav class="md-nav" aria-label="Introduction">
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
-  <a href="#the-critical-importance-of-synchronization" class="md-nav__link">
+  <a href="#why-power-management-matters" class="md-nav__link">
     <span class="md-ellipsis">
-      The Critical Importance of Synchronization
+      Why Power Management Matters
     </span>
   </a>
   
 </li>
         
           <li class="md-nav__item">
-  <a href="#zephyrs-multithreading-architecture" class="md-nav__link">
+  <a href="#real-world-scenarios-industry-applications" class="md-nav__link">
     <span class="md-ellipsis">
-      Zephyr's Multithreading Architecture
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#modern-relevance-of-traditional-primitives" class="md-nav__link">
-    <span class="md-ellipsis">
-      Modern Relevance of Traditional Primitives
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#performance-and-scalability-considerations" class="md-nav__link">
-    <span class="md-ellipsis">
-      Performance and Scalability Considerations
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#integration-with-zephyrs-architecture" class="md-nav__link">
-    <span class="md-ellipsis">
-      Integration with Zephyr's Architecture
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#chapter-objectives-and-learning-outcomes" class="md-nav__link">
-    <span class="md-ellipsis">
-      Chapter Objectives and Learning Outcomes
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#real-world-application-domains" class="md-nav__link">
-    <span class="md-ellipsis">
-      Real-World Application Domains
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#advanced-topics-preview" class="md-nav__link">
-    <span class="md-ellipsis">
-      Advanced Topics Preview
+      Real-World Scenarios &amp; Industry Applications
     </span>
   </a>
   
@@ -2523,86 +2325,30 @@
 
 
 
-<h1 id="chapter-11-traditional-multithreading-primitives-professional-introduction">Chapter 11: Traditional Multithreading Primitives - Professional Introduction</h1>
-<h2 id="building-on-memory-management-and-security-foundations">Building on Memory Management and Security Foundations</h2>
-<p>Having mastered memory management in Chapter 9 and user mode security in Chapter 10, you now understand how to allocate, protect, and isolate memory resources in embedded systems. However, these capabilities alone are insufficient for concurrent programming where multiple threads must safely coordinate access to shared resources within secure memory domains.</p>
-<p>Traditional multithreading primitives represent the essential next step in your embedded systems journey—transforming your understanding of protected memory spaces into sophisticated coordination mechanisms that enable safe, efficient concurrent programming within the security boundaries you've established.</p>
-<h2 id="introduction-to-concurrent-programming-with-zephyr">Introduction to Concurrent Programming with Zephyr</h2>
-<p>Traditional multithreading primitives form the cornerstone of concurrent programming in embedded systems, building directly upon the memory management and security concepts you've mastered. These primitives provide the fundamental mechanisms for coordinating access to shared resources and synchronizing thread execution within the secure memory domains and privilege boundaries you learned to create in previous chapters.</p>
-<h3 id="the-critical-importance-of-synchronization">The Critical Importance of Synchronization</h3>
-<p>While Chapter 9's memory management techniques protect against resource exhaustion and Chapter 10's user mode provides security isolation, neither addresses the fundamental challenge of <strong>concurrent access coordination</strong>. Multiple threads operating within properly managed memory domains can still corrupt shared data through race conditions, creating system failures that bypass both memory and security protections.</p>
-<p>Synchronization primitives solve this coordination challenge by providing controlled, atomic access to shared resources within the secure, well-managed memory environments you've learned to create. Consider these real-world scenarios where memory management and security alone are insufficient:</p>
-<p><strong>Industrial Control Systems</strong>: A manufacturing robot controller must coordinate sensor reading threads, motion planning threads, and safety monitoring threads. Without proper synchronization, conflicting commands could cause equipment damage or personnel injury.</p>
-<p><strong>Automotive Systems</strong>: Advanced Driver Assistance Systems (ADAS) require precise coordination between camera processing, radar analysis, and control actuation threads. Timing inconsistencies or data races could result in incorrect safety decisions.</p>
-<p><strong>Medical Devices</strong>: Patient monitoring systems must synchronize data acquisition, alarm processing, and communication threads while guaranteeing response times for critical alerts.</p>
-<p><strong>IoT Edge Devices</strong>: Connected devices must balance sensor data collection, local processing, network communication, and power management across multiple concurrent execution contexts.</p>
-<h3 id="zephyrs-multithreading-architecture">Zephyr's Multithreading Architecture</h3>
-<p>Zephyr RTOS provides a comprehensive suite of traditional multithreading primitives specifically designed for resource-constrained embedded systems. These primitives offer deterministic behavior, predictable timing characteristics, and minimal memory overhead while maintaining the flexibility needed for complex applications.</p>
-<p>The core primitives available in Zephyr include:</p>
+<h1 id="chapter-17-power-management">Chapter 17: Power Management</h1>
+<hr />
+<p><a href="./">Introduction</a> | <a href="theory/">Theory</a> | <a href="lab/">Lab</a> | <a href="../">Course Home</a></p>
+<hr />
+<h2 id="completing-the-professional-architecture">Completing the Professional Architecture</h2>
+<p>Having mastered device driver architecture in Chapter 16—creating hardware abstraction layers that provide standardized, portable interfaces to your embedded systems—you now possess the complete technical foundation for building professional embedded software. But in today's world of IoT devices, battery-powered systems, and environmental consciousness, technical excellence alone isn't sufficient.</p>
+<p>Modern embedded systems must also be power-efficient, extending battery life, reducing heat generation, and meeting increasingly strict environmental standards. Power management represents the final piece of professional embedded development—the expertise that transforms technically sound systems into market-viable products.</p>
+<h2 id="introduction">Introduction</h2>
+<h3 id="why-power-management-matters">Why Power Management Matters</h3>
+<p>In the realm of embedded systems, power efficiency isn’t just a nice-to-have; it’s a critical determinant of success.  Consider the IoT sensor node deployed in a remote agricultural environment. Its battery life dictates the duration of data collection and transmission, directly impacting the value of the insights it provides.  Similarly, in wearables, maximizing battery life is paramount for user comfort and device usability.  Even in automotive applications, where power consumption directly impacts range and operational costs, efficient power management is essential.</p>
+<p>As systems become more complex and incorporate features like Bluetooth Low Energy (BLE), Wi-Fi, and cellular connectivity, power consumption increases dramatically. Without careful management, batteries deplete quickly, leading to system failures and wasted resources. Zephyr RTOS provides the tools to tackle this challenge, enabling developers to create robust and reliable systems that operate efficiently and reliably on battery power.</p>
+<h3 id="real-world-scenarios-industry-applications">Real-World Scenarios &amp; Industry Applications</h3>
 <ul>
-<li><strong>Mutexes</strong>: Providing mutual exclusion with priority inheritance support</li>
-<li><strong>Semaphores</strong>: Enabling resource counting and thread signaling mechanisms  </li>
-<li><strong>Spinlocks</strong>: Offering high-performance atomic operations for SMP systems</li>
-<li><strong>Condition Variables</strong>: Supporting complex thread coordination patterns</li>
-<li><strong>Message Queues</strong>: Facilitating inter-thread communication (covered in Chapter 12)</li>
+<li><strong>IoT Sensors:</strong>  Smart agriculture sensors need long battery life for unattended operation. Power management allows them to collect data for weeks or even months before requiring a battery change.</li>
+<li><strong>Wearables:</strong> Fitness trackers and smartwatches rely on optimizing power consumption to extend battery life for multiple days of use.</li>
+<li><strong>Automotive:</strong> Electric vehicles use power management to optimize range and minimize energy consumption during various driving scenarios.</li>
+<li><strong>Industrial Automation:</strong> Sensors and controllers in harsh environments benefit from power-saving features, extending the lifespan of equipment and reducing maintenance costs.</li>
+<li><strong>Aerospace:</strong>  Critical systems in aircraft need reliable power, often with stringent power budgets.</li>
 </ul>
-<h3 id="modern-relevance-of-traditional-primitives">Modern Relevance of Traditional Primitives</h3>
-<p>While newer synchronization paradigms like actor models and lock-free programming have gained popularity in general computing, traditional multithreading primitives remain essential in embedded systems for several key reasons:</p>
-<p><strong>Deterministic Behavior</strong>: Embedded systems require predictable timing characteristics that traditional primitives provide through well-understood algorithms and bounded execution times.</p>
-<p><strong>Resource Efficiency</strong>: Traditional primitives minimize memory footprint and CPU overhead, crucial considerations in resource-constrained embedded environments.</p>
-<p><strong>Hardware Integration</strong>: Many embedded systems interact directly with hardware peripherals that require atomic access patterns naturally supported by traditional synchronization mechanisms.</p>
-<p><strong>Real-time Guarantees</strong>: Priority inheritance mechanisms in mutexes and predictable scheduling behavior of semaphores directly support real-time system requirements.</p>
-<p><strong>Compatibility</strong>: Traditional primitives integrate seamlessly with existing embedded software architectures and industry-standard coding practices.</p>
-<h3 id="performance-and-scalability-considerations">Performance and Scalability Considerations</h3>
-<p>Understanding the performance characteristics of multithreading primitives is crucial for embedded system design:</p>
-<p><strong>Contention Analysis</strong>: Low-contention scenarios favor lightweight primitives like spinlocks, while high-contention situations benefit from blocking primitives like mutexes.</p>
-<p><strong>Memory Hierarchy Effects</strong>: Cache behavior and memory access patterns significantly impact synchronization performance in modern embedded processors.</p>
-<p><strong>Interrupt Interaction</strong>: The relationship between synchronization primitives and interrupt service routines requires careful consideration to maintain real-time behavior.</p>
-<p><strong>Power Implications</strong>: Active waiting mechanisms like spinlocks can impact power consumption, particularly important in battery-powered devices.</p>
-<h3 id="integration-with-zephyrs-architecture">Integration with Zephyr's Architecture</h3>
-<p>Zephyr's multithreading primitives are deeply integrated with the kernel's scheduling subsystem, memory management, and power management frameworks. This integration provides several advantages:</p>
-<p><strong>Unified API Design</strong>: Consistent interface patterns across all primitives reduce learning overhead and implementation errors.</p>
-<p><strong>Kernel Integration</strong>: Direct kernel support ensures optimal performance and deterministic behavior.</p>
-<p><strong>Memory Management</strong>: Automatic memory allocation and cleanup for primitive data structures.</p>
-<p><strong>Power Awareness</strong>: Integration with Zephyr's power management subsystem for efficient low-power operation.</p>
-<p><strong>Debugging Support</strong>: Built-in tracing and debugging capabilities for analyzing synchronization behavior.</p>
-<h3 id="chapter-objectives-and-learning-outcomes">Chapter Objectives and Learning Outcomes</h3>
-<p>This chapter provides comprehensive coverage of Zephyr's traditional multithreading primitives, combining theoretical foundations with practical implementation techniques. By completing this chapter, you will:</p>
-<ol>
-<li>
-<p><strong>Master Fundamental Concepts</strong>: Develop deep understanding of mutual exclusion, synchronization, and coordination principles.</p>
-</li>
-<li>
-<p><strong>Implement Production-Quality Code</strong>: Create robust, efficient synchronization solutions using Zephyr's primitive APIs.</p>
-</li>
-<li>
-<p><strong>Analyze Performance Characteristics</strong>: Evaluate and optimize synchronization performance for specific application requirements.</p>
-</li>
-<li>
-<p><strong>Handle Error Conditions</strong>: Implement comprehensive error handling and recovery mechanisms for synchronization failures.</p>
-</li>
-<li>
-<p><strong>Design Scalable Architectures</strong>: Create synchronization architectures that support system growth and evolution.</p>
-</li>
-<li>
-<p><strong>Debug Complex Issues</strong>: Use Zephyr's debugging and tracing capabilities to identify and resolve synchronization problems.</p>
-</li>
-</ol>
-<h3 id="real-world-application-domains">Real-World Application Domains</h3>
-<p>The techniques covered in this chapter apply directly to numerous embedded application domains:</p>
-<p><strong>Automotive</strong>: Engine control units, transmission controllers, and infotainment systems requiring precise timing coordination.</p>
-<p><strong>Industrial Automation</strong>: PLC systems, robotic controllers, and process monitoring applications managing multiple concurrent operations.</p>
-<p><strong>Medical Devices</strong>: Patient monitors, infusion pumps, and diagnostic equipment requiring fail-safe synchronization.</p>
-<p><strong>Aerospace</strong>: Flight control systems, navigation equipment, and communication systems with stringent reliability requirements.</p>
-<p><strong>Consumer Electronics</strong>: Smart appliances, wearable devices, and home automation systems balancing performance with power efficiency.</p>
-<h3 id="advanced-topics-preview">Advanced Topics Preview</h3>
-<p>While this chapter focuses on fundamental primitives, it also introduces advanced concepts that bridge to more sophisticated synchronization patterns:</p>
-<p><strong>Priority Inheritance</strong>: Understanding how Zephyr's priority inheritance protocol prevents priority inversion in complex systems.</p>
-<p><strong>Lock-Free Patterns</strong>: Exploring atomic operations and memory ordering considerations for high-performance scenarios.</p>
-<p><strong>Deadlock Prevention</strong>: Implementing systematic approaches to prevent and detect deadlock conditions.</p>
-<p><strong>Performance Optimization</strong>: Advanced techniques for minimizing synchronization overhead while maintaining correctness.</p>
-<p><strong>System-Wide Coordination</strong>: Patterns for coordinating synchronization across multiple subsystems and communication domains.</p>
-<p>This comprehensive introduction to traditional multithreading primitives establishes the foundation for building robust, efficient, and maintainable concurrent embedded systems using Zephyr RTOS. The following sections will delve into specific implementation details, performance analysis, and practical application patterns that enable professional-quality embedded software development.</p>
+<p><strong>Connecting to Previous Chapters</strong></p>
+<p>This chapter builds directly on your understanding of device driver architecture (Chapter 16) and core Zephyr concepts. You’ve learned how to interact with hardware using the Zephyr APIs, manage threads, and trace/log events. Power management leverages these skills by integrating them into the driver development lifecycle, specifically focusing on reducing power consumption and providing flexible system states.</p>
+<p><strong>Motivation and Practical Applications</strong></p>
+<p>By the end of this chapter, you’ll be able to write drivers that intelligently manage power states, minimizing energy usage when the device is idle and seamlessly resuming operation when needed. This translates to longer battery life, reduced system heat, and improved overall system performance.</p>
+<p><a href="theory/">Next: Power Management Theory</a></p>
 
 
 
@@ -2623,7 +2369,7 @@
     <span class="md-icon" title="Last update">
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M21 13.1c-.1 0-.3.1-.4.2l-1 1 2.1 2.1 1-1c.2-.2.2-.6 0-.8l-1.3-1.3c-.1-.1-.2-.2-.4-.2m-1.9 1.8-6.1 6V23h2.1l6.1-6.1zM12.5 7v5.2l4 2.4-1 1L11 13V7zM11 21.9c-5.1-.5-9-4.8-9-9.9C2 6.5 6.5 2 12 2c5.3 0 9.6 4.1 10 9.3-.3-.1-.6-.2-1-.2s-.7.1-1 .2C19.6 7.2 16.2 4 12 4c-4.4 0-8 3.6-8 8 0 4.1 3.1 7.5 7.1 7.9l-.1.2z"/></svg>
     </span>
-    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date" title="October 18, 2025 09:55:24 UTC">October 18, 2025</span>
+    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date" title="October 18, 2025 10:58:25 UTC">October 18, 2025</span>
   </span>
 
     
@@ -2672,10 +2418,10 @@
     
     
       
-      <script id="__config" type="application/json">{"base": "../..", "features": [], "search": "../../assets/javascripts/workers/search.973d3a69.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": null}</script>
+      <script id="__config" type="application/json">{"base": "..", "features": [], "search": "../assets/javascripts/workers/search.973d3a69.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": null}</script>
     
     
-      <script src="../../assets/javascripts/bundle.f55a23d4.min.js"></script>
+      <script src="../assets/javascripts/bundle.f55a23d4.min.js"></script>
       
     
   </body>

@@ -8,25 +8,21 @@
       
       
       
-        <link rel="canonical" href="https://tinegachris.github.io/course_zephyr_rtos_rpi_4b/chapter_03_zephyr_build_system/introduction/">
+        <link rel="canonical" href="https://tinegachris.github.io/course_zephyr_rtos_rpi_4b/chapter_03_zephyr_build_system/">
       
       
-        <link rel="prev" href="../../chapter_02_introduction_to_zephyr/lab/">
       
       
-        <link rel="next" href="../theory/">
-      
-      
-      <link rel="icon" href="../../assets/images/favicon.png">
+      <link rel="icon" href="../assets/images/favicon.png">
       <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.6.22">
     
     
       
-        <title>Introduction - Zephyr RTOS Development Course</title>
+        <title>Chapter 3: Zephyr Build System - Zephyr RTOS Development Course</title>
       
     
     
-      <link rel="stylesheet" href="../../assets/stylesheets/main.84d31ad4.min.css">
+      <link rel="stylesheet" href="../assets/stylesheets/main.84d31ad4.min.css">
       
       
 
@@ -45,7 +41,7 @@
       
     
     
-    <script>__md_scope=new URL("../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    <script>__md_scope=new URL("..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
     
       
 
@@ -80,7 +76,7 @@
 
 <header class="md-header md-header--shadow" data-md-component="header">
   <nav class="md-header__inner md-grid" aria-label="Header">
-    <a href="../.." title="Zephyr RTOS Development Course" class="md-header__button md-logo" aria-label="Zephyr RTOS Development Course" data-md-component="logo">
+    <a href=".." title="Zephyr RTOS Development Course" class="md-header__button md-logo" aria-label="Zephyr RTOS Development Course" data-md-component="logo">
       
   
   <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
@@ -100,7 +96,7 @@
         <div class="md-header__topic" data-md-component="header-topic">
           <span class="md-ellipsis">
             
-              Introduction
+              Chapter 3: Zephyr Build System
             
           </span>
         </div>
@@ -138,7 +134,7 @@
 
 <nav class="md-nav md-nav--primary" aria-label="Navigation" data-md-level="0">
   <label class="md-nav__title" for="__drawer">
-    <a href="../.." title="Zephyr RTOS Development Course" class="md-nav__button md-logo" aria-label="Zephyr RTOS Development Course" data-md-component="logo">
+    <a href=".." title="Zephyr RTOS Development Course" class="md-nav__button md-logo" aria-label="Zephyr RTOS Development Course" data-md-component="logo">
       
   
   <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
@@ -156,7 +152,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../.." class="md-nav__link">
+      <a href=".." class="md-nav__link">
         
   
   
@@ -216,7 +212,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../CONDUCT/" class="md-nav__link">
+      <a href="../CONDUCT/" class="md-nav__link">
         
   
   
@@ -239,7 +235,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../CONTRIBUTING/" class="md-nav__link">
+      <a href="../CONTRIBUTING/" class="md-nav__link">
         
   
   
@@ -269,7 +265,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../chapter_01_course_introduction/introduction.md" class="md-nav__link">
+      <a href="../chapter_01_course_introduction/introduction.md" class="md-nav__link">
         
   
   
@@ -329,7 +325,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../chapter_02_introduction_to_zephyr/introduction/" class="md-nav__link">
+      <a href="../chapter_02_introduction_to_zephyr/introduction.md" class="md-nav__link">
         
   
   
@@ -352,7 +348,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../chapter_02_introduction_to_zephyr/theory/" class="md-nav__link">
+      <a href="../chapter_02_introduction_to_zephyr/theory/" class="md-nav__link">
         
   
   
@@ -375,7 +371,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../chapter_02_introduction_to_zephyr/lab/" class="md-nav__link">
+      <a href="../chapter_02_introduction_to_zephyr/lab/" class="md-nav__link">
         
   
   
@@ -402,20 +398,18 @@
       
   
   
-    
   
   
-  
     
     
     
     
     
-    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+    <li class="md-nav__item md-nav__item--nested">
       
         
         
-        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5" checked>
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5" >
         
           
           <label class="md-nav__link" for="__nav_5" id="__nav_5_label" tabindex="0">
@@ -431,7 +425,7 @@
             <span class="md-nav__icon md-icon"></span>
           </label>
         
-        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_5_label" aria-expanded="true">
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_5_label" aria-expanded="false">
           <label class="md-nav__title" for="__nav_5">
             <span class="md-nav__icon md-icon"></span>
             Chapter 3: Zephyr Build System
@@ -442,32 +436,10 @@
                 
   
   
-    
   
   
-  
-    <li class="md-nav__item md-nav__item--active">
-      
-      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
-      
-      
-        
-      
-      
-        <label class="md-nav__link md-nav__link--active" for="__toc">
-          
-  
-  
-  <span class="md-ellipsis">
-    Introduction
-    
-  </span>
-  
-
-          <span class="md-nav__icon md-icon"></span>
-        </label>
-      
-      <a href="./" class="md-nav__link md-nav__link--active">
+    <li class="md-nav__item">
+      <a href="introduction.md" class="md-nav__link">
         
   
   
@@ -478,77 +450,6 @@
   
 
       </a>
-      
-        
-
-<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
-  
-  
-  
-    
-  
-  
-    <label class="md-nav__title" for="__toc">
-      <span class="md-nav__icon md-icon"></span>
-      Table of contents
-    </label>
-    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
-      
-        <li class="md-nav__item">
-  <a href="#learning-objectives" class="md-nav__link">
-    <span class="md-ellipsis">
-      Learning Objectives
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#introduction" class="md-nav__link">
-    <span class="md-ellipsis">
-      Introduction
-    </span>
-  </a>
-  
-    <nav class="md-nav" aria-label="Introduction">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#why-the-build-system-matters" class="md-nav__link">
-    <span class="md-ellipsis">
-      Why the Build System Matters
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#the-west-cmake-architecture" class="md-nav__link">
-    <span class="md-ellipsis">
-      The West + CMake Architecture
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#your-development-workflow" class="md-nav__link">
-    <span class="md-ellipsis">
-      Your Development Workflow
-    </span>
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
-</li>
-      
-    </ul>
-  
-</nav>
-      
     </li>
   
 
@@ -561,7 +462,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../theory/" class="md-nav__link">
+      <a href="theory/" class="md-nav__link">
         
   
   
@@ -584,7 +485,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../lab/" class="md-nav__link">
+      <a href="lab/" class="md-nav__link">
         
   
   
@@ -652,7 +553,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../chapter_04_configure_zephyr/introduction/" class="md-nav__link">
+      <a href="../chapter_04_configure_zephyr/introduction.md" class="md-nav__link">
         
   
   
@@ -675,7 +576,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../chapter_04_configure_zephyr/theory/" class="md-nav__link">
+      <a href="../chapter_04_configure_zephyr/theory/" class="md-nav__link">
         
   
   
@@ -698,7 +599,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../chapter_04_configure_zephyr/lab/" class="md-nav__link">
+      <a href="../chapter_04_configure_zephyr/lab/" class="md-nav__link">
         
   
   
@@ -766,7 +667,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../chapter_05_west/introduction/" class="md-nav__link">
+      <a href="../chapter_05_west/introduction.md" class="md-nav__link">
         
   
   
@@ -789,7 +690,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../chapter_05_west/theory/" class="md-nav__link">
+      <a href="../chapter_05_west/theory/" class="md-nav__link">
         
   
   
@@ -812,7 +713,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../chapter_05_west/lab/" class="md-nav__link">
+      <a href="../chapter_05_west/lab/" class="md-nav__link">
         
   
   
@@ -880,7 +781,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../chapter_06_zephyr_fundamentals/introduction/" class="md-nav__link">
+      <a href="../chapter_06_zephyr_fundamentals/introduction.md" class="md-nav__link">
         
   
   
@@ -903,7 +804,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../chapter_06_zephyr_fundamentals/theory/" class="md-nav__link">
+      <a href="../chapter_06_zephyr_fundamentals/theory/" class="md-nav__link">
         
   
   
@@ -926,7 +827,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../chapter_06_zephyr_fundamentals/lab/" class="md-nav__link">
+      <a href="../chapter_06_zephyr_fundamentals/lab/" class="md-nav__link">
         
   
   
@@ -994,7 +895,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../chapter_07_thread_management/introduction/" class="md-nav__link">
+      <a href="../chapter_07_thread_management/introduction.md" class="md-nav__link">
         
   
   
@@ -1017,7 +918,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../chapter_07_thread_management/theory/" class="md-nav__link">
+      <a href="../chapter_07_thread_management/theory/" class="md-nav__link">
         
   
   
@@ -1040,7 +941,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../chapter_07_thread_management/lab/" class="md-nav__link">
+      <a href="../chapter_07_thread_management/lab/" class="md-nav__link">
         
   
   
@@ -1108,7 +1009,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../chapter_08_tracing_and_logging/introduction/" class="md-nav__link">
+      <a href="../chapter_08_tracing_and_logging/introduction.md" class="md-nav__link">
         
   
   
@@ -1131,7 +1032,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../chapter_08_tracing_and_logging/theory/" class="md-nav__link">
+      <a href="../chapter_08_tracing_and_logging/theory/" class="md-nav__link">
         
   
   
@@ -1154,7 +1055,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../chapter_08_tracing_and_logging/lab/" class="md-nav__link">
+      <a href="../chapter_08_tracing_and_logging/lab/" class="md-nav__link">
         
   
   
@@ -1222,7 +1123,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../chapter_09_memory_management/introduction/" class="md-nav__link">
+      <a href="../chapter_09_memory_management/introduction.md" class="md-nav__link">
         
   
   
@@ -1245,7 +1146,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../chapter_09_memory_management/theory/" class="md-nav__link">
+      <a href="../chapter_09_memory_management/theory/" class="md-nav__link">
         
   
   
@@ -1268,7 +1169,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../chapter_09_memory_management/lab/" class="md-nav__link">
+      <a href="../chapter_09_memory_management/lab/" class="md-nav__link">
         
   
   
@@ -1336,7 +1237,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../chapter_10_user_mode/introduction/" class="md-nav__link">
+      <a href="../chapter_10_user_mode/introduction.md" class="md-nav__link">
         
   
   
@@ -1359,7 +1260,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../chapter_10_user_mode/theory/" class="md-nav__link">
+      <a href="../chapter_10_user_mode/theory/" class="md-nav__link">
         
   
   
@@ -1382,7 +1283,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../chapter_10_user_mode/lab/" class="md-nav__link">
+      <a href="../chapter_10_user_mode/lab/" class="md-nav__link">
         
   
   
@@ -1450,7 +1351,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../chapter_11_traditional_multithreading_primitives/introduction/" class="md-nav__link">
+      <a href="../chapter_11_traditional_multithreading_primitives/introduction.md" class="md-nav__link">
         
   
   
@@ -1473,7 +1374,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../chapter_11_traditional_multithreading_primitives/theory/" class="md-nav__link">
+      <a href="../chapter_11_traditional_multithreading_primitives/theory/" class="md-nav__link">
         
   
   
@@ -1496,7 +1397,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../chapter_11_traditional_multithreading_primitives/lab/" class="md-nav__link">
+      <a href="../chapter_11_traditional_multithreading_primitives/lab/" class="md-nav__link">
         
   
   
@@ -1564,7 +1465,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../chapter_12_inter-thread_communication/introduction/" class="md-nav__link">
+      <a href="../chapter_12_inter-thread_communication/introduction.md" class="md-nav__link">
         
   
   
@@ -1587,7 +1488,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../chapter_12_inter-thread_communication/theory/" class="md-nav__link">
+      <a href="../chapter_12_inter-thread_communication/theory/" class="md-nav__link">
         
   
   
@@ -1610,7 +1511,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../chapter_12_inter-thread_communication/lab/" class="md-nav__link">
+      <a href="../chapter_12_inter-thread_communication/lab/" class="md-nav__link">
         
   
   
@@ -1678,7 +1579,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../chapter_13_interrupt_management/introduction/" class="md-nav__link">
+      <a href="../chapter_13_interrupt_management/introduction.md" class="md-nav__link">
         
   
   
@@ -1701,7 +1602,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../chapter_13_interrupt_management/theory/" class="md-nav__link">
+      <a href="../chapter_13_interrupt_management/theory/" class="md-nav__link">
         
   
   
@@ -1724,7 +1625,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../chapter_13_interrupt_management/lab/" class="md-nav__link">
+      <a href="../chapter_13_interrupt_management/lab/" class="md-nav__link">
         
   
   
@@ -1792,7 +1693,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../chapter_14_modules/introduction/" class="md-nav__link">
+      <a href="../chapter_14_modules/introduction.md" class="md-nav__link">
         
   
   
@@ -1815,7 +1716,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../chapter_14_modules/theory/" class="md-nav__link">
+      <a href="../chapter_14_modules/theory/" class="md-nav__link">
         
   
   
@@ -1838,7 +1739,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../chapter_14_modules/lab/" class="md-nav__link">
+      <a href="../chapter_14_modules/lab/" class="md-nav__link">
         
   
   
@@ -1906,7 +1807,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../chapter_15_writing_kconfig_symbols/introduction/" class="md-nav__link">
+      <a href="../chapter_15_writing_kconfig_symbols/introduction.md" class="md-nav__link">
         
   
   
@@ -1929,7 +1830,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../chapter_15_writing_kconfig_symbols/theory/" class="md-nav__link">
+      <a href="../chapter_15_writing_kconfig_symbols/theory/" class="md-nav__link">
         
   
   
@@ -1952,7 +1853,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../chapter_15_writing_kconfig_symbols/lab/" class="md-nav__link">
+      <a href="../chapter_15_writing_kconfig_symbols/lab/" class="md-nav__link">
         
   
   
@@ -2020,7 +1921,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../chapter_16_device_driver_architecture/introduction/" class="md-nav__link">
+      <a href="../chapter_16_device_driver_architecture/introduction.md" class="md-nav__link">
         
   
   
@@ -2043,7 +1944,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../chapter_16_device_driver_architecture/theory/" class="md-nav__link">
+      <a href="../chapter_16_device_driver_architecture/theory/" class="md-nav__link">
         
   
   
@@ -2066,7 +1967,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../chapter_16_device_driver_architecture/lab/" class="md-nav__link">
+      <a href="../chapter_16_device_driver_architecture/lab/" class="md-nav__link">
         
   
   
@@ -2134,7 +2035,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../chapter_17_power_management/introduction/" class="md-nav__link">
+      <a href="../chapter_17_power_management/introduction.md" class="md-nav__link">
         
   
   
@@ -2157,7 +2058,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../chapter_17_power_management/theory/" class="md-nav__link">
+      <a href="../chapter_17_power_management/theory/" class="md-nav__link">
         
   
   
@@ -2180,7 +2081,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../chapter_17_power_management/lab/" class="md-nav__link">
+      <a href="../chapter_17_power_management/lab/" class="md-nav__link">
         
   
   
@@ -2248,7 +2149,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../chapter_18_capstone_project/introduction/" class="md-nav__link">
+      <a href="../chapter_18_capstone_project/introduction.md" class="md-nav__link">
         
   
   
@@ -2271,7 +2172,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../chapter_18_capstone_project/theory/" class="md-nav__link">
+      <a href="../chapter_18_capstone_project/theory/" class="md-nav__link">
         
   
   
@@ -2294,7 +2195,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../chapter_18_capstone_project/lab/" class="md-nav__link">
+      <a href="../chapter_18_capstone_project/lab/" class="md-nav__link">
         
   
   
@@ -2317,7 +2218,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../chapter_18_capstone_project/networked_monitor/" class="md-nav__link">
+      <a href="../chapter_18_capstone_project/networked_monitor/" class="md-nav__link">
         
   
   
@@ -2434,6 +2335,9 @@
 
 
 <h1 id="chapter-3-zephyr-build-system">Chapter 3: Zephyr Build System</h1>
+<hr />
+<p><a href="./">Introduction</a> | <a href="theory/">Theory</a> | <a href="lab/">Lab</a> | <a href="../">Course Home</a></p>
+<hr />
 <h2 id="learning-objectives">Learning Objectives</h2>
 <p>By the end of this chapter, you will:</p>
 <ul>
@@ -2460,13 +2364,14 @@ Your target hardware brings specific requirements: ARM64 Cortex-A72 architecture
 <p>Throughout this chapter, you'll work with progressively complex scenarios that mirror real embedded development:</p>
 <ol>
 <li><strong>Foundation Building:</strong> Master basic West commands and understand the workspace structure</li>
-<li><strong>Application Architecture:</strong> Design modular applications with clean separation of concerns  </li>
+<li><strong>Application Architecture:</strong> Design modular applications with clean separation of concerns</li>
 <li><strong>Advanced Configuration:</strong> Implement board-specific optimizations and custom build targets</li>
 <li><strong>Production Readiness:</strong> Create automated build scripts and integrate testing workflows</li>
 </ol>
 <p>Each concept builds upon previous knowledge while preparing you for the advanced configuration management topics in Chapter 4.</p>
 <hr />
 <p><em>The build system is your gateway to professional embedded development. Let's explore how West and CMake work together to bring your Raspberry Pi 4B applications to life.</em></p>
+<p><a href="theory/">Next: Zephyr Build System Theory</a></p>
 
 
 
@@ -2487,7 +2392,7 @@ Your target hardware brings specific requirements: ARM64 Cortex-A72 architecture
     <span class="md-icon" title="Last update">
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M21 13.1c-.1 0-.3.1-.4.2l-1 1 2.1 2.1 1-1c.2-.2.2-.6 0-.8l-1.3-1.3c-.1-.1-.2-.2-.4-.2m-1.9 1.8-6.1 6V23h2.1l6.1-6.1zM12.5 7v5.2l4 2.4-1 1L11 13V7zM11 21.9c-5.1-.5-9-4.8-9-9.9C2 6.5 6.5 2 12 2c5.3 0 9.6 4.1 10 9.3-.3-.1-.6-.2-1-.2s-.7.1-1 .2C19.6 7.2 16.2 4 12 4c-4.4 0-8 3.6-8 8 0 4.1 3.1 7.5 7.1 7.9l-.1.2z"/></svg>
     </span>
-    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date" title="October 18, 2025 09:55:24 UTC">October 18, 2025</span>
+    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date" title="October 18, 2025 10:58:25 UTC">October 18, 2025</span>
   </span>
 
     
@@ -2536,10 +2441,10 @@ Your target hardware brings specific requirements: ARM64 Cortex-A72 architecture
     
     
       
-      <script id="__config" type="application/json">{"base": "../..", "features": [], "search": "../../assets/javascripts/workers/search.973d3a69.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": null}</script>
+      <script id="__config" type="application/json">{"base": "..", "features": [], "search": "../assets/javascripts/workers/search.973d3a69.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": null}</script>
     
     
-      <script src="../../assets/javascripts/bundle.f55a23d4.min.js"></script>
+      <script src="../assets/javascripts/bundle.f55a23d4.min.js"></script>
       
     
   </body>

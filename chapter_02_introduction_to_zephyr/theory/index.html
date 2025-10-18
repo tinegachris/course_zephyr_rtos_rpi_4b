@@ -11,7 +11,7 @@
         <link rel="canonical" href="https://tinegachris.github.io/course_zephyr_rtos_rpi_4b/chapter_02_introduction_to_zephyr/theory/">
       
       
-        <link rel="prev" href="../introduction/">
+        <link rel="prev" href="../../CONTRIBUTING/">
       
       
         <link rel="next" href="../lab/">
@@ -331,7 +331,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../introduction/" class="md-nav__link">
+      <a href="../introduction.md" class="md-nav__link">
         
   
   
@@ -583,7 +583,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../chapter_03_zephyr_build_system/introduction/" class="md-nav__link">
+      <a href="../../chapter_03_zephyr_build_system/introduction.md" class="md-nav__link">
         
   
   
@@ -697,7 +697,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../chapter_04_configure_zephyr/introduction/" class="md-nav__link">
+      <a href="../../chapter_04_configure_zephyr/introduction.md" class="md-nav__link">
         
   
   
@@ -811,7 +811,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../chapter_05_west/introduction/" class="md-nav__link">
+      <a href="../../chapter_05_west/introduction.md" class="md-nav__link">
         
   
   
@@ -925,7 +925,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../chapter_06_zephyr_fundamentals/introduction/" class="md-nav__link">
+      <a href="../../chapter_06_zephyr_fundamentals/introduction.md" class="md-nav__link">
         
   
   
@@ -1039,7 +1039,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../chapter_07_thread_management/introduction/" class="md-nav__link">
+      <a href="../../chapter_07_thread_management/introduction.md" class="md-nav__link">
         
   
   
@@ -1153,7 +1153,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../chapter_08_tracing_and_logging/introduction/" class="md-nav__link">
+      <a href="../../chapter_08_tracing_and_logging/introduction.md" class="md-nav__link">
         
   
   
@@ -1267,7 +1267,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../chapter_09_memory_management/introduction/" class="md-nav__link">
+      <a href="../../chapter_09_memory_management/introduction.md" class="md-nav__link">
         
   
   
@@ -1381,7 +1381,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../chapter_10_user_mode/introduction/" class="md-nav__link">
+      <a href="../../chapter_10_user_mode/introduction.md" class="md-nav__link">
         
   
   
@@ -1495,7 +1495,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../chapter_11_traditional_multithreading_primitives/introduction/" class="md-nav__link">
+      <a href="../../chapter_11_traditional_multithreading_primitives/introduction.md" class="md-nav__link">
         
   
   
@@ -1609,7 +1609,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../chapter_12_inter-thread_communication/introduction/" class="md-nav__link">
+      <a href="../../chapter_12_inter-thread_communication/introduction.md" class="md-nav__link">
         
   
   
@@ -1723,7 +1723,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../chapter_13_interrupt_management/introduction/" class="md-nav__link">
+      <a href="../../chapter_13_interrupt_management/introduction.md" class="md-nav__link">
         
   
   
@@ -1837,7 +1837,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../chapter_14_modules/introduction/" class="md-nav__link">
+      <a href="../../chapter_14_modules/introduction.md" class="md-nav__link">
         
   
   
@@ -1951,7 +1951,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../chapter_15_writing_kconfig_symbols/introduction/" class="md-nav__link">
+      <a href="../../chapter_15_writing_kconfig_symbols/introduction.md" class="md-nav__link">
         
   
   
@@ -2065,7 +2065,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../chapter_16_device_driver_architecture/introduction/" class="md-nav__link">
+      <a href="../../chapter_16_device_driver_architecture/introduction.md" class="md-nav__link">
         
   
   
@@ -2179,7 +2179,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../chapter_17_power_management/introduction/" class="md-nav__link">
+      <a href="../../chapter_17_power_management/introduction.md" class="md-nav__link">
         
   
   
@@ -2293,7 +2293,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../chapter_18_capstone_project/introduction/" class="md-nav__link">
+      <a href="../../chapter_18_capstone_project/introduction.md" class="md-nav__link">
         
   
   
@@ -2524,50 +2524,65 @@
 
 
 <h1 id="chapter-2-introduction-to-zephyr-theory">Chapter 2: Introduction to Zephyr - Theory</h1>
+<hr />
+<p><a href="../">Introduction</a> | <a href="./">Theory</a> | <a href="../lab/">Lab</a> | <a href="../../">Course Home</a></p>
+<hr />
 <p>Now that you understand what Zephyr is and why it's valuable, let's dive deep into the technical aspects of the Zephyr ecosystem and development workflow.</p>
 <hr />
 <h2 id="the-zephyr-ecosystem">The Zephyr Ecosystem</h2>
 <h3 id="core-components">Core Components</h3>
 <p><strong>Zephyr Kernel:</strong>
-The heart of the system, providing fundamental RTOS services:
-* <strong>Task Scheduler:</strong> Preemptive, priority-based scheduling with 32 priority levels
-* <strong>Memory Management:</strong> Static allocation, memory pools, and heap management<br />
-<em> </em><em>Inter-Process Communication:</em><em> Semaphores, mutexes, message queues, and pipes
-* </em><em>Interrupt Handling:</em><em> Fast, deterministic interrupt service routines
-* </em><em>Timer Services:</em>* High-resolution timers and timeout management</p>
+The heart of the system, providing fundamental RTOS services:</p>
+<ul>
+<li><strong>Task Scheduler:</strong> Preemptive, priority-based scheduling with 32 priority levels</li>
+<li><strong>Memory Management:</strong> Static allocation, memory pools, and heap management</li>
+<li><strong>Inter-Process Communication:</strong> Semaphores, mutexes, message queues, and pipes</li>
+<li><strong>Interrupt Handling:</strong> Fast, deterministic interrupt service routines</li>
+<li><strong>Timer Services:</strong> High-resolution timers and timeout management</li>
+</ul>
 <p><strong>Device Driver Framework:</strong>
-Zephyr provides a unified driver model:
-* <strong>Device Tree Integration:</strong> Hardware description using industry-standard device tree
-* <strong>Driver Categories:</strong> GPIO, UART, SPI, I2C, ADC, PWM, sensors, and networking
-* <strong>Power Management:</strong> Runtime power management and low-power states
-* <strong>Plug-and-Play:</strong> Automatic device initialization and configuration</p>
+Zephyr provides a unified driver model:</p>
+<ul>
+<li><strong>Device Tree Integration:</strong> Hardware description using industry-standard device tree</li>
+<li><strong>Driver Categories:</strong> GPIO, UART, SPI, I2C, ADC, PWM, sensors, and networking</li>
+<li><strong>Power Management:</strong> Runtime power management and low-power states</li>
+<li><strong>Plug-and-Play:</strong> Automatic device initialization and configuration</li>
+</ul>
 <p><strong>Networking Stack:</strong>
-Comprehensive connectivity options:
-* <strong>IP Networking:</strong> IPv4/IPv6, TCP/UDP, HTTP/HTTPS, CoAP, MQTT
-* <strong>Wireless Protocols:</strong> Wi-Fi, Bluetooth LE, 802.15.4, LoRaWAN
-* <strong>Thread/Matter:</strong> IoT mesh networking and smart home protocols
-* <strong>Security:</strong> TLS/DTLS, certificate management, secure boot</p>
+Comprehensive connectivity options:</p>
+<ul>
+<li><strong>IP Networking:</strong> IPv4/IPv6, TCP/UDP, HTTP/HTTPS, CoAP, MQTT</li>
+<li><strong>Wireless Protocols:</strong> Wi-Fi, Bluetooth LE, 802.15.4, LoRaWAN</li>
+<li><strong>Thread/Matter:</strong> IoT mesh networking and smart home protocols</li>
+<li><strong>Security:</strong> TLS/DTLS, certificate management, secure boot</li>
+</ul>
 <p><strong>Build System (West):</strong>
-Modern, Git-based build system:
-* <strong>Source Management:</strong> Multi-repository projects with automatic dependency resolution
-* <strong>Board Support:</strong> 500+ supported development boards
-* <strong>Toolchain Integration:</strong> GCC, Clang, and vendor-specific toolchains
-* <strong>Testing Framework:</strong> Automated testing with Twister test runner</p>
+Modern, Git-based build system:</p>
+<ul>
+<li><strong>Source Management:</strong> Multi-repository projects with automatic dependency resolution</li>
+<li><strong>Board Support:</strong> 500+ supported development boards</li>
+<li><strong>Toolchain Integration:</strong> GCC, Clang, and vendor-specific toolchains</li>
+<li><strong>Testing Framework:</strong> Automated testing with Twister test runner</li>
+</ul>
 <h3 id="development-environment-setup">Development Environment Setup</h3>
-<p><strong>Recommended IDE: VS Code with Zephyr Extension</strong></p>
-<p>The Zephyr extension for VS Code provides:
-* <strong>Project Templates:</strong> Quick project creation with board-specific configurations
-* <strong>IntelliSense:</strong> Code completion for Zephyr APIs and Kconfig options
-* <strong>Build Integration:</strong> One-click building with error highlighting
-* <strong>Debug Support:</strong> GDB integration with breakpoints and variable inspection
-* <strong>Device Tree Editor:</strong> Visual editing of hardware configurations</p>
-<p><strong>Alternative Development Options:</strong>
-* <strong>Command Line:</strong> Traditional terminal-based development using West commands
-* <strong>Eclipse:</strong> Zephyr plugin available for Eclipse CDT
-* <strong>CLion/Other IDEs:</strong> Any IDE with CMake support can work with Zephyr</p>
+<p><strong>Recommended IDE: VS Code with Zephyr Extension</strong>
+The Zephyr extension for VS Code provides:</p>
+<ul>
+<li><strong>Project Templates:</strong> Quick project creation with board-specific configurations</li>
+<li><strong>IntelliSense:</strong> Code completion for Zephyr APIs and Kconfig options</li>
+<li><strong>Build Integration:</strong> One-click building with error highlighting</li>
+<li><strong>Debug Support:</strong> GDB integration with breakpoints and variable inspection</li>
+<li><strong>Device Tree Editor:</strong> Visual editing of hardware configurations</li>
+</ul>
+<p><strong>Alternative Development Options:</strong></p>
+<ul>
+<li><strong>Command Line:</strong> Traditional terminal-based development using West commands</li>
+<li><strong>Eclipse:</strong> Zephyr plugin available for Eclipse CDT</li>
+<li><strong>CLion/Other IDEs:</strong> Any IDE with CMake support can work with Zephyr</li>
+</ul>
 <h3 id="west-build-system-deep-dive">West Build System Deep Dive</h3>
 <p><strong>West Workspace Structure:</strong></p>
-<pre><code>zephyrproject/                 # West workspace root
+<pre><code class="language-bash">zephyrproject/                 # West workspace root
 ├── .west/                     # West configuration and metadata
 ├── zephyr/                    # Main Zephyr repository
 ├── modules/                   # External module dependencies
@@ -2582,7 +2597,7 @@ Modern, Git-based build system:
 west init ~/zephyrproject
 west update
 
-# Building applications  
+# Building applications
 west build -b &lt;board&gt; &lt;source-directory&gt;
 west build -b rpi_4b zephyr/samples/hello_world
 
@@ -2596,12 +2611,14 @@ west build -t menuconfig       # Open configuration menu
 west build -t clean           # Clean build artifacts
 </code></pre>
 <p><strong>Board Selection:</strong>
-Zephyr supports extensive hardware through board definitions:
-* <strong>ARM Cortex-M:</strong> STM32, nRF52/53, LPC, Kinetis families
-* <strong>ARM Cortex-A:</strong> Raspberry Pi, i.MX, Zynq platforms<br />
-<em> </em><em>RISC-V:</em><em> SiFive, ESP32-C3, Litex VexRiscv
-* </em><em>x86:</em><em> Intel Quark, Apollo Lake, generic PC
-* </em><em>ARC:</em>* Synopsys ARC processors</p>
+Zephyr supports extensive hardware through board definitions:</p>
+<ul>
+<li><strong>ARM Cortex-M:</strong> STM32, nRF52/53, LPC, Kinetis families</li>
+<li><strong>ARM Cortex-A:</strong> Raspberry Pi, i.MX, Zynq platforms</li>
+<li><strong>RISC-V:</strong> SiFive, ESP32-C3, Litex VexRiscv</li>
+<li><strong>x86:</strong> Intel Quark, Apollo Lake, generic PC</li>
+<li><strong>ARC:</strong> Synopsys ARC processors</li>
+</ul>
 <h3 id="configuration-system-kconfig">Configuration System (Kconfig)</h3>
 <p><strong>Understanding prj.conf:</strong>
 This file configures Zephyr features for your application:</p>
@@ -2622,12 +2639,14 @@ CONFIG_NET_TCP=y
 CONFIG_MAIN_STACK_SIZE=2048
 CONFIG_SYSTEM_WORKQUEUE_STACK_SIZE=1024
 </code></pre>
-<p><strong>Configuration Categories:</strong>
-* <strong>Kernel Options:</strong> Scheduling, memory management, synchronization
-* <strong>Device Drivers:</strong> Enable/disable specific hardware support
-* <strong>Networking:</strong> Protocol stack configuration and buffer sizes
-* <strong>Security:</strong> Cryptographic algorithms and secure boot options
-* <strong>Debug/Logging:</strong> Console output and debugging features</p>
+<p><strong>Configuration Categories:</strong></p>
+<ul>
+<li><strong>Kernel Options:</strong> Scheduling, memory management, synchronization</li>
+<li><strong>Device Drivers:</strong> Enable/disable specific hardware support</li>
+<li><strong>Networking:</strong> Protocol stack configuration and buffer sizes</li>
+<li><strong>Security:</strong> Cryptographic algorithms and secure boot options</li>
+<li><strong>Debug/Logging:</strong> Console output and debugging features</li>
+</ul>
 <p><strong>Kconfig Tools:</strong></p>
 <pre><code class="language-bash"># Interactive configuration menu
 west build -t menuconfig
@@ -2639,12 +2658,14 @@ west build -t guiconfig
 west build -t savedefconfig
 </code></pre>
 <h3 id="device-tree-fundamentals">Device Tree Fundamentals</h3>
-<p><strong>What is Device Tree?</strong>
-Device Tree is a data structure that describes hardware components and their relationships. In Zephyr, it defines:
-* GPIO pin assignments and electrical properties
-* Bus configurations (I2C addresses, SPI chip selects)
-* Memory regions and register addresses
-* Interrupt connections and priorities</p>
+<p><strong>What is Device Tree?</strong></p>
+<p>Device Tree is a data structure that describes hardware components and their relationships. In Zephyr, it defines:</p>
+<ul>
+<li>GPIO pin assignments and electrical properties</li>
+<li>Bus configurations (I2C addresses, SPI chip selects)</li>
+<li>Memory regions and register addresses</li>
+<li>Interrupt connections and priorities</li>
+</ul>
 <p><strong>Example Device Tree Node:</strong></p>
 <pre><code class="language-dts">/ {
     leds {
@@ -2675,11 +2696,13 @@ static const struct gpio_dt_spec led = GPIO_DT_SPEC_GET(LED0_NODE, gpios);
 static const struct gpio_dt_spec button = GPIO_DT_SPEC_GET(BUTTON0_NODE, gpios);
 </code></pre>
 <h3 id="memory-management">Memory Management</h3>
-<p><strong>Memory Layout:</strong>
-Zephyr applications have several memory regions:
-* <strong>Code (Flash):</strong> Application code, constant data, and configuration
-* <strong>RAM:</strong> Variables, stack space, and heap (if enabled)
-* <strong>Device Registers:</strong> Memory-mapped peripheral access</p>
+<p><strong>Memory Layout:</strong></p>
+<p>Zephyr applications have several memory regions:</p>
+<ul>
+<li><strong>Code (Flash):</strong> Application code, constant data, and configuration</li>
+<li><strong>RAM:</strong> Variables, stack space, and heap (if enabled)</li>
+<li><strong>Device Registers:</strong> Memory-mapped peripheral access</li>
+</ul>
 <p><strong>Memory Configuration:</strong></p>
 <pre><code class="language-bash"># Set main stack size
 CONFIG_MAIN_STACK_SIZE=4096
@@ -2690,21 +2713,27 @@ CONFIG_HEAP_MEM_POOL_SIZE=16384
 # Configure system workqueue stack
 CONFIG_SYSTEM_WORKQUEUE_STACK_SIZE=2048
 </code></pre>
-<p><strong>Static vs Dynamic Allocation:</strong>
-* <strong>Static (Recommended):</strong> All memory allocated at compile time
-* <strong>Dynamic (Optional):</strong> Runtime allocation using k_malloc()/k_free()
-* <strong>Memory Pools:</strong> Pre-allocated blocks for predictable allocation</p>
+<p><strong>Static vs Dynamic Allocation:</strong></p>
+<ul>
+<li><strong>Static (Recommended):</strong> All memory allocated at compile time</li>
+<li><strong>Dynamic (Optional):</strong> Runtime allocation using k_malloc()/k_free()</li>
+<li><strong>Memory Pools:</strong> Pre-allocated blocks for predictable allocation</li>
+</ul>
 <h3 id="security-features">Security Features</h3>
-<p><strong>Secure Boot Chain:</strong>
-1. <strong>MCUboot:</strong> Secure bootloader with image verification
-2. <strong>Image Signing:</strong> Cryptographic signatures on application images<br />
-3. <strong>Rollback Protection:</strong> Prevent downgrade to vulnerable versions
-4. <strong>Hardware Security:</strong> Trusted Platform Module (TPM) integration</p>
-<p><strong>Runtime Security:</strong>
-* <strong>Memory Protection Units (MPU):</strong> Isolate application from kernel
-* <strong>Stack Canaries:</strong> Detect buffer overflow attacks
-* <strong>Address Space Layout Randomization (ASLR):</strong> Make exploits harder
-* <strong>Cryptographic APIs:</strong> Hardware-accelerated encryption when available</p>
+<p><strong>Secure Boot Chain:</strong></p>
+<ol>
+<li><strong>MCUboot:</strong> Secure bootloader with image verification</li>
+<li><strong>Image Signing:</strong> Cryptographic signatures on application images</li>
+<li><strong>Rollback Protection:</strong> Prevent downgrade to vulnerable versions</li>
+<li><strong>Hardware Security:</strong> Trusted Platform Module (TPM) integration</li>
+</ol>
+<p><strong>Runtime Security:</strong></p>
+<ul>
+<li><strong>Memory Protection Units (MPU):</strong> Isolate application from kernel</li>
+<li><strong>Stack Canaries:</strong> Detect buffer overflow attacks</li>
+<li><strong>Address Space Layout Randomization (ASLR):</strong> Make exploits harder</li>
+<li><strong>Cryptographic APIs:</strong> Hardware-accelerated encryption when available</li>
+</ul>
 <h3 id="testing-and-debugging">Testing and Debugging</h3>
 <p><strong>Twister Test Framework:</strong></p>
 <pre><code class="language-bash"># Run all tests
@@ -2716,22 +2745,29 @@ west twister -p rpi_4b
 # Run specific test suite
 west twister -T tests/kernel/threads
 </code></pre>
-<p><strong>Debugging Tools:</strong>
-* <strong>GDB Integration:</strong> Source-level debugging with breakpoints
-* <strong>Segger RTT:</strong> Real-time trace output without UART
-* <strong>Logic Analyzers:</strong> Hardware signal analysis
-* <strong>QEMU Emulation:</strong> Test without physical hardware</p>
+<p><strong>Debugging Tools:</strong></p>
+<ul>
+<li><strong>GDB Integration:</strong> Source-level debugging with breakpoints</li>
+<li><strong>Segger RTT:</strong> Real-time trace output without UART</li>
+<li><strong>Logic Analyzers:</strong> Hardware signal analysis</li>
+<li><strong>QEMU Emulation:</strong> Test without physical hardware</li>
+</ul>
 <h3 id="performance-optimization">Performance Optimization</h3>
-<p><strong>Memory Optimization:</strong>
-* <strong>Remove Unused Features:</strong> Disable unnecessary Kconfig options
-* <strong>Optimize Data Structures:</strong> Use appropriate data types and alignment
-* <strong>Code Size Reduction:</strong> Compiler optimization flags and dead code elimination</p>
-<p><strong>Real-time Performance:</strong>
-* <strong>Interrupt Latency:</strong> Minimize time to respond to interrupts
-* <strong>Context Switch Time:</strong> Optimize task switching overhead
-* <strong>Jitter Reduction:</strong> Consistent timing through priority management</p>
+<p><strong>Memory Optimization:</strong></p>
+<ul>
+<li><strong>Remove Unused Features:</strong> Disable unnecessary Kconfig options</li>
+<li><strong>Optimize Data Structures:</strong> Use appropriate data types and alignment</li>
+<li><strong>Code Size Reduction:</strong> Compiler optimization flags and dead code elimination</li>
+</ul>
+<p><strong>Real-time Performance:</strong></p>
+<ul>
+<li><strong>Interrupt Latency:</strong> Minimize time to respond to interrupts</li>
+<li><strong>Context Switch Time:</strong> Optimize task switching overhead</li>
+<li><strong>Jitter Reduction:</strong> Consistent timing through priority management</li>
+</ul>
 <hr />
-<p>This theory section provides the technical foundation needed to understand Zephyr development. Next, we'll apply this knowledge in a hands-on lab exercise.</p>
+<p>This theory section provides the technical foundation needed to understand Zephyr development. Next, we'll apply this knowledge in a <a href="../lab/">hands-on lab exercise</a>.</p>
+<p><a href="../lab/">Next: Introduction to Zephyr Lab</a></p>
 
 
 
@@ -2752,7 +2788,7 @@ west twister -T tests/kernel/threads
     <span class="md-icon" title="Last update">
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M21 13.1c-.1 0-.3.1-.4.2l-1 1 2.1 2.1 1-1c.2-.2.2-.6 0-.8l-1.3-1.3c-.1-.1-.2-.2-.4-.2m-1.9 1.8-6.1 6V23h2.1l6.1-6.1zM12.5 7v5.2l4 2.4-1 1L11 13V7zM11 21.9c-5.1-.5-9-4.8-9-9.9C2 6.5 6.5 2 12 2c5.3 0 9.6 4.1 10 9.3-.3-.1-.6-.2-1-.2s-.7.1-1 .2C19.6 7.2 16.2 4 12 4c-4.4 0-8 3.6-8 8 0 4.1 3.1 7.5 7.1 7.9l-.1.2z"/></svg>
     </span>
-    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date" title="October 18, 2025 09:55:24 UTC">October 18, 2025</span>
+    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date" title="October 18, 2025 10:58:25 UTC">October 18, 2025</span>
   </span>
 
     
