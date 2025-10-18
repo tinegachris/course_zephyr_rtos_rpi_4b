@@ -1,2 +1,5 @@
+# VSCode settings
+.vscode/
+
 # Ignore Gemini-related files
 GEMINI*
