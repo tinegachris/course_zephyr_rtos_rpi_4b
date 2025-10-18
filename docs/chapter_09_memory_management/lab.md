@@ -1,5 +1,10 @@
 # Chapter 9: Memory Management - Laboratory Exercise
 
+---
+[Introduction](./README.md) | [Theory](./theory.md) | [Lab](./lab.md) | [Course Home](../README.md)
+
+---
+
 ## Lab Overview
 
 This comprehensive laboratory exercise demonstrates Zephyr's memory management capabilities through practical implementation of core memory management techniques. Students will implement heap management, memory slabs, stack monitoring, and debug memory issues.
@@ -9,7 +14,7 @@ This comprehensive laboratory exercise demonstrates Zephyr's memory management c
 Upon completion of this lab, you will have:
 
 - Implemented dynamic memory allocation using Zephyr APIs
-- Created memory slabs for fixed-size buffer management  
+- Created memory slabs for fixed-size buffer management
 - Monitored and analyzed thread stack usage
 - Developed memory debugging and profiling capabilities
 - Applied memory management best practices
@@ -497,3 +502,4 @@ Upon completion of this lab, students will have:
 
 This comprehensive lab provides practical experience with Zephyr's core memory management features.
 
+[Next: Chapter 10 - User Mode](../chapter_10_user_mode/README.md)

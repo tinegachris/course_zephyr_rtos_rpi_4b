@@ -1,5 +1,10 @@
 # Chapter 13 - Interrupt Management
 
+---
+[Introduction](./README.md) | [Theory](./theory.md) | [Lab](./lab.md) | [Course Home](../README.md)
+
+---
+
 ## Building on Communication and Threading Foundations
 
 Having mastered inter-thread communication in Chapter 12—message queues, mailboxes, and Zbus publish-subscribe patterns—you now understand how threads exchange data and coordinate activities within your embedded applications. However, these communication mechanisms operate entirely within the software domain, managing interactions between threads that you explicitly create and control.
@@ -28,3 +33,5 @@ Interrupts work seamlessly with the communication mechanisms you've mastered in 
 **Motivation & Practicality:**
 
 This chapter will provide you with practical techniques for leveraging these powerful concepts. We'll explore how to set up interrupt handlers, use the workqueue system for delayed processing, and – critically – use the *interrupt-safe APIs* that Zephyr provides.  Understanding these nuances is paramount for building reliable, responsive, and efficient embedded systems.  Incorrectly using non-interrupt-safe APIs within an interrupt handler can lead to unpredictable behavior, system crashes, and security vulnerabilities.
+
+[Next: Interrupt Management Theory](./theory.md)

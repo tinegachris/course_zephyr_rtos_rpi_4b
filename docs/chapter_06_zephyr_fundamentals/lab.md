@@ -1,5 +1,10 @@
 # Chapter 6: Zephyr Fundamentals - Lab
 
+---
+[Introduction](./README.md) | [Theory](./theory.md) | [Lab](./lab.md) | [Course Home](../README.md)
+
+---
+
 This hands-on lab guides you through building practical applications that demonstrate GPIO control, I2C communication, device tree integration, and shell development using your Raspberry Pi 4B platform.
 
 ---
@@ -1013,3 +1018,5 @@ Through these hands-on exercises, you've mastered:
 * **Professional Practices:** Code organization, error handling, and system architecture
 
 These skills form the foundation for advanced Zephyr development and real-world embedded applications.
+
+[Next Chapter: Thread Management](../chapter_07_thread_management/README.md)

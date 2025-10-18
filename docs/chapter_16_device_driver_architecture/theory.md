@@ -1,5 +1,10 @@
 # Chapter 16 - Device Driver Architecture Theory
 
+---
+[Introduction](./README.md) | [Theory](./theory.md) | [Lab](./lab.md) | [Course Home](../README.md)
+
+---
+
 ## 16.1 Understanding Zephyr Device Driver Model
 
 The Zephyr device driver model provides a standardized framework for interfacing with hardware peripherals. This architecture ensures consistency, maintainability, and portability across different hardware platforms.
@@ -471,3 +476,5 @@ static int my_device_cleanup(const struct device *dev)
 ```
 
 This theory foundation provides comprehensive knowledge for implementing professional device drivers in Zephyr RTOS.
+
+[Next: Device Driver Lab](./lab.md)

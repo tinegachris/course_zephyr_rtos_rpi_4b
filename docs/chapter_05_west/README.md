@@ -1,5 +1,10 @@
 # Chapter 5: West - Introduction
 
+---
+[Introduction](./README.md) | [Theory](./theory.md) | [Lab](./lab.md) | [Course Home](../README.md)
+
+---
+
 West is Zephyr's multi-repository management tool and the foundation of professional Zephyr development workflows. This chapter transforms you from a basic Zephyr user into a West power user, enabling you to manage complex projects, customize build environments, and maintain reproducible development setups.
 
 Building on your understanding of the Zephyr build system and configuration from previous chapters, you'll now master the tool that orchestrates everything—from managing multiple repositories to automating builds across different target platforms.
@@ -79,3 +84,5 @@ West skills prepare you for upcoming chapters:
 ---
 
 West transforms Zephyr development from a manual, error-prone process into a streamlined, professional workflow. Let's master this essential foundation for serious embedded development.
+
+[Next: West Theory](./theory.md)

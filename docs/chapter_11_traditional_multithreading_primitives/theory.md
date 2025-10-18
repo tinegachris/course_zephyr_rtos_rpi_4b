@@ -1,5 +1,10 @@
 # Chapter 11: Traditional Multithreading Primitives - Theory and Implementation
 
+---
+[Introduction](./README.md) | [Theory](./theory.md) | [Lab](./lab.md) | [Course Home](../README.md)
+
+---
+
 ## Fundamental Synchronization Concepts
 
 ### Understanding Concurrency in Embedded Systems
@@ -11,7 +16,7 @@ Concurrency in embedded systems presents unique challenges compared to general-p
 ```c
 /*
  * Example: Shared resource without synchronization (PROBLEMATIC)
- * 
+ *
  * This example demonstrates a classic race condition where multiple
  * threads access shared data without proper synchronization.
  */
@@ -25,11 +30,11 @@ void producer_thread(void *arg1, void *arg2, void *arg3)
     while (1) {
         // RACE CONDITION: Non-atomic read-modify-write
         shared_counter++;  // Multiple instructions: load, increment, store
-        
+
         if (shared_counter >= 100) {
             system_ready = true;  // Another potential race condition
         }
-        
+
         k_msleep(10);
     }
 }
@@ -1196,3 +1201,5 @@ void run_synchronization_benchmarks(struct benchmark_results *results)
 ```
 
 This comprehensive theory section provides the foundation for understanding and implementing traditional multithreading primitives in Zephyr RTOS, combining theoretical concepts with practical implementation patterns and performance considerations essential for professional embedded system development.
+
+[Next: Traditional Multithreading Primitives Lab](./lab.md)

@@ -1,5 +1,10 @@
 # Chapter 14 - Modules Theory
 
+---
+[Introduction](./README.md) | [Theory](./theory.md) | [Lab](./lab.md) | [Course Home](../README.md)
+
+---
+
 ## 14.1 Understanding Zephyr Modules
 
 Zephyr modules are self-contained units of functionality that can be shared across multiple projects. They provide a standardized way to organize, distribute, and reuse code components in the Zephyr ecosystem.
@@ -169,3 +174,5 @@ zephyr_library_sources_ifdef(CONFIG_MY_MODULE_FEATURE_X src/feature_x.c)
 If your module includes a driver, provide device tree bindings in the `dts/bindings` directory. This allows users to configure the hardware for your driver in their board's overlay file.
 
 This modular approach promotes code reusability, maintainability, and scalability—essential for building robust and complex embedded systems.
+
+[Next: Modules Lab](./lab.md)

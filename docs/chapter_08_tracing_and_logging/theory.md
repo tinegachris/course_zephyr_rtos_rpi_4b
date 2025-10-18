@@ -1,5 +1,10 @@
 # Chapter 8: Tracing and Logging - Theory
 
+---
+[Introduction](./README.md) | [Theory](./theory.md) | [Lab](./lab.md) | [Course Home](../README.md)
+
+---
+
 This theory section provides comprehensive understanding of Zephyr's tracing and logging capabilities, covering modern logging APIs, thread analysis, performance monitoring, and professional debugging workflows for embedded systems development.
 
 ---
@@ -519,3 +524,5 @@ ZTEST(logging_tests, test_thread_analyzer)
 ---
 
 This comprehensive theoretical foundation prepares you for implementing professional-grade tracing and logging systems. The Lab section will demonstrate these concepts through hands-on implementation of a complete monitoring system for your Raspberry Pi 4B platform.
+
+[Next: Tracing and Logging Lab](./lab.md)

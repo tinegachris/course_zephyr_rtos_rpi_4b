@@ -1,5 +1,10 @@
 # Chapter 13 - Interrupt Management Theory
 
+---
+[Introduction](./README.md) | [Theory](./theory.md) | [Lab](./lab.md) | [Course Home](../README.md)
+
+---
+
 ## 13.1 Interrupts in Zephyr
 
 Zephyr's interrupt handling is built upon a modular and flexible architecture. It allows you to connect interrupts to specific handler functions that are executed when the interrupt signal occurs.
@@ -253,3 +258,5 @@ void efficient_isr(const void *arg)
 ```
 
 This theory foundation provides the essential knowledge needed to implement robust interrupt handling in Zephyr applications.
+
+[Next: Interrupt Management Lab](./lab.md)

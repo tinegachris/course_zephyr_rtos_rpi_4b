@@ -1,5 +1,10 @@
 # Chapter 8: Tracing and Logging - Introduction
 
+---
+[Introduction](./README.md) | [Theory](./theory.md) | [Lab](./lab.md) | [Course Home](../README.md)
+
+---
+
 ## Building on Concurrent Programming Foundations
 
 Having mastered thread management in Chapter 7—creating multiple concurrent threads, managing synchronization, and orchestrating complex real-time behaviors—you now face the critical challenge of understanding and debugging these sophisticated concurrent systems. Traditional single-threaded debugging approaches become ineffective when dealing with multiple threads interacting across shared resources with precise timing constraints.
@@ -103,3 +108,5 @@ You'll develop professional embedded systems engineering capabilities:
 Professional embedded systems require comprehensive observability to ensure reliable operation in demanding environments. Tracing and logging provide the essential visibility needed to develop, deploy, and maintain robust embedded applications that meet the stringent requirements of modern IoT, industrial, medical, and automotive systems.
 
 With these capabilities, you'll transform from developing embedded applications to engineering professional embedded systems that provide the visibility, reliability, and maintainability required for successful commercial deployment.
+
+[Next: Tracing and Logging Theory](./theory.md)

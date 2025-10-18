@@ -118,7 +118,7 @@ graph TD
         D --> E[5. West Tool]
         E --> F[6. Zephyr Fundamentals]
     end
-    
+
     subgraph "Core Development Phase"
         F --> G[7. Thread Management]
         G --> H[8. Tracing and Logging]
@@ -128,7 +128,7 @@ graph TD
         K --> L[12. Inter-Thread Communication]
         L --> M[13. Interrupt Management]
     end
-    
+
     subgraph "Advanced Topics Phase"
         M --> N[14. Modules]
         N --> O[15. Writing Kconfig Symbols]
@@ -185,4 +185,6 @@ By the end of this chapter, you will:
 
 ---
 
-**Ready to begin?** [Continue to Chapter 2](../chapter_02_introduction_to_zephyr/README.md), where you'll discover what Zephyr RTOS is, why it's the ideal choice for modern embedded systems development, and complete your hands-on development environment setup.
+**Ready to begin?** Continue to [Chapter 2](../chapter_02_introduction_to_zephyr/README.md), where you'll discover what Zephyr RTOS is, why it's the ideal choice for modern embedded systems development, and complete your hands-on development environment setup.
+
+[Next: Introduction to Zephyr](../chapter_02_introduction_to_zephyr/README.md)

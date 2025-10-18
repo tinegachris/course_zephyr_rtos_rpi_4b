@@ -1,5 +1,10 @@
 # Chapter 18: Capstone Project - Networked Environmental Monitor
 
+---
+[Introduction](./README.md) | [Theory](./theory.md) | [Lab](./lab.md) | [Course Home](../README.md)
+
+---
+
 ## Integrating Your Knowledge
 
 This capstone project is the culmination of all the concepts you have mastered throughout this course. You will apply your knowledge of device drivers, threading, inter-thread communication, power management, and modular design to build a complete, real-world embedded application: a Networked Environmental Monitor.
@@ -38,4 +43,6 @@ By completing this capstone project, you will demonstrate your ability to:
 *   An SD card for the Zephyr image.
 *   An Ethernet cable for network connectivity.
 
-This project will challenge you to think like an embedded systems architect, making design decisions and trade-offs to meet the requirements of a real-world product. Let's get started!
+This project will challenge you to think like an embedded systems architect, making design decisions and trade-offs to meet the requirements of a real-world product. Let's get started with the [theory section](./theory.md) to understand the architectural design of the Networked Environmental Monitor.
+
+[Next: Architectural Design](./theory.md)

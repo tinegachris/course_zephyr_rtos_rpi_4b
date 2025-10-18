@@ -1,5 +1,10 @@
 # Chapter 18: Networked Environmental Monitor - Implementation Lab
 
+---
+[Introduction](./README.md) | [Theory](./theory.md) | [Lab](./lab.md) | [Course Home](../README.md)
+
+---
+
 ## Lab Overview
 
 This lab will guide you through the complete implementation of the Networked Environmental Monitor project on the Raspberry Pi 4B. You will write the code for each component of the system, integrate them, and test the final application.
@@ -25,7 +30,7 @@ cmake_minimum_required(VERSION 3.20.0)
 find_package(Zephyr REQUIRED HINTS $ENV{ZEPHYR_BASE})
 project(networked_monitor)
 
-target_sources(app PRIVATE 
+target_sources(app PRIVATE
     src/main.c
     src/sensor_manager.c
     src/web_server.c
@@ -311,3 +316,5 @@ west build -b rpi_4b
 ## Conclusion
 
 This lab has guided you through the creation of a complete, multi-threaded embedded application on the Raspberry Pi 4B. You have successfully integrated a sensor, implemented inter-thread communication, and set up a simple web server. This project serves as a solid foundation that you can extend with more advanced features.
+
+Back to [Course Home](../README.md)

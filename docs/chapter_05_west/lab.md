@@ -1,5 +1,10 @@
 # Chapter 5: West - Lab
 
+---
+[Introduction](./README.md) | [Theory](./theory.md) | [Lab](./lab.md) | [Course Home](../README.md)
+
+---
+
 This lab provides hands-on experience with West workspace management, manifest creation, and multi-repository development workflows. You'll build practical skills using your Raspberry Pi 4B while learning professional West techniques used in production Zephyr development.
 
 ---
@@ -1116,3 +1121,5 @@ With West mastery complete, you're prepared for:
 - **Team Leadership:** Architecting development workflows for embedded systems teams
 
 West provides the foundation for scalable, maintainable Zephyr development. These lab exercises have equipped you with production-ready skills for professional embedded development environments.
+
+[Next Chapter 6: Zephyr Fundamentals](./chapter_06_zephyr_fundamentals/README.md)

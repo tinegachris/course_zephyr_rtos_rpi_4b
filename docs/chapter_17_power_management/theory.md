@@ -1,5 +1,10 @@
 # Chapter 17 - Power Management Theory
 
+---
+[Introduction](./README.md) | [Theory](./theory.md) | [Lab](./lab.md) | [Course Home](../README.md)
+
+---
+
 ## 17.1 Understanding Power Management in Embedded Systems
 
 Power management is critical for modern embedded systems, especially battery-powered devices. Effective power management extends battery life, reduces heat generation, and improves system reliability.
@@ -566,3 +571,5 @@ static void monitor_device_power_states(void)
 ```
 
 This comprehensive theory foundation provides the knowledge needed to implement effective power management in Zephyr applications.
+
+[Next: Power Management Lab](./lab.md)

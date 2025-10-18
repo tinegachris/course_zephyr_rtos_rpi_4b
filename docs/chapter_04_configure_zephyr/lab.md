@@ -1,5 +1,10 @@
 # Chapter 4: Configure Zephyr - Lab
 
+---
+[Introduction](./README.md) | [Theory](./theory.md) | [Lab](./lab.md) | [Course Home](../README.md)
+
+---
+
 This lab provides hands-on experience with Zephyr configuration management. You'll create different configuration profiles, work with device tree overlays, and optimize settings for various scenarios using your Raspberry Pi 4B.
 
 ---
@@ -922,3 +927,5 @@ Create a configuration system for an IoT sensor node that supports:
 - Document memory usage for each configuration
 
 This challenge reinforces all concepts covered in this lab while preparing you for real-world Zephyr development scenarios.
+
+[Next Chapter 5: West](../chapter_05_west/README.md)

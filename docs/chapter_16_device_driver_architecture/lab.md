@@ -1,5 +1,10 @@
 # Chapter 16 - Device Driver Architecture Lab
 
+---
+[Introduction](./README.md) | [Theory](./theory.md) | [Lab](./lab.md) | [Course Home](../README.md)
+
+---
+
 ## Lab Overview
 
 This lab teaches you to build a complete device driver for Zephyr RTOS, demonstrating professional driver development practices including device tree integration, power management, interrupt handling, and API design.
@@ -1272,3 +1277,5 @@ Upon completion, you will have:
 | Power management fails | PM function issues | Check PM_DEVICE config and functions |
 
 This lab provides comprehensive experience in professional device driver development for Zephyr RTOS.
+
+[Next: Chapter 17 - Power Management](../chapter_17_power_management/README.md)

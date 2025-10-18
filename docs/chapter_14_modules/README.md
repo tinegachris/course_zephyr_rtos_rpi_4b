@@ -1,5 +1,10 @@
 # Chapter 14 - Modules
 
+---
+[Introduction](./README.md) | [Theory](./theory.md) | [Lab](./lab.md) | [Course Home](../README.md)
+
+---
+
 ## Building on Interrupts and System Architecture
 
 Having mastered interrupt management in Chapter 13—handling external hardware events and deferring processing using workqueues—you now understand how to build responsive, event-driven embedded systems. Your applications can react to the physical world in real-time, integrating asynchronous events into your structured software architecture.
@@ -24,3 +29,5 @@ Modules are the key to building scalable, maintainable, and reusable firmware wi
 - **Motor Control:** In a robotics project, the motor control system, including drivers and control algorithms, can be encapsulated in a module, allowing it to be reused in different robots.
 
 This chapter builds upon your knowledge of the Zephyr build system (Chapter 3), Kconfig (Chapter 4), and West (Chapter 5). You will learn how to structure a module, write the necessary `CMakeLists.txt` and `Kconfig` files, and integrate it into your application using the West manifest. Mastering modules will elevate your Zephyr skills, enabling you to create truly professional and scalable embedded systems.
+
+[Next: Modules Theory](./theory.md)

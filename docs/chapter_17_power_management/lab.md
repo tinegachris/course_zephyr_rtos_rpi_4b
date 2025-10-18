@@ -1,5 +1,10 @@
 # Chapter 17 - Power Management Lab
 
+---
+[Introduction](./README.md) | [Theory](./theory.md) | [Lab](./lab.md) | [Course Home](../README.md)
+
+---
+
 ## Lab Overview
 
 In this lab, you will implement a comprehensive power management system for a battery-powered environmental monitoring device. The project demonstrates system-level power management, device runtime PM, and power optimization strategies.
@@ -1797,3 +1802,5 @@ The project showcases real-world power management techniques essential for batte
 - Adaptive algorithms can significantly improve battery life
 
 Continue experimenting with different power modes, measurement intervals, and optimization strategies to fully understand power management principles and their impact on system performance.
+
+[Proceed to Capstone Project](../chapter_18_capstone_project/README.md)

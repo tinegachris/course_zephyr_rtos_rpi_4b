@@ -1,5 +1,10 @@
 # Chapter 15 - Writing Kconfig Symbols Theory
 
+---
+[Introduction](./README.md) | [Theory](./theory.md) | [Lab](./lab.md) | [Course Home](../README.md)
+
+---
+
 ## 15.1 Understanding Kconfig in Zephyr
 
 Kconfig is the configuration system used by Zephyr RTOS to control build-time options. It allows developers to customize their applications by selecting which features to include, setting parameter values, and controlling compilation behavior.
@@ -410,11 +415,13 @@ def validate_memory_usage(config):
     """Ensure configuration doesn't exceed memory limits"""
     stack_size = config.get('CONFIG_MY_MODULE_THREAD_STACK_SIZE', 1024)
     max_conn = config.get('CONFIG_MY_MODULE_MAX_CONNECTIONS', 5)
-    
+
     total_memory = stack_size + (max_conn * 256)  # 256 bytes per connection
-    
+
     if total_memory > 8192:  # 8KB limit
         raise ValueError(f"Configuration exceeds memory limit: {total_memory} bytes")
 ```
 
 This theory foundation provides the knowledge needed to create professional, maintainable Kconfig configurations for Zephyr applications.
+
++[Next: Kconfig Lab](./lab.md)

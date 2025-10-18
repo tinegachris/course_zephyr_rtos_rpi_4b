@@ -1,5 +1,10 @@
 # Chapter 6: Zephyr Fundamentals - Theory
 
+---
+[Introduction](./README.md) | [Theory](./theory.md) | [Lab](./lab.md) | [Course Home](../README.md)
+
+---
+
 This theory section provides comprehensive understanding of Zephyr's core subsystems and development practices. You'll master GPIO operations, I2C communication, device tree integration, preprocessor techniques, and shell development for professional embedded applications.
 
 ---
@@ -746,3 +751,5 @@ void sensor_timer_handler(struct k_timer *timer)
 ---
 
 This theoretical foundation prepares you for hands-on implementation in the Lab section, where you'll build applications that demonstrate these concepts using your Raspberry Pi 4B platform.
+
+[Next: Zephyr Fundamentals Lab](./lab.md)

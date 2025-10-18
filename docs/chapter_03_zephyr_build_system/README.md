@@ -1,5 +1,10 @@
 # Chapter 3: Zephyr Build System
 
+---
+[Introduction](./README.md) | [Theory](./theory.md) | [Lab](./lab.md) | [Course Home](../README.md)
+
+---
+
 ## Learning Objectives
 
 By the end of this chapter, you will:
@@ -39,7 +44,7 @@ This architecture enables you to focus on application development while the buil
 Throughout this chapter, you'll work with progressively complex scenarios that mirror real embedded development:
 
 1. **Foundation Building:** Master basic West commands and understand the workspace structure
-2. **Application Architecture:** Design modular applications with clean separation of concerns  
+2. **Application Architecture:** Design modular applications with clean separation of concerns
 3. **Advanced Configuration:** Implement board-specific optimizations and custom build targets
 4. **Production Readiness:** Create automated build scripts and integrate testing workflows
 
@@ -48,3 +53,5 @@ Each concept builds upon previous knowledge while preparing you for the advanced
 ---
 
 *The build system is your gateway to professional embedded development. Let's explore how West and CMake work together to bring your Raspberry Pi 4B applications to life.*
+
+[Next: Zephyr Build System Theory](./theory.md)

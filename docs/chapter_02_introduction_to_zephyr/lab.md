@@ -1,5 +1,10 @@
 # Chapter 2: Introduction to Zephyr - Lab
 
+---
+[Introduction](./README.md) | [Theory](./theory.md) | [Lab](./lab.md) | [Course Home](../README.md)
+
+---
+
 Now that you understand Zephyr's concepts and architecture, let's get hands-on experience with setting up a development environment and building your first applications.
 
 ---
@@ -7,9 +12,11 @@ Now that you understand Zephyr's concepts and architecture, let's get hands-on e
 ## Lab Exercise 1: Development Environment Setup
 
 ### Objective
+
 Set up a complete Zephyr development environment and verify it works by building a sample application.
 
 ### Prerequisites
+
 * Computer running Linux, macOS, or Windows
 * Internet connection for downloading dependencies
 * At least 2GB free disk space
@@ -40,10 +47,10 @@ If you prefer to install the SDK manually instead of using the VS Code extension
 4.  Extract the archive to a suitable location, for example, `~/zephyr-sdk`.
 5.  Run the SDK's setup script:
 
-    ```bash
-    cd ~/zephyr-sdk
-    ./setup.sh
-    ```
+```bash
+cd ~/zephyr-sdk
+./setup.sh
+```
 
 ### Step 3: Verify Installation
 
@@ -56,6 +63,7 @@ west build -t run
 ```
 
 **Expected Output:**
+
 ```console
 *** Booting Zephyr OS build v4.2.99 ***
 Hello World! qemu_x86
@@ -70,9 +78,11 @@ If you see this output, your development environment is working correctly!
 ## Lab Exercise 2: Hello World for Raspberry Pi 4B
 
 ### Objective
+
 Build and deploy your first application specifically for Raspberry Pi 4B hardware.
 
 ### Prerequisites
+
 * Completed Lab Exercise 1
 * Raspberry Pi 4B board
 * MicroSD card (8GB or larger)
@@ -91,11 +101,14 @@ The `--pristine` flag ensures a clean build.
 
 1. **Format SD card** with FAT32 file system
 2. **Copy the kernel image:**
+
    ```bash
    cp build/zephyr/zephyr.bin /path/to/sdcard/kernel8.img
    ```
+
 3. **Add minimal config.txt** to SD card:
-   ```
+
+   ```bash
    arm_64bit=1
    kernel=kernel8.img
    ```
@@ -108,10 +121,11 @@ The `--pristine` flag ensures a clean build.
    * TX → Pin 10 (GPIO 15, UART RX)
 
 2. **Open terminal emulator:**
+
    ```bash
    # Linux/macOS
    screen /dev/ttyUSB0 115200
-   
+
    # Or use minicom
    minicom -D /dev/ttyUSB0 -b 115200
    ```
@@ -128,6 +142,7 @@ Hello World! rpi_4b
 ```
 
 **Troubleshooting:**
+
 * **No output:** Check UART connections and baud rate
 * **Boot failure:** Verify SD card formatting and file names
 * **Build errors:** Ensure you have the latest Zephyr SDK
@@ -298,6 +313,7 @@ west build -t menuconfig
 ```
 
 This opens an interactive menu where you can:
+
 * Browse available configuration options
 * Enable/disable features
 * See help text for each option
@@ -307,6 +323,7 @@ This opens an interactive menu where you can:
 
 **Enable Logging:**
 Add to prj.conf:
+
 ```
 CONFIG_LOG=y
 CONFIG_LOG_DEFAULT_LEVEL=3
@@ -323,12 +340,14 @@ LOG_DBG("LED state changed to %s", led_state ? "ON" : "OFF");
 ```
 
 **Adjust Stack Sizes:**
+
 ```
 CONFIG_MAIN_STACK_SIZE=2048
 CONFIG_SYSTEM_WORKQUEUE_STACK_SIZE=1024
 ```
 
 **Enable Shell Interface:**
+
 ```
 CONFIG_SHELL=y
 CONFIG_SHELL_BACKEND_SERIAL=y
@@ -337,6 +356,7 @@ CONFIG_SHELL_BACKEND_SERIAL=y
 ### Step 3: Memory Usage Analysis
 
 **Check memory usage:**
+
 ```bash
 west build -t ram_report
 west build -t rom_report
@@ -345,6 +365,7 @@ west build -t rom_report
 The memory usage report is automatically generated every time you build your application. You can find this information in the build output, typically near the end. Look for a section that shows the memory usage for different regions like Flash and RAM.
 
 **Optimize for size:**
+
 ```
 CONFIG_SIZE_OPTIMIZATIONS=y
 CONFIG_DEBUG=n
@@ -372,10 +393,13 @@ CONFIG_ASSERT=n
 
 ### Next Steps
 
-You now have hands-on experience with Zephyr development. In Chapter 3, we'll dive deeper into the build system, explore advanced West features, and learn about project structure and organization.
+You now have hands-on experience with Zephyr development. In [Chapter 3](./chapter_03_build_system.md), we'll dive deeper into the build system, explore advanced West features, and learn about project structure and organization.
 
 **Continue practicing by:**
+
 * Trying different boards and comparing the differences
 * Exploring other samples in the zephyr/samples directory
 * Experimenting with different Kconfig options
 * Adding more complex GPIO interactions (multiple LEDs, buttons, etc.)
+
+[Next: Chapter 3: Zephyr Build System](./../chapter_03_zephyr_build_system/README.md)

@@ -1,5 +1,10 @@
 # Chapter 11: Traditional Multithreading Primitives - Hands-On Laboratory
 
+---
+[Introduction](./README.md) | [Theory](./theory.md) | [Lab](./lab.md) | [Course Home](../README.md)
+
+---
+
 ## Lab Overview
 
 This comprehensive laboratory provides hands-on experience with Zephyr's traditional multithreading primitives. You'll implement real-world synchronization patterns, analyze performance characteristics, and develop production-quality concurrent applications.
@@ -1435,3 +1440,5 @@ Students should now be prepared to:
 - Apply advanced synchronization patterns in specialized domains
 
 This comprehensive laboratory experience provides the practical foundation for professional embedded systems development using Zephyr's traditional multithreading primitives.
+
+[Next: Chapter 12 - Inter-Thread Communication](../chapter_12_inter-thread_communication/README.md)

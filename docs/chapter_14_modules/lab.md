@@ -1,5 +1,10 @@
 # Chapter 14 - Modules Lab
 
+---
+[Introduction](./README.md) | [Theory](./theory.md) | [Lab](./lab.md) | [Course Home](../README.md)
+
+---
+
 ## Lab Overview
 
 This lab teaches you to create, structure, and integrate custom modules in Zephyr. You'll build a complete sensor module that demonstrates professional module development practices, including proper API design, configuration management, and testing.
@@ -866,3 +871,5 @@ Upon completion, you will have:
 6. Skills to create reusable embedded components
 
 This lab demonstrates industry best practices for modular embedded software development using Zephyr RTOS.
+
+[Next: Chapter 15 - Writing Kconfig Symbols](../chapter_15_writing_kconfig_symbols/README.md)

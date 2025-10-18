@@ -1,5 +1,10 @@
 # Chapter 10: User Mode in Zephyr RTOS
 
+---
+[Introduction](./README.md) | [Theory](./theory.md) | [Lab](./lab.md) | [Course Home](../README.md)
+
+---
+
 ## Building on Memory Management Foundations
 
 Having mastered Zephyr's memory management capabilities in Chapter 9—including heap allocation, thread stacks, and memory protection mechanisms—you now possess the foundational knowledge necessary to implement advanced security architectures. User mode represents the evolution of basic memory management into comprehensive system security, transforming the memory domains and protection concepts you've learned into robust isolation boundaries for production embedded systems.
@@ -613,3 +618,5 @@ void user_mode_fault_handler(const struct arch_esf *esf)
 ```
 
 This comprehensive introduction establishes the foundation for secure user mode programming in Zephyr RTOS. The following sections will provide hands-on implementation guidance and practical examples.
+
+[Next: User Mode Theory](./theory.md)

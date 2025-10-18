@@ -1,5 +1,10 @@
 # Chapter 6: Zephyr Fundamentals - Introduction
 
+---
+[Introduction](./README.md) | [Theory](./theory.md) | [Lab](./lab.md) | [Course Home](../README.md)
+
+---
+
 Welcome to the core of practical Zephyr development! This chapter bridges the gap between configuration knowledge and real-world embedded programming. You'll master the fundamental subsystems that enable hardware interaction, learn device tree integration, and build applications that demonstrate professional embedded development practices.
 
 Building on your West workspace management skills from Chapter 5, you'll now create applications that interact with the physical world through GPIO pins, communicate with sensors via I2C, and provide interactive interfaces through the Zephyr Shell—all while using your Raspberry Pi 4B as the development platform.
@@ -89,3 +94,5 @@ The fundamentals mastered here enable advanced Zephyr development:
 ---
 
 Zephyr fundamentals transform theoretical knowledge into practical embedded development skills. By the end of this chapter, you'll confidently create professional embedded applications that interact with real hardware while maintaining code quality and portability standards.
+
+[Next: Zephyr Fundamentals Theory](./theory.md)

@@ -1,5 +1,10 @@
 # Chapter 17: Power Management
 
+---
+[Introduction](./README.md) | [Theory](./theory.md) | [Lab](./lab.md) | [Course Home](../README.md)
+
+---
+
 ## Completing the Professional Architecture
 
 Having mastered device driver architecture in Chapter 16—creating hardware abstraction layers that provide standardized, portable interfaces to your embedded systems—you now possess the complete technical foundation for building professional embedded software. But in today's world of IoT devices, battery-powered systems, and environmental consciousness, technical excellence alone isn't sufficient.
@@ -29,3 +34,5 @@ This chapter builds directly on your understanding of device driver architecture
 **Motivation and Practical Applications**
 
 By the end of this chapter, you’ll be able to write drivers that intelligently manage power states, minimizing energy usage when the device is idle and seamlessly resuming operation when needed. This translates to longer battery life, reduced system heat, and improved overall system performance.
+
+[Next: Power Management Theory](./theory.md)

@@ -1,5 +1,10 @@
 # Chapter 9: Memory Management - Theory and Implementation
 
+---
+[Introduction](./README.md) | [Theory](./theory.md) | [Lab](./lab.md) | [Course Home](../README.md)
+
+---
+
 ## Advanced Memory Management Concepts
 
 ### Memory Allocation Algorithms
@@ -500,3 +505,5 @@ void *priority_alloc(struct priority_heap *heap, size_t size, int priority)
 ```
 
 This comprehensive theory section provides deep insights into Zephyr's memory management implementation, enabling developers to make informed decisions about memory allocation strategies and optimization techniques.
+
+[Next: Memory Management Lab](./lab.md)

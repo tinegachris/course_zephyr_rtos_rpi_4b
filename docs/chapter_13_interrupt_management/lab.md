@@ -1,5 +1,10 @@
 # Chapter 13 - Interrupt Management Lab
 
+---
+[Introduction](./README.md) | [Theory](./theory.md) | [Lab](./lab.md) | [Course Home](../README.md)
+
+---
+
 ## Lab Overview
 
 This lab provides hands-on experience implementing interrupt handling, workqueues, and their interaction in Zephyr. You'll build a complete interrupt-driven system that demonstrates real-world embedded programming patterns.
@@ -489,3 +494,5 @@ After completing this lab, you should have:
 4. **Hardware Integration**: Connect to real sensors and actuators
 
 This comprehensive lab provides practical experience with all aspects of interrupt management in Zephyr, preparing you for real-world embedded system development.
+
+[Next: Chapter 14 - Modules](../chapter_14_modules/README.md)

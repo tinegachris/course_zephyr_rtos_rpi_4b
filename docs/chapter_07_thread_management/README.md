@@ -1,5 +1,10 @@
 # Chapter 7: Thread Management - Introduction
 
+---
+[Introduction](./README.md) | [Theory](./theory.md) | [Lab](./lab.md) | [Course Home](../README.md)
+
+---
+
 Mastering thread management transforms your embedded applications from sequential, blocking programs into responsive, concurrent systems capable of handling multiple tasks simultaneously. This chapter empowers you to harness Zephyr's powerful threading capabilities, building applications that can monitor sensors, control actuators, manage communications, and respond to user input—all concurrently and with precise timing control.
 
 Building on your GPIO, I2C, and shell development skills from Chapter 6, you'll now orchestrate multiple concurrent execution paths, creating sophisticated applications that demonstrate professional real-time embedded system architecture.
@@ -88,10 +93,12 @@ This chapter leverages your existing skills:
 Thread management skills enable advanced Zephyr development:
 
 - **Inter-thread communication** mechanisms for data sharing and coordination
-- **Memory management** optimization for multi-threaded applications  
+- **Memory management** optimization for multi-threaded applications
 - **Power management** strategies that consider thread behavior and timing requirements
 - **Driver development** requiring thread-safe implementations and interrupt handling
 
 ---
 
 Thread management represents the foundation of professional embedded system architecture. By mastering these concepts, you'll create responsive, reliable, and maintainable embedded applications that meet the demanding requirements of modern IoT, industrial, medical, and automotive systems.
+
+[Next: Thread Management Theory](./theory.md)

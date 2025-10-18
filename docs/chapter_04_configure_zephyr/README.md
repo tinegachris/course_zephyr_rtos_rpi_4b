@@ -1,5 +1,10 @@
 # Chapter 4: Configure Zephyr
 
+---
+[Introduction](./README.md) | [Theory](./theory.md) | [Lab](./lab.md) | [Course Home](../README.md)
+
+---
+
 ## Learning Objectives
 
 By the end of this chapter, you will:
@@ -55,3 +60,5 @@ Each concept builds upon your build system knowledge from Chapter 3 while prepar
 ---
 
 *Configuration transforms Zephyr from a general-purpose RTOS into your application's perfect foundation. Let's explore how to wield this power effectively.*
+
+[Next: Configure Zephyr Theory](./theory.md)

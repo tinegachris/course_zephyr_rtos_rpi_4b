@@ -1,5 +1,10 @@
 # Chapter 3: Zephyr Build System - Lab Exercises
 
+---
+[Introduction](./README.md) | [Theory](./theory.md) | [Lab](./lab.md) | [Course Home](../README.md)
+
+---
+
 In this hands-on lab, you'll master the Zephyr build system through progressive exercises. Each lab builds on concepts from the Theory section and prepares you for advanced development scenarios.
 
 ---
@@ -725,3 +730,5 @@ The build system knowledge you've gained is essential for the configuration mana
 - Optimize system resources for your target hardware
 
 Your comprehensive understanding of the build system positions you perfectly for advanced Zephyr development in the upcoming chapters.
+
+[Next: Chapter 4: Configure Zephyr](./../chapter_04_configure_zephyr/README.md)

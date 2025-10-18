@@ -1,5 +1,10 @@
 # Chapter 11: Traditional Multithreading Primitives - Professional Introduction
 
+---
+[Introduction](./README.md) | [Theory](./theory.md) | [Lab](./lab.md) | [Course Home](../README.md)
+
+---
+
 ## Building on Memory Management and Security Foundations
 
 Having mastered memory management in Chapter 9 and user mode security in Chapter 10, you now understand how to allocate, protect, and isolate memory resources in embedded systems. However, these capabilities alone are insufficient for concurrent programming where multiple threads must safely coordinate access to shared resources within secure memory domains.
@@ -121,3 +126,5 @@ While this chapter focuses on fundamental primitives, it also introduces advance
 **System-Wide Coordination**: Patterns for coordinating synchronization across multiple subsystems and communication domains.
 
 This comprehensive introduction to traditional multithreading primitives establishes the foundation for building robust, efficient, and maintainable concurrent embedded systems using Zephyr RTOS. The following sections will delve into specific implementation details, performance analysis, and practical application patterns that enable professional-quality embedded software development.
+
+[Next: Traditional Multithreading Primitives Theory](./theory.md)

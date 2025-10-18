@@ -1,5 +1,10 @@
 # Chapter 3: Zephyr Build System - Theory
 
+---
+[Introduction](./README.md) | [Theory](./theory.md) | [Lab](./lab.md) | [Course Home](../README.md)
+
+---
+
 Building on your hands-on experience from Chapter 2, let's explore the technical details of how Zephyr transforms source code into executable firmware. This deep dive will give you the knowledge to customize, optimize, and troubleshoot your build process.
 
 ---
@@ -455,4 +460,6 @@ Device tree describes hardware layout and is compiled during build:
 
 ---
 
-This theory foundation prepares you for hands-on practice in the Lab section, where you'll apply these concepts to build and customize real Zephyr applications.
+This theory foundation prepares you for hands-on practice in the [Lab section](./lab.md), where you'll apply these concepts to build and customize real Zephyr applications.
+
+[Next: Zephyr Build System Lab](./lab.md)

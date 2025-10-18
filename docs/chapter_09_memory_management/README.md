@@ -1,5 +1,10 @@
 # Chapter 9: Memory Management in Zephyr RTOS
 
+---
+[Introduction](./README.md) | [Theory](./theory.md) | [Lab](./lab.md) | [Course Home](../README.md)
+
+---
+
 ## Building on System Observability Foundations
 
 Having mastered tracing and logging in Chapter 8—gaining essential visibility into concurrent thread behavior, system performance, and debugging complex interactions—you now understand how to observe and analyze system behavior. However, many of the performance issues and system failures you've learned to detect through tracing stem from improper memory management practices.
@@ -572,3 +577,5 @@ void setup_thread_resource_pools(void)
 ```
 
 This comprehensive introduction establishes the foundation for advanced memory management techniques in Zephyr RTOS. The following sections will dive deeper into practical implementation and optimization strategies.
+
+[Next: Memory Management Theory](./theory.md)

@@ -1,5 +1,10 @@
 # Chapter 15 - Writing Kconfig Symbols Lab
 
+---
+[Introduction](./README.md) | [Theory](./theory.md) | [Lab](./lab.md) | [Course Home](../README.md)
+
+---
+
 ## Lab Overview
 
 This lab teaches you to create comprehensive Kconfig configurations for Zephyr modules. You'll build a complete data logging module with sophisticated configuration options, demonstrating professional Kconfig design patterns and integration techniques.
@@ -970,3 +975,5 @@ Upon completion, you will have:
 | Circular dependencies | Conflicting select/depends | Review dependency chain |
 
 This lab demonstrates professional-grade Kconfig design for configurable embedded systems using Zephyr RTOS.
+
+[Next: Chapter 16 - Device Driver Architecture](../chapter_16_device_driver_architecture/README.md)

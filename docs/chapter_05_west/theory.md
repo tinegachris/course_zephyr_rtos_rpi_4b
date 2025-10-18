@@ -1,5 +1,10 @@
 # Chapter 5: West - Theory
 
+---
+[Introduction](./README.md) | [Theory](./theory.md) | [Lab](./lab.md) | [Course Home](../README.md)
+
+---
+
 This theory section provides deep understanding of West's architecture, commands, and manifest system. You'll learn how West manages multi-repository workspaces and enables reproducible, scalable Zephyr development workflows.
 
 ---
@@ -474,3 +479,5 @@ git merge release/v2.1
 ---
 
 This theoretical foundation prepares you for hands-on West usage in the Lab section, where you'll create custom manifests and implement professional development workflows using your Raspberry Pi 4B as the target platform.
+
+[Next: West Lab](./lab.md)

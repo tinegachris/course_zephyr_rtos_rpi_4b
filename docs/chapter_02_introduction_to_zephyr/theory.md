@@ -1,5 +1,10 @@
 # Chapter 2: Introduction to Zephyr - Theory
 
+---
+[Introduction](./README.md) | [Theory](./theory.md) | [Lab](./lab.md) | [Course Home](../README.md)
+
+---
+
 Now that you understand what Zephyr is and why it's valuable, let's dive deep into the technical aspects of the Zephyr ecosystem and development workflow.
 
 ---
@@ -10,14 +15,16 @@ Now that you understand what Zephyr is and why it's valuable, let's dive deep in
 
 **Zephyr Kernel:**
 The heart of the system, providing fundamental RTOS services:
+
 * **Task Scheduler:** Preemptive, priority-based scheduling with 32 priority levels
-* **Memory Management:** Static allocation, memory pools, and heap management  
+* **Memory Management:** Static allocation, memory pools, and heap management
 * **Inter-Process Communication:** Semaphores, mutexes, message queues, and pipes
 * **Interrupt Handling:** Fast, deterministic interrupt service routines
 * **Timer Services:** High-resolution timers and timeout management
 
 **Device Driver Framework:**
 Zephyr provides a unified driver model:
+
 * **Device Tree Integration:** Hardware description using industry-standard device tree
 * **Driver Categories:** GPIO, UART, SPI, I2C, ADC, PWM, sensors, and networking
 * **Power Management:** Runtime power management and low-power states
@@ -25,6 +32,7 @@ Zephyr provides a unified driver model:
 
 **Networking Stack:**
 Comprehensive connectivity options:
+
 * **IP Networking:** IPv4/IPv6, TCP/UDP, HTTP/HTTPS, CoAP, MQTT
 * **Wireless Protocols:** Wi-Fi, Bluetooth LE, 802.15.4, LoRaWAN
 * **Thread/Matter:** IoT mesh networking and smart home protocols
@@ -32,6 +40,7 @@ Comprehensive connectivity options:
 
 **Build System (West):**
 Modern, Git-based build system:
+
 * **Source Management:** Multi-repository projects with automatic dependency resolution
 * **Board Support:** 500+ supported development boards
 * **Toolchain Integration:** GCC, Clang, and vendor-specific toolchains
@@ -40,8 +49,8 @@ Modern, Git-based build system:
 ### Development Environment Setup
 
 **Recommended IDE: VS Code with Zephyr Extension**
-
 The Zephyr extension for VS Code provides:
+
 * **Project Templates:** Quick project creation with board-specific configurations
 * **IntelliSense:** Code completion for Zephyr APIs and Kconfig options
 * **Build Integration:** One-click building with error highlighting
@@ -49,6 +58,7 @@ The Zephyr extension for VS Code provides:
 * **Device Tree Editor:** Visual editing of hardware configurations
 
 **Alternative Development Options:**
+
 * **Command Line:** Traditional terminal-based development using West commands
 * **Eclipse:** Zephyr plugin available for Eclipse CDT
 * **CLion/Other IDEs:** Any IDE with CMake support can work with Zephyr
@@ -56,7 +66,8 @@ The Zephyr extension for VS Code provides:
 ### West Build System Deep Dive
 
 **West Workspace Structure:**
-```
+
+```bash
 zephyrproject/                 # West workspace root
 ├── .west/                     # West configuration and metadata
 ├── zephyr/                    # Main Zephyr repository
@@ -69,12 +80,13 @@ zephyrproject/                 # West workspace root
 ```
 
 **Key West Commands:**
+
 ```bash
 # Workspace initialization
 west init ~/zephyrproject
 west update
 
-# Building applications  
+# Building applications
 west build -b <board> <source-directory>
 west build -b rpi_4b zephyr/samples/hello_world
 
@@ -90,8 +102,9 @@ west build -t clean           # Clean build artifacts
 
 **Board Selection:**
 Zephyr supports extensive hardware through board definitions:
+
 * **ARM Cortex-M:** STM32, nRF52/53, LPC, Kinetis families
-* **ARM Cortex-A:** Raspberry Pi, i.MX, Zynq platforms  
+* **ARM Cortex-A:** Raspberry Pi, i.MX, Zynq platforms
 * **RISC-V:** SiFive, ESP32-C3, Litex VexRiscv
 * **x86:** Intel Quark, Apollo Lake, generic PC
 * **ARC:** Synopsys ARC processors
@@ -121,6 +134,7 @@ CONFIG_SYSTEM_WORKQUEUE_STACK_SIZE=1024
 ```
 
 **Configuration Categories:**
+
 * **Kernel Options:** Scheduling, memory management, synchronization
 * **Device Drivers:** Enable/disable specific hardware support
 * **Networking:** Protocol stack configuration and buffer sizes
@@ -128,6 +142,7 @@ CONFIG_SYSTEM_WORKQUEUE_STACK_SIZE=1024
 * **Debug/Logging:** Console output and debugging features
 
 **Kconfig Tools:**
+
 ```bash
 # Interactive configuration menu
 west build -t menuconfig
@@ -142,13 +157,16 @@ west build -t savedefconfig
 ### Device Tree Fundamentals
 
 **What is Device Tree?**
+
 Device Tree is a data structure that describes hardware components and their relationships. In Zephyr, it defines:
+
 * GPIO pin assignments and electrical properties
 * Bus configurations (I2C addresses, SPI chip selects)
 * Memory regions and register addresses
 * Interrupt connections and priorities
 
 **Example Device Tree Node:**
+
 ```dts
 / {
     leds {
@@ -158,7 +176,7 @@ Device Tree is a data structure that describes hardware components and their rel
             label = "Green LED";
         };
     };
-    
+
     buttons {
         compatible = "gpio-keys";
         button0: button_0 {
@@ -170,6 +188,7 @@ Device Tree is a data structure that describes hardware components and their rel
 ```
 
 **Using Device Tree in Code:**
+
 ```c
 #include <zephyr/devicetree.h>
 #include <zephyr/drivers/gpio.h>
@@ -184,12 +203,15 @@ static const struct gpio_dt_spec button = GPIO_DT_SPEC_GET(BUTTON0_NODE, gpios);
 ### Memory Management
 
 **Memory Layout:**
+
 Zephyr applications have several memory regions:
+
 * **Code (Flash):** Application code, constant data, and configuration
 * **RAM:** Variables, stack space, and heap (if enabled)
 * **Device Registers:** Memory-mapped peripheral access
 
 **Memory Configuration:**
+
 ```bash
 # Set main stack size
 CONFIG_MAIN_STACK_SIZE=4096
@@ -202,6 +224,7 @@ CONFIG_SYSTEM_WORKQUEUE_STACK_SIZE=2048
 ```
 
 **Static vs Dynamic Allocation:**
+
 * **Static (Recommended):** All memory allocated at compile time
 * **Dynamic (Optional):** Runtime allocation using k_malloc()/k_free()
 * **Memory Pools:** Pre-allocated blocks for predictable allocation
@@ -209,12 +232,14 @@ CONFIG_SYSTEM_WORKQUEUE_STACK_SIZE=2048
 ### Security Features
 
 **Secure Boot Chain:**
+
 1. **MCUboot:** Secure bootloader with image verification
-2. **Image Signing:** Cryptographic signatures on application images  
+2. **Image Signing:** Cryptographic signatures on application images
 3. **Rollback Protection:** Prevent downgrade to vulnerable versions
 4. **Hardware Security:** Trusted Platform Module (TPM) integration
 
 **Runtime Security:**
+
 * **Memory Protection Units (MPU):** Isolate application from kernel
 * **Stack Canaries:** Detect buffer overflow attacks
 * **Address Space Layout Randomization (ASLR):** Make exploits harder
@@ -223,6 +248,7 @@ CONFIG_SYSTEM_WORKQUEUE_STACK_SIZE=2048
 ### Testing and Debugging
 
 **Twister Test Framework:**
+
 ```bash
 # Run all tests
 west twister
@@ -235,6 +261,7 @@ west twister -T tests/kernel/threads
 ```
 
 **Debugging Tools:**
+
 * **GDB Integration:** Source-level debugging with breakpoints
 * **Segger RTT:** Real-time trace output without UART
 * **Logic Analyzers:** Hardware signal analysis
@@ -243,15 +270,19 @@ west twister -T tests/kernel/threads
 ### Performance Optimization
 
 **Memory Optimization:**
+
 * **Remove Unused Features:** Disable unnecessary Kconfig options
 * **Optimize Data Structures:** Use appropriate data types and alignment
 * **Code Size Reduction:** Compiler optimization flags and dead code elimination
 
 **Real-time Performance:**
+
 * **Interrupt Latency:** Minimize time to respond to interrupts
 * **Context Switch Time:** Optimize task switching overhead
 * **Jitter Reduction:** Consistent timing through priority management
 
 ---
 
-This theory section provides the technical foundation needed to understand Zephyr development. Next, we'll apply this knowledge in a hands-on lab exercise.
+This theory section provides the technical foundation needed to understand Zephyr development. Next, we'll apply this knowledge in a [hands-on lab exercise](./lab.md).
+
+[Next: Introduction to Zephyr Lab](./lab.md)

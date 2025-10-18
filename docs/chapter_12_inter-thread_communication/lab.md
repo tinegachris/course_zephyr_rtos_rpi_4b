@@ -1,5 +1,10 @@
 # Chapter 12: Inter-Thread Communication
 
+---
+[Introduction](./README.md) | [Theory](./theory.md) | [Lab](./lab.md) | [Course Home](../README.md)
+
+---
+
 ## Laboratory Exercises
 
 ### Lab Overview
@@ -317,3 +322,5 @@ After completing these laboratories, you should understand:
 5. **Real-time Analysis**: Perform detailed timing analysis and worst-case execution time calculations
 
 This comprehensive laboratory experience provides practical skills for implementing professional-grade inter-thread communication in embedded systems using Zephyr RTOS.
+
+[Next: Chapter 13 - Interrupt Management](../chapter_13_interrupt_management/README.md)

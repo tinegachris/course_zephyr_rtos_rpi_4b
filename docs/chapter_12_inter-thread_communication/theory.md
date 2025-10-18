@@ -1,5 +1,10 @@
 # Chapter 12: Inter-Thread Communication
 
+---
+[Introduction](./README.md) | [Theory](./theory.md) | [Lab](./lab.md) | [Course Home](../README.md)
+
+---
+
 ## Theory and Implementation
 
 ### 1. Message Queues: Structured Data Exchange
@@ -740,3 +745,5 @@ Choosing the right communication mechanism depends on your specific requirements
 - **Configurable**: Pipes, Zbus
 
 This comprehensive coverage of Zephyr's inter-thread communication mechanisms provides the foundation for building sophisticated embedded systems. The next section will demonstrate these concepts through practical laboratory exercises.
+
+[Next: Inter-Thread Communication Lab](./lab.md)

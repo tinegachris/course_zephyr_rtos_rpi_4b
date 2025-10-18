@@ -1,5 +1,10 @@
 # Chapter 7: Thread Management - Theory
 
+---
+[Introduction](./README.md) | [Theory](./theory.md) | [Lab](./lab.md) | [Course Home](../README.md)
+
+---
+
 This theory section provides comprehensive understanding of Zephyr's thread management system, covering thread creation, lifecycle management, synchronization mechanisms, and performance optimization techniques for building professional concurrent embedded applications.
 
 ---
@@ -905,3 +910,5 @@ void adaptive_priority_thread(void *p1, void *p2, void *p3)
 ---
 
 This theoretical foundation provides comprehensive understanding of Zephyr's thread management capabilities. The Lab section will demonstrate these concepts through hands-on implementation of multi-threaded applications using your Raspberry Pi 4B platform.
+
+[Next: Thread Management Lab](./lab.md)

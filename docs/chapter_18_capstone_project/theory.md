@@ -1,5 +1,10 @@
 # Chapter 18: Networked Environmental Monitor - Architectural Design
 
+---
+[Introduction](./README.md) | [Theory](./theory.md) | [Lab](./lab.md) | [Course Home](../README.md)
+
+---
+
 ## System Architecture
 
 The Networked Environmental Monitor is designed as a modular, multi-threaded application that leverages the networking capabilities of the Raspberry Pi 4B. The architecture is centered around a message-passing paradigm, which decouples the different components of the system and allows for concurrent operation.
@@ -95,4 +100,6 @@ Following the principles from Chapters 14 and 15, the project will be structured
     *   `CONFIG_SENSOR_READ_INTERVAL`: The interval in seconds between sensor readings.
     *   `CONFIG_WEB_SERVER_PORT`: The port for the web server.
 
-This architectural design provides a solid foundation for building a robust, efficient, and maintainable Networked Environmental Monitor. The next section, `lab.md`, will provide the step-by-step guide to implementing this design.
+This architectural design provides a solid foundation for building a robust, efficient, and maintainable Networked Environmental Monitor. The [next section](./lab.md) will provide the step-by-step guide to implementing this design.
+
+[Next: Implementation Lab](./lab.md)

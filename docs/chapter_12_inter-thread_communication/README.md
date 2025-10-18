@@ -1,5 +1,10 @@
 # Chapter 12: Inter-Thread Communication
 
+---
+[Introduction](./README.md) | [Theory](./theory.md) | [Lab](./lab.md) | [Course Home](../README.md)
+
+---
+
 ## Evolving from Synchronization to Communication
 
 Having mastered traditional multithreading primitives in Chapter 11—mutexes, semaphores, spinlocks, and condition variables—you now understand how to coordinate thread access to shared resources and synchronize execution timing. These synchronization mechanisms excel at protecting shared data and coordinating thread behavior, but they operate primarily within single memory spaces using direct memory access patterns.
@@ -16,3 +21,5 @@ Why is this crucial?  Consider the following real-world scenarios:
 * **Complex Robotics:** Robot control systems involve numerous threads – perception, planning, control, and actuation.  The speed and reliability of data exchange between these threads determine the robot's precision and responsiveness.
 
 Building upon your knowledge from previous chapters—Zephyr fundamentals, thread management, memory management, and hardware interaction—this chapter focuses on utilizing Zephyr’s advanced inter-thread communication capabilities.  We’ll explore how message queues, mailboxes, and the Zephyr Bus (Zbus) can solve complex communication challenges.  The goal is to equip you with the skills to architect robust, efficient, and maintainable embedded systems.  We'll be focusing on designing systems that prioritize responsiveness, minimize latency, and are resistant to errors. The principles covered here are critical for developing professional-quality embedded software.
+
+[Next: Inter-Thread Communication Theory](./theory.md)

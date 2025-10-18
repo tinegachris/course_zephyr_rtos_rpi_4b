@@ -1,5 +1,10 @@
 # Chapter 10: User Mode - Hands-On Laboratory
 
+---
+[Introduction](./README.md) | [Theory](./theory.md) | [Lab](./lab.md) | [Course Home](../README.md)
+
+---
+
 ## Lab Overview
 
 This laboratory provides comprehensive hands-on experience with Zephyr's user mode capabilities. You'll implement secure applications using memory domains, system calls, and advanced security features.
@@ -1132,3 +1137,5 @@ After completing these labs, students should be able to:
 - Apply security hardening techniques to embedded systems
 
 This comprehensive laboratory provides hands-on experience with all aspects of Zephyr's user mode capabilities, preparing developers for real-world secure embedded system development.
+
+[Next: Chapter 11 - Traditional Multithreading Primitives](../chapter_11_traditional_multithreading_primitives/README.md)

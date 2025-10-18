@@ -1,5 +1,10 @@
 # Chapter 4: Configure Zephyr - Theory
 
+---
+[Introduction](./README.md) | [Theory](./theory.md) | [Lab](./lab.md) | [Course Home](../README.md)
+
+---
+
 Building on your understanding of the Zephyr build system from Chapter 3, this theory section explores how to precisely configure Zephyr for your application's needs. You'll master both Kconfig for feature selection and device tree for hardware description.
 
 ---
@@ -419,3 +424,5 @@ west build -b rpi_4b -t kconfig-print
 ---
 
 This theory foundation prepares you for hands-on configuration practice in the Lab section, where you'll apply these concepts to create optimized Zephyr applications for your Raspberry Pi 4B.
+
+[Next: Configure Zephyr Lab](./lab.md)

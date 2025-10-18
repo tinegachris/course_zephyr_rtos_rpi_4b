@@ -1,5 +1,10 @@
 # Chapter 10: User Mode - Theory and Advanced Implementation
 
+---
+[Introduction](./README.md) | [Theory](./theory.md) | [Lab](./lab.md) | [Course Home](../README.md)
+
+---
+
 ## Advanced User Mode Architecture
 
 ### Hardware Support Requirements
@@ -11,7 +16,7 @@ User mode functionality requires specific hardware capabilities that vary across
 ```c
 /*
  * ARM Cortex-M MPU Configuration for User Mode
- * 
+ *
  * Memory Protection Unit (MPU) provides:
  * - 8-16 programmable memory regions (depends on implementation)
  * - Fine-grained access control (Read/Write/Execute permissions)
@@ -28,7 +33,7 @@ struct mpu_region_config {
 };
 
 // Configure MPU region for user space
-void configure_user_mpu_region(uint8_t region_num, 
+void configure_user_mpu_region(uint8_t region_num,
                               uintptr_t base_addr,
                               size_t size,
                               uint32_t permissions)
@@ -654,3 +659,5 @@ int fast_domain_switch(k_tid_t thread, struct k_mem_domain *new_domain)
 ```
 
 This comprehensive theory section provides deep insights into Zephyr's user mode implementation, enabling developers to understand the underlying mechanisms and optimize their secure applications effectively.
+
+[Next: User Mode Lab](./lab.md)

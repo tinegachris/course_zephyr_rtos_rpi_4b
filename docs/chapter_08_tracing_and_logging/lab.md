@@ -1,5 +1,10 @@
 # Chapter 8: Tracing and Logging - Lab
 
+---
+[Introduction](./README.md) | [Theory](./theory.md) | [Lab](./lab.md) | [Course Home](../README.md)
+
+---
+
 This lab provides hands-on experience with Zephyr's comprehensive tracing and logging capabilities. You'll build a professional monitoring system that demonstrates logging, thread analysis, performance measurement, and debugging workflows for your Raspberry Pi 4B platform.
 
 ---
@@ -923,3 +928,5 @@ Through these comprehensive labs, you've mastered:
 * Adaptive logging based on system load
 
 These capabilities provide the foundation for developing, deploying, and maintaining professional embedded systems with comprehensive observability and diagnostic capabilities required for commercial applications.
+
+[Next Chapter: Chapter 9 - Memory Management](../chapter_09_memory_management/README.md)

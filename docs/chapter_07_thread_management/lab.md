@@ -1,5 +1,10 @@
 # Chapter 7: Thread Management - Lab
 
+---
+[Introduction](./README.md) | [Theory](./theory.md) | [Lab](./lab.md) | [Course Home](../README.md)
+
+---
+
 This hands-on lab guides you through building multi-threaded applications that demonstrate thread creation, synchronization, timing control, and performance optimization using your Raspberry Pi 4B platform.
 
 ---
@@ -1395,3 +1400,5 @@ Through these comprehensive labs, you've mastered:
 * Performance analysis and system tuning
 
 These skills provide the foundation for building sophisticated multi-threaded embedded applications that meet professional real-time system requirements.
+
+[Next: Chapter 8 - Tracing and Logging](../chapter_08_tracing_and_logging/overview.md)
