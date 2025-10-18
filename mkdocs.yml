@@ -1,5 +1,4 @@
 site_name: Zephyr RTOS Development Course
-docs_dir: .
 theme:
   name: material
 plugins:
