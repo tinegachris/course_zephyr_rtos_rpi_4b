@@ -1,10 +1,9 @@
-name: deploy
+name: Deploy Documentation to GitHub Pages
 
 on:
-  # Trigger the workflow on push to main branch
   push:
     branches:
-    - main
+      - main
 
 permissions:
   pages: write
@@ -14,7 +13,6 @@ permissions:
   actions: write
   checks: read
 
-# This job installs dependencies, build the book, and pushes it to `gh-pages`
 jobs:
   deploy:
     runs-on: ubuntu-latest
@@ -23,25 +21,33 @@ jobs:
       url: ${{ steps.deploy-to-github-pages.outputs.page_url }}
 
     steps:
-    - name: Checkout repository
-      uses: actions/checkout@v3
+      - name: Checkout repository
+        uses: actions/checkout@v4
 
-    - name: Set up Python
-      uses: actions/setup-python@v4
-      with:
-        python-version: '3.x'
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.x'
 
-    - name: Install dependencies
-      run: |
-        python -m pip install --upgrade pip
-        pip install mkdocs mkdocs-material mkdocs-git-revision-date-localized-plugin
+      - name: Cache pip
+        uses: actions/cache@v4
+        with:
+          path: ~/.cache/pip
+          key: ${{ runner.os }}-pip-${{ hashFiles('**/requirements.txt') }}
+          restore-keys: |
+            ${{ runner.os }}-pip-
 
-    - name: Build the book
-      run: mkdocs build
+      - name: Install dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install mkdocs mkdocs-material mkdocs-git-revision-date-localized-plugin
 
-    - name: Deploy to GitHub Pages
-      id: deploy-to-github-pages
-      uses: peaceiris/actions-gh-pages@v3
-      with:
-        github_token: ${{ secrets.GITHUB_TOKEN }}
-        publish_dir: ./site
+      - name: Build the site
+        run: mkdocs build
+
+      - name: Deploy to GitHub Pages
+        id: deploy-to-github-pages
+        uses: peaceiris/actions-gh-pages@v3
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          publish_dir: ./site
