@@ -2,226 +2,226 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
     <url>
          <loc>https://tinegachris.github.io/course_zephyr_rtos_rpi_4b/</loc>
-         <lastmod>2025-10-18</lastmod>
+         <lastmod>2025-10-21</lastmod>
     </url>
     <url>
          <loc>https://tinegachris.github.io/course_zephyr_rtos_rpi_4b/CONDUCT/</loc>
-         <lastmod>2025-10-18</lastmod>
+         <lastmod>2025-10-21</lastmod>
     </url>
     <url>
          <loc>https://tinegachris.github.io/course_zephyr_rtos_rpi_4b/CONTRIBUTING/</loc>
-         <lastmod>2025-10-18</lastmod>
+         <lastmod>2025-10-21</lastmod>
     </url>
     <url>
          <loc>https://tinegachris.github.io/course_zephyr_rtos_rpi_4b/chapter_01_course_introduction/</loc>
-         <lastmod>2025-10-18</lastmod>
+         <lastmod>2025-10-21</lastmod>
     </url>
     <url>
          <loc>https://tinegachris.github.io/course_zephyr_rtos_rpi_4b/chapter_02_introduction_to_zephyr/</loc>
-         <lastmod>2025-10-18</lastmod>
+         <lastmod>2025-10-21</lastmod>
     </url>
     <url>
          <loc>https://tinegachris.github.io/course_zephyr_rtos_rpi_4b/chapter_02_introduction_to_zephyr/lab/</loc>
-         <lastmod>2025-10-18</lastmod>
+         <lastmod>2025-10-21</lastmod>
     </url>
     <url>
          <loc>https://tinegachris.github.io/course_zephyr_rtos_rpi_4b/chapter_02_introduction_to_zephyr/theory/</loc>
-         <lastmod>2025-10-18</lastmod>
+         <lastmod>2025-10-21</lastmod>
     </url>
     <url>
          <loc>https://tinegachris.github.io/course_zephyr_rtos_rpi_4b/chapter_03_zephyr_build_system/</loc>
-         <lastmod>2025-10-18</lastmod>
+         <lastmod>2025-10-21</lastmod>
     </url>
     <url>
          <loc>https://tinegachris.github.io/course_zephyr_rtos_rpi_4b/chapter_03_zephyr_build_system/lab/</loc>
-         <lastmod>2025-10-18</lastmod>
+         <lastmod>2025-10-21</lastmod>
     </url>
     <url>
          <loc>https://tinegachris.github.io/course_zephyr_rtos_rpi_4b/chapter_03_zephyr_build_system/theory/</loc>
-         <lastmod>2025-10-18</lastmod>
+         <lastmod>2025-10-21</lastmod>
     </url>
     <url>
          <loc>https://tinegachris.github.io/course_zephyr_rtos_rpi_4b/chapter_04_configure_zephyr/</loc>
-         <lastmod>2025-10-18</lastmod>
+         <lastmod>2025-10-21</lastmod>
     </url>
     <url>
          <loc>https://tinegachris.github.io/course_zephyr_rtos_rpi_4b/chapter_04_configure_zephyr/lab/</loc>
-         <lastmod>2025-10-18</lastmod>
+         <lastmod>2025-10-21</lastmod>
     </url>
     <url>
          <loc>https://tinegachris.github.io/course_zephyr_rtos_rpi_4b/chapter_04_configure_zephyr/theory/</loc>
-         <lastmod>2025-10-18</lastmod>
+         <lastmod>2025-10-21</lastmod>
     </url>
     <url>
          <loc>https://tinegachris.github.io/course_zephyr_rtos_rpi_4b/chapter_05_west/</loc>
-         <lastmod>2025-10-18</lastmod>
+         <lastmod>2025-10-21</lastmod>
     </url>
     <url>
          <loc>https://tinegachris.github.io/course_zephyr_rtos_rpi_4b/chapter_05_west/lab/</loc>
-         <lastmod>2025-10-18</lastmod>
+         <lastmod>2025-10-21</lastmod>
     </url>
     <url>
          <loc>https://tinegachris.github.io/course_zephyr_rtos_rpi_4b/chapter_05_west/theory/</loc>
-         <lastmod>2025-10-18</lastmod>
+         <lastmod>2025-10-21</lastmod>
     </url>
     <url>
          <loc>https://tinegachris.github.io/course_zephyr_rtos_rpi_4b/chapter_06_zephyr_fundamentals/</loc>
-         <lastmod>2025-10-18</lastmod>
+         <lastmod>2025-10-21</lastmod>
     </url>
     <url>
          <loc>https://tinegachris.github.io/course_zephyr_rtos_rpi_4b/chapter_06_zephyr_fundamentals/lab/</loc>
-         <lastmod>2025-10-18</lastmod>
+         <lastmod>2025-10-21</lastmod>
     </url>
     <url>
          <loc>https://tinegachris.github.io/course_zephyr_rtos_rpi_4b/chapter_06_zephyr_fundamentals/theory/</loc>
-         <lastmod>2025-10-18</lastmod>
+         <lastmod>2025-10-21</lastmod>
     </url>
     <url>
          <loc>https://tinegachris.github.io/course_zephyr_rtos_rpi_4b/chapter_07_thread_management/</loc>
-         <lastmod>2025-10-18</lastmod>
+         <lastmod>2025-10-21</lastmod>
     </url>
     <url>
          <loc>https://tinegachris.github.io/course_zephyr_rtos_rpi_4b/chapter_07_thread_management/lab/</loc>
-         <lastmod>2025-10-18</lastmod>
+         <lastmod>2025-10-21</lastmod>
     </url>
     <url>
          <loc>https://tinegachris.github.io/course_zephyr_rtos_rpi_4b/chapter_07_thread_management/theory/</loc>
-         <lastmod>2025-10-18</lastmod>
+         <lastmod>2025-10-21</lastmod>
     </url>
     <url>
          <loc>https://tinegachris.github.io/course_zephyr_rtos_rpi_4b/chapter_08_tracing_and_logging/</loc>
-         <lastmod>2025-10-18</lastmod>
+         <lastmod>2025-10-21</lastmod>
     </url>
     <url>
          <loc>https://tinegachris.github.io/course_zephyr_rtos_rpi_4b/chapter_08_tracing_and_logging/lab/</loc>
-         <lastmod>2025-10-18</lastmod>
+         <lastmod>2025-10-21</lastmod>
     </url>
     <url>
          <loc>https://tinegachris.github.io/course_zephyr_rtos_rpi_4b/chapter_08_tracing_and_logging/theory/</loc>
-         <lastmod>2025-10-18</lastmod>
+         <lastmod>2025-10-21</lastmod>
     </url>
     <url>
          <loc>https://tinegachris.github.io/course_zephyr_rtos_rpi_4b/chapter_09_memory_management/</loc>
-         <lastmod>2025-10-18</lastmod>
+         <lastmod>2025-10-21</lastmod>
     </url>
     <url>
          <loc>https://tinegachris.github.io/course_zephyr_rtos_rpi_4b/chapter_09_memory_management/lab/</loc>
-         <lastmod>2025-10-18</lastmod>
+         <lastmod>2025-10-21</lastmod>
     </url>
     <url>
          <loc>https://tinegachris.github.io/course_zephyr_rtos_rpi_4b/chapter_09_memory_management/theory/</loc>
-         <lastmod>2025-10-18</lastmod>
+         <lastmod>2025-10-21</lastmod>
     </url>
     <url>
          <loc>https://tinegachris.github.io/course_zephyr_rtos_rpi_4b/chapter_10_user_mode/</loc>
-         <lastmod>2025-10-18</lastmod>
+         <lastmod>2025-10-21</lastmod>
     </url>
     <url>
          <loc>https://tinegachris.github.io/course_zephyr_rtos_rpi_4b/chapter_10_user_mode/lab/</loc>
-         <lastmod>2025-10-18</lastmod>
+         <lastmod>2025-10-21</lastmod>
     </url>
     <url>
          <loc>https://tinegachris.github.io/course_zephyr_rtos_rpi_4b/chapter_10_user_mode/theory/</loc>
-         <lastmod>2025-10-18</lastmod>
+         <lastmod>2025-10-21</lastmod>
     </url>
     <url>
          <loc>https://tinegachris.github.io/course_zephyr_rtos_rpi_4b/chapter_11_traditional_multithreading_primitives/</loc>
-         <lastmod>2025-10-18</lastmod>
+         <lastmod>2025-10-21</lastmod>
     </url>
     <url>
          <loc>https://tinegachris.github.io/course_zephyr_rtos_rpi_4b/chapter_11_traditional_multithreading_primitives/lab/</loc>
-         <lastmod>2025-10-18</lastmod>
+         <lastmod>2025-10-21</lastmod>
     </url>
     <url>
          <loc>https://tinegachris.github.io/course_zephyr_rtos_rpi_4b/chapter_11_traditional_multithreading_primitives/theory/</loc>
-         <lastmod>2025-10-18</lastmod>
+         <lastmod>2025-10-21</lastmod>
     </url>
     <url>
          <loc>https://tinegachris.github.io/course_zephyr_rtos_rpi_4b/chapter_12_inter-thread_communication/</loc>
-         <lastmod>2025-10-18</lastmod>
+         <lastmod>2025-10-21</lastmod>
     </url>
     <url>
          <loc>https://tinegachris.github.io/course_zephyr_rtos_rpi_4b/chapter_12_inter-thread_communication/lab/</loc>
-         <lastmod>2025-10-18</lastmod>
+         <lastmod>2025-10-21</lastmod>
     </url>
     <url>
          <loc>https://tinegachris.github.io/course_zephyr_rtos_rpi_4b/chapter_12_inter-thread_communication/theory/</loc>
-         <lastmod>2025-10-18</lastmod>
+         <lastmod>2025-10-21</lastmod>
     </url>
     <url>
          <loc>https://tinegachris.github.io/course_zephyr_rtos_rpi_4b/chapter_13_interrupt_management/</loc>
-         <lastmod>2025-10-18</lastmod>
+         <lastmod>2025-10-21</lastmod>
     </url>
     <url>
          <loc>https://tinegachris.github.io/course_zephyr_rtos_rpi_4b/chapter_13_interrupt_management/lab/</loc>
-         <lastmod>2025-10-18</lastmod>
+         <lastmod>2025-10-21</lastmod>
     </url>
     <url>
          <loc>https://tinegachris.github.io/course_zephyr_rtos_rpi_4b/chapter_13_interrupt_management/theory/</loc>
-         <lastmod>2025-10-18</lastmod>
+         <lastmod>2025-10-21</lastmod>
     </url>
     <url>
          <loc>https://tinegachris.github.io/course_zephyr_rtos_rpi_4b/chapter_14_modules/</loc>
-         <lastmod>2025-10-18</lastmod>
+         <lastmod>2025-10-21</lastmod>
     </url>
     <url>
          <loc>https://tinegachris.github.io/course_zephyr_rtos_rpi_4b/chapter_14_modules/lab/</loc>
-         <lastmod>2025-10-18</lastmod>
+         <lastmod>2025-10-21</lastmod>
     </url>
     <url>
          <loc>https://tinegachris.github.io/course_zephyr_rtos_rpi_4b/chapter_14_modules/theory/</loc>
-         <lastmod>2025-10-18</lastmod>
+         <lastmod>2025-10-21</lastmod>
     </url>
     <url>
          <loc>https://tinegachris.github.io/course_zephyr_rtos_rpi_4b/chapter_15_writing_kconfig_symbols/</loc>
-         <lastmod>2025-10-18</lastmod>
+         <lastmod>2025-10-21</lastmod>
     </url>
     <url>
          <loc>https://tinegachris.github.io/course_zephyr_rtos_rpi_4b/chapter_15_writing_kconfig_symbols/lab/</loc>
-         <lastmod>2025-10-18</lastmod>
+         <lastmod>2025-10-21</lastmod>
     </url>
     <url>
          <loc>https://tinegachris.github.io/course_zephyr_rtos_rpi_4b/chapter_15_writing_kconfig_symbols/theory/</loc>
-         <lastmod>2025-10-18</lastmod>
+         <lastmod>2025-10-21</lastmod>
     </url>
     <url>
          <loc>https://tinegachris.github.io/course_zephyr_rtos_rpi_4b/chapter_16_device_driver_architecture/</loc>
-         <lastmod>2025-10-18</lastmod>
+         <lastmod>2025-10-21</lastmod>
     </url>
     <url>
          <loc>https://tinegachris.github.io/course_zephyr_rtos_rpi_4b/chapter_16_device_driver_architecture/lab/</loc>
-         <lastmod>2025-10-18</lastmod>
+         <lastmod>2025-10-21</lastmod>
     </url>
     <url>
          <loc>https://tinegachris.github.io/course_zephyr_rtos_rpi_4b/chapter_16_device_driver_architecture/theory/</loc>
-         <lastmod>2025-10-18</lastmod>
+         <lastmod>2025-10-21</lastmod>
     </url>
     <url>
          <loc>https://tinegachris.github.io/course_zephyr_rtos_rpi_4b/chapter_17_power_management/</loc>
-         <lastmod>2025-10-18</lastmod>
+         <lastmod>2025-10-21</lastmod>
     </url>
     <url>
          <loc>https://tinegachris.github.io/course_zephyr_rtos_rpi_4b/chapter_17_power_management/lab/</loc>
-         <lastmod>2025-10-18</lastmod>
+         <lastmod>2025-10-21</lastmod>
     </url>
     <url>
          <loc>https://tinegachris.github.io/course_zephyr_rtos_rpi_4b/chapter_17_power_management/theory/</loc>
-         <lastmod>2025-10-18</lastmod>
+         <lastmod>2025-10-21</lastmod>
     </url>
     <url>
          <loc>https://tinegachris.github.io/course_zephyr_rtos_rpi_4b/chapter_18_capstone_project/</loc>
-         <lastmod>2025-10-18</lastmod>
+         <lastmod>2025-10-21</lastmod>
     </url>
     <url>
          <loc>https://tinegachris.github.io/course_zephyr_rtos_rpi_4b/chapter_18_capstone_project/lab/</loc>
-         <lastmod>2025-10-18</lastmod>
+         <lastmod>2025-10-21</lastmod>
     </url>
     <url>
          <loc>https://tinegachris.github.io/course_zephyr_rtos_rpi_4b/chapter_18_capstone_project/theory/</loc>
-         <lastmod>2025-10-18</lastmod>
+         <lastmod>2025-10-21</lastmod>
     </url>
     <url>
          <loc>https://tinegachris.github.io/course_zephyr_rtos_rpi_4b/chapter_18_capstone_project/networked_monitor/</loc>
-         <lastmod>2025-10-18</lastmod>
+         <lastmod>2025-10-21</lastmod>
     </url>
 </urlset>
