@@ -9,7 +9,7 @@ theme:
 plugins:
   - git-revision-date-localized
 nav:
-  - 'Home': 'README.md'
+  - 'Home': 'index.md'
   - 'Contributing':
     - 'Code of Conduct': 'CONDUCT.md'
     - 'Contributing': 'CONTRIBUTING.md'

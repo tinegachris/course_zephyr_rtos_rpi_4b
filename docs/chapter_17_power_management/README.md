@@ -1,7 +1,7 @@
 # Chapter 17: Power Management
 
 ---
-[Introduction](./README.md) | [Theory](./theory.md) | [Lab](./lab.md) | [Course Home](../README.md)
+[Introduction](./README.md) | [Theory](./theory.md) | [Lab](./lab.md) | [Course Home](../index.md)
 
 ---
 

@@ -1,7 +1,7 @@
 # Chapter 11: Traditional Multithreading Primitives - Professional Introduction
 
 ---
-[Introduction](./README.md) | [Theory](./theory.md) | [Lab](./lab.md) | [Course Home](../README.md)
+[Introduction](./README.md) | [Theory](./theory.md) | [Lab](./lab.md) | [Course Home](../index.md)
 
 ---
 

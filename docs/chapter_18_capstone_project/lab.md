@@ -1,7 +1,7 @@
 # Chapter 18: Networked Environmental Monitor - Implementation Lab
 
 ---
-[Introduction](./README.md) | [Theory](./theory.md) | [Lab](./lab.md) | [Course Home](../README.md)
+[Introduction](./README.md) | [Theory](./theory.md) | [Lab](./lab.md) | [Course Home](../index.md)
 
 ---
 
@@ -317,4 +317,4 @@ west build -b rpi_4b
 
 This lab has guided you through the creation of a complete, multi-threaded embedded application on the Raspberry Pi 4B. You have successfully integrated a sensor, implemented inter-thread communication, and set up a simple web server. This project serves as a solid foundation that you can extend with more advanced features.
 
-Back to [Course Home](../README.md)
+Back to [Course Home](../index.md)

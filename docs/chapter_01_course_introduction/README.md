@@ -1,7 +1,7 @@
 # Chapter 1: Course Introduction
 
 ---
-[Introduction](./README.md) | [Course Home](../README.md)
+[Introduction](./README.md) | [Course Home](../index.md)
 
 ---
 
