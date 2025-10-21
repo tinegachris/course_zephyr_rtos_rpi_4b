@@ -393,7 +393,7 @@ CONFIG_ASSERT=n
 
 ### Next Steps
 
-You now have hands-on experience with Zephyr development. In [Chapter 3](./chapter_03_build_system.md), we'll dive deeper into the build system, explore advanced West features, and learn about project structure and organization.
+You now have hands-on experience with Zephyr development. In Chapter 3, we'll dive deeper into the build system, explore advanced West features, and learn about project structure and organization.
 
 **Continue practicing by:**
 
@@ -402,4 +402,4 @@ You now have hands-on experience with Zephyr development. In [Chapter 3](./chapt
 * Experimenting with different Kconfig options
 * Adding more complex GPIO interactions (multiple LEDs, buttons, etc.)
 
-[Next: Chapter 3: Zephyr Build System](./../chapter_03_zephyr_build_system/README.md)
+[Next: Chapter 3: Zephyr Build System](../chapter_03_zephyr_build_system/README.md)

@@ -1401,4 +1401,4 @@ Through these comprehensive labs, you've mastered:
 
 These skills provide the foundation for building sophisticated multi-threaded embedded applications that meet professional real-time system requirements.
 
-[Next: Chapter 8 - Tracing and Logging](../chapter_08_tracing_and_logging/overview.md)
+[Next: Chapter 8 - Tracing and Logging](../chapter_08_tracing_and_logging/README.md)

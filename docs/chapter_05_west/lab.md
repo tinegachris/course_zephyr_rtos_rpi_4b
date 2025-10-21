@@ -1122,4 +1122,4 @@ With West mastery complete, you're prepared for:
 
 West provides the foundation for scalable, maintainable Zephyr development. These lab exercises have equipped you with production-ready skills for professional embedded development environments.
 
-[Next Chapter 6: Zephyr Fundamentals](./chapter_06_zephyr_fundamentals/README.md)
+[Next Chapter 6: Zephyr Fundamentals](../chapter_06_zephyr_fundamentals/README.md)
