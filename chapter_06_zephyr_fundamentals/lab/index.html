@@ -3062,7 +3062,7 @@ int main(void)
     ret = gpio_setup();
     if (ret &lt; 0) {
         printk(&quot;GPIO setup failed: %d\n&quot;, ret);
-        return ret;
+        return 1;
     }
 
     printk(&quot;Press button to toggle between auto/manual LED mode\n&quot;);
@@ -3094,6 +3094,10 @@ CONFIG_UART_CONSOLE=y
 # Enable console output
 CONFIG_LOG=y
 CONFIG_LOG_DEFAULT_LEVEL=3
+
+# Enable floating point support for printk
+CONFIG_NEWLIB_LIBC=y
+CONFIG_NEWLIB_LIBC_FLOAT_PRINTF=y
 </code></pre>
 <h3 id="building-and-testing">Building and Testing</h3>
 <pre><code class="language-bash"># Build the application
@@ -3371,6 +3375,10 @@ CONFIG_NEWLIB_LIBC_FLOAT_PRINTF=y
 # Logging
 CONFIG_LOG=y
 CONFIG_LOG_DEFAULT_LEVEL=3
+
+# Enable floating point support for printk
+CONFIG_NEWLIB_LIBC=y
+CONFIG_NEWLIB_LIBC_FLOAT_PRINTF=y
 </code></pre>
 <hr />
 <h2 id="lab-3-interactive-shell-interface">Lab 3: Interactive Shell Interface</h2>
@@ -3544,16 +3552,8 @@ static int cmd_temp_monitor(const struct shell *sh, size_t argc, char **argv)
     monitoring_active = true;
     k_timer_start(&amp;monitor_timer, K_SECONDS(2), K_SECONDS(2));
 
-    /* Stop monitoring after specified duration */
-    k_timer_start(&amp;monitor_timer, K_SECONDS(2), K_SECONDS(2));
-
-    /* Simple countdown implementation */
-    for (int i = duration; i &gt; 0 &amp;&amp; monitoring_active; i--) {
-        k_msleep(1000);
-        if ((i % 10) == 0) {
-            shell_print(sh, &quot;Monitoring continues... %d seconds remaining&quot;, i);
-        }
-    }
+    // Stop monitoring after specified duration
+    k_sleep(K_SECONDS(duration));
 
     monitoring_active = false;
     k_timer_stop(&amp;monitor_timer);
@@ -3819,12 +3819,14 @@ System Information:
 <li><strong>Professional Practices:</strong> Error handling, logging, and maintainable code structure</li>
 </ol>
 <h3 id="next-steps">Next Steps</h3>
-<p>Continue exploring Zephyr's advanced features:
-* <strong>Threading and Synchronization:</strong> Multi-threaded applications with proper synchronization
-* <strong>Memory Management:</strong> Dynamic allocation and memory pools
-* <strong>Power Management:</strong> Low-power modes and power optimization
-* <strong>Networking:</strong> TCP/IP stack integration and IoT connectivity
-* <strong>File Systems:</strong> Storage solutions and data persistence</p>
+<p>Continue exploring Zephyr's advanced features:</p>
+<ul>
+<li><strong>Threading and Synchronization:</strong> Multi-threaded applications with proper synchronization</li>
+<li><strong>Memory Management:</strong> Dynamic allocation and memory pools</li>
+<li><strong>Power Management:</strong> Low-power modes and power optimization</li>
+<li><strong>Networking:</strong> TCP/IP stack integration and IoT connectivity</li>
+<li><strong>File Systems:</strong> Storage solutions and data persistence</li>
+</ul>
 <p>This foundation in Zephyr fundamentals prepares you for advanced embedded development with confidence in device integration, system architecture, and professional development practices.</p>
 <hr />
 <h2 id="lab-summary">Lab Summary</h2>
@@ -3858,7 +3860,7 @@ System Information:
     <span class="md-icon" title="Last update">
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M21 13.1c-.1 0-.3.1-.4.2l-1 1 2.1 2.1 1-1c.2-.2.2-.6 0-.8l-1.3-1.3c-.1-.1-.2-.2-.4-.2m-1.9 1.8-6.1 6V23h2.1l6.1-6.1zM12.5 7v5.2l4 2.4-1 1L11 13V7zM11 21.9c-5.1-.5-9-4.8-9-9.9C2 6.5 6.5 2 12 2c5.3 0 9.6 4.1 10 9.3-.3-.1-.6-.2-1-.2s-.7.1-1 .2C19.6 7.2 16.2 4 12 4c-4.4 0-8 3.6-8 8 0 4.1 3.1 7.5 7.1 7.9l-.1.2z"/></svg>
     </span>
-    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date" title="October 21, 2025 09:28:24 UTC">October 21, 2025</span>
+    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date" title="December 12, 2025 08:21:00 UTC">December 12, 2025</span>
   </span>
 
     

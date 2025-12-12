@@ -3096,7 +3096,7 @@
 <ul>
 <li>Completed Chapter 2 labs successfully</li>
 <li>Zephyr development environment set up with VS Code</li>
-<li>West workspace initialized in <code>~/zephyrproject</code></li>
+<li>West workspace initialized in <code>/path/to/your/workspace/zephyrproject</code></li>
 <li>Raspberry Pi 4B connected and accessible</li>
 </ul>
 <p><strong>Verify Your Setup:</strong></p>
@@ -3116,6 +3116,7 @@ west boards | grep rpi_4b
 <pre><code class="language-bash">cd ~/zephyrproject
 tree -L 3 -d
 </code></pre>
+<p><em>Note: If the <code>tree</code> command is not found, you can install it (e.g., <code>sudo apt-get install tree</code>) or use <code>ls -R | grep ":$"</code> as an alternative.</em></p>
 <p><strong>Step 2:</strong> Examine West configuration:</p>
 <pre><code class="language-bash"># View West configuration
 cat .west/config
@@ -3270,6 +3271,10 @@ int sensors_init(void)
     return 0;
 }
 </code></pre>
+<p><strong>Step 5b:</strong> Create empty source files for the sensor module:</p>
+<pre><code class="language-bash">touch apps/sensor_hub/src/sensors/temperature.c
+touch apps/sensor_hub/src/sensors/bme280_driver.c
+</code></pre>
 <p><strong>Step 6:</strong> Create display module:</p>
 <pre><code class="language-cmake"># apps/sensor_hub/src/display/CMakeLists.txt
 target_sources(app PRIVATE
@@ -3320,6 +3325,7 @@ CONFIG_PRINTK=y
 
 # Enable modules based on requirements
 CONFIG_SENSOR=y
+CONFIG_BME280=y
 CONFIG_DISPLAY=y
 CONFIG_NETWORKING=y
 
@@ -3413,7 +3419,7 @@ add_custom_target(analyze
 
 add_custom_target(flash_and_monitor
     COMMAND west flash
-    COMMAND west attach
+    COMMAND screen /dev/ttyUSB0 115200
     COMMENT &quot;Flash firmware and start monitoring&quot;
 )
 </code></pre>
@@ -3433,7 +3439,7 @@ west build -t flash_and_monitor
 <pre><code class="language-bash"># Generate compilation database
 west build -b rpi_4b -- -DCMAKE_EXPORT_COMPILE_COMMANDS=ON
 
-# Examine compile commands
+# Examine compile commands (requires jq - sudo apt-get install jq)
 jq '.[0]' build/compile_commands.json
 </code></pre>
 <p><strong>Step 3:</strong> Debug CMake configuration:</p>
@@ -3485,9 +3491,9 @@ west build -b $BOARD -p
 
 # Configure based on build type
 if [ &quot;$BUILD_TYPE&quot; == &quot;release&quot; ]; then
-    west build -b $BOARD -- -DCONFIG_DEBUG=n -DCONFIG_ASSERT=n
+    west build -b $BOARD -p -- -DCONFIG_DEBUG=n -DCONFIG_ASSERT=n
 else
-    west build -b $BOARD -- -DCONFIG_DEBUG=y -DCONFIG_ASSERT=y
+    west build -b $BOARD -p -- -DCONFIG_DEBUG=y -DCONFIG_ASSERT=y
 fi
 
 # Generate build report
@@ -3511,7 +3517,7 @@ echo &quot;Waiting for device to boot...&quot;
 sleep 3
 
 # Monitor output for verification
-timeout 10s west attach || true
+timeout 10s screen /dev/ttyUSB0 115200 || true
 
 echo &quot;Deployment completed&quot;
 </code></pre>
@@ -3661,7 +3667,7 @@ west build -t help
     <span class="md-icon" title="Last update">
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M21 13.1c-.1 0-.3.1-.4.2l-1 1 2.1 2.1 1-1c.2-.2.2-.6 0-.8l-1.3-1.3c-.1-.1-.2-.2-.4-.2m-1.9 1.8-6.1 6V23h2.1l6.1-6.1zM12.5 7v5.2l4 2.4-1 1L11 13V7zM11 21.9c-5.1-.5-9-4.8-9-9.9C2 6.5 6.5 2 12 2c5.3 0 9.6 4.1 10 9.3-.3-.1-.6-.2-1-.2s-.7.1-1 .2C19.6 7.2 16.2 4 12 4c-4.4 0-8 3.6-8 8 0 4.1 3.1 7.5 7.1 7.9l-.1.2z"/></svg>
     </span>
-    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date" title="October 21, 2025 09:28:24 UTC">October 21, 2025</span>
+    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date" title="December 12, 2025 08:21:00 UTC">December 12, 2025</span>
   </span>
 
     

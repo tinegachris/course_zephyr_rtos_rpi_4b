@@ -2326,6 +2326,15 @@
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
+  <a href="#thread-function-signatures" class="md-nav__link">
+    <span class="md-ellipsis">
+      Thread Function Signatures
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
   <a href="#why-a-message-queue" class="md-nav__link">
     <span class="md-ellipsis">
       Why a Message Queue?
@@ -2489,6 +2498,15 @@
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
+  <a href="#thread-function-signatures" class="md-nav__link">
+    <span class="md-ellipsis">
+      Thread Function Signatures
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
   <a href="#why-a-message-queue" class="md-nav__link">
     <span class="md-ellipsis">
       Why a Message Queue?
@@ -2586,6 +2604,31 @@
 </ul>
 <h2 id="thread-design-and-communication">Thread Design and Communication</h2>
 <p>The multi-threaded architecture allows for concurrent operation, which is essential for a responsive and efficient embedded system.</p>
+<h3 id="thread-function-signatures">Thread Function Signatures</h3>
+<p><strong>Important Note:</strong> In this capstone project, you'll notice that our thread functions use simplified signatures:</p>
+<pre><code class="language-c">void sensor_thread(void);
+void web_server_thread(void);
+</code></pre>
+<p>The standard Zephyr thread entry function signature is actually:</p>
+<pre><code class="language-c">void thread_entry(void *p1, void *p2, void *p3);
+</code></pre>
+<p><strong>Why the difference?</strong> The <code>K_THREAD_DEFINE()</code> macro is intelligent enough to handle both signatures. When all three parameters are <code>NULL</code> (as in our case), you can use the simplified signature for cleaner code. However, if you need to pass parameters to your thread, you must use the full signature.</p>
+<p><strong>Example with parameters:</strong></p>
+<pre><code class="language-c">K_THREAD_DEFINE(worker_thread, 1024, worker_entry, 
+                (void *)&amp;config,    // p1: pointer to config
+                (void *)42,         // p2: numeric value
+                (void *)&amp;shared,    // p3: pointer to shared data
+                7, 0, 0);
+
+void worker_entry(void *p1, void *p2, void *p3)
+{
+    struct config *cfg = (struct config *)p1;
+    int value = (int)p2;
+    struct shared_data *data = (struct shared_data *)p3;
+    // Use parameters...
+}
+</code></pre>
+<p>Understanding this flexibility helps you write cleaner code when parameters aren't needed while knowing how to pass data when required.</p>
 <ul>
 <li>
 <p><strong>Sensor Thread:</strong> This thread will wake up at a configurable interval (e.g., every 5 seconds), read the temperature, humidity, and pressure from the BME280 sensor, and then put the data into the message queue. After posting the data, the thread will go back to sleep.</p>
@@ -2660,7 +2703,7 @@ Content-Type: text/html
     <span class="md-icon" title="Last update">
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M21 13.1c-.1 0-.3.1-.4.2l-1 1 2.1 2.1 1-1c.2-.2.2-.6 0-.8l-1.3-1.3c-.1-.1-.2-.2-.4-.2m-1.9 1.8-6.1 6V23h2.1l6.1-6.1zM12.5 7v5.2l4 2.4-1 1L11 13V7zM11 21.9c-5.1-.5-9-4.8-9-9.9C2 6.5 6.5 2 12 2c5.3 0 9.6 4.1 10 9.3-.3-.1-.6-.2-1-.2s-.7.1-1 .2C19.6 7.2 16.2 4 12 4c-4.4 0-8 3.6-8 8 0 4.1 3.1 7.5 7.1 7.9l-.1.2z"/></svg>
     </span>
-    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date" title="October 21, 2025 09:28:24 UTC">October 21, 2025</span>
+    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date" title="December 12, 2025 08:21:00 UTC">December 12, 2025</span>
   </span>
 
     
