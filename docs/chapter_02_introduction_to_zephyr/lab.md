@@ -69,7 +69,7 @@ west build -t run
 Hello World! qemu_x86
 ```
 
-**Note on Versioning:** The version number `v4.2.99` indicates a development version of Zephyr. A `.99` patch level is often used for builds from the main development branch rather than a stable release.
+**Note on Versioning:** The output shows the Zephyr kernel version (e.g., `v4.2.99`), which is different from the SDK version (0.17.4). A `.99` patch level indicates a development build, which is common when working with the latest Zephyr source code.
 
 If you see this output, your development environment is working correctly!
 
@@ -103,8 +103,11 @@ The `--pristine` flag ensures a clean build.
 2. **Copy the kernel image:**
 
    ```bash
-   cp build/zephyr/zephyr.bin /path/to/sdcard/kernel8.img
+   # Set this to the path of your SD card mount point
+   export SDCARD_PATH=/path/to/sdcard
+   cp build/zephyr/zephyr.bin $SDCARD_PATH/kernel8.img
    ```
+   *Note: The Raspberry Pi bootloader expects the kernel image to be named `kernel8.img` for 64-bit kernels.*
 
 3. **Add minimal config.txt** to SD card:
 
@@ -166,7 +169,32 @@ cat zephyr/samples/basic/blinky/src/main.c
 * GPIO driver API usage
 * Zephyr kernel services (`k_msleep`)
 
-### Step 2: Build and Test Blinky
+### Step 2: Create Board Overlay
+
+The default configuration for the Raspberry Pi 4B does not define an alias for an LED. We need to create a device tree overlay file to assign an LED to a specific GPIO pin.
+
+1.  **Create an `boards` directory** inside the `zephyr/samples/basic/blinky` directory.
+2.  **Create a new file** named `rpi_4b.overlay` inside the `boards` directory with the following content:
+
+    ```dts
+    / {
+        aliases {
+            led0 = &led0;
+        };
+    };
+
+    leds {
+        compatible = "gpio-leds";
+        led0: led_0 {
+            gpios = <&gpio 21 GPIO_ACTIVE_HIGH>;
+            label = "User LED";
+        };
+    };
+    ```
+
+    This overlay defines `led0` and assigns it to GPIO 21.
+
+### Step 3: Build and Test Blinky
 
 **For Raspberry Pi 4B:**
 ```bash
@@ -193,13 +221,15 @@ west build -t run
    cmake_minimum_required(VERSION 3.20.0)
    find_package(Zephyr REQUIRED HINTS $ENV{ZEPHYR_BASE})
    project(my_blinky)
-   
+
    target_sources(app PRIVATE src/main.c)
    ```
 
 3. **Create prj.conf:**
    ```
    CONFIG_GPIO=y
+   CONFIG_LOG=y
+   CONFIG_LOG_DEFAULT_LEVEL=3
    ```
 
 4. **Create src/main.c with custom timing:**
@@ -236,6 +266,10 @@ west build -t run
            LOG_ERR("Error: Failed to configure LED pin");
            return 0;
        }
+
+       // Turn LED on at the start
+       gpio_pin_set_dt(&led, 1);
+       led_state = true;
    
        while (1) {
            // Toggle LED
@@ -267,36 +301,42 @@ west build -t run
 
 ### Step 4: Add Button Control (Challenge)
 
-**For boards with buttons (like nRF52840 DK):**
+**For Raspberry Pi 4B:**
 
-1. **Update prj.conf:**
-   ```
-   CONFIG_GPIO=y
-   ```
+1.  **Update your `rpi_4b.overlay` file** to include a button alias. For example, to use GPIO 20 as a button:
 
-2. **Modify main.c to include button handling:**
-   ```c
-   #define BUTTON0_NODE DT_ALIAS(sw0)
-   static const struct gpio_dt_spec button = GPIO_DT_SPEC_GET(BUTTON0_NODE, gpios);
-   static struct gpio_callback button_cb_data;
-
-   void button_pressed(const struct device *dev, struct gpio_callback *cb,
-                       uint32_t pins)
-   {
-       printf("Button pressed! Toggling LED mode\n");
-       // Add your button handling logic here
-   }
-   ```
-
-**Note:** This challenge requires an understanding of interrupts and callbacks, which will be covered in detail in later chapters. The `DT_ALIAS(sw0)` macro also requires a `sw0` alias to be defined in your board's device tree file. For example:
-
-```dts
-/ {
-    aliases {
-        sw0 = &button0;
+    ```dts
+    / {
+        aliases {
+            button0 = &button0;
+        };
     };
-};
-```
+
+    buttons {
+        compatible = "gpio-keys";
+        button0: button_0 {
+            gpios = <&gpio 20 (GPIO_PULL_UP | GPIO_ACTIVE_LOW)>;
+            label = "User Button";
+        };
+    };
+    ```
+
+2.  **Modify `main.c`** to include button handling:
+
+    ```c
+    #define BUTTON0_NODE DT_ALIAS(button0)
+    static const struct gpio_dt_spec button = GPIO_DT_SPEC_GET(BUTTON0_NODE, gpios);
+    static struct gpio_callback button_cb_data;
+
+    void button_pressed(const struct device *dev, struct gpio_callback *cb,
+                       uint32_t pins)
+    {
+        printf("Button pressed! Toggling LED mode\n");
+        // Add your button handling logic here
+    }
+    ```
+
+**Note:** This challenge requires an understanding of interrupts and callbacks, which will be covered in detail in later chapters.
 
 ---
 
@@ -362,7 +402,7 @@ west build -t ram_report
 west build -t rom_report
 ```
 
-The memory usage report is automatically generated every time you build your application. You can find this information in the build output, typically near the end. Look for a section that shows the memory usage for different regions like Flash and RAM.
+The memory usage report is automatically generated every time you build your application. You can find this information in the build output, typically near the end. Look for a section that shows the memory usage for different regions like Flash and RAM. The `ram_report` and `rom_report` commands can be used to view only the memory report without running a full build.
 
 **Optimize for size:**
 

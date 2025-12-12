@@ -317,8 +317,9 @@ static void sensor_thread_entry(void *p1, void *p2, void *p3)
                 last_temperature = temp_raw * 0.0625f;
                 LOG_DBG("Temperature sensor read: %.2f°C", last_temperature);
             } else {
-                LOG_WRN("I2C read failed: %d", ret);
-                last_temperature = 20.0f + (sys_rand32_get() % 200) / 10.0f;
+                LOG_ERR("Failed to read temperature sensor: %d", ret);
+                k_sleep(K_SECONDS(5)); // Wait before retrying
+                continue;
             }
         } else {
             /* Simulated temperature reading */
@@ -787,7 +788,6 @@ void log_critical_section_entry(const char *section_name)
     LOG_DBG("Entering critical section: %s", section_name);
     
     /* Store start time for exit measurement */
-    k_thread_custom_data_set((void *)section_start_time);
     k_thread_custom_data_set((void *)section_start_time);
 }
 

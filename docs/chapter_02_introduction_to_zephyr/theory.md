@@ -83,7 +83,7 @@ zephyrproject/                 # West workspace root
 
 ```bash
 # Workspace initialization
-west init ~/zephyrproject
+west init /path/to/your/workspace/zephyrproject
 west update
 
 # Building applications
@@ -147,7 +147,7 @@ CONFIG_SYSTEM_WORKQUEUE_STACK_SIZE=1024
 # Interactive configuration menu
 west build -t menuconfig
 
-# Search for configuration options
+# Search for configuration options (requires a graphical environment)
 west build -t guiconfig
 
 # Save current configuration
@@ -194,7 +194,7 @@ Device Tree is a data structure that describes hardware components and their rel
 #include <zephyr/drivers/gpio.h>
 
 #define LED0_NODE DT_ALIAS(led0)
-#define BUTTON0_NODE DT_ALIAS(sw0)
+#define BUTTON0_NODE DT_ALIAS(button0)
 
 static const struct gpio_dt_spec led = GPIO_DT_SPEC_GET(LED0_NODE, gpios);
 static const struct gpio_dt_spec button = GPIO_DT_SPEC_GET(BUTTON0_NODE, gpios);
@@ -262,6 +262,7 @@ west twister -T tests/kernel/threads
 
 **Debugging Tools:**
 
+* **Logging Framework:** Real-time monitoring and diagnostics
 * **GDB Integration:** Source-level debugging with breakpoints
 * **Segger RTT:** Real-time trace output without UART
 * **Logic Analyzers:** Hardware signal analysis

@@ -15,7 +15,7 @@ Before starting these exercises, ensure you have:
 
 - Completed Chapter 2 labs successfully
 - Zephyr development environment set up with VS Code
-- West workspace initialized in `~/zephyrproject`
+- West workspace initialized in `/path/to/your/workspace/zephyrproject`
 - Raspberry Pi 4B connected and accessible
 
 **Verify Your Setup:**
@@ -44,6 +44,7 @@ Explore the West workspace structure and understand multi-repository management.
 cd ~/zephyrproject
 tree -L 3 -d
 ```
+*Note: If the `tree` command is not found, you can install it (e.g., `sudo apt-get install tree`) or use `ls -R | grep ":$"` as an alternative.*
 
 **Step 2:** Examine West configuration:
 
@@ -243,6 +244,13 @@ int sensors_init(void)
 }
 ```
 
+**Step 5b:** Create empty source files for the sensor module:
+
+```bash
+touch apps/sensor_hub/src/sensors/temperature.c
+touch apps/sensor_hub/src/sensors/bme280_driver.c
+```
+
 **Step 6:** Create display module:
 
 ```cmake
@@ -305,6 +313,7 @@ CONFIG_PRINTK=y
 
 # Enable modules based on requirements
 CONFIG_SENSOR=y
+CONFIG_BME280=y
 CONFIG_DISPLAY=y
 CONFIG_NETWORKING=y
 
@@ -425,7 +434,7 @@ add_custom_target(analyze
 
 add_custom_target(flash_and_monitor
     COMMAND west flash
-    COMMAND west attach
+    COMMAND screen /dev/ttyUSB0 115200
     COMMENT "Flash firmware and start monitoring"
 )
 ```
@@ -458,7 +467,7 @@ west build -b rpi_4b -v
 # Generate compilation database
 west build -b rpi_4b -- -DCMAKE_EXPORT_COMPILE_COMMANDS=ON
 
-# Examine compile commands
+# Examine compile commands (requires jq - sudo apt-get install jq)
 jq '.[0]' build/compile_commands.json
 ```
 
@@ -527,9 +536,9 @@ west build -b $BOARD -p
 
 # Configure based on build type
 if [ "$BUILD_TYPE" == "release" ]; then
-    west build -b $BOARD -- -DCONFIG_DEBUG=n -DCONFIG_ASSERT=n
+    west build -b $BOARD -p -- -DCONFIG_DEBUG=n -DCONFIG_ASSERT=n
 else
-    west build -b $BOARD -- -DCONFIG_DEBUG=y -DCONFIG_ASSERT=y
+    west build -b $BOARD -p -- -DCONFIG_DEBUG=y -DCONFIG_ASSERT=y
 fi
 
 # Generate build report
@@ -556,7 +565,7 @@ echo "Waiting for device to boot..."
 sleep 3
 
 # Monitor output for verification
-timeout 10s west attach || true
+timeout 10s screen /dev/ttyUSB0 115200 || true
 
 echo "Deployment completed"
 ```

@@ -38,7 +38,7 @@ zephyrproject/                 # West workspace
 
 ```bash
 # Project initialization and updates
-west init ~/zephyrproject       # Initialize workspace
+west init /path/to/your/workspace/zephyrproject       # Initialize workspace
 west update                     # Sync all repositories
 west status                     # Show repository states
 
@@ -135,9 +135,9 @@ target_include_directories(app PRIVATE
 )
 
 # Link libraries
-target_link_libraries(app PRIVATE
-    subsys__net
-    drivers__sensor
+zephyr_link_libraries(app PRIVATE
+    net
+    sensor
 )
 ```
 
@@ -394,7 +394,7 @@ endif()
 
 **Build Time Optimization:**
 ```bash
-# Use Ninja build system (faster than Make)
+# Use Ninja build system (often the default in recent Zephyr versions)
 west build -b rpi_4b -- -G Ninja
 
 # Parallel compilation
@@ -429,7 +429,7 @@ Device tree describes hardware layout and is compiled during build:
     
     leds {
         compatible = "gpio-leds";
-        led_act: led-act {
+        led-act: led-act {
             gpios = <&gpio1 14 GPIO_ACTIVE_HIGH>; /* GPIO 42 */
             label = "ACT";
         };

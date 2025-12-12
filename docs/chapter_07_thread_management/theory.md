@@ -48,18 +48,19 @@ enum {
 void thread_lifecycle_example(void)
 {
     // Thread creation moves from PRESTART to READY state
+    // (assuming thread_data and thread_stack are properly defined)
     k_tid_t new_thread = k_thread_create(&thread_data, thread_stack,
                                         STACK_SIZE, thread_entry,
                                         NULL, NULL, NULL,
                                         PRIORITY, 0, K_NO_WAIT);
-    
+
     // Thread runs and may enter PENDING state during blocking operations
     // like k_sleep(), k_sem_take(), k_mutex_lock()
-    
+
     // Threads can be suspended and resumed
     k_thread_suspend(new_thread);  // SUSPENDED state
     k_thread_resume(new_thread);   // Back to READY state
-    
+
     // Thread termination
     k_thread_abort(new_thread);    // TERMINATED state
 }
@@ -77,7 +78,7 @@ Zephyr provides flexible scheduling policies to meet diverse application require
 ```c
 // Priority configuration examples
 #define HIGH_PRIORITY_THREAD    1   // High priority cooperative
-#define NORMAL_PRIORITY_THREAD  5   // Normal priority preemptive  
+#define NORMAL_PRIORITY_THREAD  5   // Normal priority preemptive
 #define LOW_PRIORITY_THREAD     10  // Low priority preemptive
 
 // Thread with time-critical requirements
@@ -100,10 +101,10 @@ void cooperative_thread(void *p1, void *p2, void *p3)
     while (1) {
         // Perform work
         process_sensor_data();
-        
+
         // Yield to allow other threads to run
         k_yield();
-        
+
         // Or sleep to yield with timing
         k_sleep(K_MSEC(10));
     }
@@ -115,7 +116,7 @@ void preemptive_thread(void *p1, void *p2, void *p3)
     while (1) {
         // Perform work - can be preempted by higher priority threads
         update_display();
-        
+
         // Blocking operations automatically yield
         k_sem_take(&data_ready_sem, K_FOREVER);
     }
@@ -139,22 +140,22 @@ Static threads are defined at compile time and started automatically during syst
 void sensor_thread_entry(void *p1, void *p2, void *p3)
 {
     uint32_t sensor_count = 0;
-    
+
     printk("Sensor monitoring thread started\n");
-    
+
     while (1) {
         // Simulate sensor reading
         float temperature = read_temperature_sensor();
         float humidity = read_humidity_sensor();
-        
+
         printk("Reading %u: Temp=%.1f°C, RH=%.1f%%\n", 
                sensor_count++, temperature, humidity);
-        
+
         // Check alarm conditions
         if (temperature > 30.0f) {
             printk("⚠️  High temperature alarm: %.1f°C\n", temperature);
         }
-        
+
         k_sleep(K_SECONDS(5));
     }
 }
@@ -182,9 +183,9 @@ void communication_thread_entry(void *param1, void *param2, void *param3)
 {
     const char *protocol = (const char *)param1;
     int *port = (int *)param2;
-    
+
     printk("Communication thread started: %s on port %d\n", protocol, *port);
-    
+
     while (1) {
         // Simulate network communication
         if (strcmp(protocol, "TCP") == 0) {
@@ -192,7 +193,7 @@ void communication_thread_entry(void *param1, void *param2, void *param3)
         } else if (strcmp(protocol, "UDP") == 0) {
             handle_udp_communication(*port);
         }
-        
+
         k_sleep(K_MSEC(100));
     }
 }
@@ -202,7 +203,7 @@ k_tid_t create_communication_thread(const char *protocol, int port)
 {
     static int port_param;  // Static storage for parameter
     port_param = port;
-    
+
     k_tid_t thread_id = k_thread_create(&communication_thread_data,
                                        communication_stack,
                                        K_THREAD_STACK_SIZEOF(communication_stack),
@@ -211,13 +212,13 @@ k_tid_t create_communication_thread(const char *protocol, int port)
                                        7,      // Priority
                                        0,      // Options
                                        K_NO_WAIT);  // Start immediately
-    
+
     if (thread_id) {
         printk("Created %s communication thread (ID: %p)\n", protocol, thread_id);
     } else {
         printk("Failed to create communication thread\n");
     }
-    
+
     return thread_id;
 }
 
@@ -226,7 +227,7 @@ void initialize_communications(void)
 {
     k_tid_t tcp_thread = create_communication_thread("TCP", 8080);
     k_tid_t udp_thread = create_communication_thread("UDP", 1234);
-    
+
     // Threads are now running concurrently
 }
 ```
@@ -245,24 +246,24 @@ static struct k_sem worker_cleanup_sem;
 void worker_thread_entry(void *p1, void *p2, void *p3)
 {
     int *work_count = (int *)p1;
-    
+
     printk("Worker thread starting\n");
-    
+
     // Initialize resources
     initialize_worker_resources();
-    
+
     while (worker_thread_running) {
         // Perform work
         (*work_count)++;
         process_work_item();
-        
+
         k_sleep(K_MSEC(100));
     }
-    
+
     // Cleanup resources
     cleanup_worker_resources();
     printk("Worker thread completed %d work items\n", *work_count);
-    
+
     // Signal completion
     k_sem_give(&worker_cleanup_sem);
 }
@@ -271,13 +272,13 @@ void worker_thread_entry(void *p1, void *p2, void *p3)
 void terminate_worker_thread(void)
 {
     printk("Requesting worker thread termination\n");
-    
+
     // Request termination
     worker_thread_running = false;
-    
+
     // Wait for cleanup completion
     k_sem_take(&worker_cleanup_sem, K_SECONDS(5));
-    
+
     printk("Worker thread terminated gracefully\n");
 }
 
@@ -285,12 +286,12 @@ void terminate_worker_thread(void)
 int init_worker_system(void)
 {
     k_sem_init(&worker_cleanup_sem, 0, 1);
-    
+
     static int work_count = 0;
     K_THREAD_DEFINE(worker_thread, 1024,
                    worker_thread_entry, &work_count, NULL, NULL,
                    6, 0, 0);
-    
+
     return 0;
 }
 ```

@@ -190,7 +190,7 @@ int main(void)
     ret = gpio_setup();
     if (ret < 0) {
         printk("GPIO setup failed: %d\n", ret);
-        return ret;
+        return 1;
     }
 
     printk("Press button to toggle between auto/manual LED mode\n");
@@ -226,6 +226,10 @@ CONFIG_UART_CONSOLE=y
 # Enable console output
 CONFIG_LOG=y
 CONFIG_LOG_DEFAULT_LEVEL=3
+
+# Enable floating point support for printk
+CONFIG_NEWLIB_LIBC=y
+CONFIG_NEWLIB_LIBC_FLOAT_PRINTF=y
 ```
 
 ### Building and Testing
@@ -526,6 +530,10 @@ CONFIG_NEWLIB_LIBC_FLOAT_PRINTF=y
 # Logging
 CONFIG_LOG=y
 CONFIG_LOG_DEFAULT_LEVEL=3
+
+# Enable floating point support for printk
+CONFIG_NEWLIB_LIBC=y
+CONFIG_NEWLIB_LIBC_FLOAT_PRINTF=y
 ```
 
 ---
@@ -706,16 +714,8 @@ static int cmd_temp_monitor(const struct shell *sh, size_t argc, char **argv)
     monitoring_active = true;
     k_timer_start(&monitor_timer, K_SECONDS(2), K_SECONDS(2));
     
-    /* Stop monitoring after specified duration */
-    k_timer_start(&monitor_timer, K_SECONDS(2), K_SECONDS(2));
-    
-    /* Simple countdown implementation */
-    for (int i = duration; i > 0 && monitoring_active; i--) {
-        k_msleep(1000);
-        if ((i % 10) == 0) {
-            shell_print(sh, "Monitoring continues... %d seconds remaining", i);
-        }
-    }
+    // Stop monitoring after specified duration
+    k_sleep(K_SECONDS(duration));
     
     monitoring_active = false;
     k_timer_stop(&monitor_timer);
@@ -970,6 +970,7 @@ System Information:
 ## Lab 4: Integrated Application
 
 ### Objective
+
 Combine all learned concepts into a comprehensive monitoring system with automatic responses and comprehensive shell interface.
 
 ### Application Features
@@ -997,6 +998,7 @@ This integrated application demonstrates professional embedded development pract
 ### Next Steps
 
 Continue exploring Zephyr's advanced features:
+
 * **Threading and Synchronization:** Multi-threaded applications with proper synchronization
 * **Memory Management:** Dynamic allocation and memory pools
 * **Power Management:** Low-power modes and power optimization

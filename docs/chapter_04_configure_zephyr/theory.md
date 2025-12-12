@@ -48,7 +48,6 @@ CONFIG_SYSTEM_WORKQUEUE_STACK_SIZE=2048
 
 # Memory management
 CONFIG_HEAP_MEM_POOL_SIZE=16384 # Heap size for dynamic allocation
-CONFIG_MAIN_STACK_SIZE=4096     # Application main stack
 
 # Timing and scheduling
 CONFIG_SYS_CLOCK_TICKS_PER_SEC=1000  # System tick frequency
@@ -110,7 +109,7 @@ CONFIG_LOG_DEFAULT_LEVEL=4
 # Size optimizations for production
 CONFIG_SIZE_OPTIMIZATIONS=y
 CONFIG_LTO=y                   # Link-time optimization
-CONFIG_COMPILER_OPT="-Os"      # Optimize for size
+# In CMakeLists.txt: target_compile_options(app PRIVATE -Os)
 ```
 
 **Memory Optimization:**

@@ -882,7 +882,7 @@ manifest:
       url-base: https://github.com/zephyrproject-rtos
     # Note: Using a relative file path for a local manifest repository.
     # This is useful for self-contained projects like this lab.
-    - name: local      url-base: file:///home/user/west_lab/iot-project
+    - name: local      url-base: file:///path/to/your/west_lab/iot-project
 
   projects:
     # Zephyr locked to LTS version

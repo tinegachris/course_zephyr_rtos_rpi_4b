@@ -246,7 +246,7 @@ CONFIG_LOG_MODE_MINIMAL=y
 # Size Optimizations
 CONFIG_SIZE_OPTIMIZATIONS=y
 CONFIG_LTO=y
-CONFIG_COMPILER_OPT="-Os"
+# In CMakeLists.txt: target_compile_options(app PRIVATE -Os)
 
 # Disable Debug Features
 CONFIG_DEBUG=n
@@ -789,7 +789,7 @@ CONFIG_SYS_CLOCK_TICKS_PER_SEC=10000
 
 # Compiler optimizations
 CONFIG_SPEED_OPTIMIZATIONS=y
-CONFIG_COMPILER_OPT="-O3 -march=armv8-a"
+# In CMakeLists.txt: target_compile_options(app PRIVATE -O3 -march=armv8-a)
 
 # Disable debugging overhead
 CONFIG_ASSERT=n

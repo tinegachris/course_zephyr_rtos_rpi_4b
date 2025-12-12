@@ -667,13 +667,13 @@ K_MEM_POOL_DEFINE(sensor_pool, 16, 64, 8, 4);
 struct sensor_reading *alloc_sensor_reading(void)
 {
     struct sensor_reading *reading;
-    
-    reading = k_mem_pool_alloc(&sensor_pool, sizeof(struct sensor_reading), K_NO_WAIT);
+
+    reading = k_mem_pool_alloc(&sensor_pool, K_NO_WAIT);
     if (!reading) {
         printk("Memory pool exhausted\n");
         return NULL;
     }
-    
+
     memset(reading, 0, sizeof(struct sensor_reading));
     return reading;
 }

@@ -48,6 +48,42 @@ graph TD
 
 The multi-threaded architecture allows for concurrent operation, which is essential for a responsive and efficient embedded system.
 
+### Thread Function Signatures
+
+**Important Note:** In this capstone project, you'll notice that our thread functions use simplified signatures:
+
+```c
+void sensor_thread(void);
+void web_server_thread(void);
+```
+
+The standard Zephyr thread entry function signature is actually:
+
+```c
+void thread_entry(void *p1, void *p2, void *p3);
+```
+
+**Why the difference?** The `K_THREAD_DEFINE()` macro is intelligent enough to handle both signatures. When all three parameters are `NULL` (as in our case), you can use the simplified signature for cleaner code. However, if you need to pass parameters to your thread, you must use the full signature.
+
+**Example with parameters:**
+```c
+K_THREAD_DEFINE(worker_thread, 1024, worker_entry, 
+                (void *)&config,    // p1: pointer to config
+                (void *)42,         // p2: numeric value
+                (void *)&shared,    // p3: pointer to shared data
+                7, 0, 0);
+
+void worker_entry(void *p1, void *p2, void *p3)
+{
+    struct config *cfg = (struct config *)p1;
+    int value = (int)p2;
+    struct shared_data *data = (struct shared_data *)p3;
+    // Use parameters...
+}
+```
+
+Understanding this flexibility helps you write cleaner code when parameters aren't needed while knowing how to pass data when required.
+
 *   **Sensor Thread:** This thread will wake up at a configurable interval (e.g., every 5 seconds), read the temperature, humidity, and pressure from the BME280 sensor, and then put the data into the message queue. After posting the data, the thread will go back to sleep.
 
 *   **Web Server Thread:** This thread will create a listening socket and wait for incoming HTTP requests. When a request is received, it will read the latest sensor data from the message queue (or a shared data structure) and generate an HTML or JSON response.

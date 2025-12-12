@@ -56,8 +56,8 @@ my_workspace/                  # Workspace root
 
 ```bash
 # Initialize workspace from official Zephyr manifest
-west init ~/my_zephyr_workspace
-cd ~/my_zephyr_workspace
+west init /path/to/your/workspace
+cd /path/to/your/workspace
 
 # Update all repositories according to manifest
 west update
@@ -105,7 +105,7 @@ west update
 # Update only specific projects
 west update zephyr modules/hal/nordic
 
-# Force update (discards local changes)
+# Force update (WARNING: discards local changes)
 west update --rebase
 
 # Update with statistics
@@ -115,7 +115,7 @@ west update --stats
 **Branch and Tag Management:**
 
 ```bash
-# Create feature branch across multiple repositories
+# Create feature branch across multiple repositories (fails if branch exists)
 west forall -c "git checkout -b feature/new-sensor"
 
 # Show current branches across all repositories

@@ -49,9 +49,8 @@ int main(void)
 // LOG_LEVEL_INF    (3) - Informational messages
 // LOG_LEVEL_DBG    (4) - Debug information
 
-// Dynamic level control
-void adjust_logging_verbosity(int system_load)
-{
+    // Dynamic level control
+    void adjust_logging_verbosity(int system_load){
     if (system_load > 80) {
         // Reduce logging under high load
         log_filter_set(NULL, Z_LOG_LOCAL_DOMAIN_ID, 
@@ -225,14 +224,14 @@ static int cmd_system_health(const struct shell *sh, size_t argc, char **argv)
     shell_print(sh, "Heap usage: %zu bytes", k_heap_free_get(&k_malloc_heap));
     
     // Thread analysis
-    thread_analyzer_run(shell_thread_analysis_cb, (unsigned int)sh);
+    thread_analyzer_run(shell_thread_analysis_cb, (void *)sh);
     
     return 0;
 }
 
 static void shell_thread_analysis_cb(struct thread_analyzer_info *info)
 {
-    const struct shell *sh = (const struct shell *)info;
+    const struct shell *sh = (const struct shell *)info->user_data;
     size_t stack_percent = (info->stack_used * 100) / info->stack_size;
     
     shell_print(sh, "%-16s: Stack %3zu%% CPU %3u%%", 
